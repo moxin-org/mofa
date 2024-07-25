@@ -1,0 +1,6 @@
+[2m2024-07-24T06:37:51.702829Z[0m [33m WARN[0m [2mdora_node_api::event_stream::thread[0m[2m:[0m timeout: node finished, but token DropToken(0190e375-dffd-7c90-be94-1a33ca06c151) was still not dropped after 200ms -> ignoring it
+- What updates have been provided by the FBI regarding the investigation into the Trump shooting incident?
+- How did the Pennsylvania State Police identify the shooter before the assassination attempt?
+- What security flaws are being focused on in the investigations of the Trump shooting incident?
+- What details have emerged about the shooter, Thomas Matthew Crooks, in the aftermath of the Trump assassination attempt?
+- How did the Secret Service respond to the warnings about the gunman before the Trump shooting incident?

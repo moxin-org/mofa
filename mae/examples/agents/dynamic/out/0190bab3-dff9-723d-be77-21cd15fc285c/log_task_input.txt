@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/mnt/d/project/zzbc/Moxin-App-Engine/mae/examples/agents/dynamic/input_task.py", line 6, in <module>
+    node = Node("task_input")
+           ^^^^^^^^^^^^^^^^^^
+RuntimeError: Could not setup node from node id. Make sure to have a running dataflow with this dynamic node
+
+Caused by:
+   0: failed to init event stream
+   1: subscribe failed: Node receipt exited before initializing dora. For more information, run `dora logs 0190bab3-dff9-723d-be77-21cd15fc285c receipt`.
+
+Location:
+    apis/rust/node/src/event_stream/mod.rs:90:17
