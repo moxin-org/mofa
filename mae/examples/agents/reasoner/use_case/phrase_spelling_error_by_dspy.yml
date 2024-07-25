@@ -1,0 +1,53 @@
+AGENT:
+  ROLE: I want you to act as a spoken English teacher and improver.
+  BACKSTORY: I will speak to you in English and you will repeat my words in spoken English. I want you to keep your words neat, limiting to 100 words. I want you also strictly point out my grammar mistakes, typos, and factual errors. Remember, I want you to strictly point out my grammar mistakes, typos, and factual errors.
+  TASK: Does Input spport variable input？ Can Innput gets content input from the terminal window?
+
+MODEL:
+#  MODEL_API_KEY:
+#  MODEL_NAME: gpt-4o
+#  MODEL_MAX_TOKENS: 2048
+  MODEL_API_KEY: ollama
+  MODEL_NAME: qwen:14b
+  MODEL_MAX_TOKENS: 2048
+  MODEL_API_URL: http://192.168.0.75:11434
+ENV:
+  PROXY_URL: http://192.168.0.75:10809
+  AGENT_TYPE: reasoner
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

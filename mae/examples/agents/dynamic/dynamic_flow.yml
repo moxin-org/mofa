@@ -1,0 +1,5 @@
+nodes:
+  - id: node_0
+    path: dynamic # <-- We need to define the path: dynamic for dynamic node
+    inputs:
+      tick: dora/timer/millis/50

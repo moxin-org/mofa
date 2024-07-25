@@ -1,0 +1,12 @@
+nodes:
+  - id: task_input
+    path: dynamic
+    inputs:
+      direction: dora/timer/secs/1
+    outputs:
+      - task
+  - id: receipt
+    operator:
+      python: receipt.py
+      inputs:
+        task_input: task_input/task

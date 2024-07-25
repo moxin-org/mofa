@@ -1,0 +1,1 @@
+reasoner_result: Yes, the Input function supports variable input and can receive content directly from the terminal window.
