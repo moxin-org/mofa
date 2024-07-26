@@ -9,19 +9,11 @@ nodes:
     operator:
       python: web_search_agent.py
       inputs:
-#        task: task_input/task
-        task: agents/result
+        task: task_input/task
       outputs:
         - web_search_result
-  - id: task_input_2
-    path: dynamic
-    inputs:
-      direction: dora/timer/secs/1
-    outputs:
-      - task2
   - id: more_question_agent
     operator:
       python: more_question_agent.py
       inputs:
         web_search_result: web_search_agent/web_search_result
-
