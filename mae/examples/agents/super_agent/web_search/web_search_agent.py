@@ -35,8 +35,8 @@ class Operator:
                 else:
                     result = run_crewai_agent(crewai_config=inputs)
                 # log_result = {"2, Web Search Resource":{d.get('name'):d.get('url')  for d in json.loads(,'3, Web Search Answer':result.get('answer')}
-                log_result = {'2, Web Search Resource ' :{d.get('name'):d.get('url') for d in json.loads(result.get('web_result'))}}
-                log_result['3, Web Search Answer '] = result.get('answer')
+                log_result = {'2, Web Search Resource ' :{d.get('name'):d.get('url') for d in json.loads(result.get('web_search_resource'))}}
+                log_result['3, Web Search Answer '] = result.get('web_search_results')
                 write_agent_log(log_type=inputs.get('log_type',None),log_file_path=inputs.get('log_path',None),data=log_result)
                 result['task'] = task
                 print(result)

@@ -28,7 +28,7 @@ LOG:
   LOG_STEP_NAME: paper_analyze_agent
 
 MODEL:
-  MODEL_API_KEY:  
+  MODEL_API_KEY:   
   MODEL_NAME: gpt-4o
 #  MODEL_NAME: gpt-3.5-turbo
   MODEL_MAX_TOKENS: 2048

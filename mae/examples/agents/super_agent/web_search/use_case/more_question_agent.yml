@@ -4,8 +4,8 @@ AGENT:
   ANSWER: Optimize the output to be in Markdown format.
   TASK: Based on the user's original question and the related contexts, identify worthwhile topics for follow-ups. Write questions no longer than 20 words each. Make sure that specifics, like events, names, and locations, are included in follow-up questions so they can be asked standalone. Here is the original question
 MODEL:
-  MODEL_API_KEY:    
-  MODEL_NAME: gpt-3.5-turbo
+  MODEL_API_KEY:   
+  MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
 
 ENV:

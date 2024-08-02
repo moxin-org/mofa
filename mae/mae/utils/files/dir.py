@@ -63,3 +63,38 @@ def get_relative_path(current_file: str, sibling_directory_name: Optional[str] =
     target_file_relative_path = os.path.join(parent_dir, sibling_directory_name, target_file_name)
 
     return target_file_relative_path
+
+
+import shutil
+
+def copy_directories(source_directory: str, subdirectories: list, destination_directory: str) -> None:
+    """
+    Copies all files from specific subdirectories within a source directory to a destination directory,
+    maintaining the directory structure.
+
+    Parameters:
+    - source_directory: str - The root directory containing the subdirectories to copy.
+    - subdirectories: list - A list of subdirectory names to copy.
+    - destination_directory: str - The directory to which files and directories will be copied.
+    """
+    for subdirectory in subdirectories:
+        subdirectory_path = os.path.join(source_directory, subdirectory)
+        if os.path.exists(subdirectory_path) and os.path.isdir(subdirectory_path):
+            # Walk through the subdirectory
+            for root, dirs, files in os.walk(subdirectory_path):
+                # Construct the corresponding destination path
+                relative_path = os.path.relpath(root, source_directory)
+                destination_path = os.path.join(destination_directory, relative_path)
+
+                # Create destination directories if they don't exist
+                if not os.path.exists(destination_path):
+                    os.makedirs(destination_path)
+
+                # Copy each file
+                for file in files:
+                    source_file_path = os.path.join(root, file)
+                    destination_file_path = os.path.join(destination_path, file)
+                    shutil.copy2(source_file_path, destination_file_path)
+                    print(f"Copied {source_file_path} to {destination_file_path}")
+        else:
+            print(f"Subdirectory {subdirectory} does not exist in {source_directory}")

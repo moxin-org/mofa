@@ -7,13 +7,13 @@ from mae.apps.reasoner.reasoner import ReasonerModule, ReasonerRagModule, Reason
 from mae.apps.self_refine.self_refine import SelfRefineModule, SelfRefineRagModule
 from mae.kernel.tools.tool_mapping import agent_tools
 from mae.kernel.utils.util import make_crewai_tool
-from mae.utils.env.util import init_proxy_env, set_api_keys, init_env
+from mae.utils.envs.util import init_proxy_env, set_api_keys, init_env
 
 
 def run_crewai_agent(crewai_config: dict):
     print(crewai_config)
-    if crewai_config.get('env', None) is not None:
-        for env_name, env_value in crewai_config['env'].items():
+    if crewai_config.get('envs', None) is not None:
+        for env_name, env_value in crewai_config['envs'].items():
             os.environ[env_name] = env_value
     model_config, agents_config, tasks_config, other_config = crewai_config.get('model'), crewai_config.get(
         'agents'), crewai_config.get('tasks'), crewai_config.get('other')
@@ -68,7 +68,7 @@ def run_crewai_agent(crewai_config: dict):
 def run_dspy_agent(inputs: dict):
     if inputs.get('proxy_url', None) is not None:
         init_proxy_env(proxy_url=inputs.get('proxy_url', 'http://127.0.0.1:10809'))
-    if inputs.get('env', None) is not None: init_env(env=inputs['env'])
+    if inputs.get('envs', None) is not None: init_env(env=inputs['envs'])
     if inputs.get('model_api_key') !='ollama':
         turbo = dspy.OpenAI(model=inputs.get('model_name'), max_tokens=inputs.get('model_max_tokens'),
                             api_key=inputs.get('model_api_key'), api_base=inputs.get('model_api_url', None))

@@ -195,7 +195,7 @@ const Search = {
     if (docContent) return docContent.textContent;
 
     console.warn(
-      "Content block not found. Sphinx search tries to obtain it via DOM query '[role=main]'. Check your theme or template."
+      "Content block not found. Sphinx search tries to obtain it via DOM query '[role=main]'. Check your theme or agent_link."
     );
     return "";
   },

@@ -30,8 +30,8 @@ class Operator:
                 result = """
                                 """
                 if 'agents' not in inputs.keys():
-                    inputs['context'] = dora_result.get('answer')
-                    inputs['input_fields'] = {'web_result': json.dumps(dora_result.get('web_result')),'search_task':dora_result.get('task')}
+                    inputs['context'] = dora_result.get('web_search_results')
+                    inputs['input_fields'] = {'web_search_resource': json.dumps(dora_result.get('web_search_resource')),'search_task':dora_result.get('task')}
                     result = run_dspy_agent(inputs=inputs)
                 else:
                     result = run_crewai_agent(crewai_config=inputs)

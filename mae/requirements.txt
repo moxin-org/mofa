@@ -13,7 +13,7 @@ myst-parser
 # --------- date --------- #
 pendulum>=3.0.0  # pendulum>=3.0.0 对时间 pendulum.parse('2023-01-01') 处理不一样,3.0.0更灵活
 openpyxl
-
+attrs
 
 # --------- path --------- #
 pathlib
