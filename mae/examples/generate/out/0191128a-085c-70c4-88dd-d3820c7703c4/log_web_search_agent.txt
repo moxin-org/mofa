@@ -1,0 +1,61 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+RuntimeError: Dora Runtime raised an error.
+
+Caused by:
+   0: main task failed
+   1: operator web_search_agent/op raised an error
+   2: error in Python module at /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/examples/generate/scripts/web_search_agent.py
+   3: Traceback (most recent call last):
+        File "/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/examples/generate/scripts/web_search_agent.py", line 45, in on_event
+          result = run_dspy_agent(inputs=inputs)
+        File "/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/run/run.py", line 119, in run_dspy_agent
+          answer = reasoner.forward(question=inputs.get('task'),kwargs=inputs.get('input_fields',{}))
+        File "/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/apps/reasoner/reasoner.py", line 35, in forward
+          predict = self.predict(question=question,web_context=web_result,**variable_dict,**self.no_cache)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dspy/predict/predict.py", line 78, in __call__
+          return self.forward(**kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dspy/predict/predict.py", line 116, in forward
+          completions = old_generate(demos, signature, kwargs, config, self.lm, self.stage)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dspy/predict/predict.py", line 143, in old_generate
+          x, C = dsp.generate(template, **config)(x, stage=stage)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/primitives/predict.py", line 73, in do_generate
+          completions: list[dict[str, Any]] = generator(prompt, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 178, in __call__
+          response = self.request(prompt, **kwargs)
+web_search  :  [{"name": "Paris 2024 Olympics - Latest News, Schedules & Results", "url": "https://olympics.com/en/paris-2024", "snippet": "Welcome to the Paris 2024 Summer Olympic Games website. Follow the world's top athletes as they go for gold in France (Jul 26-Aug 11, 2024)."}, {"name": "NBC Olympics: Paris 2024 Olympic Games", "url": "https://www.nbcolympics.com/", "snippet": "Visit NBCOlympics.com for Olympics live streams, highlights, schedules, results, news, athlete bios and more from Paris 2024 and Milano Cortina 2026."}, {"name": "2024 Paris Olympic Games | AP News", "url": "https://apnews.com/hub/2024-paris-olympic-games", "snippet": "The 2024 Paris Olympic Games will take place Fri, Jul 26, 2024 \u2013 Sun, Aug 11, 2024. Follow the AP for the latest updates, schedules, results, and news from ..."}, {"name": "Olympic Games - Paris 2024", "url": "https://olympics.com/ioc/paris-2024", "snippet": "The official Olympic countdown clock with the remaining days and time until the 2024 Summer Olympics."}, {"name": "Paris 2024 Official Ticketing \u2013 Olympic and Paralympic Games", "url": "https://tickets.paris2024.org/en/", "snippet": "Welcome to the official ticketing website of the Paris 2024 Olympic and Paralympic Games! To log in to your account or create one, click \"Log-in/Register\" below ..."}, {"name": "2024 Summer Olympics - Wikipedia", "url": "https://en.wikipedia.org/wiki/2024_Summer_Olympics", "snippet": "The 2024 Summer Olympics officially the Games of the XXXIII Olympiad and officially branded as Paris 2024, is an international multi-sport event taking ..."}, {"name": "Joint Paris 2024 Boxing Unit/IOC Statement", "url": "https://olympics.com/ioc/news/joint-paris-2024-boxing-unit-ioc-statement", "snippet": "All athletes participating in the boxing tournament of the Olympic Games Paris 2024 comply with the competition's eligibility and entry ..."}, {"name": "Paris Olympics 2024 - latest news, videos, interviews and features", "url": "https://www.cnn.com/sport/paris-olympics-2024", "snippet": "CNN's home for the 2024 Paris Olympics, including news, features, interviews and videos."}, {"name": "2024 Paris Olympics Day 6 must-see moments | NBC Sports", "url": "https://www.youtube.com/watch?v=IVwbsCc1cvE", "snippet": "Relive all the top moments coming out of huge Day 6 at the Paris Olympics, where Simone ..."}, {"name": "The Latest News from the Paris Olympics 2024 - TODAY.com", "url": "https://www.today.com/paris-olympics-2024", "snippet": "Everything you need to know about the Paris Olympic Games 2024."}, {"name": "2024 Olympics Full Schedule", "url": "https://www.nbcolympics.com/full-schedule", "snippet": "Check out our day-by-day schedule to find out when every ceremony, event, and medal event will be played in the 2024 Summer Olympics from Paris!"}, {"name": "2024 Paris Olympics live updates: Sha'Carri ... - NBC News", "url": "https://www.nbcnews.com/sports/olympics/live-blog/olympic-games-2024-live-updates-rcna162867", "snippet": "2024 Paris Olympics live updates: Sha'Carri Richardson's Olympics debut, another big pool day. The Paris Games are underway. You can stream ..."}, {"name": "Paris Olympics 2024 live updates: Day 6 latest as USA women's ...", "url": "https://www.nytimes.com/athletic/live-blogs/paris-olympics-2024-live-updates-day-six-scores-results/tQX4u2rsDi0B/", "snippet": "Simone Biles won her second gold medal of the Paris Games \u2014 and her sixth Olympic gold overall \u2014 by beating Rebeca Andrade in a thrilling ..."}, {"name": "Olympics 2024: News, medal count and results from Paris", "url": "https://www.usatoday.com/sports/olympics/", "snippet": "Full coverage of the Paris Olympics, including the latest news, analysis, highlights, and opinion commentary from the 2024 Summer Games."}]
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/backoff/_sync.py", line 105, in retry
+          ret = target(*args, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 144, in request
+          return self.basic_request(prompt, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 117, in basic_request
+          response = chat_request(**kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 269, in chat_request
+          return v1_cached_gpt3_turbo_request_v2_wrapped(**kwargs).model_dump()
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/cache_utils.py", line 16, in wrapper
+          return func(*args, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 262, in v1_cached_gpt3_turbo_request_v2_wrapped
+          return v1_cached_gpt3_turbo_request_v2(**kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/joblib/memory.py", line 655, in __call__
+          return self._cached_call(args, kwargs)[0]
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/joblib/memory.py", line 598, in _cached_call
+          out, metadata = self.call(*args, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/joblib/memory.py", line 856, in call
+          output = self.func(*args, **kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/dsp/modules/gpt3.py", line 256, in v1_cached_gpt3_turbo_request_v2
+          return openai.chat.completions.create(**kwargs)
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/openai/_utils/_proxy.py", line 20, in __getattr__
+          proxied = self.__get_proxied__()
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/openai/_utils/_proxy.py", line 55, in __get_proxied__
+          return self.__load__()
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/openai/_module_client.py", line 12, in __load__
+          return _load_client().chat
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/openai/__init__.py", line 323, in _load_client
+          _client = _ModuleClient(
+        File "/Users/chenzi/env/miniconda3/envs/py310/lib/python3.10/site-packages/openai/_client.py", line 104, in __init__
+          raise OpenAIError(
+
+      OpenAIError: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+
+Location:
+    binaries/runtime/src/operator/python.rs:28:9

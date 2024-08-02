@@ -1,5 +1,8 @@
 import os
 
+import yaml
+
+
 def dict_to_md(data, level=1):
     md = ""
     for key, value in data.items():
@@ -25,3 +28,8 @@ def write_or_append_to_md_file(data:dict, file_path:str="data.md"):
     with open(file_path, mode) as f:
         md_content = dict_to_md(data)
         f.write(md_content)
+
+def write_dict_to_yml(data:dict, file_path:str=".data.yml"):
+    with open(file_path, 'w') as file:
+        yaml.dump(data, file, default_flow_style=False, sort_keys=False)
+

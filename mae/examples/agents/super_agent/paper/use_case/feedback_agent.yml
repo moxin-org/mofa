@@ -9,8 +9,8 @@ LOG:
   LOG_STEP_NAME: feedback_agent
 
 MODEL:
-  MODEL_API_KEY:  
-  MODEL_NAME: gpt-3.5-turbo
+  MODEL_API_KEY:   
+  MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
 
 ENV:

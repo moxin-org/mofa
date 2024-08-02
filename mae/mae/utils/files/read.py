@@ -1,5 +1,12 @@
+import re
+from typing import List
+
 import pandas as pd
 import yaml
+
+from mae.utils.files.write import ensure_directory_exists
+
+
 def read_yaml(file_path:str):
     with open(file_path, 'r') as file:
         prime_service = yaml.safe_load(file)
@@ -41,3 +48,87 @@ def read_excel(file_path:str, sheet_names:list[str]=None)->[dict]:
         sheets_data.append({sheet_name: sheet_df})
 
     return sheets_data
+
+
+def modify_agents_inputs(file_path: str, new_inputs: List[str], output_file_path: str) -> None:
+    """
+    Modify the agents_inputs list in a Python file by adding new inputs.
+
+    This function reads a Python file, finds the agents_inputs list,
+    adds new inputs to the list while keeping the original ones,
+    and writes the modified content to a new file.
+
+
+    Additionally, it adds new input handling logic at the specified location.
+
+    :param file_path: Path to the Python file to be modified.
+
+    :param new_inputs: List of new input strings to add to the agents_inputs list.
+    :param output_file_path: Path to the new file where modified content will be saved.
+    :raises ValueError: If the agents_inputs list is not found in the file.
+    """
+    with open(file_path, 'r') as file:
+        code = file.read()
+
+    # Use regex to find the agents_inputs list and extract existing content
+    pattern = r"(agent_inputs\s*=\s*\[)([^\]]*)(\])"
+    match = re.search(pattern, code)
+
+    if not match:
+        raise ValueError("agent_inputs list not found")
+
+    # Extract existing agents_inputs list content
+    existing_inputs_str = match.group(2)
+    existing_inputs = [input_.strip().strip("'").strip('"') for input_ in existing_inputs_str.split(',') if input_.strip()]
+
+    # Add new inputs to the existing inputs and remove duplicates
+    updated_inputs = list(set(existing_inputs + new_inputs))
+
+    # Construct new agents_inputs list string
+    new_inputs_str = ', '.join([f"'{input_}'" for input_ in updated_inputs])
+    modified_code = re.sub(pattern, rf"\1{new_inputs_str}\3", code)
+
+    # Define the pattern to find the place where to insert the new handling logic
+    insertion_point_pattern = r"(\s+result\s*=\s*run_dspy_agent\(inputs=inputs\))"
+    insertion_match = re.search(insertion_point_pattern, modified_code)
+
+    if not insertion_match:
+        raise ValueError("Insertion point for handling logic not found")
+
+    # Extract the current indentation level from the insertion point
+    indentation = insertion_match.group(1)[:insertion_match.group(1).index('result')]
+
+    # Create the new handling logic string with proper indentation
+    handling_logic_lines = [
+        "# Handling new agent inputs",
+    ]
+    handling_logic_lines.extend([f"inputs['input_fields']['{input_}'] = dora_result.get('{input_}')"
+                                 for input_ in new_inputs])
+    handling_logic = "\n".join([indentation + line for line in handling_logic_lines])
+
+    # Check if 'inputs['input_fields']' exists
+    input_fields_pattern = r"(inputs\['input_fields'\] = \{[^\}]*\})"
+    input_fields_match = re.search(input_fields_pattern, modified_code)
+
+    if input_fields_match:
+        # If exists, add new input fields after its definition
+        input_fields_code = input_fields_match.group(1)
+        new_fields_code = ", ".join([f"'{input_}': dora_result.get('{input_}')"
+                                     for input_ in new_inputs])
+        # Insert the new fields into the existing 'inputs['input_fields']' dictionary
+        updated_input_fields_code = re.sub(r"\}", r", " + new_fields_code + r"}", input_fields_code)
+        modified_code = modified_code.replace(input_fields_code, updated_input_fields_code)
+    else:
+        # If not exists, create 'inputs['input_fields']' and add new input fields
+        create_input_fields = f"{indentation}inputs['input_fields'] = {{}}\n{handling_logic}\n"
+        modified_code = re.sub(insertion_point_pattern, create_input_fields + r"\1", modified_code)
+    ensure_directory_exists(file_path=output_file_path)
+    # Write the modified content to the new file
+    with open(output_file_path, 'w') as file:
+        file.write(modified_code)
+
+# file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/reasoner/scripts/reasoner_agent.py'
+# output_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/merge_agents/reasoner_agent.py'
+# new_agents_inputs = ['more_question_results','web_search_aggregate_output']
+# modify_agents_inputs(file_path=file_path, new_inputs=new_agents_inputs, output_file_path=output_file_path)
+# print(f"Modified content saved to: {output_file_path}")

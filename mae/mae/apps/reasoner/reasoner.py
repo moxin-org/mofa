@@ -35,7 +35,7 @@ class ReasonerWebSearchModule(ReasonerModule):
             predict = self.predict(question=question,web_context=web_result,**variable_dict,**self.no_cache)
         else:
             predict = self.predict(question=question,context=self.context,web_context=web_result, **variable_dict, **self.no_cache)
-        return {'answer':predict.answer,'web_result':web_result}
+        return {'web_search_results':predict.answer,'web_search_resource':web_result}
 class ReasonerRagModule(BaseRag):
     def __init__(self, module_path:str=None,model_name:str=None, pg_connection:str=None, collection_name:str='my_docs', is_upload_file:bool=False, files_path:Union[List[str],str]=None,encoding:str= 'utf-8',chunk_size:int=256,multi_process:bool=False,rag_search_num:int=5,context:str=None,temperature:float=0.7,objective:str=None, specifics:str=None, actions:str=None, results:str=None, example:str=None, answer:str=None,input_fields:dict=None,backstory:str=None,role:str=None):
         super().__init__(module_path=module_path, pg_connection=pg_connection, collection_name=collection_name, is_upload_file=is_upload_file, files_path=files_path,encoding=encoding,chunk_size=chunk_size,multi_process=multi_process,model_name=model_name,context=context,temperature=temperature,role=role,backstory=backstory,objective=objective, specifics=specifics, actions=actions, results=results, example=example, answer=answer,input_fields=input_fields)
