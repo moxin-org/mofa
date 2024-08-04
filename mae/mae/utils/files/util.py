@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Union, Generator
+from typing import Union, Generator, List
 from typing import Optional
 
 def get_file_name(file_path:str):
@@ -44,3 +44,7 @@ def find_file(target_filename: str, search_directory: str) -> Optional[str]:
 
     # Return None if the file is not found
     return None
+
+def get_files_in_directory(directory: str) -> List[str]:
+
+    return [os.path.join(directory, file) for file in os.listdir(directory) if os.path.isfile(os.path.join(directory, file))]
