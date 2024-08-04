@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Dict, Any, List
 
 from attr import define
@@ -25,6 +26,15 @@ class MergeDataflow:
 
         # 如果未找到匹配的节点 ID，返回 None
         return None
+    def get_node_config(self,dataflow:dict,node_id:str,search_directory:str):
+        node_data = self.get_node_id_data(dataflow=dataflow, node_id=node_id)
+        if node_data is None:
+            return None
+        else:
+            run_py_file =  node_data.get('operator').get('python')
+            config_file_path = Path(run_py_file).stem + '.yml'
+            find_run_config_file = find_file(target_filename=config_file_path, search_directory=search_directory)
+            return read_yaml(find_run_config_file)
 
     def list_node_ids(self,dataflow:dict):
         return [i.get('id') for i in dataflow.get('nodes')]
