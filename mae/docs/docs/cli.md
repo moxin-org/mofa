@@ -57,18 +57,6 @@ mae-agent --main-dataflow-yml /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/ma
   ```
 - **必需**：是
 
-#### `--output-directory`
-- **描述**：输出目录路径。合并后的数据流配置文件将保存到此目录中。默认值为当前工作目录的上一级目录的 `examples/generate` 目录。
-- **示例**：`--output-directory /path/to/output_directory`
-- **必需**：否
-- **默认值**：`<当前工作目录>/../examples/generate`
-
-#### `--search-directory`
-- **描述**：搜索目录路径。此目录用于查找数据流模板。默认值为当前工作目录的 `agent_link/agent_template` 目录。
-- **示例**：`--search-directory /path/to/search_directory`
-- **必需**：否
-- **默认值**：`<当前工作目录>/agent_link/agent_template`
-
 ### 依赖关系示例说明
 假设你有两个数据流文件：
 
@@ -143,5 +131,20 @@ mae-agent --main-dataflow-yml /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/ma
 ```
 
 此命令将合并 `reasoner_dataflow.yml` 中的 `reasoner_agent` 节点，使其输入依赖于 `web_search_dataflow.yml` 中的 `more_question_agent` 节点的 `more_question_results` 输出。
+
+
+
+
+#### `--output-directory`
+- **描述**：输出目录路径。合并后的数据流配置文件将保存到此目录中。默认值为当前工作目录的上一级目录的 `examples/generate` 目录。
+- **示例**：`--output-directory /path/to/output_directory`
+- **必需**：否
+- **默认值**：`<当前工作目录>/../examples/generate`
+
+#### `--search-directory`
+- **描述**：搜索目录路径。此目录用于查找数据流模板。默认值为当前工作目录的 `agent_link/agent_template` 目录。
+- **示例**：`--search-directory /path/to/search_directory`
+- **必需**：否
+- **默认值**：`<当前工作目录>/agent_link/agent_template`
 
 
