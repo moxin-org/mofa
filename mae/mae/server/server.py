@@ -2,8 +2,9 @@ from fastapi import FastAPI,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+import uvicorn
 
-from mae.server.item_request import AgentDataflow, AgentNodeConfig
+from mae.server.item_request import AgentDataflow, AgentNodeConfig, RunAgent
 from mae.server.process import load_node_config
 from mae.server.util import get_agent_list, load_agent_dataflow
 
@@ -53,9 +54,15 @@ def agent_node_config(item:AgentNodeConfig):
     except Exception as e :
         return JSONResponse(status_code=404, content={'status':'error','message':str(e)})
 
-
+@app.post("/run_agent",summary="use dora run agent dataflow ")
+def run_agent(item:RunAgent):
+    try:
+        # result = dora_run_agent(item.inputs)
+        result = 'This is Agent Result'
+        return JSONResponse(status_code=200, content={'status':'success','data':result})
+    except Exception as e :
+        return JSONResponse(status_code=404, content={'status':'error','message':str(e)})
 
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)

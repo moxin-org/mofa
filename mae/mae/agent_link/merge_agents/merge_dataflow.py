@@ -1,13 +1,8 @@
 from pathlib import Path
 from typing import Dict, Any, List
-
-from attr import define
-
 from mae.utils.files.dir import copy_directories
 from mae.utils.files.read import read_yaml, modify_agents_inputs
-import attrs
 from attrs import define,field
-
 from mae.utils.files.util import find_file, get_file_name
 from mae.utils.files.write import write_dict_to_yml
 
@@ -98,16 +93,16 @@ class MergeDataflow:
         output_file_path = f"{output_dir_path}/{node_data.get('operator').get('python')[1:]}"
         modify_agents_inputs(file_path=find_run_py_file,new_inputs=new_agents_inputs,output_file_path=output_file_path)
 
-    def generate_agents(self,left_agents_yml:str,right_agents_yml:str,dependencies:list[dict],output_dir_path:str,search_directory:str):
-        left_agents_config = read_yaml(left_agents_yml)
-        right_agents_config = read_yaml(right_agents_yml)
+    def generate_agents(self, main_dataflow_yml:str, additional_dataflow_yml:str, dependencies:list[dict], output_dir_path:str, search_directory:str):
+        main_dataflow = read_yaml(main_dataflow_yml)
+        additional_dataflow = read_yaml(additional_dataflow_yml)
         for dependency in dependencies:
-            left_agents_config = self.merge_dataflow_with_yml(left_dataflow=left_agents_config, right_dataflow=right_agents_config, dependencies=dependency)
-            right_dataflow_dynamic_node_ids = self.get_dataflow_dynamic_node_ids(dataflow=right_agents_config)
-            left_agents_config = self.delete_nodes_and_associated_links(dataflow=left_agents_config, node_ids_to_delete=right_dataflow_dynamic_node_ids)
-            self.add_inputs_by_agent_file(dataflow=right_agents_config,output_dir_path=output_dir_path,input_node_id=dependency.get('target_node_id'),new_agents_inputs=[dependency.get('target_node_inputs')[0].get('output_params_name')],search_directory=search_directory)
-        write_dict_to_yml(data=left_agents_config, file_path=f"{output_dir_path}/{get_file_name(file_path=left_agents_yml)}")
-        return left_agents_config
+            main_dataflow = self.merge_dataflow_with_yml(left_dataflow=main_dataflow, right_dataflow=additional_dataflow, dependencies=dependency)
+            right_dataflow_dynamic_node_ids = self.get_dataflow_dynamic_node_ids(dataflow=additional_dataflow)
+            main_dataflow = self.delete_nodes_and_associated_links(dataflow=main_dataflow, node_ids_to_delete=right_dataflow_dynamic_node_ids)
+            self.add_inputs_by_agent_file(dataflow=additional_dataflow,output_dir_path=output_dir_path,input_node_id=dependency.get('target_node_id'),new_agents_inputs=[dependency.get('target_node_inputs')[0].get('output_params_name')],search_directory=search_directory)
+        write_dict_to_yml(data=main_dataflow, file_path=f"{output_dir_path}/{get_file_name(file_path=main_dataflow_yml)}")
+        return main_dataflow
 
 
 
@@ -119,8 +114,8 @@ class MergeDataflow:
                              subdirectories=subdirectories,destination_directory=f"{output_dir_path}")
 
 
-# web_search_yml_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/web_search/web_search_dataflow.yml'
-# reasoner_yml_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/reasoner/reasoner_dataflow.yml'
+# web_search_yml_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/agent_template/web_search/web_search_dataflow.yml'
+# reasoner_yml_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/agent_template/reasoner/reasoner_dataflow.yml'
 # output_dir_path='/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/examples/generate'
 # search_directory = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/agent_template'
 # agents_name = ['web_search','reasoner']
@@ -129,7 +124,7 @@ class MergeDataflow:
 # merge_dataflow = MergeDataflow()
 # merge_dataflow.copy_agents_files(agents_dir_path=search_directory,agents_name=agents_name,output_dir_path=output_dir_path,subdirectories=['scripts','configs'])
 # dataflow = merge_dataflow.generate_agents(output_dir_path=output_dir_path,
-#                                           left_agents_yml=web_search_yml_file_path,
-#                                           right_agents_yml=reasoner_yml_file_path,
-#                                           dependencies=dependencies,search_directory=search_directory)
+#                                           main_dataflow_yml=web_search_yml_file_path,
+#                                           additional_dataflow_yml=reasoner_yml_file_path,
+#                                           dependencies=dependencies, search_directory=search_directory)
 # print(dataflow)

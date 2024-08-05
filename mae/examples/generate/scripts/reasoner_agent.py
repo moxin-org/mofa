@@ -17,7 +17,7 @@ class Operator:
         send_output,
     ) -> DoraStatus:
         if dora_event["type"] == "INPUT":
-            agent_inputs = ['more_question_results', 'task_input', 'reasoner_task']
+            agent_inputs = ['reasoner_task', 'task_input', 'more_question_results']
             if dora_event["id"] in agent_inputs:
                 dora_result = json.loads(dora_event["value"][0].as_py())
                 task_inputs = json.loads(dora_event["value"][0].as_py())
