@@ -9,3 +9,5 @@ class AgentDataflow(BaseModel):
 class AgentNodeConfig(AgentDataflow):
     node_id: str
 
+class RunAgent(AgentDataflow):
+    agent_path: str = None

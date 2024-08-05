@@ -2,7 +2,6 @@ nodes:
 - id: web_search_task
   path: dynamic
   inputs:
-    reasoner_result: reasoner_agent/reasoner_result
     direction: dora/timer/secs/1
   outputs:
   - task

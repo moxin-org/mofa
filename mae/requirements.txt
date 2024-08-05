@@ -26,6 +26,9 @@ pathlib
 
 
 
+# --------- cli --------- #
+
+
 # --------- log --------- #
 loguru
 
@@ -38,6 +41,11 @@ openai
 duckduckgo-search
 whisper
 arxiv
+
+# --------- server --------- #
+fastapi
+uvicorn
+
 
 # --------- db --------- #
 psycopg[binary]
