@@ -1,4 +1,5 @@
 from fastapi import FastAPI,HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
@@ -7,6 +8,18 @@ from mae.server.process import load_node_config
 from mae.server.util import get_agent_list, load_agent_dataflow
 
 app = FastAPI()
+
+# config cors policy, allow incoming request from localhost:5173 (dev frontend)
+origins = [
+    "http://localhost:5173",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
