@@ -2,13 +2,13 @@
 
 Getting Started 
 
-- [Installing MAE][install_mae.md]
+- [Installing MAE](docs/install_mae.md)
 - Introduction
 
 Core Concepts
 
 - Agent
-- [Agent Design Patterns](agent_design_pattern.md)
+- [Agent Design Patterns](docs/agent_design_pattern.md)
   - Reasoner Agent
   - Self-Define Agent
   - crewAI Agent
@@ -16,18 +16,18 @@ Core Concepts
 
 How-to Guides
 
-- [Agent Configuration](agent_configuration.md)
+- [Agent Configuration](docs/agent_configuration.md)
 - Agent Prompting
 - Agent Templates
-- [Agent Knowledge - RAG](agent_rag.md)
+- [Agent Knowledge - RAG](docs/agent_rag.md)
 - Agent Actions
 - Agent Memory
 - Agent Planning
 - Agent Link - Super Agent
-  - [Run in CLI](cli.md)
+  - [Run in CLI](docs/cli.md)
 - Agent Fight - Evaluation
 
-[Agent and Super Agent Examples](agent_example.md)
+[Agent and Super Agent Examples](docs/agent_example.md)
 
 -  [Reasoner Agent Examples](reasoner/README.md)
 - [Self-Refine Agent Examples](self_refine/README.md)
@@ -39,7 +39,7 @@ How-to Guides
 
 For MAE RnD contributors
 
-- [MAE project structure](project_structure_document.md)
+- [MAE project structure](docs/project_structure_document.md)
 - Reference
 - Dev Plan
 
