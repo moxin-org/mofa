@@ -8,7 +8,7 @@ AGENT:
   TASK: Please select a question that you think is the most meaningful from these issues.
 
 MODEL:
-  MODEL_API_KEY:   
+  MODEL_API_KEY:     
   MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
 

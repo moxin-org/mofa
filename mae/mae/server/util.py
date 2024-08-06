@@ -32,7 +32,7 @@ def load_agent_dataflow(agent_name:str,agent_template_dir:str=None)->dict:
         agent_dataflow_dir_path = agent_template_dir + '/' + agent_name
         local_files = get_files_in_directory(directory=agent_dataflow_dir_path)
         for file in local_files:
-            if agent_name in file:
+            if agent_name in Path(file).name:
                 data = read_yaml(file_path=file)
                 return data
         else:
