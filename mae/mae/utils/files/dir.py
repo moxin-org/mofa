@@ -98,3 +98,6 @@ def copy_directories(source_directory: str, subdirectories: list, destination_di
                     print(f"Copied {source_file_path} to {destination_file_path}")
         else:
             print(f"Subdirectory {subdirectory} does not exist in {source_directory}")
+
+def get_subdirectories(directory:str):
+    return [p.name for p in Path(directory).iterdir() if p.is_dir()]

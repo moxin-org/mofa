@@ -12,11 +12,15 @@ def read_yaml(file_path:str):
         prime_service = yaml.safe_load(file)
     return prime_service
 
-def read_text(file_path: str = '/mnt/d/project/dy/extra/nlp/uie/The Three-Body Problem 1: The Madness Years.txt',encoding:str='utf-8') -> str:
-    content = ""
+def read_text(file_path: str = '/mnt/d/project/dy/extra/nlp/uie/The Three-Body Problem 1: The Madness Years.txt',encoding:str='utf-8',is_loda_lines:bool=False):
     with open(file_path, 'r', encoding=encoding) as f:
-        content = f.read()
-    return content
+        if is_loda_lines is True:
+            lines = f.readlines()
+            return lines
+        else:
+            content = ""
+            content = f.read()
+            return content
 
 
 

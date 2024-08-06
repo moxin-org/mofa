@@ -30,6 +30,9 @@ class MergeDataflow:
             config_file_path = Path(run_py_file).stem + '.yml'
             find_run_config_file = find_file(target_filename=config_file_path, search_directory=search_directory)
             return read_yaml(find_run_config_file)
+    def get_node_inputs(self,dataflow:dict,node_id:str):
+        node_data = self.get_node_id_data(dataflow=dataflow,node_id=node_id)
+        return node_data.get('operator').get('inputs')
 
     def list_node_ids(self,dataflow:dict):
         return [i.get('id') for i in dataflow.get('nodes')]
