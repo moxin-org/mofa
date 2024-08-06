@@ -41,7 +41,7 @@ For MAE RnD contributors
 
 - [MAE project structure](docs/project_structure_document.md)
 - Reference
-- Dev Plan
+- To-Do List
 
 Miscellaneous
 
