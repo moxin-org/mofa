@@ -3,7 +3,7 @@
 Getting Started 
 
 - [Installing MAE](docs/install_mae.md)
-- [Introduction](getting_started/introduction.md)
+- [Introduction](docs/getting_started/introduction.md)
 
 Core Concepts
 
@@ -40,7 +40,7 @@ How-to Guides
 For MAE RnD contributors
 
 - [MAE project structure](docs/project_structure_document.md)
-- [References](rnd/references.md)
+- [References](docs/rnd/references.md)
 - To-Do List
 
 Miscellaneous
