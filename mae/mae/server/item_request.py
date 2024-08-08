@@ -2,6 +2,9 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Union
 
+from mae.server.util import get_agent_template_dir_path
+
+
 # 定义用于存储 API 请求格式的类
 class AgentDataflow(BaseModel):
     agent_name: str
@@ -11,3 +14,6 @@ class AgentNodeConfig(AgentDataflow):
 
 class RunAgent(AgentDataflow):
     agent_path: str = None
+    task_input: str
+    is_load_node_log :bool = True
+    work_dir: Union[str,None] = None

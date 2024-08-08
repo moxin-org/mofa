@@ -44,5 +44,5 @@ class Operator:
                 dora_result.update({'more_question_results':result})
                 send_output("web_search_aggregate_output", pa.array([json.dumps(dora_result)]), dora_event['metadata'])
                 send_output("more_question_results", pa.array([json.dumps({'more_question_results':result})]), dora_event['metadata'])
-                print(result)
+                print('agent_output:',{'more_question_results':result})
         return DoraStatus.CONTINUE

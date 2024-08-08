@@ -4,7 +4,7 @@
 # Dora Server Q&A
 
 ## Q: Can Front-end start the Dora Process? (前端可以启动 Dora 进程吗？)
-**A:** : 不可以，前端只能调用后端的Api接口,Dora的流程由Api接口调用
+**A:** : 不可以，前端只能调用后端的Api接口,Dora的流程由后端Api接口调用
 
 
 ## Q: Can Front-end work at a different machine?(前端可以在不同的机器上工作吗？)
@@ -26,6 +26,12 @@
 1. 协议使用HTTP协议，前端通过http请求后端的api接口.
 2. 接口请求与返回: 采用统一的JSON格式进行数据交换，定义标准的响应结构（如包含状态码、消息、数据等字段）。
 3. 使用Swagger工具生成API文档，确保前后端开发人员都能清晰了解接口定义和使用方法。
+4. 不同类型的输出，
+{'key'：'value’}
+
 
 ## Q: Can a Dora-Flow end when the frontend ends or give instruction to end the Dora-flow?  (当前端结束时，Dora 流程可以结束或指示结束 Dora 流程吗？)
-**A:** : 可以做一个api接口，前端调用这个接口，后端收到这个请求之后，通过 `Dora stop` 强制结束这个流程 
+**A:** : 可以做一个api接口，前端调用这个接口，后端收到这个请求之后，通过 `Dora stop ` 强制结束这个流程 
+
+
+
