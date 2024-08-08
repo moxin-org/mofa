@@ -46,7 +46,7 @@ class Operator:
                 write_agent_log(log_type=inputs.get('log_type',None),log_file_path=inputs.get('log_path',None),data=log_result)
                 results['task'] = task
                 results['result'] = result
-                print(result)
+                print('agent_output:',results)
                 send_output("reasoner_result", pa.array([json.dumps(results)]),dora_event['metadata'])
                 return DoraStatus.CONTINUE
 

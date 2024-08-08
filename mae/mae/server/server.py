@@ -4,9 +4,11 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
 
+from mae.run.run_dataflow import run_dora_dataflow
 from mae.server.item_request import AgentDataflow, AgentNodeConfig, RunAgent
 from mae.server.process import load_node_config
 from mae.server.util import get_agent_list, load_agent_dataflow
+from mae.agent_link.agent_template import  agent_template_path
 
 app = FastAPI()
 
@@ -57,10 +59,14 @@ def agent_node_config(item:AgentNodeConfig):
 @app.post("/run_agent",summary="use dora run agent dataflow ")
 def run_agent(item:RunAgent):
     try:
+        if item.work_dir is None or item.work_dir=='string':
+            item.work_dir = agent_template_path
         # result = dora_run_agent(item.inputs)
-        result = 'This is Agent Result'
-        return JSONResponse(status_code=200, content={'status':'success','data':result})
-    except Exception as e :
+        agent_result = run_dora_dataflow(work_dir=item.work_dir,task_input=item.task_input,
+                          is_load_node_log=item.is_load_node_log,dataflow_name=item.agent_name,
+                          agent_name=item.agent_name)
+        return JSONResponse(status_code=200, content={'status':'success','data':agent_result})
+    except Exception as e:
         return JSONResponse(status_code=404, content={'status':'error','message':str(e)})
 
 
