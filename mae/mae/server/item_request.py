@@ -17,3 +17,6 @@ class RunAgent(AgentDataflow):
     task_input: str
     is_load_node_log :bool = True
     work_dir: Union[str,None] = None
+
+class UploadAgentNodeConfig(AgentNodeConfig):
+    node_config: dict
