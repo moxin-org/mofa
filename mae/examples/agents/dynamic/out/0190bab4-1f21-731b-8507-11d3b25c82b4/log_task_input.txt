@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/mnt/d/project/zzbc/Moxin-App-Engine/mae/examples/agents/dynamic/input_task.py", line 9, in <module>
-    task_data = input('请输入你的任务  : ',)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-EOFError: EOF when reading a line
-请输入你的任务  : 
