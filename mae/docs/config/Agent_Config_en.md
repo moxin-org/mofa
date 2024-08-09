@@ -13,7 +13,7 @@ We use the `Co-Star` prompt architecture. You can define prompts freely in the C
 
 **Note**:
 - You can freely delete unnecessary tags, but the Role and Task tags must be retained.
-- If RAG participation is not required, you can delete all MAE_RAG configurations.
+- If RAG participation is not required, you can delete all RAG configurations.
 - If `MODULE_PATH` is provided, `RAG_MODEL_NAME` must be null.
 
 ```yml
@@ -26,7 +26,7 @@ AGENT:
   RESULTS:  # Describe the expected results or outcomes  
   EXAMPLE:  # Example of the task  
   TASK:  # Task to be performed
-MAE_RAG:
+RAG:
   MODULE_PATH: null # If there is no local embedding model, you can pass null
   RAG_MODEL_NAME: text-embedding-3-small # OpenAI's embedding model name
   PG_CONNECTION: postgresql+psycopg://langchain:langchain@localhost:6024/langchain  # Configuration path in Pg-Vector

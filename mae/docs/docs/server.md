@@ -1,7 +1,10 @@
+## 如何运行mae-server
+1. 安装mae的项目. 可以去查看此文档 [install_mae](install_mae.md)
+2. 安装rust相关的环境(安装文档与上面相同)
 
 
 
-# Dora Server Q&A
+## Dora Server Q&A
 
 ## Q: Can Front-end start the Dora Process? (前端可以启动 Dora 进程吗？)
 **A:** : 不可以，前端只能调用后端的Api接口,Dora的流程由后端Api接口调用

@@ -16,7 +16,7 @@ class Operator:
             config = {}
             params = read_yaml('use_case/summarize_pdf_by_rag_dspy.yml')
             if 'AGENT' in params:
-                model_config,agent_config,env_config,rag_config = params['MODEL'],params['AGENT'],params['ENV'],params.get('MAE_RAG',None)
+                model_config,agent_config,env_config,rag_config = params['MODEL'],params['AGENT'],params['ENV'],params.get('RAG',None)
                 config = {}
                 for i in [model_config,agent_config,env_config]:
                     config.update(i)

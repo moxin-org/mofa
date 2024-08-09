@@ -1,7 +1,8 @@
+from fastapi import UploadFile
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Union
-
+from typing import Union, List
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from mae.server.util import get_agent_template_dir_path
 
 
@@ -20,3 +21,6 @@ class RunAgent(AgentDataflow):
 
 class UploadAgentNodeConfig(AgentNodeConfig):
     node_config: dict
+
+class UploadFiles(AgentDataflow):
+    files: List[UploadFile] = File(...)
