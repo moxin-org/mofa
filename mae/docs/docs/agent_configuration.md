@@ -15,7 +15,7 @@ AGENT:
   RESULTS:  # 描述预期的结果或成果  
   EXAMPLE:  # 任务的案例  
   TASK:  # 需要运行的任务
-MAE_RAG:
+RAG:
   MODULE_PATH: null # 如果没有本地的embedding模型, 可以传递null
   RAG_MODEL_NAME: text-embedding-3-small # Openai的embedding模型名称
   PG_CONNECTION: postgresql+psycopg://langchain:langchain@localhost:6024/langchain  # Pg-Vector中的配置路径 

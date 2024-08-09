@@ -7,7 +7,8 @@ AGENT:
     What is the practical application value of the research results in the paper?
 
 
-MAE_RAG:
+RAG:
+  RAG_ENABLE: true
 #  MODULE_PATH: /opt/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
   MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
 #  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null

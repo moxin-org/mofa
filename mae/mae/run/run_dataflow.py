@@ -25,7 +25,15 @@ def run_dora_dataflow(work_dir:str, agent_name:str, task_input:str, dataflow_nam
 
     if task_input_path  == '':
         raise RuntimeError('No dynamic files required for Dora Dataflow were found.')
-
+    dora_up_process =  subprocess.Popen(
+        ['dora', 'up'],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        cwd=work_dir
+    )
+    time.sleep(1)
     dora_process = subprocess.Popen(
         ['dora', 'start', agent_name+'_dataflow.yml', '--name', dataflow_name],
         stdin=subprocess.PIPE,
@@ -37,7 +45,6 @@ def run_dora_dataflow(work_dir:str, agent_name:str, task_input:str, dataflow_nam
 
     time.sleep(1)
 
-    print(work_dir + '/scripts' )
     task_input_process = subprocess.Popen(
         ['python3', task_input_path],
         stdin=subprocess.PIPE,

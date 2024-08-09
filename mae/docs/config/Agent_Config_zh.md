@@ -16,7 +16,7 @@
 
 **注意**：
 - 可以根据需要自由删除不需要的Tag，但需要保留Role和Task。
-- 如果不需要RAG参与，可以删除MAE_RAG的所有配置。
+- 如果不需要RAG参与，可以删除RAG的所有配置。
 - 如果有了 `MODULE_PATH`则`RAG_MODEL_NAME`必须为null
 
 ```yml
@@ -29,7 +29,7 @@ AGENT:
   RESULTS:  # 描述预期的结果或成果  
   EXAMPLE:  # 任务的案例  
   TASK:  # 需要运行的任务
-MAE_RAG:
+RAG:
   MODULE_PATH: null # 如果没有本地的embedding模型, 可以传递null
   RAG_MODEL_NAME: text-embedding-3-small # Openai的embedding模型名称
   PG_CONNECTION: postgresql+psycopg://langchain:langchain@localhost:6024/langchain  # Pg-Vector中的配置路径 

@@ -78,7 +78,7 @@ def run_dspy_agent(inputs: dict):
     dspy.settings.configure(lm=turbo)
     answer = ''
     if inputs.get('agent_type') == 'reasoner':
-        if 'module_path' in inputs and 'model_name' in inputs:
+        if inputs.get('rag_enable') == 'True' or inputs.get('rag_enable') == 'true' or inputs.get('rag_enable') == True:
             os.environ["OPENAI_API_KEY"] = inputs.get('model_api_key')
             reasoner = ReasonerRagModule(module_path=inputs.get('module_path', None),
                                          model_name=inputs.get('rag_model_name', None),
@@ -96,7 +96,7 @@ def run_dspy_agent(inputs: dict):
                                          input_fields=inputs.get('input_fields', None),is_upload_file=inputs.get('is_upload_file',False),
                                          collection_name=inputs.get('collection_name', 'my_docs'),
                                          )
-        elif 'serper_api_key' in inputs:
+        elif inputs.get('web_enable') == 'True' or inputs.get('web_enable') == 'true' or inputs.get('web_enable') == True:
             reasoner = ReasonerWebSearchModule(role=inputs.get('role', ''), backstory=inputs.get('backstory', ''),
                                       context=inputs.get('context', None), objective=inputs.get('objective', None),
                                       specifics=inputs.get('specifics', None),

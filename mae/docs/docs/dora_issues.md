@@ -4,10 +4,8 @@
 ## Q: 在使用cmd命令运行的时候,我应该如何获取到这个dora-dataflow中node生成的日志信息?
 **A:** : 
 
-
 ## Q: 一个dataflow的流程中,是否支持多个dynamic节点输入?
 **A:** : 
-
 
 ## Q: 如何将当前的Agent-Dataflow接入到Node-Hub中?
 **A:** : 

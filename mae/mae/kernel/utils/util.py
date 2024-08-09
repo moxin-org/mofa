@@ -11,12 +11,12 @@ def make_crewai_tool(func):
 def load_agent_config(yaml_file:str):
     params = read_yaml(yaml_file)
     if 'AGENT' in params:
-        model_config, agent_config, env_config, rag_config,log_config,web_config = params['MODEL'], params['AGENT'], params['ENV'], params.get('MAE_RAG', None),params.get('LOG',None),params.get('WEB',None)
         config = {}
-        for i in [model_config, agent_config, env_config,rag_config,log_config,web_config]:
-            if i is not None:
-                config.update(i)
+        for key in params.keys():
+            if params.get(key,None) is not None:
+                config.update(params.get(key,None))
         config = {k.lower(): v for k, v in config.items()}
     else:
         config = params
     return config
+
