@@ -1,3 +1,5 @@
+import json
+
 from crewai_tools import tool
 import yaml
 
@@ -20,3 +22,12 @@ def load_agent_config(yaml_file:str):
         config = params
     return config
 
+
+def load_dora_inputs_and_task(dora_event):
+    task_inputs = json.loads(dora_event["value"][0].as_py())
+    dora_result = json.loads(dora_event["value"][0].as_py())
+    if isinstance(task_inputs, dict):
+        task = task_inputs.get('task', None)
+    else:
+        task = task_inputs
+    return task_inputs,dora_result,task

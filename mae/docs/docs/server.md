@@ -3,6 +3,14 @@
 2. 安装rust相关的环境(安装文档与上面相同)
 
 
+## Api运行流程
+1. 调用`agent_list`接口,他会获取到`/Moxin-App-Engine/mae/mae/agent_link/agent_template`这个文件夹下面的所有的agent
+2. 调用`agent_dataflow`接口,获取这个`agent-dataflow`中所有的所有的node(每一个node就是一个最简单的小的agent)
+3. 调用`agent_node_config`这个接口，获取每一个`node`的具体config配置
+4. 调用`upload_agent_node_config`这个接口，修改这个`node`的具体参数,例如`prompt`等 
+5. 调用`run_agent`这个接口，输入agent的名称,会自动的生成运行刚才配置好的agent
+
+
 
 ## Dora Server Q&A
 
