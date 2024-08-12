@@ -11,7 +11,11 @@
 **A:** : 
 
 ## Q: 使用dynamic作为输入节点时,似乎dynamic节点不关闭,不能正常发送以及接受不数据?
-**A:** : 
+**A:** :
 
 
+关于dynamic节点,我们现在有以下的问题:
+
+1. 我们想让`dynamic-node`获取某一个节点的输出,之后使用`python dynamic.py`，然后在`terminal`中将接收到的数据展示出来
+2. 当我们有多个`dataflow`流程的时候,当每个流程的`dynamic`节点的名称是一致的,为什么不能启动同一个`dynamic`节点向多个`dataflow`流程发送信息呢? 
 

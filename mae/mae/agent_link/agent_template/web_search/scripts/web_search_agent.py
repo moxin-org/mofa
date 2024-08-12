@@ -54,5 +54,4 @@ class Operator:
                 send_output("web_search_results", pa.array([json.dumps({'web_search_results':result.get('web_search_results')})]),dora_event['metadata'])
                 send_output("web_search_resource", pa.array([json.dumps({'web_search_resource':result.get('web_search_resource')})]),dora_event['metadata'])
                 print('agent_output:', result)
-
         return DoraStatus.CONTINUE
