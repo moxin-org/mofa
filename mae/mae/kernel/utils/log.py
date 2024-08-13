@@ -52,5 +52,5 @@ def load_dataflow_log(work_dir:str, agent_name:str, is_load_node_log:bool=True):
         log_file = find_file(target_filename=f"log_{node_id}.txt", search_directory=work_dir+'/out')
         if log_file  is not None and 'output' not in log_file:
             log_data[node_id] = extract_agent_output(file_path=log_file)
-        log_data_list.append(log_data)
+            log_data_list.append(log_data)
     return log_data_list

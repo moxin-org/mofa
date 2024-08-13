@@ -9,19 +9,18 @@ AGENT:
 
 RAG:
   RAG_ENABLE: true
-#  MODULE_PATH: /opt/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
-  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
-#  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
-#  MODULE_PATH: null # 如果你没有embdding 模型,可以传递null
+#  MODULE_PATH: /opt/bce-embedding-base_v1
+  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
+#  MODULE_PATH: null
   RAG_MODEL_NAME: null
   PG_CONNECTION: postgresql+psycopg://langchain:langchain@192.168.0.75:6024/langchain
   COLLECTION_NAME: mae
-  IS_UPLOAD_FILE: true #是否需要上传,如果上传则传递true,否则传递false
+  IS_UPLOAD_FILE: true
   FILES_PATH:
     - ./data/output/arxiv_papers
   ENCODING: utf-8
   CHUNK_SIZE: 256
-  RAG_SEARCH_NUM: 2 # 数值越大 通过rag查询出来的结果越多 相应的llm接受的数据也越多,注意不要超过llm最大的token数量
+  RAG_SEARCH_NUM: 2
 
 LOG:
   LOG_PATH: ./data/output/log/paper_dataflow.md
@@ -31,7 +30,6 @@ LOG:
 MODEL:
   MODEL_API_KEY:   
   MODEL_NAME: gpt-4o
-#  MODEL_NAME: gpt-3.5-turbo
   MODEL_MAX_TOKENS: 2048
 
 ENV:
