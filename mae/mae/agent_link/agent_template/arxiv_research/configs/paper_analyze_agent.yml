@@ -10,10 +10,10 @@ AGENT:
 RAG:
   RAG_ENABLE: true
 #  MODULE_PATH: /opt/bce-embedding-base_v1
-  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
-#  MODULE_PATH: null
+#  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
+  MODULE_PATH: text-embedding-3-small
   RAG_MODEL_NAME: null
-  PG_CONNECTION: postgresql+psycopg://langchain:langchain@192.168.0.75:6024/langchain
+  PG_CONNECTION: postgresql+psycopg://langchain:langchain@127.0.0.1:6024/langchain
   COLLECTION_NAME: mae
   IS_UPLOAD_FILE: true
   FILES_PATH:
@@ -28,7 +28,7 @@ LOG:
   LOG_STEP_NAME: paper_analyze_agent
 
 MODEL:
-  MODEL_API_KEY:   
+  MODEL_API_KEY:  
   MODEL_NAME: gpt-4o
   MODEL_MAX_TOKENS: 2048
 
