@@ -17,7 +17,7 @@ app = FastAPI()
 
 # config cors policy, allow incoming request from localhost:5173 (dev frontend)
 origins = [
-    "http://localhost:5173",
+    "*",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -67,6 +67,7 @@ def run_agent(item:RunAgent):
         agent_result = run_dora_dataflow(work_dir=item.work_dir,task_input=item.task_input,
                           is_load_node_log=item.is_load_node_log,dataflow_name=item.agent_name,
                           agent_name=item.agent_name)
+        print('-------------： ',agent_result)
         return JSONResponse(status_code=200, content={'status':'success','data':agent_result})
     except Exception as e:
         return JSONResponse(status_code=404, content={'status':'error','message':str(e)})
