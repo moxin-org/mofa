@@ -1,0 +1,45 @@
+nodes:
+#  - id: web_search_task
+#    path: dynamic
+#    inputs:
+#      direction: dora/timer/secs/1
+#    outputs:
+#      - task
+  - id: terminal-input
+    build: pip install -e /Users/chenzi/project/zcbc/dora/node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      web_search_results: web_search_agent/web_search_results
+      web_search_resource: web_search_agent/web_search_resource
+      more_question_results: more_question_agent/more_question_results
+  - id: web_search_agent
+    operator:
+      python: ./scripts/web_search_agent.py
+      inputs:
+        web_search_task: terminal-input/data
+      outputs:
+        - web_search_results
+        - web_search_resource
+        - web_search_aggregate_output
+  - id: more_question_agent
+    operator:
+      python: ./scripts/more_question_agent.py
+      inputs:
+        web_search_aggregate_output: web_search_agent/web_search_aggregate_output
+      outputs:
+        - more_question_results
+        - web_search_aggregate_output
+
+  - id: web_search_output
+    operator:
+      python: ./scripts/web_search_output.py
+      inputs:
+        web_search_aggregate_output: more_question_agent/web_search_aggregate_output
+      outputs:
+        - web_search_output
+        - web_search_results
+        - web_search_resource
+        - more_question_results
+        - web_search_task

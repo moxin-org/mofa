@@ -1,0 +1,17 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e /Users/chenzi/project/zcbc/dora/node-hub/terminal-input
+#    build: pip install -e /opt/dora/node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      reasoner_result: reasoner/reasoner_result
+  - id: reasoner
+    build: ./reasoner
+    path: reasoner
+    inputs:
+      reasoner_task: terminal-input/data
+    outputs:
+      - reasoner_result
+
