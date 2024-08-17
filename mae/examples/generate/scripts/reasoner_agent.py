@@ -17,7 +17,7 @@ class Operator:
         send_output,
     ) -> DoraStatus:
         if dora_event["type"] == "INPUT":
-            agent_inputs = ['more_question_results', 'task_input', 'reasoner_task']
+            agent_inputs = ['task_input', 'reasoner_task', 'more_question_results']
             if dora_event["id"] in agent_inputs:
                 dora_result = json.loads(dora_event["value"][0].as_py())
                 task_inputs = json.loads(dora_event["value"][0].as_py())
@@ -52,7 +52,7 @@ class Operator:
                 write_agent_log(log_type=inputs.get('log_type',None),log_file_path=inputs.get('log_path',None),data=log_result)
                 results['task'] = task
                 results['result'] = result
-                print(result)
+                print('agent_output:',results)
                 send_output("reasoner_result", pa.array([json.dumps(results)]),dora_event['metadata'])
                 return DoraStatus.CONTINUE
 

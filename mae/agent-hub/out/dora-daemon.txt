@@ -1,0 +1,32 @@
+2024-08-16T07:54:05.665166Z  INFO dora: Starting in local mode
+2024-08-16T07:54:05.666121Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-08-16T07:54:08.491023Z  INFO run_inner{self.machine_id=}: dora_daemon::spawn: spawning: /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/agent-hub/reasoner
+2024-08-16T07:54:14.721566Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-08-16T07:54:21.520259Z  INFO dora: Starting in local mode
+2024-08-16T07:54:21.521451Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-08-16T08:03:06.346008Z  INFO run_inner{self.machine_id=}: dora_daemon::spawn: spawning: /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/agent-hub/reasoner
+2024-08-16T08:19:53.410507Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-08-16T08:19:56.309049Z  INFO dora: Starting in local mode
+2024-08-16T08:19:56.310036Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-08-16T08:20:02.397108Z  INFO run_inner{self.machine_id=}: dora_daemon::spawn: spawning: /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/agent-hub/reasoner
+2024-08-16T08:23:25.419552Z  INFO run_inner{self.machine_id=}: dora_daemon::spawn: spawning: /Users/chenzi/env/miniconda3/envs/py310/bin/dora-echo
+2024-08-16T08:24:15.515035Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-08-16T08:24:15.515407Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-16T09:05:58.498512Z  INFO dora: Starting in local mode
+2024-08-16T09:05:58.500713Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-08-16T09:17:42.426007Z  INFO run_inner{self.machine_id=}: dora_daemon::spawn: spawning: /usr/local/bin/dora-echo
+2024-08-16T09:21:07.632795Z  WARN dora_daemon: dora-echo was killed due to not stopping within the 2s grace period
+2024-08-16T09:21:07.635216Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-16T09:21:07.636076Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01915a7a-7c98-73a0-8534-d0d50b93f1a0` finished on machine ``
+2024-08-16T09:21:07.636471Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-16T09:21:07.636512Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-16T09:21:17.563240Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
