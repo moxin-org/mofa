@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "Reasoner"
+name = "reasoner"
 version = "0.3.5"
 authors = [
     "ZhongHuan Wu ",
     "Cheng Chen",
 ]
-description = "Dora terminal input"
+description = "Dora Reasoner"
 license = "MIT License"
 homepage = "https://github.com/dora-rs/dora.git"
 documentation = "https://github.com/dora-rs/dora/blob/main/node-hub/terminal-input/README.md"
@@ -13,12 +13,11 @@ readme = "README.md"
 packages = [{ include = "reasoner" }]
 
 [tool.poetry.dependencies]
-dora-rs = "0.3.5"
 numpy = "< 2.0.0"
 pyarrow = ">= 5.0.0"
 
 [tool.poetry.scripts]
-terminal-input = "reasoner.main:main"
+reasoner = "reasoner.main:main"
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]

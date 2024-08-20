@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "content-evaluation"
+version = "0.3.5"
+authors = [
+    "ZhongHuan Wu ",
+    "Cheng Chen",
+]
+description = "Dora content-evaluation agent"
+license = "MIT License"
+homepage = "https://github.com/dora-rs/dora.git"
+documentation = "https://github.com/dora-rs/dora/blob/main/node-hub/terminal-input/README.md"
+readme = "README.md"
+packages = [{ include = "content_evaluation" }]
+
+[tool.poetry.dependencies]
+numpy = "< 2.0.0"
+pyarrow = ">= 5.0.0"
+
+[tool.poetry.scripts]
+content-evaluation = "content_evaluation.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+readme = "README.md"

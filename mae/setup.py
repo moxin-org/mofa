@@ -30,7 +30,7 @@ setup(
     description="Moxin-App-Engine Example",
     entry_points={
         'console_scripts': [
-            'mae-agent-link=mae.cli:agent_link_cli',
+            'mae=mae.cli:mae_cli_group',
         ],
     },
     install_requires=requirements,

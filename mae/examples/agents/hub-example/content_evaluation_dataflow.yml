@@ -1,0 +1,23 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e ../../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      reasoner_result: reasoner/reasoner_result
+      content_evaluation_result: content-evaluation/content_evaluation_result
+  - id: reasoner
+    build: pip install -e ../../../agent-hub/reasoner
+    path: reasoner
+    inputs:
+      reasoner_task: terminal-input/data
+    outputs:
+      - reasoner_result
+  - id: content-evaluation
+    build: pip install -e ../../../agent-hub/content-evaluation
+    path: content-evaluation
+    inputs:
+      reasoner_result: reasoner/reasoner_result
+    outputs:
+      - content_evaluation_result

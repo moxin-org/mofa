@@ -25,7 +25,6 @@ def init_costar_signature(role: Union[str, None] = None, backstory: Union[str, N
             input_field = ''
         inputs[get_variable_name(input_field, locals())[0]] = input_field
 
-    # 定义CO-STAR字段
     fields = {
         'question': dspy.InputField(desc="The question we're trying to answer."),
         'objective': dspy.InputField(desc=inputs.get('objective', 'Provides the background information for the task.')),
@@ -38,7 +37,6 @@ def init_costar_signature(role: Union[str, None] = None, backstory: Union[str, N
         'backstory': dspy.InputField(desc=inputs.get('backstory','Provides the background information for the task.'))
     }
 
-    # 动态添加额外字段
     if input_fields:
         for field_name, field_desc in input_fields.items():
             fields[field_name] = dspy.InputField(desc=field_desc)
@@ -58,13 +56,12 @@ def init_costar_signature(role: Union[str, None] = None, backstory: Union[str, N
     #         if field_name in ['answer', 'role', 'backstory']:
     #             all_fields[field_name] = field_desc
     #         all_fields[field_name] = field_desc
-    # 动态创建新的Signature类
     COStarSignature = type('COStarSignature', (dspy.Signature,), fields)
 
     return COStarSignature
 
 
-def self_refine_costar_signature(role: Union[str, None] = None, backstory: Union[str, None] = None, output_fields: dict = None, input_fields: dict = None, objective:str=None, specifics:str=None, actions:str=None, results:str=None, example:str=None, answer:str=None):
+def costar_signature(role: Union[str, None] = None, backstory: Union[str, None] = None, output_fields: dict = None, input_fields: dict = None, objective:str=None, specifics:str=None, actions:str=None, results:str=None, example:str=None, answer:str=None):
     """
     Backstory: Provides the background information of the task.
     Objective: Clearly defines the main goal of the task.
@@ -82,7 +79,6 @@ def self_refine_costar_signature(role: Union[str, None] = None, backstory: Union
             input_field = ''
         inputs[get_variable_name(input_field, locals())[0]] = input_field
 
-    # 定义CO-STAR字段
     fields = {
         'question': dspy.InputField(desc="The question we're trying to answer."),
         'objective': dspy.InputField(desc=inputs.get('objective', '')),
@@ -95,7 +91,6 @@ def self_refine_costar_signature(role: Union[str, None] = None, backstory: Union
         'backstory': dspy.InputField(desc=inputs.get('backstory',''))
     }
 
-    # 动态添加额外字段
     if input_fields:
         for field_name, field_desc in input_fields.items():
             fields[field_name] = dspy.InputField(desc=field_desc)
@@ -114,7 +109,6 @@ def self_refine_costar_signature(role: Union[str, None] = None, backstory: Union
                 all_fields[field_name] = field_desc
             if field_name in ['answer', 'role',]:
                 all_fields[field_name] = field_desc
-    # 动态创建新的Signature类
     COStarSignature = type('COStarSignature', (dspy.Signature,), all_fields)
 
     return COStarSignature
