@@ -6,7 +6,7 @@ import dspy
 from pathlib import Path
 
 from mae.apps.base.module import BaseModule
-from mae.apps.base.signature import init_costar_signature, self_refine_costar_signature
+from mae.apps.base.signature import init_costar_signature, costar_signature
 from mae.kernel.rag.embedding.huggingface import load_embedding_model
 from mae.kernel.rag.vector.pgvector import create_pgvector, upload_files_to_vector, \
     delete_vector_collection, search_vector
@@ -133,9 +133,9 @@ class FindTaskKeyWordsModule(BaseModule):
             """
 
         self.answer='Must return a JSON object or a None'
-        task_analysis_signature = self_refine_costar_signature(role=self.role,
-                                                          actions=self.actions,
-                                                        results=self.results, example=self.example,specifics=self.specifics,answer=self.answer)
+        task_analysis_signature = costar_signature(role=self.role,
+                                                   actions=self.actions,
+                                                   results=self.results, example=self.example, specifics=self.specifics, answer=self.answer)
         self.task_predict = dspy.Predict(task_analysis_signature)
     def serialization_result(self,result:str):
         try:
@@ -171,7 +171,7 @@ class QualityEnhancerModule(BaseModule):
         if input_fields is None:
             self.input_fields = {'rag_data':'Data after rag query','llm_data':'Data after LLM query'}
 
-        data_merge_signature = self_refine_costar_signature(role=self.role, backstory=self.backstory,  objective=self.objective,actions=self.actions,input_fields=self.input_fields)
+        data_merge_signature = costar_signature(role=self.role, backstory=self.backstory, objective=self.objective, actions=self.actions, input_fields=self.input_fields)
         self.qualit_yenhancer_predict = dspy.Predict(data_merge_signature)
 
     def forward(self,question:str, rag_data: str, llm_data: str):

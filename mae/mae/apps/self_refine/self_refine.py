@@ -2,7 +2,7 @@ import random
 from typing import Union, List
 import dspy
 import copy
-from mae.apps.base.signature import init_costar_signature, self_refine_costar_signature
+from mae.apps.base.signature import init_costar_signature, costar_signature
 from mae.apps.reasoner.base import EvaluationResultModule
 from mae.apps.reasoner.reasoner import ReasonerRagModule
 
@@ -48,7 +48,7 @@ class SelfRefineModule(dspy.Module):
         """
 
         # predict_evaluation = dspy.Predict(init_multiple_inputs_signature(role=self.feedback_prompt,backstory='说明对内容的建议是什么?'),**self.no_cache)
-        predict_evaluation = dspy.ChainOfThought(self_refine_costar_signature(input_fields={'context':"The content that needs suggestions"},answer='The result of the suggestions proposed according to the issue'))
+        predict_evaluation = dspy.ChainOfThought(costar_signature(input_fields={'context': "The content that needs suggestions"}, answer='The result of the suggestions proposed according to the issue'))
         answer = predict_evaluation(question=self.replace_prefix(question),context=self.replace_prefix(context),role=self.feedback_prompt,backstory='Explain what the suggestions for the content are.?',**self.no_cache).answer
         # answer = self.get_result(evaluate)
         return answer
@@ -57,7 +57,7 @@ class SelfRefineModule(dspy.Module):
         Run the task based on the suggestions from the feedback.
         """
         # predict_refinement = dspy.Predict(init_multiple_inputs_signature(role=self.refinement_prompt, backstory=evaluate_data),**self.no_cache)
-        predict_refinement = dspy.ChainOfThought(self_refine_costar_signature(input_fields={'context':"The content that needs suggestions"}))
+        predict_refinement = dspy.ChainOfThought(costar_signature(input_fields={'context': "The content that needs suggestions"}))
         refinement = predict_refinement(role=self.refinement_prompt,question=f" {self.replace_prefix(evaluate_data)}",context=f"{self.replace_prefix(question)}",**self.no_cache)
         answer = self.get_result(refinement)
         return answer
@@ -66,7 +66,7 @@ class SelfRefineModule(dspy.Module):
         """
         Check if the task meets our expectations and requirements.
         """
-        predict_stop_condition = dspy.Predict(self_refine_costar_signature(input_fields={'context':"The content that needs suggestions"},answer='只回答 “是”或“否”。'))
+        predict_stop_condition = dspy.Predict(costar_signature(input_fields={'context': "The content that needs suggestions"}, answer='只回答 “是”或“否”。'))
         stop_condition = predict_stop_condition(role=self.stop_condition_prompt,question=self.replace_prefix(question),context=self.replace_prefix(context),**self.no_cache)
         answer = self.get_result(stop_condition)
         return answer
@@ -117,7 +117,7 @@ class SelfRefineRagModule(ReasonerRagModule):
         对任务和内容进行反馈 通过prompt的定义查看任务结果是否需要优化
         """
         # predict_evaluation = dspy.Predict(init_multiple_inputs_signature(role=self.feedback_prompt,backstory='说明对内容的建议是什么?'),**self.no_cache)
-        predict_evaluation = dspy.Predict(self_refine_costar_signature(input_fields={'context':"The content that needs suggestions"},answer='The result of the suggestions proposed according to the issue,Explain what the suggestions for the content are.?'))
+        predict_evaluation = dspy.Predict(costar_signature(input_fields={'context': "The content that needs suggestions"}, answer='The result of the suggestions proposed according to the issue,Explain what the suggestions for the content are.?'))
         evaluate = predict_evaluation(question=self.replace_prefix(question),context=self.replace_prefix(context),role=self.feedback_prompt,backstory='Explain what the suggestions for the content are.?',**self.no_cache)
 
         answer = self.get_result(evaluate)

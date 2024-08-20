@@ -3,7 +3,7 @@ from typing import Union
 
 import dspy
 
-from mae.apps.base.signature import self_refine_costar_signature
+from mae.apps.base.signature import costar_signature
 from mae.utils.variable.util import get_variable_name
 
 
@@ -46,7 +46,7 @@ class BaseModule(dspy.Module):
         variable_dict = self.create_signature_variable_dict
         if self.input_fields is not None:
             variable_dict.update(self.input_fields)
-        return self_refine_costar_signature(**self.create_signature_variable_dict,input_fields=self.input_fields)
+        return costar_signature(**self.create_signature_variable_dict, input_fields=self.input_fields)
 
     @property
     def creat_predict(self):

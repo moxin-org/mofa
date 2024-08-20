@@ -131,8 +131,4 @@ def modify_agents_inputs(file_path: str, new_inputs: List[str], output_file_path
     with open(output_file_path, 'w') as file:
         file.write(modified_code)
 
-# file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/reasoner/scripts/reasoner_agent.py'
-# output_file_path = '/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/mae/agent_link/merge_agents/reasoner_agent.py'
-# new_agents_inputs = ['more_question_results','web_search_aggregate_output']
-# modify_agents_inputs(file_path=file_path, new_inputs=new_agents_inputs, output_file_path=output_file_path)
-# print(f"Modified content saved to: {output_file_path}")
+

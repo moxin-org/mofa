@@ -6,7 +6,7 @@ from typing import List, Union
 import dspy
 
 from mae.apps.base.module import BaseModule
-from mae.apps.base.signature import self_refine_costar_signature
+from mae.apps.base.signature import costar_signature
 from mae.apps.reasoner.base import BaseRag, FindTaskKeyWordsModule, QualityEnhancerModule
 from mae.kernel.tools.web_search import search_web_with_serper
 
