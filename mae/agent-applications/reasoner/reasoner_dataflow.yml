@@ -1,0 +1,32 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      node_results: reasoner-agent/reasoner_result
+  - id: reasoner-agent
+    operator:
+      python: ./scripts/reasoner_agent.py
+      inputs:
+        reasoner_task: terminal-input/data
+      outputs:
+        - reasoner_result
+      env:
+        IS_DATAFLOW_END: true
+
+#  - id: beauty-context
+#    build: pip install -e ../../agent-hub/beauty-context
+#    path: dynamic
+#    inputs:
+#      reasoner_result: reasoner-agent/reasoner_result
+#    outputs:
+#      - node_results
+#  - id: terminal-print
+#    build: pip install -e ../../node-hub/terminal-print
+#    path: dynamic
+#    inputs:
+#      node_results: beauty-context/node_results
+#      reasoner_result: reasoner-agent/reasoner_result
+

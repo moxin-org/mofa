@@ -6,7 +6,7 @@ nodes:
       - data
     inputs:
       reasoner_result: reasoner/reasoner_result
-      content_evaluation_result: content-evaluation/content_evaluation_result
+      evaluation_result: content-evaluation/evaluation_result
   - id: reasoner
     build: pip install -e ../../../agent-hub/reasoner
     path: reasoner
@@ -18,6 +18,6 @@ nodes:
     build: pip install -e ../../../agent-hub/content-evaluation
     path: content-evaluation
     inputs:
-      reasoner_result: reasoner/reasoner_result
+      evaluation_data: reasoner/reasoner_result
     outputs:
-      - content_evaluation_result
+      - evaluation_result

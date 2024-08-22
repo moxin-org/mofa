@@ -1,4 +1,5 @@
 import json
+from typing import Union
 
 from crewai_tools import tool
 import yaml
@@ -31,3 +32,8 @@ def load_dora_inputs_and_task(dora_event):
     else:
         task = task_inputs
     return task_inputs,dora_result,task
+
+def create_agent_output(step_name:str,output_data:Union[str,dict],dataflow_status:bool=False):
+    if isinstance(output_data,dict):
+        output_data = json.dumps(output_data)
+    return json.dumps({'step_name':step_name,'node_results':output_data,'dataflow_status':dataflow_status})

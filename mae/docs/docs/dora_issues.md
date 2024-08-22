@@ -14,8 +14,7 @@
 **A:** :
 
 
-关于dynamic节点,我们现在有以下的问题:
 
-1. 我们想让`dynamic-node`获取某一个节点的输出,之后使用`python dynamic.py`，然后在`terminal`中将接收到的数据展示出来
-2. 当我们有多个`dataflow`流程的时候,当每个流程的`dynamic`节点的名称是一致的,为什么不能启动同一个`dynamic`节点向多个`dataflow`流程发送信息呢? 
+## Q: 如何同时接受不同的node的输入？
+**A:** :  尝试
 
