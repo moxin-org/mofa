@@ -37,6 +37,6 @@ ENV:
 LOG:
   LOG_PATH: ./data/output/log/log.md
   LOG_TYPE: markdown
-  LOG_STEP_NAME: reasoner_result
+  LOG_STEP_NAME: gpt_reasoner_result
   CHECK_LOG_PROMPT: true
 

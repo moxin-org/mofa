@@ -2,44 +2,24 @@ import argparse
 import json
 import os
 from dora import Node
+from dora import Node, DoraStatus
 from mae.kernel.utils.log import write_agent_log
 from mae.kernel.utils.util import load_agent_config
 from mae.run.run import run_dspy_agent, run_crewai_agent
+from mae.utils.files.dir import get_relative_path
 from mae.utils.files.read import read_yaml
 import pyarrow as pa
 import os
-RUNNER_CI = True if os.getenv("CI") == "true" else False
-
-
-def main():
-
-    agent_config_dir_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), )
-
-    parser = argparse.ArgumentParser(description="Content Evaluation Agent")
-
-    parser.add_argument(
-        "--name",
-        type=str,
-        required=False,
-        help="The name of the node in the dataflow.",
-        default="content_evaluation",
-    )
-    parser.add_argument(
-        "--evaluation-data",
-        type=str,
-        required=False,
-        help="Objects to be evaluated",
-    )
-    args = parser.parse_args()
-    node = Node(
-        args.name
-    )
-    for event in node:
-        if event["type"] == "INPUT" and event['id'] in ['task','data','evaluation_data']:
-            evaluation_data = event["value"][0].as_py()
+class Operator:
+    def on_event(
+        self,
+        dora_event,
+        send_output,
+    ) -> DoraStatus:
+        if dora_event["type"] == "INPUT" and dora_event['id'] in ['task','data','evaluation_data','ollama_reasoner_result']:
+            evaluation_data = dora_event["value"][0].as_py()
             if isinstance(evaluation_data, dict): evaluation_data = json.dumps(evaluation_data)
-
-            yaml_file_path = f'{agent_config_dir_path}/content_evaluation_agent.yml'
+            yaml_file_path = get_relative_path(current_file=__file__, sibling_directory_name='configs', target_file_name='evaluation_judge_agent.yml')
             inputs = load_agent_config(yaml_file_path)
             if inputs.get('check_log_prompt', None) is True:
                 log_config = {}
@@ -60,8 +40,7 @@ def main():
                             data=log_result)
             results['result'] = result
             print('evaluation_result:', results)
-            node.send_output("evaluation_result", pa.array([json.dumps(results)]), event['metadata'])
+            send_output("evaluation_result", pa.array([json.dumps(results)]), dora_event['metadata'])
 
+        return DoraStatus.CONTINUE
 
-if __name__ == "__main__":
-    main()

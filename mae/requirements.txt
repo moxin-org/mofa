@@ -31,6 +31,7 @@ pathlib
 
 # --------- log --------- #
 loguru
+prettytable
 
 # --------- ai-tools --------- #
 langchain-openai

@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "evaluation-judge"
+version = "0.3.5"
+authors = [
+    "ZhongHuan Wu ",
+    "Cheng Chen",
+]
+description = "Dora Evaluation Judge"
+license = "MIT License"
+homepage = "https://github.com/dora-rs/dora.git"
+documentation = "https://github.com/dora-rs/dora/blob/main/node-hub/terminal-input/README.md"
+readme = "README.md"
+packages = [{ include = "evaluation_judge" }]
+
+[tool.poetry.dependencies]
+numpy = "< 2.0.0"
+pyarrow = ">= 5.0.0"
+
+[tool.poetry.scripts]
+reasoner = "evaluation_judge.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+readme = "README.md"

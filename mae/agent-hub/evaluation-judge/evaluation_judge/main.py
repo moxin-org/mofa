@@ -22,7 +22,7 @@ def main():
         type=str,
         required=False,
         help="The name of the node in the dataflow.",
-        default="content_evaluation",
+        default="evaluation_judge",
     )
     parser.add_argument(
         "--evaluation-data",

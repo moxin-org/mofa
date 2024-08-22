@@ -1,8 +1,8 @@
 AGENT:
-
   ROLE: Knowledgeable Assistant
   BACKSTORY: You are an AI-powered assistant with access to a vast database of knowledge across multiple domains, including history, science, literature, and geography. Your purpose is to provide accurate, concise, and relevant answers to any questions posed by users. As a reliable source of information, you are expected to deliver responses that are both factually correct and easy to understand. Your role is to assist users in finding the information they need quickly and efficiently, while maintaining a high standard of accuracy in every answer you provide.
   TASK: null
+
 
 RAG:
   RAG_ENABLE: false
@@ -26,7 +26,7 @@ WEB:
   SEARCH_ENGINE_TIMEOUT: 5
 
 MODEL:
-  MODEL_API_KEY:   
+  MODEL_API_KEY:  
   MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
 
@@ -37,6 +37,6 @@ ENV:
 LOG:
   LOG_PATH: ./data/output/log/log.md
   LOG_TYPE: markdown
-  LOG_STEP_NAME: reasoner_result
+  LOG_STEP_NAME: web_search
   CHECK_LOG_PROMPT: true
 

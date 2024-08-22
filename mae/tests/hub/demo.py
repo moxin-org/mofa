@@ -1,13 +1,13 @@
-import argparse
-import json
-import os
-from dora import Node
-from mae.kernel.utils.log import write_agent_log
-from mae.kernel.utils.util import load_agent_config
-from mae.run.run import run_dspy_agent, run_crewai_agent
-from mae.utils.files.read import read_yaml
-import pyarrow as pa
-import os
+# import argparse
+# import json
+# import os
+# from dora import Node
+# from mae.kernel.utils.log import write_agent_log
+# from mae.kernel.utils.util import load_agent_config
+# from mae.run.run import run_dspy_agent, run_crewai_agent
+# from mae.utils.files.read import read_yaml
+# import pyarrow as pa
+# import os
 # RUNNER_CI = True if os.getenv("CI") == "true" else False
 #
 # evaluation_data = {'task': '第二第二次世界大战', 'result': 'Answer: 第二次世界大战是从1939年到1945年间发生的一场全球性战争，主要涉及大多数国家，分为两个主要对立阵营：同盟国和轴心国。战争的起因包括德国的扩张主义政策、意大利和日本的侵略行为，以及国际社会对这些行为的反应。战争的关键事件包括1941年的珍珠港事件、1944年的诺曼底登陆和1945年对日本的原子弹轰炸。最终，同盟国在1945年取得胜利，导致了轴心国的崩溃和战后国际秩序的重建。第二次世界大战对全球政治、经济和社会产生了深远的影响。'}
@@ -22,7 +22,7 @@ import os
 #                     data=log_config)
 #
 # if 'agents' not in inputs.keys():
-#     inputs['input_fields'] = {'evaluation_data':evaluation_data}
+#     inputs['input_fields'] = {'evaluation_data':json.dumps(evaluation_data)}
 #     result = run_dspy_agent(inputs=inputs)
 # else:
 #     result = run_crewai_agent(crewai_config=inputs)
@@ -32,5 +32,33 @@ import os
 #                 data=log_result)
 # results['result'] = result
 # print('content_evaluation_result:', results)
+
+
+
+
+
+import argparse
+import json
+import os
+from dora import Node
+from mae.kernel.utils.log import write_agent_log
+from mae.kernel.utils.util import load_agent_config
+from mae.run.run import run_dspy_agent, run_crewai_agent
+from mae.utils.files.read import read_yaml
+import pyarrow as pa
+import os
+
+# node_results = {'agent_name': 'reasoner', 'dataflow_status': True, 'node_results': '你好！有什么我可以帮助你的吗？'}
+# yaml_file_path = f'/Users/chenzi/project/zcbc/Moxin-App-Engine/mae/agent-hub/beauty-context/beauty_context/beauty_context_agent.yml'
+# inputs = load_agent_config(yaml_file_path)
+# result,node_returns = '',node_results.get('node_results')
+# if isinstance(node_returns, dict):
+#     node_returns = json.dumps(node_returns)
+# if 'agents' not in inputs.keys():
+#     inputs['input_fields'] = {'beauty_context':node_returns}
+#     result = run_dspy_agent(inputs=inputs)
+#     print('--------  beauty_context:',result)
+# node_results['node_results'] = result
 #
+
 
