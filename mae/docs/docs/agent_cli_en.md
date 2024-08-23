@@ -1,6 +1,24 @@
 
 ### 1. Install the MAE Project
 Refer to the [install_mae](install_mae_en.md) document to install the MAE project.
+Due to issues with dynamic-node in dora-rs version 3.5, we are using dora(v0.3.6-rc0) to run this program. The installation steps are as follows:
+
+```bash
+sudo rm $(which dora)
+pip uninstall dora-rs
+
+## Install dora binary
+git clone https://github.com/dora-rs/dora.git
+cd dora
+cargo build --release -p dora-cli
+PATH=$PATH:$(pwd)/target/release
+
+## Install Python API
+maturin develop -m apis/python/node/Cargo.toml
+
+dora --help
+```
+
 
 ### 2. Configure Agent Parameters
 In the `Moxin-App-Engine/mae/agent-applications` directory, you will find all currently available agents, with more being added regularly. You need to configure the YAML files located under `configs` for each agent, especially the API configurations. You can also set it up to use the Ollama model.
