@@ -1,5 +1,22 @@
 # 1, 安装mae项目
 查看[install_mae](install_mae.md)文档 安装mae项目
+由于 dora-rs 3.5对dynamic-node会存在问题，我们使用 dora(v0.3.6-rc0)的版本来运行此程序.安装步骤如下
+~~~
+sudo rm $(which dora)
+pip uninstall dora-rs
+
+## dora binary
+git clone https://github.com/dora-rs/dora.git
+cd dora
+cargo build --release -p dora-cli
+PATH=$PATH:$(pwd)/target/release
+
+## Python API
+maturin develop -m apis/python/node/Cargo.toml
+
+dora --help
+~~~
+
 
 # 2，对Agent进行参数配置
 在 `Moxin-App-Engine/mae/agent-applications` 这个目录下 就是我们所有的当前可用的agents,我们正在陆续增加
