@@ -20,10 +20,6 @@ git clone git@github.com:moxin-org/Moxin-App-Engine.git && cd Moxin-App-Engine/m
   ```
 
 ### 1.2 项目环境部署
-如果你没有当前的环境,建议使用`Dockerfile`来部署当前环境，我们已经在`Dockerfile`中安装了`Rust`和`Python`。
-```sh
-docker build -t mae_env:v1 .
-```
 
 - 安装mae项目：
 ```sh
@@ -31,7 +27,7 @@ pip3 install -r requirements.txt && pip3 install -e .
 
 pip3 install uv && uv pip install -e . 
 ```
-安装完毕之后你可以使用`mae-agent --help`查看Cli帮助信息
+安装完毕之后你可以使用`mae --help`查看Cli帮助信息
 
 ## 2. Rust环境安装
 请你访问下面的页面,根据你的系统安装Rust环境：

@@ -14,7 +14,6 @@ RUNNER_CI = True if os.getenv("CI") == "true" else False
 
 
 def clean_string(input_string:str):
-    # 使用 'replace' 或 'ignore' 来处理无效字符
     return input_string.encode('utf-8', 'replace').decode('utf-8')
 def send_task_and_receive_data(node):
     while True:
@@ -34,11 +33,7 @@ def send_task_and_receive_data(node):
                     click.echo(f"{node_results.get('step_name','')}: {results} ",)
                 else:
                     click.echo(f"{node_results.get('step_name','')}: {results} :dataflow_status",)
-
-                # print(f"{node_results.get('step_name')}: {results}", flush=True)
                 sys.stdout.flush()
-                # print(f"{results}", flush=True)
-                # sys.stdout.flush()
                 if is_dataflow_end:
                     break
                 event = node.next(timeout=200)
