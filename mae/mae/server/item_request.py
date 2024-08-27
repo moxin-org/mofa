@@ -24,3 +24,8 @@ class UploadAgentNodeConfig(AgentNodeConfig):
 
 class UploadFiles(AgentDataflow):
     files: List[UploadFile] = File(...)
+
+class AgentEvaluation(BaseModel):
+    primary_data:str
+    second_data:str
+    comparison_data_task:str

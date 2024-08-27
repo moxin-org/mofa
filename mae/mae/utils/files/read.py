@@ -1,4 +1,6 @@
+import os
 import re
+from pathlib import Path
 from typing import List
 
 import pandas as pd
@@ -132,3 +134,10 @@ def modify_agents_inputs(file_path: str, new_inputs: List[str], output_file_path
         file.write(modified_code)
 
 
+def read_file_content(file_path:str):
+    file_path = Path(file_path)
+    if file_path.is_file():
+        with file_path.open('r', encoding='utf-8') as file:
+            return file.read()
+    else:
+        return file_path

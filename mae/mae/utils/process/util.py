@@ -18,3 +18,13 @@ def stop_dora_dataflow(dataflow_name:str):
     )
     stdout, stderr = dora_stop_process.communicate()
     return None
+
+def send_task_or_stop_process(task:str,dora_dataflow_process,task_input_process,dataflow_name:str):
+    if task.lower() in ["exit", "quit"]:
+        stop_process([dora_dataflow_process, task_input_process])
+        stop_dora_dataflow(dataflow_name=dataflow_name)
+        return False
+    if task_input_process.poll() is None:
+        task_input_process.stdin.write(task + '\n')
+        task_input_process.stdin.flush()
+        return True
