@@ -5,7 +5,7 @@ from mae import agent_dir_path
 
 import click
 import sys
-
+from mae.run.agent_evealution import agent_evaluation_cmd
 from mae.utils.files.dir import get_subdirectories
 from mae.utils.process.util import stop_process, stop_dora_dataflow
 
@@ -23,6 +23,12 @@ def agent_list():
     click.echo(agent_names)
     return agent_names
 
+@mae_cli_group.command()
+def evaluation():
+    """
+    Score and compare the results of agents
+    """
+    agent_evaluation_cmd()
 
 @mae_cli_group.command()
 @click.option('--agent-name', default='reasoner', help='agent name')

@@ -3,9 +3,9 @@ import json
 import os
 from dora import Node
 from mae.kernel.utils.log import write_agent_log
-from mae.kernel.utils.util import load_agent_config
+from mae.kernel.utils.util import load_agent_config, create_agent_output
 from mae.run.run import run_dspy_agent, run_crewai_agent
-from mae.utils.files.read import read_yaml
+from mae.utils.files.read import read_yaml, read_file_content
 import pyarrow as pa
 import os
 RUNNER_CI = True if os.getenv("CI") == "true" else False
@@ -25,43 +25,70 @@ def main():
         default="content_evaluation",
     )
     parser.add_argument(
-        "--evaluation-data",
+        "--first-data",
         type=str,
         required=False,
-        help="Objects to be evaluated",
+        help="The first value to compare",
+        default=None
+    )
+
+    parser.add_argument(
+        "--second-data",
+        type=str,
+        required=False,
+        help="The second value to compare",
+        default=None
+    )
+    parser.add_argument(
+        "--generate-data-task",
+        type=str,
+        required=False,
+        help="Evaluate the tasks corresponding to the two pieces of content.",
+        default=None
     )
     args = parser.parse_args()
     node = Node(
         args.name
     )
+    first_data,second_data,gen_data_task = args.first_data,args.second_data,args.generate_data_task
     for event in node:
-        if event["type"] == "INPUT" and event['id'] in ['task','data','evaluation_data']:
-            evaluation_data = event["value"][0].as_py()
-            if isinstance(evaluation_data, dict): evaluation_data = json.dumps(evaluation_data)
+        if event["type"] == "INPUT" :
+            if event['id'] == 'first_data': first_data = event["value"][0].as_py()
+            if event['id'] == 'second_data': second_data = event["value"][0].as_py()
+            if event['id'] == 'generate_data_task': gen_data_task = event["value"][0].as_py()
 
-            yaml_file_path = f'{agent_config_dir_path}/content_evaluation_agent.yml'
-            inputs = load_agent_config(yaml_file_path)
-            if inputs.get('check_log_prompt', None) is True:
-                log_config = {}
-                agent_config = read_yaml(yaml_file_path).get('AGENT', '')
-                agent_config['evaluation_data'] = evaluation_data
-                log_config[' Agent Prompt'] = agent_config
+            if gen_data_task is not None and first_data is not None and second_data is not None:
+                first_data = read_file_content(first_data)
+                second_data = read_file_content(second_data)
+                evaluation_data = {'primary_data':first_data,'second_data':second_data,'generate_data_task':gen_data_task}
+                print('----------: ',evaluation_data)
+                yaml_file_path = f'{agent_config_dir_path}/content_evaluation_agent.yml'
+                inputs = load_agent_config(yaml_file_path)
+                if inputs.get('check_log_prompt', None) is True:
+                    log_config = {}
+                    agent_config = read_yaml(yaml_file_path).get('AGENT', '')
+                    agent_config['evaluation_data'] = evaluation_data
+                    log_config[' Agent Prompt'] = agent_config
+                    write_agent_log(log_type=inputs.get('log_type', None), log_file_path=inputs.get('log_path', None),
+                                    data=log_config)
+
+                if 'agents' not in inputs.keys():
+                    inputs['input_fields'] = {'evaluation_data':json.dumps(evaluation_data)}
+                    result = run_dspy_agent(inputs=inputs)
+                else:
+                    result = run_crewai_agent(crewai_config=inputs)
+                log_result = {inputs.get('log_step_name', "Step_one"): result}
+                results = {}
                 write_agent_log(log_type=inputs.get('log_type', None), log_file_path=inputs.get('log_path', None),
-                                data=log_config)
-
-            if 'agents' not in inputs.keys():
-                inputs['input_fields'] = {'evaluation_data':evaluation_data}
-                result = run_dspy_agent(inputs=inputs)
-            else:
-                result = run_crewai_agent(crewai_config=inputs)
-            log_result = {inputs.get('log_step_name', "Step_one"): result}
-            results = {}
-            write_agent_log(log_type=inputs.get('log_type', None), log_file_path=inputs.get('log_path', None),
-                            data=log_result)
-            results['result'] = result
-            print('evaluation_result:', results)
-            node.send_output("evaluation_result", pa.array([json.dumps(results)]), event['metadata'])
-
+                                data=log_result)
+                results['result'] = result
+                print('evaluation_result:', results)
+                node.send_output("evaluation_result", pa.array([create_agent_output(step_name='content_evaluation',
+                                                                                   output_data=result,
+                                                                                   dataflow_status=os.getenv(
+                                                                                       "IS_DATAFLOW_END",
+                                                                                       True))]), event['metadata'])
+                first_data,second_data,gen_data_task = None,None,None
 
 if __name__ == "__main__":
     main()
