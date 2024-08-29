@@ -17,11 +17,11 @@ RUNNER_CI = True if os.getenv("CI") == "true" else False
 def send_task_and_receive_data(node):
     while True:
         input_data_one = while_input( " Send primary data :  ")
-        input_data_two = while_input(" Send secondary data :  ")
+        input_data_two = while_input(" Send second data :  ")
         generate_data_task = while_input(' Send comparison task : ')
-        node.send_output("first_data", pa.array([clean_string(input_data_one)]))
+        node.send_output("primary_data", pa.array([clean_string(input_data_one)]))
         node.send_output("second_data", pa.array([clean_string(input_data_two)]))
-        node.send_output("generate_data_task", pa.array([clean_string(generate_data_task)]))
+        node.send_output("comparison_task", pa.array([clean_string(generate_data_task)]))
         event = node.next(timeout=200)
         if event is not None:
             while True:
@@ -58,7 +58,7 @@ def main():
     )
 
     parser.add_argument(
-        "--secondary-data",
+        "--second-data",
         type=str,
         required=False,
         help="The secondary dataset to be compared against the primary dataset.",

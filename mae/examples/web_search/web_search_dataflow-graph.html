@@ -15,7 +15,9 @@
   web_search_agent/op -- web_search_resource --> terminal-input
   web_search_agent/op -- web_search_results --> terminal-input
   terminal-input -- data as web_search_task --> web_search_agent/op
-  web_search_agent/op -- web_search_aggregate_output --> more_question_agent/op
+  terminal-input -- data as search_task --> more_question_agent/op
+  web_search_agent/op -- web_search_resource --> more_question_agent/op
+  web_search_agent/op -- web_search_results --> more_question_agent/op
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>

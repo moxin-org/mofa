@@ -33,7 +33,7 @@ def load_dora_inputs_and_task(dora_event):
         task = task_inputs
     return task_inputs,dora_result,task
 
-def create_agent_output(step_name:str,output_data:Union[str,dict],dataflow_status:bool=False):
-    if isinstance(output_data,dict):
-        output_data = json.dumps(output_data)
-    return json.dumps({'step_name':step_name,'node_results':output_data,'dataflow_status':dataflow_status})
+def create_agent_output(step_name:str,output_data:Union[str,dict,list],dataflow_status:bool=False):
+    if isinstance(output_data,dict) or isinstance(output_data,list):
+        output_data = json.dumps(output_data,ensure_ascii=False)
+    return json.dumps({'step_name':step_name,'node_results':output_data,'dataflow_status':dataflow_status},ensure_ascii=False)

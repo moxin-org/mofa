@@ -43,7 +43,7 @@ import os
 from dora import Node
 from mae.kernel.utils.log import write_agent_log
 from mae.kernel.utils.util import load_agent_config
-from mae.run.run import run_dspy_agent, run_crewai_agent
+from mae.run.run_agent import run_dspy_agent, run_crewai_agent
 from mae.utils.files.read import read_yaml
 import pyarrow as pa
 import os

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "multiple-terminal-input"
-version = "0.3.6-rc0"
+version = "0.1.1"
 authors = [
     "ZhongHuan Wu",
     "Cheng Chen",
