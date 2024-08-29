@@ -11,7 +11,7 @@ from mae.utils.variable.util import while_input
 
 
 def agent_evaluation_cmd():
-    agent_name = 'content_evaluation'
+    agent_name = 'agent_evaluation'
     agent_path = agent_dir_path + f'/{agent_name}'
     agent_dataflow_path = agent_path + f'/{agent_name}_dataflow.yml'
 
@@ -91,7 +91,7 @@ def agent_evaluation_cmd():
 
 
 def agent_evaluation_api(primary_data:str,second_data:str,comparison_data_task:str):
-    agent_name = 'content_evaluation'
+    agent_name = 'agent_evaluation'
     agent_path = agent_dir_path + f'/{agent_name}'
     agent_dataflow_path = agent_path + f'/{agent_name}_dataflow.yml'
 

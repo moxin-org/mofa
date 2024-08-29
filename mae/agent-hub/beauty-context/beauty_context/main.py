@@ -4,7 +4,7 @@ import os
 from dora import Node
 from mae.kernel.utils.log import write_agent_log
 from mae.kernel.utils.util import load_agent_config
-from mae.run.run import run_dspy_agent, run_crewai_agent
+from mae.run.run_agent import run_dspy_agent, run_crewai_agent
 from mae.utils.files.read import read_yaml
 import pyarrow as pa
 import os
@@ -47,7 +47,7 @@ def main():
                 node_returns = json.dumps(node_returns)
             if 'agents' not in inputs.keys():
                 inputs['input_fields'] = {'beauty_context':node_returns}
-                result = run_dspy_agent(inputs=inputs)
+                result = run_dspy_agent(agent_config=inputs)
                 print('--------  beauty_context:',result)
             node_results['node_results'] = result
             node.send_output("node_results", pa.array([json.dumps(node_results)]), event['metadata'])
