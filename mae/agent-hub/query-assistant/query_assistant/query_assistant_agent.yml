@@ -5,15 +5,14 @@ AGENT:
 
 RAG:
   RAG_ENABLE: false
-#  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
-#  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1
-  MODULE_PATH: null
-  RAG_MODEL_NAME: text-embedding-3-small
+  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
+#  MODULE_PATH: null
+  RAG_MODEL_NAME: null
   PG_CONNECTION: postgresql+psycopg://langchain:langchain@192.168.0.75:6024/langchain
   COLLECTION_NAME: mae
   IS_UPLOAD_FILE: true
   FILES_PATH:
-    - ./data/output/arxiv_papers
+    - /Users/chenzi/project/zcbc/Moxin-App-Engine/mae/examples/query_assistant/2019-2021美团技术年货-后端篇.pdf
   ENCODING: utf-8
   CHUNK_SIZE: 256
   RAG_SEARCH_NUM: 2

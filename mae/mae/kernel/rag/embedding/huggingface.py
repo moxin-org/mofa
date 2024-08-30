@@ -24,6 +24,3 @@ def load_embedding_model(module_path:str=None,model_name:str=None,multi_process:
     elif model_name is not None and module_path is None:
         embedding = OpenAIEmbeddings(model=model_name)
     return embedding
-
-
-

@@ -37,3 +37,6 @@ def create_agent_output(step_name:str,output_data:Union[str,dict,list],dataflow_
     if isinstance(output_data,dict) or isinstance(output_data,list):
         output_data = json.dumps(output_data,ensure_ascii=False)
     return json.dumps({'step_name':step_name,'node_results':output_data,'dataflow_status':dataflow_status},ensure_ascii=False)
+
+def load_node_result(node_data):
+    return json.loads(node_data).get('node_results')

@@ -13,7 +13,7 @@ RAG:
   MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
 #  MODULE_PATH: text-embedding-3-small
   RAG_MODEL_NAME: null
-  PG_CONNECTION: postgresql+psycopg://langchain:langchain@192.168.0.75:6024/langchain
+  PG_CONNECTION: postgresql+psycopg://langchain:langchain@127.0.0.1:6024/langchain
   COLLECTION_NAME: mae
   IS_UPLOAD_FILE: true
   FILES_PATH:

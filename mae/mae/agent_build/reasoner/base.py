@@ -1,5 +1,6 @@
 import json
 import re
+import time
 from typing import Union, List
 import dspy
 
@@ -42,7 +43,6 @@ class BaseRag(BaseModule):
                                                    pg_connection=pg_connection)
                 upload_files_to_vector(vectorstore=self.vectorstore, files_path=files_path, chunk_size=chunk_size,
                                        encoding=encoding)
-
 
     def delete_collection(self):
         delete_vector_collection(vectorstore=self.vectorstore)
