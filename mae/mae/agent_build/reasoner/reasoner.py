@@ -1,4 +1,5 @@
 import json
+import time
 from typing import List, Union
 
 import dspy
@@ -51,15 +52,18 @@ class ReasonerRagModule(BaseRag):
         except:
             keywords = [question]
         print('task keywords  : ', keywords)
+
         all_rag_result = self.search(keywords=keywords, k=self.rag_search_num)
         rag_datas = []
         for rag_result in all_rag_result:
             if isinstance(rag_result,dict):
                 for key, value in rag_result.items():
                     if len(value) >0: rag_datas+=(value)
-
+        t3 = time.time()
         quality_enhancer_result = self.quality_enhancer.forward(question=question, rag_data=json.dumps(all_rag_result),
                                                                 llm_data=llm_result, )
+
+
         result = ''
         if quality_enhancer_result.answer == '':
             result = quality_enhancer_result.specifics

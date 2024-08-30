@@ -25,7 +25,6 @@ git clone git@github.com:moxin-org/Moxin-App-Engine.git && cd Moxin-App-Engine/m
 ```sh
 pip3 install -r requirements.txt && pip3 install -e .
 
-pip3 install uv && uv pip install -e . 
 ```
 安装完毕之后你可以使用`mae --help`查看Cli帮助信息
 

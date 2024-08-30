@@ -19,8 +19,11 @@ dora --help
 
 
 # 2，对Agent进行参数配置
-在 `Moxin-App-Engine/mae/agent-applications` 这个目录下 就是我们所有的当前可用的agents,我们正在陆续增加
-你需要对配置里面的configs下面的yml文件进行配置
+在 `Moxin-App-Engine/mae/example` 这个目录下 就是我们所有的当前可用的agents,我们正在陆续增加
+你需要对配置里面的configs下面的yml文件进行配置. 
+如果`node`使用的是pip的方式进行安装的. 那么请你到`agent-hub`中找到对应的名称,并且修改里面的
+`yml`文件
+
 尤其是 Api方面，当然你也可以配置成为Ollama模型
 **Openai**：
 ~~~

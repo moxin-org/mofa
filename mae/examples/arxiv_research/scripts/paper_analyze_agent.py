@@ -48,7 +48,6 @@ class Operator:
                                 all_result.append({local_file_path:agent_result})
                                 print('local_file_rag_summary    : ' , {local_file_path:agent_result,'inputs':inputs})
                             except Exception as e :
-                                print('------- inputs: ',inputs)
                                 print('pdf analysis appearance problem  :',e)
                                 continue
 
@@ -60,13 +59,9 @@ class Operator:
                 log_result = {"3, " + inputs.get('log_step_name', "Step_one"): {k.split('/')[-1]: v for d in all_result for k, v in d.items()}}
                 record_agent_result_log(agent_config=inputs,
                                         agent_result=log_result)
-                # result_dict = {'task':paper_result.get('task'),'context':all_result}
-                # send_output("paper_analyze_result", pa.array([json.dumps(result_dict)]),dora_event['metadata'])
-                send_output("paper_analyze_result", pa.array([create_agent_output(step_name='paper_analyze_result', output_data=all_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
-                self.search_task = None
-                self.papers_info = None
+                send_output("paper_analyze_result", pa.array([create_agent_output(step_name='paper_analyze_result', output_data=json.dumps(all_result),dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                self.search_task,self.papers_info = None,None
                 print('agent_output:',all_result)
-                return DoraStatus.STOP
             return DoraStatus.CONTINUE
 
 

@@ -32,9 +32,5 @@ class Operator:
 
 
                 send_output("keyword_extractor_results", pa.array([create_agent_output(step_name='keyword_results', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
-
                 print('agent_result:', agent_result)
-
-                return DoraStatus.STOP
-
         return DoraStatus.CONTINUE

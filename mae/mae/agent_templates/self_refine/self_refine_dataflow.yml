@@ -1,30 +1,54 @@
 nodes:
+  - id: terminal-input
+    build: pip install -e ../../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      writer_report: writer_agent/writer_report
+      suggestion: feedback_agent/suggestion
+      refinement_result: refinement_agent/refinement_result
+      self_refine_end: evaluation_agent/self_refine_end
+
   - id: writer_agent
     operator:
       python: scripts/writer_agent.py
       inputs:
-        direction: dora/timer/secs/1
+        task: terminal-input/data
       outputs:
-        - writer_result
+        - writer_report
+      env:
+        IS_DATAFLOW_END: false
   - id: feedback_agent
     operator:
       python: scripts/feedback_agent.py
       inputs:
-        writer_result: writer_agent/writer_result
-        evaluation_result: evaluation_agent/evaluation_result
+        search_task: terminal-input/data
+        writer_report: writer_agent/writer_report
+        refinement_report: evaluation_agent/evaluation_result
       outputs:
-        - feedback_result
+        - suggestion
+      env:
+        IS_DATAFLOW_END: false
   - id: refinement_agent
     operator:
       python: scripts/refinement_agent.py
       inputs:
-        feedback_result: feedback_agent/feedback_result
+        suggestion: feedback_agent/suggestion
+        writer_report: feedback_agent/suggestion
+        search_task: terminal-input/data
       outputs:
         - refinement_result
+      env:
+        IS_DATAFLOW_END: false
   - id: evaluation_agent
     operator:
       python: scripts/evaluation_agent.py
       inputs:
-        refinement_result: refinement_agent/refinement_result
+        search_task: terminal-input/data
+        refinement_report: refinement_agent/refinement_result
       outputs:
         - evaluation_result
+        - self_refine_end
+      env:
+        IS_DATAFLOW_END: true

@@ -10,9 +10,9 @@ nodes:
       papers_info: paper_downloader_agent/papers_info
       paper_analyze_result: paper_analyze_agent/paper_analyze_result
       writer_report: report_writer_agent/writer_report
-#      feedback_result: feedback_agent/feedback_result
-#      refinement_result: refinement_agent/refinement_result
-#      evaluation_result: evaluation_agent/evaluation_result
+      suggestion: feedback_agent/suggestion
+      refinement_result: refinement_agent/refinement_result
+      self_refine_end: evaluation_agent/self_refine_end
 
   - id: keyword_extractor_agent
     operator:
@@ -45,28 +45,40 @@ nodes:
       outputs:
         - writer_report
       env:
+        IS_DATAFLOW_END: false
+
+  - id: feedback_agent
+    operator:
+      python: scripts/feedback_agent.py
+      inputs:
+        search_task: terminal-input/data
+        writer_report: report_writer_agent/writer_report
+        refinement_report: evaluation_agent/evaluation_result
+        paper_analyze_result: paper_analyze_agent/paper_analyze_result
+      outputs:
+        - suggestion
+      env:
+        IS_DATAFLOW_END: false
+  - id: refinement_agent
+    operator:
+      python: scripts/refinement_agent.py
+      inputs:
+        suggestion: feedback_agent/suggestion
+        writer_report: feedback_agent/suggestion
+        search_task: terminal-input/data
+        paper_analyze_result: paper_analyze_agent/paper_analyze_result
+      outputs:
+        - refinement_result
+      env:
+        IS_DATAFLOW_END: false
+  - id: evaluation_agent
+    operator:
+      python: scripts/evaluation_agent.py
+      inputs:
+        search_task: terminal-input/data
+        refinement_report: refinement_agent/refinement_result
+      outputs:
+        - evaluation_result
+        - self_refine_end
+      env:
         IS_DATAFLOW_END: true
-#  - id: feedback_agent
-#    operator:
-#      python: scripts/feedback_agent.py
-#      inputs:
-#        writer_report: report_writer_agent/writer_report
-#        evaluation_result: evaluation_agent/evaluation_result
-#      outputs:
-#        - feedback_result
-#  - id: refinement_agent
-#    operator:
-#      python: scripts/refinement_agent.py
-#      inputs:
-#        feedback_result: feedback_agent/feedback_result
-#      outputs:
-#        - refinement_result
-#  - id: evaluation_agent
-#    operator:
-#      python: scripts/evaluation_agent.py
-#      inputs:
-#        refinement_result: refinement_agent/refinement_result
-#      outputs:
-#        - evaluation_result
-#      env:
-#        IS_DATAFLOW_END: true

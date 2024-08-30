@@ -15,6 +15,7 @@ class Operator:
         self.suggestion = None
         self.writer_report = None
         self.search_task = None
+        self.paper_analyze_result = None
     def on_event(
             self,
             dora_event,
@@ -24,12 +25,14 @@ class Operator:
             if dora_event['id'] == 'search_task': self.search_task = dora_event["value"][0].as_py()
             if dora_event['id'] == 'writer_report': self.writer_report = load_node_result(dora_event["value"][0].as_py())
             if dora_event['id'] == 'suggestion': self.suggestion = load_node_result(dora_event["value"][0].as_py())
+            if dora_event['id'] == 'paper_analyze_result': self.paper_analyze_result = load_node_result(dora_event["value"][0].as_py())
 
             if self.suggestion is not None and self.writer_report is not None and self.search_task is not None:
                 yaml_file_path = get_relative_path(current_file=__file__, sibling_directory_name='configs',
                                                    target_file_name='refinement_agent.yml')
                 inputs = load_agent_config(yaml_file_path)
-                inputs['input_fields'] = {'search_task_suggestion':self.suggestion,'search_task':self.search_task,'task_result':self.writer_report}
+                inputs['input_fields'] = {'search_task_suggestion':self.suggestion,'search_task':self.search_task,'task_result':self.writer_report,
+                                          'rag_data':self.paper_analyze_result}
                 agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
                 print('inputs: ',inputs)
                 send_output("refinement_result", pa.array([create_agent_output(step_name='refinement_result', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])

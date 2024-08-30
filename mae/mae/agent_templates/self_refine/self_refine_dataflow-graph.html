@@ -8,20 +8,24 @@
 <body>
     <div class="mermaid">
         flowchart TB
+  terminal-input
   writer_agent/op[writer_agent]
   feedback_agent/op[feedback_agent]
   refinement_agent/op[refinement_agent]
   evaluation_agent/op[evaluation_agent]
-subgraph ___dora___ [dora]
-  subgraph ___timer_timer___ [timer]
-    dora/timer/secs/1[\secs/1/]
-  end
-end
-  dora/timer/secs/1 -- direction --> writer_agent/op
-  evaluation_agent/op -- evaluation_result --> feedback_agent/op
-  writer_agent/op -- writer_result --> feedback_agent/op
-  feedback_agent/op -- feedback_result --> refinement_agent/op
-  refinement_agent/op -- refinement_result --> evaluation_agent/op
+  refinement_agent/op -- refinement_result --> terminal-input
+  evaluation_agent/op -- self_refine_end --> terminal-input
+  feedback_agent/op -- suggestion --> terminal-input
+  writer_agent/op -- writer_report --> terminal-input
+  terminal-input -- data as task --> writer_agent/op
+  evaluation_agent/op -- evaluation_result as refinement_report --> feedback_agent/op
+  terminal-input -- data as search_task --> feedback_agent/op
+  writer_agent/op -- writer_report --> feedback_agent/op
+  terminal-input -- data as search_task --> refinement_agent/op
+  feedback_agent/op -- suggestion --> refinement_agent/op
+  feedback_agent/op -- suggestion as writer_report --> refinement_agent/op
+  refinement_agent/op -- refinement_result as refinement_report --> evaluation_agent/op
+  terminal-input -- data as search_task --> evaluation_agent/op
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>

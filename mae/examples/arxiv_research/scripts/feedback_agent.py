@@ -15,6 +15,7 @@ class Operator:
         self.search_task = None
         self.writer_report = None
         self.refinement_report = None
+        self.paper_analyze_result = None
     def on_event(
             self,
             dora_event,
@@ -25,13 +26,10 @@ class Operator:
                                                target_file_name='feedback_agent.yml')
             inputs = load_agent_config(yaml_file_path)
 
-            if dora_event['id'] == 'search_task' :
-                self.search_task = dora_event["value"][0].as_py()
-            if dora_event['id'] == 'writer_report':
-                self.writer_report = load_node_result(dora_event["value"][0].as_py())
-
-            if dora_event['id'] == 'refinement_report':
-                self.refinement_report = load_node_result(dora_event["value"][0].as_py())
+            if dora_event['id'] == 'search_task' : self.search_task = dora_event["value"][0].as_py()
+            if dora_event['id'] == 'writer_report': self.writer_report = load_node_result(dora_event["value"][0].as_py())
+            if dora_event['id'] == 'refinement_report': self.refinement_report = load_node_result(dora_event["value"][0].as_py())
+            if dora_event['id'] == 'paper_analyze_result': self.paper_analyze_result = load_node_result(dora_event["value"][0].as_py())
 
             if (self.writer_report is not None and self.search_task is not None) or (self.refinement_report is not None and self.search_task is not None):
                 inputs['context'] = self.writer_report if self.writer_report is not None else self.refinement_report

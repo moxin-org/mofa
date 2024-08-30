@@ -24,19 +24,20 @@ def send_task_and_receive_data(node):
         event = node.next(timeout=200)
         if event is not None:
             while True:
-                node_results = json.loads(event['value'].to_pylist()[0])
-                results = node_results.get('node_results')
-                # print(f"------------------{node_results.get('step_name')}-------------------", flush=True)
-                # print(f"{node_results.get('step_name')}: {results}", flush=True)
-                is_dataflow_end = node_results.get('dataflow_status', False)
-                if is_dataflow_end == False:
-                    click.echo(f"{node_results.get('step_name','')}: {results} ",)
-                else:
-                    click.echo(f"{node_results.get('step_name','')}: {results} :dataflow_status",)
-                sys.stdout.flush()
-                if is_dataflow_end:
-                    break
-                event = node.next(timeout=200)
+                if event is not None:
+                    node_results = json.loads(event['value'].to_pylist()[0])
+                    results = node_results.get('node_results')
+                    # print(f"------------------{node_results.get('step_name')}-------------------", flush=True)
+                    # print(f"{node_results.get('step_name')}: {results}", flush=True)
+                    is_dataflow_end = node_results.get('dataflow_status', False)
+                    if is_dataflow_end == False:
+                        click.echo(f"{node_results.get('step_name','')}: {results} ",)
+                    else:
+                        click.echo(f"{node_results.get('step_name','')}: {results} :dataflow_status",)
+                    sys.stdout.flush()
+                    if is_dataflow_end:
+                        break
+                    event = node.next(timeout=200)
 def main():
 
     # Handle dynamic nodes, ask for the name of the node in the dataflow, and the same values as the ENV variables.

@@ -8,7 +8,7 @@ agents:
       #### Results:
         Return the result of calling the arxiv_search_and_download tool to me.
       The parameters of the func are： 
-        max_results = 2
+        max_results = 1
         days_back = 365*3
     verbose: true
     allow_delegation: false
