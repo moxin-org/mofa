@@ -27,7 +27,7 @@ def create_task(description: str, agent: Agent, expected_output: str=None,max_in
     return task
 
 
-def setup_crew(agents: List[Agent], tasks: List[Task], verbose: int=2,process:str=None,memory:bool=False,manager_agent:str=None) -> Crew:
+def setup_crew(agents: List[Agent], tasks: List[Task], verbose: bool=True,process:str=None,memory:bool=False,manager_agent:str=None) -> Crew:
     if process is None:
         process = Process.sequential
     if process == 'hierarchical':
