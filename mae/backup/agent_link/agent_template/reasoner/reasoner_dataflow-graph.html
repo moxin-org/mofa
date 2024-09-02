@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TB
+  reasoner_task_input
+  reasoner_agent/op[reasoner_agent]
+  reasoner_output/op[reasoner_output]
+subgraph ___dora___ [dora]
+  subgraph ___timer_timer___ [timer]
+    dora/timer/secs/1[\secs/1/]
+  end
+end
+  dora/timer/secs/1 -- direction --> reasoner_task_input
+  reasoner_task_input -- reasoner_task --> reasoner_agent/op
+  reasoner_agent/op -- reasoner_result --> reasoner_output/op
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'base' });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+2024-08-01T00:54:07.657850Z  INFO dora: Starting in local mode
+2024-08-01T00:54:07.660778Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-08-01T00:54:52.908734Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b6e-484d-72ce-8c79-8075a9c9dfbd`
+2024-08-01T00:55:05.656808Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/keyword_extractor finished successfully
+2024-08-01T00:56:38.683358Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/paper_downloader_agent finished successfully
+2024-08-01T00:58:16.637550Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/report_writer_agent finished successfully
+2024-08-01T00:58:17.986890Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/paper_analyze_agent finished successfully
+2024-08-01T00:58:28.041801Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/evaluation_agent finished successfully
+2024-08-01T00:58:28.372229Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/feedback_agent finished successfully
+2024-08-01T00:58:28.380108Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b6e-484d-72ce-8c79-8075a9c9dfbd/refinement_agent finished successfully
+2024-08-01T00:58:28.380495Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b6e-484d-72ce-8c79-8075a9c9dfbd` finished on machine ``
+2024-08-01T01:11:09.730126Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b7d-89c2-7295-ae63-b954f0c67f1b`
+2024-08-01T01:11:20.535360Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/keyword_extractor finished successfully
+2024-08-01T01:12:41.205413Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/paper_downloader_agent finished successfully
+2024-08-01T01:16:30.917774Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/paper_analyze_agent finished successfully
+2024-08-01T01:16:31.250634Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/report_writer_agent finished successfully
+2024-08-01T01:16:47.592289Z  WARN run_inner{self.machine_id=}: dora_daemon: failed to report drop token `DropToken(01910b82-876e-755c-b45f-f7b73715e4bb)` to owner `report_writer_agent`
+
+Caused by:
+    no subscribe channel for node `report_writer_agent`
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/lib.rs:1607:37
+2024-08-01T01:16:49.072896Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/evaluation_agent finished successfully
+2024-08-01T01:16:49.094748Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/feedback_agent finished successfully
+2024-08-01T01:16:49.105771Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b7d-89c2-7295-ae63-b954f0c67f1b/refinement_agent finished successfully
+2024-08-01T01:16:49.105860Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b7d-89c2-7295-ae63-b954f0c67f1b` finished on machine ``
+2024-08-01T01:33:57.630985Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b92-3ff9-7e15-8d65-a95b05e4b1e1`
+2024-08-01T01:34:52.186537Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b92-3ff9-7e15-8d65-a95b05e4b1e1/more_question_agent finished successfully
+2024-08-01T01:34:52.186635Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b92-3ff9-7e15-8d65-a95b05e4b1e1` finished on machine ``
+2024-08-01T01:35:17.920334Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b93-b193-7de3-b241-9d9c0c473c47`
+2024-08-01T01:35:31.977787Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b93-b193-7de3-b241-9d9c0c473c47/more_question_agent finished successfully
+2024-08-01T01:35:31.977878Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b93-b193-7de3-b241-9d9c0c473c47` finished on machine ``
+2024-08-01T01:41:54.210166Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b99-bd20-7651-9c20-944ff590f8e8`
+2024-08-01T01:42:11.825131Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b99-bd20-7651-9c20-944ff590f8e8/more_question_agent finished successfully
+2024-08-01T01:42:11.825252Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b99-bd20-7651-9c20-944ff590f8e8` finished on machine ``
+2024-08-01T01:43:38.819573Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b9b-5610-79b6-941d-d08d8051c43c`
+2024-08-01T01:44:03.836735Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b9b-5610-79b6-941d-d08d8051c43c/web_search_agent finished successfully
+2024-08-01T01:44:07.307934Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b9b-5610-79b6-941d-d08d8051c43c/more_question_agent finished successfully
+2024-08-01T01:44:07.308034Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b9b-5610-79b6-941d-d08d8051c43c` finished on machine ``
+2024-08-01T01:44:18.759433Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910b9b-f241-7867-ac03-f501aec01668`
+2024-08-01T01:44:30.012577Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b9b-f241-7867-ac03-f501aec01668/web_search_agent finished successfully
+2024-08-01T01:44:33.026451Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910b9b-f241-7867-ac03-f501aec01668/more_question_agent finished successfully
+2024-08-01T01:44:33.026523Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910b9b-f241-7867-ac03-f501aec01668` finished on machine ``
+2024-08-01T02:33:08.239328Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `01910bc8-9e40-71eb-89e8-acf398afa0b1`
+2024-08-01T02:33:23.767949Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910bc8-9e40-71eb-89e8-acf398afa0b1/web_search_agent finished successfully
+2024-08-01T02:33:26.178386Z  INFO run_inner{self.machine_id=}: dora_daemon: node 01910bc8-9e40-71eb-89e8-acf398afa0b1/more_question_agent finished successfully
+2024-08-01T02:33:26.178445Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910bc8-9e40-71eb-89e8-acf398afa0b1` finished on machine ``
+2024-08-01T09:30:13.132764Z  WARN dora_daemon: more_question_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:30:13.132854Z  WARN dora_daemon: reasoner_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:30:13.132872Z  WARN dora_daemon: reasoner_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:30:13.132890Z  WARN dora_daemon: web_search_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:30:13.132913Z  WARN dora_daemon: web_search_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:30:13.136661Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:30:13.136762Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:30:13.172829Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:30:13.173030Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:30:13.173869Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:30:13.182948Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910d44-d748-7342-a79c-c399681ceaeb` finished on machine ``
+2024-08-01T09:30:13.183363Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:30:13.183385Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:30:13.183402Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:30:13.183408Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:30:13.183406Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:30:13.183403Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.639987Z  WARN dora_daemon: more_question_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:46:46.640054Z  WARN dora_daemon: reasoner_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:46:46.640075Z  WARN dora_daemon: reasoner_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:46:46.640091Z  WARN dora_daemon: web_search_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:46:46.640101Z  WARN dora_daemon: web_search_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:46:46.642202Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:46:46.642281Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:46:46.654006Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:46:46.654061Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:46:46.654216Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:46:46.666112Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910d4e-2d4c-732e-b966-daeff56f1f3a` finished on machine ``
+2024-08-01T09:46:46.666171Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.666201Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.666213Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.666185Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.666171Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:46:46.666178Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.633775Z  WARN dora_daemon: more_question_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:51:04.633858Z  WARN dora_daemon: reasoner_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:51:04.633894Z  WARN dora_daemon: reasoner_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:51:04.633910Z  WARN dora_daemon: web_search_agent was killed due to not stopping within the 2s grace period
+2024-08-01T09:51:04.633920Z  WARN dora_daemon: web_search_output was killed due to not stopping within the 2s grace period
+2024-08-01T09:51:04.637199Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:51:04.637331Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:51:04.649280Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:51:04.649295Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:51:04.649588Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-01T09:51:04.659426Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `01910d55-d2b2-759b-b59d-a766fbf8aeb4` finished on machine ``
+2024-08-01T09:51:04.659500Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.659513Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.659518Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.659523Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.659505Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-01T09:51:04.659536Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T01:56:00.060564Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019110cd-00be-764b-8b6c-c34412417101`
+2024-08-02T01:56:02.360021Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019110cd-00be-764b-8b6c-c34412417101` finished on machine ``
+2024-08-02T02:42:42.008986Z  WARN dora_daemon: more_question_agent was killed due to not stopping within the 2s grace period
+2024-08-02T02:42:42.009107Z  WARN dora_daemon: reasoner_agent was killed due to not stopping within the 2s grace period
+2024-08-02T02:42:42.009132Z  WARN dora_daemon: reasoner_output was killed due to not stopping within the 2s grace period
+2024-08-02T02:42:42.009150Z  WARN dora_daemon: web_search_agent was killed due to not stopping within the 2s grace period
+2024-08-02T02:42:42.009170Z  WARN dora_daemon: web_search_output was killed due to not stopping within the 2s grace period
+2024-08-02T02:42:42.017301Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-02T02:42:42.017633Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-02T02:42:42.046800Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-02T02:42:42.048575Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-02T02:42:42.051171Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2024-08-02T02:42:42.059148Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019110c4-8a32-7478-a77a-2bfe7f2c563d` finished on machine ``
+2024-08-02T02:42:42.059230Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:42:42.059236Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:42:42.059252Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:42:42.059254Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:42:42.059242Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818031Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-08-02T02:43:43.818251Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818264Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818274Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818282Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818270Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818304Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818332Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818318Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818286Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818369Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818251Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
+2024-08-02T02:43:43.818368Z  WARN dora_daemon::node_communication: failed to receive reply from daemon
+
+Location:
+    /Users/chenzi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dora-daemon-0.3.5/src/node_communication/mod.rs:533:30
