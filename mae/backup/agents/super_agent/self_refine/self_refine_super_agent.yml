@@ -1,0 +1,30 @@
+nodes:
+  - id: writer_agent
+    operator:
+      python: writer_agent.py
+      inputs:
+        direction: dora/timer/secs/1
+      outputs:
+        - writer_result
+  - id: feedback_agent
+    operator:
+      python: feedback_agent.py
+      inputs:
+        writer_result: writer_agent/writer_result
+        evaluation_result: evaluation_agent/evaluation_result
+      outputs:
+        - feedback_result
+  - id: refinement_agent
+    operator:
+      python: refinement_agent.py
+      inputs:
+        feedback_result: feedback_agent/feedback_result
+      outputs:
+        - refinement_result
+  - id: evaluation_agent
+    operator:
+      python: evaluation_agent.py
+      inputs:
+        refinement_result: refinement_agent/refinement_result
+      outputs:
+        - evaluation_result

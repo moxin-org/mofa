@@ -1,0 +1,20 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e ../../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+
+  - id: reasoner
+    build: pip install -e ../../../agent-hub/reasoner
+    path: reasoner
+    inputs:
+      reasoner_task: terminal-input/data
+    outputs:
+      - reasoner_result
+
+  - id: terminal-print
+    build: pip install -e ../../../node-hub/terminal-print
+    path: dynamic
+    inputs:
+      reasoner_result: reasoner/reasoner_result

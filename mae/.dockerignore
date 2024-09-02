@@ -1,0 +1,10 @@
+.idea
+.DS_Store
+.git
+.cache
+bak
+tests
+docker-compose.dev.yml
+docker-compose.yml
+.dockerignore
+Dockerfile
