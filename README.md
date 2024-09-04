@@ -1,2 +1,3 @@
-# MAE---Moxin-App-Engine
-MAE - Moxin App Engine that powers agentic applications
+# MoFA
+
+MoFA is a low-code AI application development platform based on data flows
