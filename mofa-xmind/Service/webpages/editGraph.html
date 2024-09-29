@@ -1,0 +1,833 @@
+<!--
+Copyright (C) 2024 The XLang Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xMind AgentFlow - Graph Editor</title>
+    <style>
+        /* Remove margins and paddings from html and body */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Make the SVG container fill the viewport */
+        #graph {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Basic styling for nodes and links */
+        .node rect {
+            fill: #fff;
+            stroke-width: 2px;
+            cursor: pointer;
+        }
+
+        .title-bar {
+            stroke: #000;
+            stroke-width: 1px;
+            cursor: pointer;
+        }
+
+        .pin {
+            fill: #000;
+            cursor: pointer;
+        }
+
+        .link {
+            stroke: #0000ff;
+            stroke-width: 2px;
+            fill: none;
+            cursor: pointer;
+        }
+
+        .temp-link {
+            stroke: #ff0000;
+            stroke-width: 2px;
+            fill: none;
+            pointer-events: none;
+        }
+
+        .label {
+            font: 12px sans-serif;
+            pointer-events: none;
+        }
+
+        /* Tooltip styling */
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 5px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Delete icon styling */
+        .delete-icon {
+            cursor: pointer;
+            pointer-events: all;
+        }
+
+            .delete-icon circle {
+                fill: red;
+            }
+
+            .delete-icon text {
+                fill: white;
+                font-size: 12px;
+                font-weight: bold;
+                text-anchor: middle;
+                alignment-baseline: middle;
+            }
+
+        /* Bounding box styling */
+        .bounding-box {
+            fill: none;
+            stroke: #000;
+            stroke-dasharray: 5,5;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the SVG -->
+    <div id="graph"></div>
+    <!-- Tooltip div -->
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- Include D3.js from CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // Construct the base URL dynamically
+        const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
+
+        // Fetch the JSON data from the specified URL
+        fetch(`${baseUrl}/api/queryGraph`)
+            .then(response => response.json())
+            .then(data => {
+                drawGraph(data);
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+
+        function drawGraph(data) {
+            const nodesData = data.Nodes;
+            const graphsData = data.Graphs;
+
+            // Map node types to labels and colors
+            const typeInfo = {
+                0: { label: 'callable', borderColor: '#ff0000', titleColor: '#ffcccc' },
+                1: { label: 'function', borderColor: '#00ff00', titleColor: '#ccffcc' },
+                2: { label: 'action', borderColor: '#0000ff', titleColor: '#ccccff' },
+                3: { label: 'agent', borderColor: '#ffff00', titleColor: '#ffffcc' },
+                4: { label: 'compositeAgent', borderColor: '#00ffff', titleColor: '#ccffff' },
+            };
+
+            // Get the dimensions of the viewport
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Create an SVG container with zoom and pan functionality
+            const svg = d3.select('#graph')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', [0, 0, width, height])
+                .call(d3.zoom().scaleExtent([0.1, 10]).on('zoom', (event) => {
+                    svgGroup.attr('transform', event.transform);
+                }))
+                .on('dblclick.zoom', null); // Disable double-click zoom
+
+            const svgGroup = svg.append('g');
+
+            // Tooltip div
+            const tooltip = d3.select('#tooltip');
+
+            // Map node IDs to node data
+            const nodeIdMap = {};
+            nodesData.forEach((nodeData) => {
+                nodeIdMap[String(nodeData.id)] = nodeData; // Ensure IDs are strings
+            });
+
+            // Map node IDs to visual node objects
+            const nodeObjectMap = {};
+
+            // Arrange nodes in a grid
+            const nodes = nodesData.map((nodeData, index) => {
+                // Ensure inputs and outputs are arrays
+                const inputs = Array.isArray(nodeData.inputs) ? nodeData.inputs : [];
+                const outputs = Array.isArray(nodeData.outputs) ? nodeData.outputs : [];
+
+                const node = {
+                    id: String(nodeData.id), // Ensure IDs are strings
+                    name: nodeData.name,
+                    instanceName: nodeData.instanceName,
+                    inputs: inputs,
+                    outputs: outputs,
+                    type: nodeData.type,
+                    typeLabel: typeInfo[nodeData.type]?.label || 'unknown',
+                    typeBorderColor: typeInfo[nodeData.type]?.borderColor || '#000',
+                    typeTitleColor: typeInfo[nodeData.type]?.titleColor || '#e0e0e0',
+                    x: 100 + (index % 3) * 250,
+                    y: 100 + Math.floor(index / 3) * 200,
+                    width: 200,
+                    height: 40 + Math.max(inputs.length, outputs.length, 1) * 20,
+                    inputPins: [],
+                    outputPins: [],
+                    graphIds: new Set(), // Set of graph IDs this node belongs to
+                };
+                nodeObjectMap[String(node.id)] = node; // Map node IDs to visual node objects
+                return node;
+            });
+
+            // Draw the nodes
+            const nodeGroup = svgGroup.selectAll('.node')
+                .data(nodes)
+                .enter()
+                .append('g')
+                .attr('class', 'node')
+                .attr('transform', d => `translate(${d.x},${d.y})`)
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended))
+                .on('mouseover', nodeMouseOver)
+                .on('mousemove', nodeMouseMove)
+                .on('mouseout', nodeMouseOut);
+
+            // Draw the node rectangle
+            nodeGroup.append('rect')
+                .attr('width', d => d.width)
+                .attr('height', d => d.height)
+                .attr('fill', '#fff')
+                .attr('stroke', d => d.typeBorderColor)
+                .attr('stroke-width', 2);
+
+            // Draw the title bar
+            nodeGroup.append('rect')
+                .attr('class', 'title-bar')
+                .attr('width', d => d.width)
+                .attr('height', 20)
+                .attr('fill', d => d.typeTitleColor)
+                .attr('stroke', '#000');
+
+            // Add the node name in the title bar
+            nodeGroup.append('text')
+                .attr('class', 'label')
+                .attr('x', 5)
+                .attr('y', 15)
+                .text(d => d.name);
+
+            // Add the instanceName, centered vertically and horizontally
+            nodeGroup.append('text')
+                .attr('class', 'label')
+                .attr('x', d => d.width / 2)
+                .attr('y', d => d.height / 2)
+                .attr('text-anchor', 'middle')
+                .attr('alignment-baseline', 'middle')
+                .text(d => d.instanceName);
+
+            // Variables for connecting pins
+            let isConnecting = false;
+            let tempLink = null;
+            let startPin = null;
+
+            // Draw inputs and outputs with event listeners
+            nodeGroup.each(function (node) {
+                const g = d3.select(this);
+                const pinSpacing = 20;
+                let pinY = 40;
+
+                // Draw inputs on the left
+                if (node.inputs.length > 0) {
+                    node.inputs.forEach((input, index) => {
+                        const pinX = 0;
+                        const pinCenterY = pinY - 5;
+
+                        // Draw the pin circle
+                        const pin = g.append('circle')
+                            .attr('class', 'pin')
+                            .attr('cx', pinX)
+                            .attr('cy', pinCenterY)
+                            .attr('r', 5)
+                            .on('click', (event) => pinClick(event, node, index, 'input'))
+                            .on('mouseover', (event) => pinMouseOver(event, node, index, 'input'))
+                            .on('mouseout', pinMouseOut);
+
+                        // Store the pin position (relative and absolute)
+                        node.inputPins.push({
+                            relativeX: pinX,
+                            relativeY: pinCenterY,
+                            x: node.x + pinX,
+                            y: node.y + pinCenterY,
+                            element: pin,
+                            node: node,
+                            index: index,
+                            type: 'input'
+                        });
+
+                        // Add the pin label
+                        g.append('text')
+                            .attr('class', 'label')
+                            .attr('x', pinX + 10)
+                            .attr('y', pinY)
+                            .text(input.name);
+
+                        pinY += pinSpacing;
+                    });
+                }
+
+                // Reset pinY for outputs
+                pinY = 40;
+
+                // Draw outputs on the right
+                if (node.outputs.length > 0) {
+                    node.outputs.forEach((output, index) => {
+                        const pinX = node.width;
+                        const pinCenterY = pinY - 5;
+
+                        // Draw the pin circle
+                        const pin = g.append('circle')
+                            .attr('class', 'pin')
+                            .attr('cx', pinX)
+                            .attr('cy', pinCenterY)
+                            .attr('r', 5)
+                            .on('click', (event) => pinClick(event, node, index, 'output'))
+                            .on('mouseover', (event) => pinMouseOver(event, node, index, 'output'))
+                            .on('mouseout', pinMouseOut);
+
+                        // Store the pin position (relative and absolute)
+                        node.outputPins.push({
+                            relativeX: pinX,
+                            relativeY: pinCenterY,
+                            x: node.x + pinX,
+                            y: node.y + pinCenterY,
+                            element: pin,
+                            node: node,
+                            index: index,
+                            type: 'output'
+                        });
+
+                        // Add the pin label
+                        g.append('text')
+                            .attr('class', 'label')
+                            .attr('x', pinX - 10)
+                            .attr('y', pinY)
+                            .attr('text-anchor', 'end')
+                            .text(output.name);
+
+                        pinY += pinSpacing;
+                    });
+                }
+            });
+
+            // Update the node rectangles with the new heights
+            nodeGroup.select('rect')
+                .attr('height', d => d.height);
+
+            // Group nodes and links by graph
+            const graphs = {};
+
+            // Prepare the links data and associate nodes with graphs
+            let links = [];
+            for (let graphId in graphsData) {
+                const connections = graphsData[graphId];
+                const graphNodes = new Set();
+                const graphLinks = [];
+
+                connections.forEach(connection => {
+                    const fromNode = nodeObjectMap[String(connection.fromCallableId)];
+                    const toNode = nodeObjectMap[String(connection.toCallableId)];
+
+                    // Check if fromNode and toNode exist
+                    if (fromNode && toNode) {
+                        // Associate nodes with this graph
+                        fromNode.graphIds.add(graphId);
+                        toNode.graphIds.add(graphId);
+
+                        graphNodes.add(fromNode);
+                        graphNodes.add(toNode);
+
+                        const link = {
+                            source: fromNode,
+                            target: toNode,
+                            fromPinIndex: connection.fromPinIndex,
+                            toPinIndex: connection.toPinIndex,
+                            graphId: graphId // Keep track of graph ID
+                        };
+                        links.push(link);
+                        graphLinks.push(link);
+                    } else {
+                        console.warn(`Connection skipped due to missing node(s): from ${connection.fromCallableId} to ${connection.toCallableId}`);
+                    }
+                });
+
+                // Store the graph data
+                graphs[graphId] = {
+                    id: graphId,
+                    nodes: Array.from(graphNodes),
+                    links: graphLinks,
+                    boundingRect: null,
+                    group: null,
+                    linkGroup: null,
+                };
+            }
+
+            // Draw each graph
+            for (let graphId in graphs) {
+                const graph = graphs[graphId];
+
+                // Create a group for the graph
+                const graphGroup = svgGroup.append('g')
+                    .attr('class', 'graph-group')
+                    .attr('data-graph-id', graphId);
+
+                graph.group = graphGroup;
+
+                // Draw the bounding rectangle
+                graph.boundingRect = graphGroup.append('rect')
+                    .attr('class', 'bounding-box');
+
+                // Draw the links group
+                graph.linkGroup = graphGroup.append('g')
+                    .attr('class', 'links');
+            }
+
+            // Draw the links for each graph
+            updateAllLinks();
+
+            // Update the bounding boxes for each graph
+            updateAllBoundingRects();
+
+            // Handle click on empty space to cancel connection
+            svg.on('click', function (event) {
+                if (isConnecting) {
+                    // Check if click target is not a pin
+                    const clickedElement = event.target;
+                    if (!clickedElement.classList.contains('pin')) {
+                        cancelConnection();
+                    }
+                }
+            });
+
+            // Variables for the delete icon
+            let deleteIcon = null;
+            let deleteIconVisible = false;
+
+            // Functions for connecting pins
+            function pinClick(event, node, index, pinType) {
+                event.stopPropagation(); // Prevent svg click event from firing
+
+                if (event.shiftKey) { // Check if Shift key is pressed
+                    if (!isConnecting && pinType === 'output') {
+                        // Start a new connection
+                        isConnecting = true;
+                        startPin = { node, index, pinType };
+                        const pinPos = getPinAbsolutePosition(node, pinType, index);
+
+                        // Create a temporary link
+                        tempLink = svgGroup.append('path')
+                            .attr('class', 'temp-link')
+                            .attr('d', diagonal(pinPos, pinPos));
+
+                        svg.on('mousemove', mouseMove);
+                    } else if (isConnecting && pinType === 'input') {
+                        // Complete the connection
+                        const endPin = { node, index, pinType };
+
+                        // Add the new link
+                        const newLink = {
+                            source: startPin.node,
+                            target: endPin.node,
+                            fromPinIndex: startPin.index,
+                            toPinIndex: endPin.index,
+                            graphId: '1' // Assuming all connections belong to graph "1"
+                        };
+                        links.push(newLink);
+
+                        // Update the graphsData object
+                        if (!data.Graphs['1']) {
+                            data.Graphs['1'] = [];
+                        }
+                        data.Graphs['1'].push({
+                            fromCallableId: startPin.node.id,
+                            toCallableId: endPin.node.id,
+                            fromPinIndex: startPin.index,
+                            toPinIndex: endPin.index,
+                        });
+
+                        // Update node graph associations
+                        startPin.node.graphIds.add('1');
+                        endPin.node.graphIds.add('1');
+
+                        // Update graphs object
+                        if (!graphs['1']) {
+                            // Create a new graph entry if it doesn't exist
+                            graphs['1'] = {
+                                id: '1',
+                                nodes: [],
+                                links: [],
+                                boundingRect: null,
+                                group: null,
+                                linkGroup: null,
+                            };
+                            // Create the group elements for the new graph
+                            const graphGroup = svgGroup.append('g')
+                                .attr('class', 'graph-group')
+                                .attr('data-graph-id', '1');
+
+                            graphs['1'].group = graphGroup;
+
+                            // Draw the bounding rectangle
+                            graphs['1'].boundingRect = graphGroup.append('rect')
+                                .attr('class', 'bounding-box');
+
+                            // Draw the links group
+                            graphs['1'].linkGroup = graphGroup.append('g')
+                                .attr('class', 'links');
+                        }
+
+                        // Add the nodes to the graph's nodes array if they are not already present
+                        if (!graphs['1'].nodes.includes(startPin.node)) {
+                            graphs['1'].nodes.push(startPin.node);
+                        }
+                        if (!graphs['1'].nodes.includes(endPin.node)) {
+                            graphs['1'].nodes.push(endPin.node);
+                        }
+
+                        // Add the link to the graph's links array
+                        graphs['1'].links.push(newLink);
+
+                        // Update the links and bounding boxes
+                        updateAllLinks();
+                        updateAllBoundingRects();
+
+                        isConnecting = false;
+                        tempLink.remove();
+                        startPin = null;
+                        svg.on('mousemove', null);
+
+                        // For debugging: log the updated data
+                        console.log('Updated data:', data);
+                    }
+                } else {
+                    // Handle other click events if necessary
+                }
+            }
+
+            function mouseMove(event) {
+                if (!isConnecting) return;
+                // Adjust mouse coordinates for zoom/pan
+                const transform = d3.zoomTransform(svg.node());
+                const [mouseX, mouseY] = d3.pointer(event, svg.node());
+                const [x, y] = transform.invert([mouseX, mouseY]);
+
+                const startPos = getPinAbsolutePosition(startPin.node, startPin.pinType, startPin.index);
+                tempLink.attr('d', diagonal(startPos, { x, y }));
+            }
+
+            function cancelConnection() {
+                if (isConnecting) {
+                    tempLink.remove();
+                    isConnecting = false;
+                    startPin = null;
+                    svg.on('mousemove', null);
+                }
+            }
+
+            function pinMouseOver(event, node, index, pinType) {
+                if (isConnecting && pinType === 'input') {
+                    d3.select(event.target).attr('fill', 'red');
+                }
+            }
+
+            function pinMouseOut(event) {
+                if (isConnecting) {
+                    d3.select(event.target).attr('fill', '#000');
+                }
+            }
+
+            // Drag functions
+            function dragstarted(event, d) {
+                d3.select(this).raise().classed('active', true);
+            }
+
+            function dragged(event, d) {
+                d.x += event.dx;
+                d.y += event.dy;
+                d3.select(this).attr('transform', `translate(${d.x},${d.y})`);
+                updateNodePins(d);
+                updateAllLinks();
+                updateAllBoundingRects();
+            }
+
+            function dragended(event, d) {
+                d3.select(this).classed('active', false);
+            }
+
+            // Update the positions of the pins when a node is moved
+            function updateNodePins(node) {
+                node.inputPins.forEach((pin) => {
+                    pin.x = node.x + pin.relativeX;
+                    pin.y = node.y + pin.relativeY;
+                });
+                node.outputPins.forEach((pin) => {
+                    pin.x = node.x + pin.relativeX;
+                    pin.y = node.y + pin.relativeY;
+                });
+            }
+
+            // Helper function to get the absolute position of a pin
+            function getPinAbsolutePosition(node, pinType, pinIndex) {
+                const pinArray = pinType === 'input' ? node.inputPins : node.outputPins;
+                if (pinArray.length === 0) {
+                    // Return default position if no pins
+                    return {
+                        x: node.x + (pinType === 'input' ? 0 : node.width),
+                        y: node.y + 30
+                    };
+                }
+                const pin = pinArray[pinIndex] || pinArray[0];
+                return {
+                    x: pin.x,
+                    y: pin.y
+                };
+            }
+
+            // Function to create a path between two points
+            function diagonal(source, target) {
+                const path = `M${source.x},${source.y} C${(source.x + target.x) / 2},${source.y} ${(source.x + target.x) / 2},${target.y} ${target.x},${target.y}`;
+                return path;
+            }
+
+            // Tooltip functions
+            function nodeMouseOver(event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style('opacity', 0.9);
+                tooltip.html(`Name: ${d.name}<br>Type: ${d.typeLabel}<br>Instance: ${d.instanceName}`)
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 28) + 'px');
+            }
+
+            function nodeMouseMove(event, d) {
+                tooltip.style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 28) + 'px');
+            }
+
+            function nodeMouseOut(event, d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style('opacity', 0);
+            }
+
+            // Link hover functions for deleting connections
+            function linkMouseOver(event, d) {
+                deleteIconVisible = true;
+
+                // Create delete icon if it doesn't exist
+                if (!deleteIcon) {
+                    deleteIcon = svgGroup.append('g')
+                        .attr('class', 'delete-icon')
+                        .on('click', () => {
+                            deleteConnection(d);
+                            deleteIcon.remove();
+                            deleteIcon = null;
+                        })
+                        .on('mouseover', () => {
+                            deleteIconVisible = true;
+                        })
+                        .on('mouseout', () => {
+                            deleteIconVisible = false;
+                            setTimeout(() => {
+                                if (!deleteIconVisible && deleteIcon) {
+                                    deleteIcon.remove();
+                                    deleteIcon = null;
+                                }
+                            }, 100);
+                        });
+
+                    // Add a circle
+                    deleteIcon.append('circle')
+                        .attr('r', 10);
+
+                    // Add an 'X' text
+                    deleteIcon.append('text')
+                        .attr('text-anchor', 'middle')
+                        .attr('alignment-baseline', 'middle')
+                        .attr('dy', '0.35em') // Adjust vertical alignment
+                        .text('×');
+                }
+
+                // Offset the delete icon slightly from the mouse position (in SVG coordinates)
+                const [mouseX, mouseY] = d3.pointer(event, svg.node());
+                const transform = d3.zoomTransform(svg.node());
+                const [x, y] = transform.invert([mouseX, mouseY]);
+
+                const offsetX = 15; // Adjust this value to offset horizontally
+                const offsetY = 15; // Adjust this value to offset vertically
+
+                deleteIcon.attr('transform', `translate(${x + offsetX}, ${y + offsetY})`);
+            }
+
+            function linkMouseOut(event, d) {
+                deleteIconVisible = false;
+                setTimeout(() => {
+                    if (!deleteIconVisible && deleteIcon) {
+                        deleteIcon.remove();
+                        deleteIcon = null;
+                    }
+                }, 100);
+            }
+
+            function deleteConnection(linkData) {
+                // Remove from links array
+                links = links.filter(link => link !== linkData);
+
+                // Remove from graphsData
+                const graphId = linkData.graphId;
+                if (data.Graphs[graphId]) {
+                    data.Graphs[graphId] = data.Graphs[graphId].filter(connection => {
+                        return !(
+                            String(connection.fromCallableId) === linkData.source.id &&
+                            String(connection.toCallableId) === linkData.target.id &&
+                            connection.fromPinIndex === linkData.fromPinIndex &&
+                            connection.toPinIndex === linkData.toPinIndex
+                        );
+                    });
+                }
+
+                // Update node graph associations
+                updateNodeGraphsOnDeletion(linkData);
+
+                // Update the links and bounding boxes
+                updateAllLinks();
+                updateAllBoundingRects();
+
+                // For debugging: log the updated data
+                console.log('Connection deleted. Updated data:', data);
+            }
+
+            // Function to update links for all graphs
+            function updateAllLinks() {
+                for (let graphId in graphs) {
+                    const graph = graphs[graphId];
+
+                    // Update the links
+                    const linkElements = graph.linkGroup.selectAll('.link')
+                        .data(graph.links)
+                        .join('path')
+                        .attr('class', 'link')
+                        .attr('d', d => {
+                            const sourcePin = getPinAbsolutePosition(d.source, 'output', d.fromPinIndex);
+                            const targetPin = getPinAbsolutePosition(d.target, 'input', d.toPinIndex);
+                            return diagonal(sourcePin, targetPin);
+                        })
+                        .on('mouseover', linkMouseOver)
+                        .on('mouseout', linkMouseOut);
+                }
+            }
+
+            // Function to update bounding rectangles for all graphs
+            function updateAllBoundingRects() {
+                for (let graphId in graphs) {
+                    const graph = graphs[graphId];
+                    updateGraphBoundingRect(graph);
+                }
+            }
+
+            // Function to update the bounding rectangle of a graph
+            function updateGraphBoundingRect(graph) {
+                if (graph.nodes.length === 0) {
+                    // Remove the bounding rectangle if no nodes
+                    graph.boundingRect.attr('width', 0).attr('height', 0);
+                    return;
+                }
+
+                const xs = graph.nodes.map(node => node.x);
+                const ys = graph.nodes.map(node => node.y);
+                const ws = graph.nodes.map(node => node.width);
+                const hs = graph.nodes.map(node => node.height);
+
+                const minX = Math.min(...xs) - 20; // Add some padding
+                const minY = Math.min(...ys) - 20;
+                const maxX = Math.max(...xs.map((x, i) => x + ws[i])) + 20;
+                const maxY = Math.max(...ys.map((y, i) => y + hs[i])) + 20;
+
+                // Update the rectangle attributes
+                graph.boundingRect
+                    .attr('x', minX)
+                    .attr('y', minY)
+                    .attr('width', maxX - minX)
+                    .attr('height', maxY - minY);
+
+                // Move the bounding rectangle to the back
+                graph.boundingRect.lower();
+            }
+
+            // Update node graph associations when a connection is deleted
+            function updateNodeGraphsOnDeletion(linkData) {
+                const graphId = linkData.graphId;
+                const sourceNode = linkData.source;
+                const targetNode = linkData.target;
+
+                // Remove the graphId from the nodes if they are no longer connected
+                const sourceStillConnected = links.some(link => (link.source === sourceNode || link.target === sourceNode) && link.graphId === graphId);
+                const targetStillConnected = links.some(link => (link.source === targetNode || link.target === targetNode) && link.graphId === graphId);
+
+                if (!sourceStillConnected) {
+                    sourceNode.graphIds.delete(graphId);
+                }
+                if (!targetStillConnected) {
+                    targetNode.graphIds.delete(graphId);
+                }
+
+                // Remove nodes from the graph if they have no connections in this graph
+                graphs[graphId].nodes = graphs[graphId].nodes.filter(node => node.graphIds.has(graphId));
+
+                // If the graph has no nodes or links, remove it
+                if (graphs[graphId].nodes.length === 0) {
+                    // Remove the graph group from the SVG
+                    graphs[graphId].group.remove();
+                    delete graphs[graphId];
+                    delete data.Graphs[graphId];
+                }
+            }
+
+            // Function to get the modified graph in JSON format
+            function getModifiedGraph() {
+                // Return a deep copy of the data object
+                return JSON.parse(JSON.stringify(data));
+            }
+
+            // For testing: Expose getModifiedGraph function to the global scope
+            window.getModifiedGraph = getModifiedGraph;
+        }
+    </script>
+</body>
+</html>

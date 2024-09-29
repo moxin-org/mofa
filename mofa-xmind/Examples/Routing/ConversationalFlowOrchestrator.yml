@@ -1,0 +1,112 @@
+#
+# Copyright (C) 2024 The XLang Foundation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# <END>
+
+---
+name: ConversationalFlowOrchestrator
+type: compositeAgent
+version: 1.0
+description: "A composite agent that orchestrates the flow of conversation through various nodes"
+
+imports:
+  - file: "../Simple/llmPool.yml"
+
+nodes:
+  - name: ConversationStarter
+    type: agent
+    model: gpt-4
+    description: "An agent to initiate conversations"
+    prompts:
+      - name: Start_Conversation
+        role: assistant
+        content: "When you answer questions, please always include questions with your answers as your output. Format is: Q: question here, A: your answer."
+    inputs:
+      - name: input1
+    outputs:
+      - name: output1
+
+  - name: EngagementEvaluator
+    type: agent
+    model: gpt-4
+    description: "An agent to evaluate and enhance engagement"
+    prompts:
+      - name: Engagement_Check
+        role: assistant
+        content: "Based on the initial conversation, how would you keep the discussion engaging?"
+      - name: Avoid_Pitfalls
+        role: assistant
+        content: "What should be avoided in a conversation to maintain interest?"
+    inputs:
+      - name: input1
+      - name: input2
+    outputs:
+      - name: output1
+
+  - name: ConversationAnalyzer
+    type: agent
+    model: gpt-4
+    description: "An agent for in-depth analysis of the conversation"
+    prompts:
+      - name: Conversation_Analysis
+        role: assistant
+        content: "What are the signs that a conversation is going well?"
+      - name: Interest_Detection
+        role: assistant
+        content: "How can you tell if the other person is losing interest?"
+    inputs:
+      - name: input1
+    outputs:
+      - name: output1
+
+  - name: FeedbackLoop
+    type: agent
+    model: gpt-4
+    description: "An agent for providing feedback, summarizing the conversation, and breaking the loop if necessary"
+    IterationLimit: 10 # from input to output, each node will add one iteration
+    prompts:
+      - name: Improvement_Takeaways
+        role: assistant
+        content: "After the conversation, what are the key takeaways to improve future interactions? If the analysis is sufficient, then output {xmind-cmd: BreakConnection(output1)}."
+      - name: Effectiveness_Summary
+        role: assistant
+        content: "How would you summarize the overall effectiveness of the conversation? If the analysis is sufficient, then in your results enclose {xmind-cmd: BreakConnection(input1)} in the end of results."
+    inputs:
+      - name: input1
+    outputs:
+        #if connection is not broken, then output1 is the feedback
+        # if the connection is broken, the output1 will push data to graph and feed to Front UI
+      - name: output1 
+
+connections:
+  - fromNodeName: ConversationStarter
+    fromPinName: output1
+    toNodeName: EngagementEvaluator
+    toPinName: input1
+
+  - fromNodeName: EngagementEvaluator
+    fromPinName: output1
+    toNodeName: ConversationAnalyzer
+    toPinName: input1
+
+  - fromNodeName: ConversationAnalyzer
+    fromPinName: output1
+    toNodeName: FeedbackLoop
+    toPinName: input1
+
+  - fromNodeName: FeedbackLoop
+    fromPinName: output1
+    toNodeName: EngagementEvaluator
+    toPinName: input2
+
