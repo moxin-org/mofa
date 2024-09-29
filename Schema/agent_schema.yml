@@ -1,0 +1,163 @@
+#
+# Copyright (C) 2024 The XLang Foundation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# <END>
+
+# Agent Schema Definition
+type: object
+properties:
+  name:
+    type: string
+  type:
+    type: string
+    enum: [action, agent, compositeAgent, library]
+  version:
+    type: string
+  description:
+    type: string
+  inputs:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        formats:
+          type: array
+          items:
+            type: string
+          description: "Optional"
+  outputs:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        formats:
+          type: array
+          items:
+            type: string
+          description: "Optional"
+  source:
+    type: object
+    properties:
+      python:
+        type: [string, array]
+      xlang:
+        type: [string, array]
+      shared_lib:
+        type: [string, array]
+  parameters:
+    type: object
+    additionalProperties:
+      type: string
+  group:
+    type: string
+    description: "Optional"
+  imports:
+    type: array
+    items:
+      type: object
+      properties:
+        file:
+          type: string
+        alias:
+          type: string
+  nodes:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [function, action, agent]
+        description:
+          type: string
+        inputs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              formats:
+                type: array
+                items:
+                  type: string
+                description: "Optional"
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              formats:
+                type: array
+                items:
+                  type: string
+                description: "Optional"
+        source:
+          type: object
+          properties:
+            python:
+              type: string
+            xlang:
+              type: string
+            shared_lib:
+              type: string
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+        group:
+          type: string
+          description: "Optional"
+  connections:
+    type: array
+    items:
+      type: object
+      properties:
+        fromNodeName:
+          type: string
+        fromPinName:
+          type: string
+          description: "Optional"
+        toNodeName:
+          type: string
+        toPinName:
+          type: string
+          description: "Optional"
+  groups:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        nodes:
+          type: array
+          items:
+            type: string
+    description: "Optional"
+required:
+  - name
+  - type
+  - version
+  - description
+  - nodes
+  - connections
