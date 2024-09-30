@@ -1,7 +1,0 @@
-result: Authors: Junlin Wang, Jue Wang, Ben Athiwaratkun, Ce Zhang, James Zou 
-Publication Date: 7 Jun 2024 
-Main Topic: Mixture-of-Agents Enhances Large Language Model Capabilities 
-Achievements: 
-- Achieved top positions on AlpacaEval 2.0, MT-Bench, and FLASK 
-- Surpassed GPT-4 Omni on AlpacaEval 2.0 with a score of 65.1% compared to 57.5% 
-- Leader of AlpacaEval 2.0 using only open-source LLMs

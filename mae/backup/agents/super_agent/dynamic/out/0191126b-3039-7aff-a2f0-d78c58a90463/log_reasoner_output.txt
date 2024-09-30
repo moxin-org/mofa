@@ -1,1 +1,0 @@
-reasoner_output   : {'task': None, 'result': 'What are the expected economic impacts of the Paris Olympics?'}
