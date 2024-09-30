@@ -1,0 +1,20 @@
+nodes:
+  - id: loader
+    operator:
+      python: self_refine_loader.py
+      inputs:
+        direction: dora/timer/secs/1
+      outputs:
+        - agent_config
+  - id: agents
+    operator:
+      python: self_refine_agent.py
+      inputs:
+        agent_config: loader/agent_config
+      outputs:
+        - result
+  - id: listener
+    operator:
+      python: listener.py
+      inputs:
+        result: agents/result

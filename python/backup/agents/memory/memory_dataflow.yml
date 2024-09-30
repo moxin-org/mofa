@@ -1,0 +1,33 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      memory_result: memory-retrieval/memory_result
+      resoner_results: reasoner-agent/resoner_results
+      memory_record: memory-record/
+  - id: memory-retrieval
+    operator:
+      python: ./scripts/memory_retrieval.py
+      inputs:
+        search_task: terminal-input/data
+      outputs:
+        - memory_result
+  - id: reasoner-agent
+    operator:
+      python: scripts/reasoner_agent.py
+      inputs:
+        search_task: terminal-input/data
+        momery_data: memory-retrieval/memory_result
+      outputs:
+        - resoner_results
+  - id: memory-record
+    operator:
+      python: scripts/memory_record.py
+      inputs:
+        search_task: terminal-input/data
+        resoner_results: reasoner-agent/resoner_results
+      outputs:
+        - memory_record

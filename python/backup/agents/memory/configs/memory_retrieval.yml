@@ -1,0 +1,31 @@
+config:
+  version: "v1.1"
+
+  # vector_store:
+  #   provider: "chroma"
+  #   config:
+  #     collection_name: "test"
+  #     path: "./db"
+
+  # graph_store:
+  #   provider: "neo4j"
+  #   config:
+  #     url: "bolt://127.0.0.1:7687"  
+  #     username: "cc"                 
+  #     password: "Tt66668888"          
+
+  embedder:
+    provider: "openai"
+    config:
+      model: "text-embedding-3-large"
+
+  llm:
+    provider: "openai"
+    config:
+      model: "gpt-4o-mini"
+      temperature: 0.6
+      max_tokens: 2580
+      api_key: ""         # 在这里添加API token
+
+user_id: "mofa"
+is_reset: true

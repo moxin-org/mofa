@@ -1,0 +1,66 @@
+agents:
+  - name: video_processor
+    role: 'Video Processor'
+    goal: 'Extract audio from video and convert it to text using Whisper'
+    backstory: |
+      You are an expert in handling multimedia files. Your primary task is to process video files and accurately transcribe the audio content into text.
+    verbose: true
+    allow_delegation: false
+    tools:
+      - whisper_translate_audio
+
+  - name: text_summarizer
+    role: 'Text Summarizer'
+    goal: 'Summarize transcribed text using RAG (Retrieval-Augmented Generation)'
+    backstory: |
+      You specialize in analyzing and summarizing large volumes of text. Your goal is to distill the most important information from the transcribed text.
+      
+      If the current article exceeds 7,000 words, divide it into smaller chunks and then proceed with the query.
+    verbose: true
+    allow_delegation: false
+    tools:
+      - TXTSearchTool
+
+tasks:
+  - description: |
+      Extract audio from the provided video file and transcribe it to text using Whisper. Ensure that the transcription is accurate and complete. Save the transcription to a file.
+      
+      audio_file: './data/input/Apple Intelligence in 5 minutes.mp3'
+      module_file: 'base'
+      language: English
+      save_file: './data/output/Apple_Intelligence.txt'
+    expected_output: 'Transcribed text from video saved to file'
+    agent: video_processor
+    max_inter: 1
+
+#  - description: |
+#      Using RAG, summarize the text. Ensure the summary captures the key points and relevant details from the content. Finally, produce a well-organized and comprehensive article.
+#      use TXTSearchTool tool rag
+#      If there are a lot of repetitions, only the meaningful text is summarized.(For example, the key words and their meanings,combined with your own understanding)  All steps are in English
+#      file_path:  '/mnt/d/project/zzbc/mofa/mofa/moxin/crewai/output/Apple_Intelligence.txt'
+  - description: |
+      summarize the text. Ensure the summary captures the key points and relevant details from the content. Finally, produce a well-organized and comprehensive article.
+      If there are a lot of repetitions, only the meaningful text is summarized.(For example, the key words and their meanings,combined with your own understanding)  All steps are in English
+      
+
+    expected_output: 'Summarized text to report '
+    agent: text_summarizer
+    max_inter: 1
+
+model:
+  model_api_key:   
+  model_name: gpt-3.5-turbo
+  model_max_tokens: 2048
+  module_api_url: null
+
+other:
+  proxy_url: http://192.168.0.75:10809
+
+env:
+  SERPER_API_KEY:   
+  AGENTOPS_API_KEY: 6805b2d1-50f8-4b7c-b88b-cff2b1c6ef27
+
+crewai_config:
+  memory: false
+
+

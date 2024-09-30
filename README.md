@@ -1,87 +1,53 @@
+
 # **MoFA**
 
-Harness the power of MoXin, unleash the magic of **MoFA**, and reveal MoLy to the world
+*With MoXin in the heart, Play **MoFa** magic, Show Moly to the world.*
 
-## What
+## What is MoFa?
 
-MoFA: **Mo**dular **F**ramework for **A**I 
+**MoFa** stands for **Mo**xin **F**ramework for **A**gent Composition.
 
-MoFA is a software framework for building AI agents through composition. Using MoFA, AI agents can be constructed using templates, combined in a stacked way to form more powerful Super Agents.
+MoFa is a software framework that builds AI agents through composition. With MoFa, AI agents can be created using templates, combined in a stackable manner to form more powerful "super agents."
 
-## WHY
+## Why MoFa?
 
-Why build AI agents with MoFA:
+Using MoFa to build agents has several key benefits:
 
-1. **Modularity**: Modular agent templates, modular agent services, simple module configuration, and simple inter-module interfaces.
+1. **Modularity**: Modular agent templates and services, with simple configuration and easy-to-use interfaces between modules.
+2. **Clarity**: Build complex systems using a "LEGO-like" combination of logical blocks.
+3. **Composability**: Agents can connect to services for enhanced capabilities or to other agents for expanded functionality.
+4. **Simplicity**: Constructing complex agents is a zero-code process of combining different modules.
+5. **High Performance**: Agent data streams run in a high-performance, low-latency distributed AI and robotics environment called **DORA-RS**, outperforming Python-based computational environments.
+6. **Diversity**: MoFa’s composable agents integrate various agent capabilities into powerful, complete super agents.
+7. **Towards AI Operating Systems (AIOS)**: Inspired by Unix Philosophy, MoFa provides core services for planning, memory, actions, and Retrieval-Augmented Generation (RAG), building the foundation of an AI operating system.
+8. **Enable Edge AI**: With MoFa, alongside MoXin (local large model inference) and MoLy (user interface for AI models and agents), the deployment of local AI agents becomes more open and democratic.
 
-2. **Clarity**: Build complex systems with "Lego-style" logic.
 
-3. **Composition**: Agents can connect to services to gain more power and connect to other agents for additional functionality.
+## Features
 
-4. **Simplicity**: The construction of complex agents involves zero-code composition of various modules.
+### MoFa Design Patterns for AI Agents
 
-5. **High Performance**: Agents' data flows operate in a high-performance, low-latency distributed AI and robotics computing environment powered by DORA-RS, far surpassing Python-based environments.
+AI agents can follow various design patterns, such as:
 
-6. **Diversity**: MoFA’s agent composition organically integrates various agent capabilities into a more powerful and complete composite agent.
+- **LLM Inference**: The simplest agent, leveraging a large language model to generate responses based on user prompts.
+- **Customized Prompting**: Creating agents by customizing system prompts for language models.
+- **Reflection**: Agents that review and adjust their outputs.
+- **Actor (Tool Use)**: Agents capable of using external tools, generating code, calling APIs, and performing web searches.
+- **ReAct**: Combining reflection and tool use to improve output quality.
+- **Multi-Agent Collaboration**: Multiple agents working together to solve complex tasks as a team.
 
-7. Towards AI Operating Systems (AIOS)
+MoFa allows you to combine these simple patterns into more complex "super agents" using modular templates.
 
-   : Designed with Unix Philosophy and design methods in mind, it leverages large language models for core AIOS computing power, DORA-RS for multi-process scheduling, and MoFA as:
+### Agent Kernel Services
 
-   - The **AIOS Kernel Services**, providing task planning, memory, action, and retrieval-augmented generation (RAG) services to agents.
-   - **AIOS Utility and Applications**: Implements frequently-used agents and templates.
-   - **AIOS Shell**: Provides an environment for running agents and connecting agents through pipelines for automated workflows.
+Similar to how traditional operating systems provide core services to applications, MoFa provides memory, planning, RAG, and action services to agents, allowing users to tailor these capabilities to their needs.
 
-8. **Enable Edge AI**: With MoXin (open-source inference), MoFA (this project), and MoLy (user interfaces for large models), MoFA enables the deployment of open and democratized AI applications at the edge.
+### Agent Composition
 
-## Getting Started
+Composition in MoFa allows agents to be combined like LEGO blocks, creating powerful and complex agents without modifying the individual components. This modular approach ensures reversibility and scalability.
 
-### 1. Installation
+### Dataflow Driven Design
 
-1. Clone the repository and switch to the designated branch:
+MoFa uses a dataflow-driven approach, emphasizing the movement of data between tasks rather than complex workflows. This simplifies managing and debugging agents.
 
-```
-git clone <repository-url> && git checkout <branch-name>
-```
 
-**Example**:
-
-```
-git clone git@github.com:moxin-org/mofa.git && cd mofa/mae && git checkout feature/mae
-```
-
-1. Use Python 3.10 or later:
-
-- If the environment version is mismatched, create a new environment using Conda:
-
-```
-conda create -n py310 python=3.10.12 -y
-```
-
-1. Set up the project environment:
-
-- Install dependencies:
-
-```
-pip3 install -r requirements.txt && pip3 install -e .
-```
-
-After installation, use the `mae --help` command to view CLI help information.
-
-1. Install Rust and DORA-RS:
-
-Since the DORA-RS computing framework is based on Rust, follow the instructions to install Rust:
-
-```
-https://www.rust-lang.org/tools/install
-```
-
-Install dora (v0.3.6-rc0) or later.
-
-## Examples (To Be PRovided)
-
-You can test different MoFA examples in the examples directory:
-
-- **simplicity.ai**: A search case providing a user experience similar to Perplexity.ai, combining two agents to perform searches.
-- **agent_fight**: A multi-agent system where GPT-4 acts as a judge to evaluate and score reports generated by different agents completing the same task.
-- **arXiv_research**: A composite agent that searches the arXiv paper database, downloads, summarizes, and generates research reports.

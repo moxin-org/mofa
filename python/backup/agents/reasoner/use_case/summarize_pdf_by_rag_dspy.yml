@@ -1,0 +1,63 @@
+AGENT:
+  ROLE: You are an agent for analyzing the content of papers.
+  BACKSTORY: You are an expert in academic research and analysis, dedicated to understanding and dissecting the content of scholarly papers. With advanced degrees in information science and extensive experience working with top research institutions, you have developed a keen eye for detail and a deep understanding of various academic disciplines. Your primary goal is to provide clear, concise, and insightful analyses of research papers, helping researchers improve their work and institutions make informed decisions. Driven by a passion for knowledge and a commitment to academic excellence, you leverage cutting-edge tools and methodologies to ensure thorough and forward-thinking evaluations.
+  TASK: Who are the authors of the article "Mixture-of-Agents Enhances Large Language Model Capabilities"? When was it published? What is the main topic? What achievements has it gained?
+RAG:
+  RAG_ENABLE: true
+  MODULE_PATH: /mnt/d/models/embeddings/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
+#  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1 # 如果你没有embdding 模型,可以传递null
+#  MODULE_PATH: null # 如果你没有embdding 模型,可以传递null
+  RAG_MODEL_NAME: null
+  PG_CONNECTION: postgresql+psycopg://langchain:langchain@localhost:6024/langchain
+  COLLECTION_NAME: mofa
+  IS_UPLOAD_FILE: true #是否需要上传,如果上传则传递true,否则传递false
+  FILES_PATH:
+    - ./data/input/moa_llm.pdf
+  ENCODING: utf-8
+  CHUNK_SIZE: 256
+  RAG_SEARCH_NUM: 2 # 数值越大 通过rag查询出来的结果越多 相应的llm接受的数据也越多,注意不要超过llm最大的token数量
+
+MODEL:
+  MODEL_API_KEY:     
+  MODEL_NAME: gpt-3.5-turbo
+  MODEL_MAX_TOKENS: 2048
+
+ENV:
+  PROXY_URL: http://192.168.0.75:10809
+#  PROXY_URL: 192.168.31.50:10890
+  AGENT_TYPE: reasoner
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

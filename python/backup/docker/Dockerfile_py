@@ -1,0 +1,105 @@
+#FROM swr.cn-southwest-2.myhuaweicloud.com/openmind-space-base/openmind:openeuler-python3.8-cann8.0-mindspore2.3.0rc1-openmind0.6
+##FROM mofa_env:latest
+#
+#ENV OPENSSL_VERSION=3.0.8
+#ENV OPENSSL_INSTALL_DIR=/usr/local/openssl-${OPENSSL_VERSION}
+#
+#ENV PATH=${OPENSSL_INSTALL_DIR}/bin:${PATH}
+#ENV LD_LIBRARY_PATH=${OPENSSL_INSTALL_DIR}/lib:${LD_LIBRARY_PATH}
+#ENV C_INCLUDE_PATH=${OPENSSL_INSTALL_DIR}/include:${C_INCLUDE_PATH}
+#ENV LIBRARY_PATH=${OPENSSL_INSTALL_DIR}/lib:${LIBRARY_PATH}
+#ENV PKG_CONFIG_PATH=${OPENSSL_INSTALL_DIR}/lib/pkgconfig:${PKG_CONFIG_PATH}
+#
+#ENV MINICONDA_VERSION=latest
+#ENV MINICONDA_INSTALLER=Miniconda3-$MINICONDA_VERSION-Linux-aarch64.sh
+#ENV MINICONDA_PREFIX=/opt/conda
+#ENV PATH=$MINICONDA_PREFIX/bin:$PATH
+#
+## 更新系统并安装依赖
+#RUN yum update -y && \
+#    yum install -y wget bzip2 && \
+#    yum clean all
+#
+## 下载并安装 Miniconda (ARM 版本)
+#RUN wget --quiet https://repo.anaconda.com/miniconda/$MINICONDA_INSTALLER -O /tmp/miniconda.sh && \
+#    /bin/bash /tmp/miniconda.sh -b -p $MINICONDA_PREFIX && \
+#    rm -f /tmp/miniconda.sh
+#
+## 初始化 Conda
+#RUN $MINICONDA_PREFIX/bin/conda init bash
+#
+## 更新 Conda 并创建 Python 3.10.13 以上的 base 环境
+#RUN conda update -n base -c defaults conda -y && \
+#    conda install python=3.10.13 -y && \
+#    conda clean -a -y
+#
+#SHELL ["/bin/bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate base &&"]
+#
+#RUN mkdir -p /project && \
+#    cd /project && \
+#    git clone https://github.com/moxin-org/mofa.git && \
+#    cd mofa && \
+#    git checkout feature/mofa && \
+#    cd /project/mofa/python && \
+#    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
+#    pip3 install -e . -i https://pypi.org/simple
+#
+## 启动时进入 bash shell
+#CMD ["bash"]
+# 使用 OpenEuler 作为基础镜像
+FROM swr.cn-southwest-2.myhuaweicloud.com/openmind-space-base/openmind:openeuler-python3.8-cann8.0-mindspore2.3.0rc1-openmind0.6
+
+# 设置 OpenSSL 环境变量
+ENV OPENSSL_VERSION=3.0.8
+ENV OPENSSL_INSTALL_DIR=/usr/local/openssl-${OPENSSL_VERSION}
+ENV PATH=${OPENSSL_INSTALL_DIR}/bin:${PATH}
+ENV LD_LIBRARY_PATH=${OPENSSL_INSTALL_DIR}/lib:${LD_LIBRARY_PATH}
+ENV C_INCLUDE_PATH=${OPENSSL_INSTALL_DIR}/include:${C_INCLUDE_PATH}
+ENV LIBRARY_PATH=${OPENSSL_INSTALL_DIR}/lib:${LIBRARY_PATH}
+ENV PKG_CONFIG_PATH=${OPENSSL_INSTALL_DIR}/lib/pkgconfig:${PKG_CONFIG_PATH}
+
+# 设置 Miniconda 安装的相关变量
+ENV MINICONDA_VERSION=latest
+ENV MINICONDA_INSTALLER=Miniconda3-$MINICONDA_VERSION-Linux-aarch64.sh
+ENV MINICONDA_PREFIX=/opt/conda
+ENV PATH=$MINICONDA_PREFIX/bin:$PATH
+
+# 更新系统并安装依赖
+RUN yum update -y && \
+    yum install -y wget bzip2 git vim && \
+    yum clean all
+
+# 下载并安装 Miniconda (ARM 版本)
+RUN wget --quiet https://repo.anaconda.com/miniconda/$MINICONDA_INSTALLER -O /tmp/miniconda.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p $MINICONDA_PREFIX && \
+    rm -f /tmp/miniconda.sh
+
+# 初始化 Conda
+RUN $MINICONDA_PREFIX/bin/conda init bash
+
+# 将 Conda 激活命令写入 .bashrc
+RUN echo "source /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+
+# 更新 Conda 并创建 Python 3.10.13 以上的 base 环境
+RUN /bin/bash -c "source ~/.bashrc && \
+    conda update -n base -c defaults conda -y && \
+    conda install python=3.10.13 -y && \
+    conda clean -a -y"
+
+# 安装项目依赖
+RUN /bin/bash -c "source ~/.bashrc && \
+    mkdir -p /project && \
+    cd /project && \
+    git clone https://github.com/moxin-org/mofa.git && \
+    cd mofa && \
+    git checkout feature/mofa && \
+    cd /project/mofa/python && \
+    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
+    pip3 install -e . -i https://pypi.org/simple"
+
+# 设置工作目录
+WORKDIR /project
+
+# 启动时进入 bash shell
+CMD ["bash"]
