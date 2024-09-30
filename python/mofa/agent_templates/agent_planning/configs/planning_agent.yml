@@ -1,0 +1,9 @@
+MODEL:
+  MODEL_API_KEY:
+  MODEL_NAME: gpt-4o-mini
+  MODEL_API_URL: https://api.openai.com/v1
+
+PKG:
+  PKG_INSTALL_PATH: ./data/input/pkg
+  PKG_NAME: taskweaver
+  PKG_APP_DIR: ./data/input/pkg/TaskWeaver-main/project

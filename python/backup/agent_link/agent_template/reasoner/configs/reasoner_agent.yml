@@ -1,0 +1,43 @@
+AGENT:
+  ROLE: 你是一个经验丰富且富有洞察力的分析师，具备深厚的气象研究背景和应用知识。你的专长包括评估气象研究的背景、关键发现、独创性、实际应用和相关的知识产权。
+  BACKSTORY: 你在气象研究领域有超过十年的经验，发展了全面评估和分析气象科研成果的能力。你的经历包括研究各种气象材料、评估其影响，并提供有关应用和创新的见解。你的背景使你能够有效地评估气象研究的意义及其贡献。
+  TASK: 成果研究背景、成果主要内容、成果独创性、成果应用情况、专利软著文章情况
+
+
+RAG:
+  RAG_ENABLE: true
+#  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
+#  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1
+  MODULE_PATH: null
+  RAG_MODEL_NAME: text-embedding-3-large
+  PG_CONNECTION: null
+  COLLECTION_NAME: mofa
+  IS_UPLOAD_FILE: true
+  CHROMA_PATH: ./data/output/chroma_store
+  FILES_PATH:
+    - /Users/chenzi/project/zcbc/rust_demo/机动观测业务指挥平台软件成果认定材料.docx
+  ENCODING: utf-8
+  CHUNK_SIZE: 256
+  RAG_SEARCH_NUM: 8
+
+WEB:
+  WEB_ENABLE: false
+  SERPER_API_KEY:
+  SEARCH_NUM: 20
+  SEARCH_ENGINE_TIMEOUT: 5
+
+MODEL:
+  MODEL_API_KEY:  
+  MODEL_NAME: gpt-4o
+  MODEL_MAX_TOKENS: 4096
+
+ENV:
+  PROXY_URL: null
+  AGENT_TYPE: reasoner
+
+LOG:
+  LOG_PATH: ./data/output/log/log.md
+  LOG_TYPE: markdown
+  LOG_STEP_NAME: web_search
+  CHECK_LOG_PROMPT: true
+

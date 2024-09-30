@@ -1,0 +1,17 @@
+nodes:
+
+  - id: terminal-input
+    build: pip install -e ../../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      planning_results: planning-agent/planning_results
+
+  - id: planning-agent
+    operator:
+      python: scripts/planing_agent.py
+      inputs:
+        task: terminal-input/data
+      outputs:
+        - planning_results

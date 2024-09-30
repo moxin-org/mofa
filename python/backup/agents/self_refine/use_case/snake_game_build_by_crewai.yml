@@ -1,0 +1,108 @@
+agents:
+  - name: senior_engineer_agent
+    role: 'Senior Software Engineer'
+    goal: 'Create software as needed'
+    backstory: |
+      You are a Senior Software Engineer at a leading tech think tank.
+      Your expertise is in programming in Python. Do your best to produce perfect code.
+    verbose: true
+    allow_delegation: false
+    tools: []
+
+  - name: qa_engineer_agent
+    role: 'Software Quality Control Engineer'
+    goal: 'Create perfect code by analyzing the code that is given for errors'
+    backstory: |
+      You are a software engineer that specializes in checking code for errors. 
+      You have an eye for detail and a knack for finding hidden bugs.
+      You check for missing imports, variable declarations, mismatched brackets, and syntax errors.
+      You also check for security vulnerabilities and logic errors.
+    verbose: true
+    allow_delegation: false
+    tools: []
+
+  - name: chief_qa_engineer_agent
+    role: 'Chief Software Quality Control Engineer'
+    goal: 'Ensure that the code does the job that it is supposed to do'
+    backstory: |
+      You feel that programmers always do only half the job, so you are super dedicated to making high-quality code.
+    verbose: true
+    allow_delegation: true
+    tools: []
+
+tasks:
+  - description: |
+      You will create a game using Python, these are the instructions:
+
+      Instructions
+      ------------
+      - Create a screen where the snake can move.
+      - Implement snake movement controlled by arrow keys.
+      - Generate food items at random locations on the screen.
+      - Ensure the snake grows longer when it eats food.
+      - Implement collision detection to end the game if the snake hits the wall or itself.
+      - Display the current score.
+
+      Your final answer must be the full Python code, only the Python code and nothing else.
+    expected_output: null
+    agent: senior_engineer_agent
+    max_inter: null
+
+  - description: |
+      You are helping create a game using Python, these are the instructions:
+
+      Instructions
+      ------------
+      - Create a screen where the snake can move.
+      - Implement snake movement controlled by arrow keys.
+      - Generate food items at random locations on the screen.
+      - Ensure the snake grows longer when it eats food.
+      - Implement collision detection to end the game if the snake hits the wall or itself.
+      - Display the current score.
+
+      Using the code you got, check for errors. Check for logic errors, syntax errors, missing imports, variable declarations, mismatched brackets, and security vulnerabilities.
+
+      Your final answer must be the full Python code, only the Python code and nothing else.
+    expected_output: null
+    agent: qa_engineer_agent
+    max_inter: null
+
+  - description: |
+      You are helping create a game using Python, these are the instructions:
+
+      Instructions
+      ------------
+      - Create a screen where the snake can move.
+      - Implement snake movement controlled by arrow keys.
+      - Generate food items at random locations on the screen.
+      - Ensure the snake grows longer when it eats food.
+      - Implement collision detection to end the game if the snake hits the wall or itself.
+      - Display the current score.
+
+      You will look over the code to ensure that it is complete and does the job that it is supposed to do.
+
+      Your final answer must be the full Python code, only the Python code and nothing else.
+    expected_output: null
+    agent: chief_qa_engineer_agent
+    max_inter: null
+
+model:
+  model_api_key:
+  model_name: gpt-3.5-turbo
+  model_max_tokens: 2048
+  module_api_url: null
+
+
+#  model_api_key:
+#  model_name: moonshot-v1-32k
+#  model_max_tokens: 8096
+#  module_api_url: https://api.moonshot.cn/v1
+
+other:
+  proxy_url: http://192.168.0.75:10809
+
+env:
+  SERPER_API_KEY:   
+
+crewai_config:
+  memory: true
