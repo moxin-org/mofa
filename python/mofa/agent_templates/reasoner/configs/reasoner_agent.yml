@@ -25,7 +25,7 @@ WEB:
   SEARCH_ENGINE_TIMEOUT: 5
 
 MODEL:
-  MODEL_API_KEY: sk-
+  MODEL_API_KEY:
   MODEL_NAME: deepseek-ai/DeepSeek-V2-Chat
   MODEL_MAX_TOKENS: 2048
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
