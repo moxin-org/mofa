@@ -8,6 +8,7 @@ import pyarrow as pa
 from mofa.kernel.utils.util import load_agent_config, create_agent_output, load_node_result
 from mofa.run.run_agent import run_dspy_agent, run_crewai_agent, run_dspy_or_crewai_agent
 from mofa.utils.files.dir import get_relative_path
+from mofa.utils.log.agent import record_agent_result_log
 
 
 class Operator:
@@ -35,6 +36,9 @@ class Operator:
                                           'rag_data':self.paper_analyze_result}
                 agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
                 print('inputs: ',inputs)
+                record_agent_result_log(agent_config=inputs,
+                                        agent_result={
+                                            "6, " + inputs.get('log_step_name', "Step_one"): agent_result})
                 send_output("refinement_result", pa.array([create_agent_output(step_name='refinement_result', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
                 print('refinement_result : ',agent_result)
                 self.suggestion,self.writer_report = None,None
