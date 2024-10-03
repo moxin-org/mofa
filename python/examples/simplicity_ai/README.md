@@ -1,9 +1,7 @@
 
 ---
 
-# Simplicity Ai Example in MoFA
-
-
+# Simplicity Ai组合智能体
 
 ## 1. 功能说明
 
@@ -19,7 +17,9 @@
 
 ## 3. 配置方法
 
-Web Search Task模板通过调整配置信息来生成一个能够进行Web搜索、内容总结和相关问题生成的智能体。以下是详细的配置步骤和说明。
+Web Search Task模板通过调整配置信息来生成一个能够进行Web搜索、内容总结和相关问题生成的智能体。以下是详细的配置步骤和说明。(图为simplicity.ai 组合Agent的Dora Data Flow)
+
+![image-20241003210034719](images/mermaid.png)
 
 
 ### 配置说明
@@ -42,7 +42,7 @@ Web Search Task模板通过调整配置信息来生成一个能够进行Web搜�
 
 ## 4. 运行智能体
 
-### 方法一：使用Dora-rs命令行运行
+使用Dora-rs命令行运行
 
 1. 安装MoFA项目包。
 2. 执行以下命令以启动智能体流程：
@@ -51,6 +51,3 @@ Web Search Task模板通过调整配置信息来生成一个能够进行Web搜�
    ```
 3. 启动另一个终端，运行`terminal-input`，然后输入相应任务以启动Web Search流程。
 
-### 方法二：在MoFA运行环境中运行
-
-此方法待定（TBD）。
