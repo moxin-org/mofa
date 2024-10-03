@@ -35,6 +35,20 @@
 
 ### 命令行
 
+一般而言，可使用Dora-rs命令行运行
+
+1. 安装MoFA项目包。
+
+2. 执行以下命令以启动智能体流程：
+
+   ```bash
+   dora up && dora build your_agent_dataflow.yml && dora start your_agent_dataflow.yml --attach
+   ```
+
+3. 如果agent dataflow的第一个节点是dora用于输入输出的dynamic node。须启动另一个终端，运行`terminal-input`，然后输入相应任务以启动Agent流程。
+
+
+
 ### Web服务
 
 

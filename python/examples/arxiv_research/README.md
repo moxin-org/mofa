@@ -1,5 +1,5 @@
 
-# Arxiv Research Example in MoFA
+# Arxiv Research 案例
 
 **语言**: 中文
 
@@ -53,7 +53,7 @@ Arxiv Research智能体通过从arXiv上获取相关论文，并根据用户的�
 
 ## 4. 运行智能体
 
-### 方法一：使用Dora-rs命令行运行
+使用Dora-rs命令行运行
 
 1. 安装MoFA项目包。
 2. 执行以下命令以启动智能体流程：
