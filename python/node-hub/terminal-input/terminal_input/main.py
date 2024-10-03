@@ -28,8 +28,6 @@ def send_task_and_receive_data(node):
                 if event is not None:
                     node_results = json.loads(event['value'].to_pylist()[0])
                     results = node_results.get('node_results')
-                    # print(f"------------------{node_results.get('step_name')}-------------------", flush=True)
-                    # print(f"{node_results.get('step_name')}: {results}", flush=True)
                     is_dataflow_end = node_results.get('dataflow_status', False)
                     if is_dataflow_end == False:
                         try:

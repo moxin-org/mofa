@@ -1,0 +1,31 @@
+2024-10-03T08:44:25.465364Z  INFO dora: Starting in local mode
+2024-10-03T08:44:25.466419Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-10-03T08:47:24.335574Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-10-03T08:47:26.537603Z  INFO dora: Starting in local mode
+2024-10-03T08:47:26.538568Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-10-03T09:15:40.648812Z  INFO run_inner{self.machine_id=}: dora_daemon: received destroy command -> exiting
+2024-10-03T09:15:58.609457Z  INFO dora: Starting in local mode
+2024-10-03T09:15:58.610451Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2024-10-03T09:16:05.758041Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251aa-30cf-7228-998e-15ae1342177e`
+2024-10-03T09:16:23.291952Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251aa-30cf-7228-998e-15ae1342177e`
+2024-10-03T09:16:26.932326Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251aa-30cf-7228-998e-15ae1342177e/memory-retrieval finished successfully
+2024-10-03T09:16:26.939951Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251aa-30cf-7228-998e-15ae1342177e/memory-record finished successfully
+2024-10-03T09:16:27.341980Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251aa-30cf-7228-998e-15ae1342177e/reasoner-agent finished successfully
+2024-10-03T09:16:27.342081Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251aa-30cf-7228-998e-15ae1342177e` finished on machine ``
+2024-10-03T09:18:52.220706Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251ac-bd1f-7fe6-877d-2cb8460ccce6`
+2024-10-03T09:18:56.454557Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ac-bd1f-7fe6-877d-2cb8460ccce6/memory-record finished successfully
+2024-10-03T09:18:56.829253Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ac-bd1f-7fe6-877d-2cb8460ccce6/reasoner-agent finished successfully
+2024-10-03T09:18:56.829354Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251ac-bd1f-7fe6-877d-2cb8460ccce6` finished on machine ``
+2024-10-03T09:20:22.653791Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251ae-1e0c-7289-92ca-9f9f0a1339ba`
+2024-10-03T09:20:25.048072Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ae-1e0c-7289-92ca-9f9f0a1339ba/memory-record finished successfully
+2024-10-03T09:20:25.444684Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ae-1e0c-7289-92ca-9f9f0a1339ba/reasoner-agent finished successfully
+2024-10-03T09:20:25.444855Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251ae-1e0c-7289-92ca-9f9f0a1339ba` finished on machine ``
+2024-10-03T09:30:54.661718Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251b7-c82f-782a-bef2-b519b2826c14` finished on machine ``
+2024-10-03T09:31:21.664663Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251b8-3283-767a-94cf-8d5203b10c7c` finished on machine ``
+2024-10-03T09:31:31.803702Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251b8-59bc-7eb9-9582-5a0cb21656a3` finished on machine ``
+2024-10-03T09:34:10.206415Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251ba-b290-7e1b-8b33-91696f27b36e`
+2024-10-03T09:34:13.987217Z  INFO run_inner{self.machine_id=}: dora_daemon: all nodes are ready, starting dataflow `019251ba-b290-7e1b-8b33-91696f27b36e`
+2024-10-03T09:34:18.187586Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ba-b290-7e1b-8b33-91696f27b36e/memory-record finished successfully
+2024-10-03T09:34:18.692927Z  INFO run_inner{self.machine_id=}: dora_daemon: node 019251ba-b290-7e1b-8b33-91696f27b36e/reasoner-agent finished successfully
+2024-10-03T09:34:18.693066Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251ba-b290-7e1b-8b33-91696f27b36e` finished on machine ``
+2024-10-03T09:36:42.403167Z  INFO run_inner{self.machine_id=}: dora_daemon: Dataflow `019251bd-16a4-7bc0-930d-d043ec920f6a` finished on machine ``

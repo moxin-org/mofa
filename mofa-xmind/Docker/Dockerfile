@@ -37,11 +37,13 @@ RUN cargo install dora-cli --locked && \
 RUN python3 --version
 RUN mkdir -p /project && \
     cd /project && \
-    git clone https://gitcode.com/moxin-org/mofa.git && \
+    git clone https://github.com/moxin-org/mofa.git && \
     cd mofa && \
     cd /project/mofa/python && \
     pip3 install --upgrade pip --index-url https://pypi.org/simple && \
-    pip3 install -e . -i https://pypi.org/simple
+    pip3 install -e . -i https://pypi.org/simple && \
+    cd /project/mofa/python/mofa/agent_templates/reasoner && \
+    dora build reasoner_dataflow.yml
 
 WORKDIR /project
 
