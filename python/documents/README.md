@@ -17,13 +17,8 @@
 
 - Web服务和API
 
-- 智能体编程
-  - [MoFA智能体的编程方式](programming/mofa_programming_methods.md)
-    - [基于DORA-RS的编程方式](programming/dora_programming.md)
-    - [基于XMind的编程方式](programming/mofa_programming.md)
-
 - 案例分享
-
+  
 - [Hello World：最简单的端到端流程](examples/hello_world.md)
   - [Hello World, With Dora-RS & Template](examples/hello_world_dora.md)
   - [Hello World, With xMind](examples/hello_world_mofa.md)
