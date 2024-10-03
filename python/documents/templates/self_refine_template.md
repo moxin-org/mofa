@@ -4,5 +4,5 @@ Self-Refine模式主要是通过三个环节（任务执行、结果评估和改
 
 [任务执行的提示词] + LLM推理 --> (结果评估的提示词) + LLM推理 --> (由评估产生改进建议的提示词) +LLM推理 --> 下一轮任务执行的提示词（迭代）。
 
-- [MoFA Self Refine模版的实现](https://github.com/moxin-org/mofa/tree/feature/mofa/python/mofa/agent_templates/self_refine)
+- [MoFA Self Refine模版的实现](../../mofa/agent_templates/self_refine/README.md)
 

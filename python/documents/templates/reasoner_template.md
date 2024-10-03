@@ -4,7 +4,7 @@ Reasoner是最简单的智能体模版。核心就是为大语言模型配上开
 
 ​	定制的提示 + 大语言模型的推理
 
-[MoFA里的Reasoner 模版实现](../../python/mofa/agent_templates/reasoner)
+[MoFA里的Reasoner 模版实现](../../mofa/agent_templates/reasoner/README.md)
 
 Reasoner的几个例子
 

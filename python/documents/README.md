@@ -27,8 +27,10 @@
   - self_refiner的使用案例
   - crewai智能体的使用案例
 - 组合
-  - simplicity_search
-  - arXiv_research
+  - [simplicity_ai](../examples/simplicity_ai/README.md)
+  - [arXiv_research](../examples/arxiv_research/README.md)
+  - [agent_fight](../examples/agent_fight/README.md)
+  - [query_assistant](../examples/query_assistant/README.md)
 
 相关项目
 
