@@ -28,17 +28,18 @@
   - [Jupyter Notebook](jupyter_notebook.md) 
   - [提示工程](prompt_engineering.md) 
 
-- [GOSIM黑客马拉松评审规则等信息](https://gitcode.com/Gitcode-offical-team/GOSIM/wiki)
+- [GOSIM黑客马拉松
+
+  - [评审规则](https://gitcode.com/Gitcode-offical-team/GOSIM/wiki)
+  - [比赛流程](gosim/competition-process.md)
+
+  
 
 - [迈向AIOS](toward_aios.md)
 
   
 
-  
-
-  
-
-  
+- [参考资料](references.md)
 
   ---------
 
