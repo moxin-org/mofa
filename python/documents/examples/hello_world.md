@@ -8,4 +8,4 @@
 
 [方式1：基于Dora-RS的智能体模版定制+Dora-RS数据流配置的方式](hello_world_dora.md)
 
-[方式2：基于MoFA框架的编程方式](hello_world_mofa.md)
+[方式2：基于xMind框架的编程方式](hello_world_mofa.md)
