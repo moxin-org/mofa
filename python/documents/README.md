@@ -22,11 +22,7 @@
 - [Hello World：最简单的端到端流程](examples/hello_world.md)
   - [Hello World, With Dora-RS & Template](examples/hello_world_dora.md)
   - [Hello World, With xMind](examples/hello_world_mofa.md)
-- 使用智能体模版
-  - [reasoner的使用案例](examples/reasoner_example.md)
-  - self_refiner的使用案例
-  - crewai智能体的使用案例
-- 组合
+- 智能体组合案例
   - [simplicity_ai](../examples/simplicity_ai/README.md)
   - [arXiv_research](../examples/arxiv_research/README.md)
   - [agent_fight](../examples/agent_fight/README.md)
