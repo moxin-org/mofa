@@ -4,7 +4,7 @@
 
 *With MoXin in the heart, Play **MoFA** magic, Show Moly to the world.* 
 
-<small>注：Moxin 和 Moly 是MoFA的姊妹项目。</small>
+<sub>注：Moxin 和 Moly 是MoFA的姊妹项目。</sub>
 
 ## What
 
@@ -72,5 +72,5 @@ AI智能体就是有智能特点的计算机软件。随着大语言模型和应
 
 MoFA支持两种智能体开发模式。
 
-1. 基于Dora-RS的开发模式，详见[python](python)目录
+1. 基于Dora-RS的开发模式，详见[python](python)目录[README.md](python/README.md)
 2. 基于XMind的开发和编程模式，详见[mofa-xmind](mofa-xmind)目录
