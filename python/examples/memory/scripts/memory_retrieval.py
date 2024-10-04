@@ -26,6 +26,6 @@ class Operator:
                 user_id = load_user_id(yaml_file_path)
                 memory_result = m.search(task, user_id=user_id)
                 results = get_mem0_search_text(memory_result)
-                send_output("context_memory", pa.array([create_agent_output(step_name='keyword_results', output_data=results,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("context_memory", pa.array([create_agent_output(step_name='context_memory', output_data=results,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
                 print('agent_result:', results)
         return DoraStatus.CONTINUE

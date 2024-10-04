@@ -1,6 +1,3 @@
-# MoFA for Dora-RS
-
-在这个分支里，我们介绍建立在Dora-RS上的MoFA框架。
 
 ## Getting started
 
@@ -120,8 +117,3 @@ pkill dora
 ~~~
 
 注意 它会删除所有的关于dora的进程 请谨慎使用
-
-### 4. 详细文档
-
-更多的详细文档在[documents](documents/README.md)子目录下。
-

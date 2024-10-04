@@ -26,7 +26,6 @@ class Operator:
                 yaml_file_path = get_relative_path(current_file=__file__, sibling_directory_name='configs', target_file_name='memory_retrieval.yml')
 
                 m = load_mem0_client(yaml_file_path)
-                agent_prompt = ""
                 user_id = load_user_id(yaml_file_path)
 
                 m.add(self.reasoner_response.replace(":dataflow_status",""),user_id=user_id,metadata={"task":self.task})
