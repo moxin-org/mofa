@@ -32,11 +32,3 @@ nodes:
       outputs:
         - memory_log
 
-  - id: action-agent
-    operator:
-      python: scripts/action_agent.py
-      inputs:
-        task: terminal-input/data
-        reasoner_response: reasoner-agent/reasoner_response
-      outputs:
-        - memory_log
