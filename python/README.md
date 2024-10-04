@@ -15,7 +15,7 @@ git clone <repository-url> && git checkout <branch-name>
 **示例**:
 
 ```sh
-git clone git@github.com:moxin-org/mofa.git && cd mofa && git checkout feature/mofa
+git clone git@github.com:moxin-org/mofa.git && cd mofa
 ```
 
 2. 使用Python 3.10或以上环境：
@@ -73,22 +73,7 @@ MODEL:
   MODEL_API_URL: http://192.168.0.1:11434
 ~~~
 
-**如何进行Rag的配置**？
-主要修改`yml`中的Rag参数
-~~~
-RAG:
-  RAG_ENABLE: false   # 是否启动Rag的功能
-  MODULE_PATH: null  # 如果没有本地的embedding模型, 可以传递null
-  RAG_MODEL_NAME: text-embedding-3-small  # 如果使用Openai的embedding模型，在这里配置Openai的embedding模型名称.
-  COLLECTION_NAME: mofa # Vector中的集合名称，使用默认值即可
-  IS_UPLOAD_FILE: true # 是否需要将文件上传到Vector中，如果上传则传递true，否则传递false
-  CHROMA_PATH: ./data/output/chroma # 本地向量数据库保存的地址
-  FILES_PATH: # 需要上传的文件地址，可以一次配置多个文件
-    - ./data/output/arxiv_papers
-  ENCODING: utf-8  # 文件编码格式 
-  CHUNK_SIZE: 256 # 分割的文本大小，建议默认值256
-  RAG_SEARCH_NUM: 2 # 数值越大，通过RAG查询的结果越多，相应的LLM接收的数据也越多，注意不要超过LLM最大的token数量
-~~~
+
 
 ### 3. 启动
 
