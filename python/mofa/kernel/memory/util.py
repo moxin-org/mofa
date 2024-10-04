@@ -20,5 +20,5 @@ def load_user_id(file_path:str):
     return read_yaml(file_path).get("user_id")
 
 def get_mem0_search_text(memory_datas):
-    results = [memory_data.get("text") for memory_data in memory_datas]
+    results = list(set([memory_data.get("memory") for memory_data in memory_datas]))
     return results
