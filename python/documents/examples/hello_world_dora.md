@@ -6,10 +6,10 @@
 
 ## Step 2: 获取智能体模板
 
-1. 前往 [Dora智能体模板库](../../mofa/agent_templates)。
+1. 前往 [Dora智能体模板库](../../python/mofa/agent_templates)。
 2. 选择最简单的 [Reasoner 模板](../../python/mofa/agent_templates/reasoner)。
 3. 拷贝模板到您的开发目录。
-4. 查看模板说明：[README](../../mofa/agent_templates/reasoner/README.md)。
+4. 查看模板说明：[README](../../python/mofa/agent_templates/reasoner/README.md)。
 
 ## Step 3: 配置文件设置
 
