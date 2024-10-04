@@ -33,8 +33,7 @@
   - [评审规则](https://gitcode.com/Gitcode-offical-team/GOSIM/wiki)
   - [比赛流程](gosim/competition-process.md)
   - [硅基流动大语言模型APIs](siliconflow_llms.md)
-
-  
+  - 开发环境
 
 - [迈向AIOS](toward_aios.md)
 
