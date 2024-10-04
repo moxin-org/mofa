@@ -1,7 +1,7 @@
-# from mofa.run.run_agent import run_dspy_or_crewai_agent
-# from mofa.kernel.utils.util import load_agent_config
-# from mofa.run.run_agent import  run_dspy_or_crewai_agent
-# import dspy
+from mofa.run.run_agent import run_dspy_or_crewai_agent
+from mofa.kernel.utils.util import load_agent_config
+from mofa.run.run_agent import  run_dspy_or_crewai_agent
+import dspy
 #
 # from dsp import LM
 # import requests
@@ -69,7 +69,9 @@
 #                                       actions=agent_config.get('actions', None), results=agent_config.get('results', None), example=agent_config.get('example', None), answer=agent_config.get('answer', None),
 #                                       temperature=agent_config.get('temperature', 0.7), input_fields=agent_config.get('input_fields', None))
 #
+# agent_config = {'role': 'Knowledgeable Assistant', 'backstory': 'You are an AI-powered assistant with access to a vast database of knowledge across multiple domains, including history, science, literature, and geography. Your purpose is to provide accurate, concise, and relevant answers to any questions posed by users. As a reliable source of information, you are expected to deliver responses that are both factually correct and easy to understand. Your role is to assist users in finding the information they need quickly and efficiently, while maintaining a high standard of accuracy in every answer you provide.', 'task': '1', 'rag_enable': False, 'module_path': None, 'rag_model_name': 'text-embedding-3-small', 'collection_name': 'mofa', 'is_upload_file': True, 'chroma_path': './data/output/chroma_store', 'files_path': ['./data/output/arxiv_papers'], 'encoding': 'utf-8', 'chunk_size': 256, 'rag_search_num': 2, 'web_enable': False, 'serper_api_key': None, 'search_num': 20, 'search_engine_timeout': 5, 'model_api_key': None, 'model_name': 'deepseek-ai/DeepSeek-V2-Chat', 'model_max_tokens': 2048, 'model_api_url': 'https://api.siliconflow.cn/v1/chat/completions', 'proxy_url': None, 'agent_type': 'reasoner', 'log_path': './data/output/log/log.md', 'log_type': 'markdown', 'log_step_name': 'reasoner_result', 'check_log_prompt': True}
 # agent_result = run_dspy_or_crewai_agent(agent_config)
+# print(agent_result)
 # answer = reasoner.forward(question="你是谁?", kwargs=agent_config.get('input_fields', {}))
 # print(answer)
 # from taskweaver.app.app import TaskWeaverApp
