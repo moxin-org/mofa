@@ -22,7 +22,7 @@ Reasoner可以说是最简单的智能体。它的设计模式是：定制的大
 
 基本的配置原理就是通过更改Reasoner模版里的配置信息来生成一个定制的智能体。
 
-### 方法一：使用文本编辑器编辑MoFA配置文件
+### 使用文本编辑器编辑MoFA配置文件
 
 1. 模版拷贝：将包含这个智能体模版（Reasoner）的子目录拷贝到您指定的目录（比如hello_world)。 在目录里有两个目录，共三个文件
 
@@ -54,19 +54,10 @@ Reasoner可以说是最简单的智能体。它的设计模式是：定制的大
 
    
 
-### 方法二：MoFA IDE
-
-(TBD)
-
 ## 4. 运行Agent
 
-### 方法一：在Dora-rs命令里运行：
+在Dora-rs命令里运行：
 
 1. 安装MoFA项目包
 2. `dora up && dora build  reasoner_dataflow.yml && dora start reasoner_dataflow.yml`
-3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入indeed任务即可
-
-
-### 方法二：在MoFA运行环境里运行：
-
-（TBD）
+3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入任务即可
