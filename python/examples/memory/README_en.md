@@ -1,7 +1,5 @@
 # Memory Process Example in MoFA
 
-**Language**: English
-
 ## 1. Functionality
 
 The **Memory** agent in MoFA manages and retrieves contextual memory to assist users in maintaining consistency and relevance during interactions. Its design pattern includes: **Context Retrieval + Reasoning Response + Memory Recording**. This process ensures that the agent can utilize previous conversations and task information to provide more accurate and relevant answers.

@@ -86,33 +86,3 @@ log "项目构建完成！"
 
 
 
-#cd /project/xMind
-#git config --global --add safe.directory /project/xMind/ThirdParty/xlang
-#git config --global --add safe.directory /project/xMind
-#mkdir -p  /project/copy
-#cp -r /project/xMind/Config /project/copy
-#cp -r /project/xMind/Examples /project/copy
-#rm -rf /project/xMind/Config
-#rm -rf /project/xMind/Examples
-#
-#cd /project/xMind
-#git fetch origin
-#git reset --hard origin/main
-#
-#cd /project/xMind/ThirdParty/xlang
-#git fetch origin
-#git reset --hard origin/main
-#
-#
-#cp -r /project/copy/Config /project/xMind
-#cp -r /project/copy/Examples /project/xMind
-#
-#
-#
-#rm -rf /project/xMind/out
-#cd /project/xMind/out
-#cmake ..
-#make -j$(nproc)
-#
-#
-#
