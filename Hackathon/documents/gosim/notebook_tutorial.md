@@ -111,7 +111,7 @@ https://chenzi00103:@gitcode.com/chenzi00103/test-mofatest-mofa.git
    - 在提交代码前，请确保已更新所有文件并准备提交：
 
    ```bash
-   cd entries
+   cd hackathon
    git add .
    git commit -m "添加 [个人或团队名称] 的案例"
    ```
@@ -135,7 +135,7 @@ https://chenzi00103:@gitcode.com/chenzi00103/test-mofatest-mofa.git
 1. **Fork 比赛项目** 到个人或团队的仓库。
 2. **克隆仓库** 到 NoteBook 本地环境。
 3. **配置 Git 用户信息和访问令牌**。
-4. **编写案例代码** 并提交到指定的文件夹 `entries/[个人/团队名称]`。
+4. **编写案例代码** 并提交到指定的文件夹 `hackathon/[个人/团队名称]`。
 5. **提交代码** 到远程仓库。
 
 ---
