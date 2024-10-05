@@ -79,33 +79,6 @@ MODEL:
 
 在命令端启用MOFA智能体
 
-#### 3.1 不同cmd命令
-
-**获取当前可用Agent**:
-
-~~~ /shell
-mofa agent-list
-~~~
-
-**运行Agent**:
-
-~~~ /shell
-mofa run --agent-name reasoner
-~~~
-
-如何关闭Agent命令端? 
-输入exit/quit即可关闭
-
-**Q:** 如果遇到Dora卡死的情况怎么办? 
-
-**A:**   建议在sudo命令下面使用 
-
-~~~
-pkill dora 
-~~~
-
-注意 它会删除所有的关于dora的进程 请谨慎使用
-
 ### 4. 详细文档
 
 更多的详细文档在[documents](documents/README.md)子目录下。

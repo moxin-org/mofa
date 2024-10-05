@@ -7,7 +7,7 @@
 ## 1. Fork 项目与安装
 
 1. **找到项目地址**
-   - 例如: `https://gitcode.com/xiaozr2/kafka`
+   - `https://gitcode.com/moxin-org/mofa/overview`
 
 2. **Fork 项目**
    - 点击 `Fork` 图标。
@@ -20,7 +20,8 @@
 
 4. **安装与运行项目**
    - 创建完成后，在本地安装并运行项目。
-   - 参考 [README](../../README.md) 获取详细安装步骤。
+   - 参考 [README](../../../python/README.md) 获取详细安装步骤。
+
 
 ## 2. 提交项目
 
