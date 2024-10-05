@@ -21,13 +21,13 @@ def create_task(description: str, agent: Agent, expected_output: str=None,max_in
         description=description,
         expected_output=expected_output,
         agent=agent,
-        human_input=human_input, # dora-input is not supported yet
+        human_input=human_input,
         max_inter=max_inter
     )
     return task
 
 
-def setup_crew(agents: List[Agent], tasks: List[Task], verbose: int=2,process:str=None,memory:bool=False,manager_agent:str=None) -> Crew:
+def setup_crew(agents: List[Agent], tasks: List[Task], verbose: bool=False,process:str=None,memory:bool=False,manager_agent:str=None) -> Crew:
     if process is None:
         process = Process.sequential
     if process == 'hierarchical':
