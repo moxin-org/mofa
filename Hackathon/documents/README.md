@@ -20,7 +20,6 @@
 - [MoFA智能体的编程方式](programming/mofa_programming_methods.md)
 
   - [基于DORA-RS的编程方式](programming/dora_programming.md)
-  - [基于XMind的编程方式](programming/mofa_programming.md)
 
 - 工具和技能
 
