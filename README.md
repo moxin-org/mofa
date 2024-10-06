@@ -72,4 +72,4 @@ AI智能体就是有智能特点的计算机软件。随着大语言模型和应
 
 MoFA目前支持基于Dora-RS的智能体开发模式。
 
-1. 基于Dora-RS的开发模式，详见[python](python)目录[README.md](python/README.md)
+- 基于Dora-RS的开发模式，详见[python](python)目录[README.md](python/README.md)
