@@ -6,6 +6,9 @@
 
 <sub>注：Moxin 和 Moly 是MoFA的姊妹项目。</sub>
 
+## GOSIM China 2024 Super Agent Hackathon
+MoFA项目是GOSIM 2024中国大会SUper Agent黑客马拉松大赛的编程框架之一。为参赛选手准备的文档在[这里>>>](hackathon/documents/README.md).
+
 ## What
 
 MoFA: **M**odular **F**ramework for **A**gent 
