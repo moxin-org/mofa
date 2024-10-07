@@ -62,7 +62,7 @@ Reasoner可以说是最简单的智能体。它的设计模式是：定制的大
 
 1. 安装MoFA项目包
 2. `dora up && dora build  reasoner_dataflow.yml && dora start reasoner_dataflow.yml`
-3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入indeed任务即可
+3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入任务即可
 
 
 ### 方法二：（待定）
