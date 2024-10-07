@@ -8,13 +8,23 @@
 Arxiv Research智能体通过从arXiv上获取相关论文，并根据用户的问题生成解决方案。其设计模式为：**关键字提取 + 论文下载 + 论文分析 + 任务报告生成 + 反馈 + 优化 + 评估**。
 
 **流程说明：**
+
 keywords_extractor ：用于从用户任务中提取相关关键词，以优化 arXiv 上学术论文的搜索。根据用户需求提供最多三组关键词检索相关论文。
+
 paper_downloader_agent ：根据关键词在 arXiv 上搜索相关论文，然后根据标题下载相应的论文。
+
 paper_analyze_agent ：使用 RAG 方法将每篇下载的论文上传到向量数据库，提取关键信息，并为每篇论文生成摘要。
+
 report_writer_agent ：将用户的问题与论文摘要结合起来生成报告。
+
 feedback_agent ：根据问题和答案提供建议。
+
 refinement_agent ：根据建议、问题、答案和论文摘要生成更好的答案。
+
 evaluation_agent ：根据问答评估答案是否符合要求。如果答案符合要求，则返回答案。如果没有，请检查迭代次数。如果迭代次数达到阈值，则返回答案。否则，请再次调用feedback_agent提供建议。
+
+![paper_dataflow.png](paper_dataflow.png)
+
 
 ## 2. 使用场景
 
