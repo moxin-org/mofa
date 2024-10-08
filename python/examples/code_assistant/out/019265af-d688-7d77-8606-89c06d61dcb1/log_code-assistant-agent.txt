@@ -1,0 +1,9 @@
+2024-10-07 14:35:01,471 - 135294437283648 - predict.py-predict:17 - WARNING: 	*** In DSPy 2.5, all LM clients except `dspy.LM` are deprecated. ***
+ 		You are using the client SiliconFlowClient, which will be removed in DSPy 2.6.
+ 		Changing the client is straightforward and will let you use new features (Adapters) that improve the consistency of LM outputs, especially when using chat LMs. 
+
+ 		Learn more about the changes and how to migrate at
+ 		https://github.com/stanfordnlp/dspy/blob/main/examples/migration.ipynb
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/xdg-ubuntu-xorg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/sunny/.config/sagemaker/config.yaml
+agent_output: {'task': '你是谁', 'result': 'Answer: 我是一个擅长编程的AI助手，专门帮助用户解决编程问题，提供代码片段和技术建议。无论是修复代码还是编写新代码，我都能根据您的需求提供相应的帮助。'}
