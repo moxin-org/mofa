@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 from typing import List
 from langchain_community.document_loaders import Docx2txtLoader, UnstructuredPowerPointLoader, \
@@ -19,6 +20,22 @@ def use_langchain_split_and_gen_ids(loader):
         doc.metadata['id'] = generate_unique_int()
         all_data.append(doc)
     return all_data
+
+def split_docs_page_content(doc,chunk_size:int=328,):
+    docs = []
+    metadata = copy.deepcopy(doc.metadata)
+    if len(doc.page_content) > chunk_size:
+        texts = [doc.page_content[i:i + chunk_size] for i in range(0, len(doc.page_content), chunk_size)]
+        for text in texts:
+            metadata['id'] = generate_unique_int()
+            document = Document(
+                page_content=text,
+                metadata=doc.metadata,
+                id=generate_unique_int(),
+            )
+            docs.append(document)
+    return docs
+
 def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'utf-8'):
     """
     Split the files from the given list of file paths into chunks and return a list of documents containing the split text.
@@ -51,9 +68,7 @@ def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'u
                 loader = PyPDFLoader(str(file_path))
                 pages = loader.load_and_split()
                 for doc in pages:
-                    id_num += 1
-                    doc.metadata['id'] = generate_unique_int()
-                    all_data.append(doc)
+                    all_data+= split_docs_page_content(doc=doc,chunk_size=chunk_size)
             elif file_extension == ".doc" or file_extension == ".docx":
                 loader = Docx2txtLoader(file_path)
                 docs = loader.load_and_split()

@@ -34,6 +34,7 @@ class Operator:
 
                 yaml_file_path = get_relative_path(current_file=__file__, sibling_directory_name='configs', target_file_name='paper_analyze_agent.yml')
                 inputs = load_agent_config(yaml_file_path)
+
                 all_result = []
                 for file_path in  inputs.get('files_path'):
                     if Path(file_path).is_dir():

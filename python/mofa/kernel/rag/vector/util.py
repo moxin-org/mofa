@@ -54,11 +54,31 @@ def upload_files_to_vector(vectorstore, files_path: Union[List[str],str], chunk_
     t1 = time.time()
 
     docs = split_files(files_path=files_path, chunk_size=chunk_size, encoding=encoding)
-    if len(docs) >=1:
-        try:
-            vectorstore.add_documents(docs, ids=[doc.metadata["id"] for doc in docs])
-        except Exception as e:
-            vectorstore.add_documents(docs, ids=[str(doc.metadata["id"]) for doc in docs])
+    if len(docs) >= 1:
+            if len(docs) > 30:
+                for i in range(0, len(docs), 30):
+                    batch_docs = docs[i:i + 30]  # 获取当前批次的文档
+                    try:
+                        batch_ids = [str(doc.metadata["id"]) for doc in batch_docs]
+                        vectorstore.add_documents(batch_docs, ids=batch_ids)
+                    except Exception as e :
+                        batch_ids = [str(doc.id) for doc in batch_docs]
+                        vectorstore.add_documents(batch_docs, ids=batch_ids)
+            else:
+                try:
+                    ids = [str(doc.metadata["id"]) for doc in docs]
+                    vectorstore.add_documents(docs, ids=ids)
+                except Exception as e :
+                    ids = [str(doc.id) for doc in docs]
+                    vectorstore.add_documents(docs, ids=ids)
+
+    # if len(docs) >=1:
+    #     try:
+    #         if len(docs)>30:
+    #             for i in range(0, len(docs), 30):
+    #                 vectorstore.add_documents(docs, ids=[str(doc.metadata["id"]) for doc in docs])
+    #     except Exception as e:
+    #         vectorstore.add_documents(docs, ids=[str(doc.id) for doc in docs])
 
     else:
         print(f'{json.dumps(files_path)} Split File Is Empty')

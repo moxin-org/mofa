@@ -40,81 +40,75 @@ RUN mkdir -p /project && \
     git clone https://github.com/moxin-org/mofa.git && \
     cd mofa && \
     cd /project/mofa/python && \
-    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
-    pip3 install -e . -i https://pypi.org/simple && \
-    cd /project/mofa/python/mofa/agent_templates/reasoner && \
-    dora build reasoner_dataflow.yml
+    pip3 install --upgrade pip --index-url https://pypi.org/simple
+#    pip3 install -e . -i https://pypi.org/simple && \
+#    cd /project/mofa/python/mofa/agent_templates/reasoner && \
+#    dora build reasoner_dataflow.yml
 
 WORKDIR /project
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        git \
-        vim \
-        cmake \
-        uuid-dev \
-        libssl-dev \
-        python3-dev \
-        make \
-        wget \
-        lsof \
-        curl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-
-
-RUN cd /project && \
-    git clone https://github.com/xlang-foundation/xMind.git && \
-    cd xMind/ThirdParty && \
-    git clone https://github.com/xlang-foundation/xlang.git && \
-    cd xlang && \
-    echo "Switched to Jit branch successfully." && \
-    cd /project/xMind && \
-    mkdir -p out && \
-    echo "Created build directory successfully."
-
-
-RUN cd /project/xMind/out && \
-    cmake  .. && \
-    make -j$(nproc)
-
-
-# 复制 micromamba-2.0.0-1.tar.bz2 到镜像中
-COPY micromamba-2.0.0-1.tar.bz2 /project/
-
-# 安装 micromamba
-RUN mkdir -p /project/bin && \
-    tar -xvjf /project/micromamba-2.0.0-1.tar.bz2 -C /project/bin --strip-components=1 && \
-    chmod +x /project/bin/micromamba
-
-# 创建 micromamba 环境并安装依赖项
-RUN /project/bin/micromamba create -p /opt/conda -y && \
-    /project/bin/micromamba install -p /opt/conda xeus xeus-zmq cmake zeromq cppzmq openssl xtl nlohmann_json -c conda-forge -y && \
-    /project/bin/micromamba clean --all --yes
-
-# 设置环境变量
-# ENV PATH=/opt/conda/bin:$PATH
-ENV PATH=/project/bin:/opt/conda/bin:$PATH
-ENV CMAKE_PREFIX_PATH=/opt/conda
-ENV LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH
-
-
-# 构建 xeus-xlang
-RUN git clone https://gitcode.com/wt2k/xeus-xlang.git && \
-    cd xeus-xlang && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j$(nproc) && \
-    make install
-RUN cp -r /project/xeus-xlang/install/share ~/.local
-COPY update_xlang_env.sh /project/
-# 复制必要的文件
-#RUN cp -r /project/xeus-xlang/install/share ~/.local && \
-#    cp -r /project/xMind/out/ /project/xeus-xlang/install/bin && \
-#    mkdir -p /project/xeus-xlang/install/bin/xlang && \
-#    cp -r /project/xeus-xlang/install/bin/out/bin/* /project/xeus-xlang/install/bin/xlang
+#RUN apt-get update -y && \
+#    apt-get install -y --no-install-recommends \
+#        build-essential \
+#        git \
+#        vim \
+#        cmake \
+#        uuid-dev \
+#        libssl-dev \
+#        python3-dev \
+#        make \
+#        wget \
+#        lsof \
+#        curl && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
 #
+#
+#
+#RUN cd /project && \
+#    git clone https://github.com/xlang-foundation/xMind.git && \
+#    cd xMind/ThirdParty && \
+#    git clone https://github.com/xlang-foundation/xlang.git && \
+#    cd xlang && \
+#    echo "Switched to Jit branch successfully." && \
+#    cd /project/xMind && \
+#    mkdir -p out && \
+#    echo "Created build directory successfully."
+#
+#
+#RUN cd /project/xMind/out && \
+#    cmake  .. && \
+#    make -j$(nproc)
+#
+#
+## 复制 micromamba-2.0.0-1.tar.bz2 到镜像中
+#COPY micromamba-2.0.0-1.tar.bz2 /project/
+#
+## 安装 micromamba
+#RUN mkdir -p /project/bin && \
+#    tar -xvjf /project/micromamba-2.0.0-1.tar.bz2 -C /project/bin --strip-components=1 && \
+#    chmod +x /project/bin/micromamba
+#
+## 创建 micromamba 环境并安装依赖项
+#RUN /project/bin/micromamba create -p /opt/conda -y && \
+#    /project/bin/micromamba install -p /opt/conda xeus xeus-zmq cmake zeromq cppzmq openssl xtl nlohmann_json -c conda-forge -y && \
+#    /project/bin/micromamba clean --all --yes
+#
+## 设置环境变量
+## ENV PATH=/opt/conda/bin:$PATH
+#ENV PATH=/project/bin:/opt/conda/bin:$PATH
+#ENV CMAKE_PREFIX_PATH=/opt/conda
+#ENV LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATH
+#
+#
+## 构建 xeus-xlang
+#RUN git clone https://gitcode.com/wt2k/xeus-xlang.git && \
+#    cd xeus-xlang && \
+#    mkdir build && cd build && \
+#    cmake .. && \
+#    make -j$(nproc) && \
+#    make install
+#RUN cp -r /project/xeus-xlang/install/share ~/.local
+#COPY update_xlang_env.sh /project/
 
 CMD ["/bin/bash"]
