@@ -20,8 +20,12 @@
 5. [附录](#5-附录)
 
 ---
+## 0. 注册siliconflow
+注册[siliconflow_llms](../siliconflow_llms.md),获取Llm的密钥。
+
 
 ## 1. 创建 NoteBook 环境
+
 
 ### 1.1 登录 GitCode 并创建 NoteBook 环境
 
@@ -224,6 +228,10 @@
     ```
 
     - 解决代码冲突后，重新提交代码。
+  
+### 4.5 更多的问题请查询
+- **解决办法**：
+    [frequently_asked_questions_(faq)](../frequently_asked_questions_%28faq%29.md)
 
 ---
 
