@@ -87,6 +87,8 @@ def run_dspy_agent(agent_config: dict):
     if agent_config.get('agent_type') == 'reasoner':
         if agent_config.get('rag_enable') == 'True' or agent_config.get('rag_enable') == 'true' or agent_config.get('rag_enable') == True:
             os.environ["OPENAI_API_KEY"] = agent_config.get('model_api_key')
+            os.environ["OPENAI_API_KEY"] = agent_config.get("rag_model_api_key")
+            os.environ["OPENAI_API_BASE"] = agent_config.get("rag_model_api_url")
             reasoner = ReasonerRagModule(module_path=agent_config.get('module_path', None),
                                          model_name=agent_config.get('rag_model_name', None),
                                          files_path=agent_config.get('files_path', None),

@@ -6,9 +6,7 @@ AGENT:
 RAG:
   RAG_ENABLE: false
 #  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
-#  MODULE_PATH: /mnt/c/Users/chenzi/Desktop/project/model/bce-embedding-base_v1
   MODULE_PATH: null
-  RAG_MODEL_NAME: text-embedding-3-small
   COLLECTION_NAME: mofa
   IS_UPLOAD_FILE: true
   CHROMA_PATH: ./data/output/chroma_store
@@ -16,7 +14,10 @@ RAG:
     - ./data/output/arxiv_papers
   ENCODING: utf-8
   CHUNK_SIZE: 256
-  RAG_SEARCH_NUM: 2
+  RAG_SEARCH_NUM: 5
+  RAG_MODEL_NAME: netease-youdao/bce-embedding-base_v1
+  RAG_MODEL_API_URL: https://api.siliconflow.cn/v1
+  RAG_MODEL_API_KEY:
 
 WEB:
   WEB_ENABLE: false

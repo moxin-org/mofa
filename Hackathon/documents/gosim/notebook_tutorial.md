@@ -1,142 +1,237 @@
-# 在比赛中如何使用GitCode-NoteBook来运行案例和提交代码
 
-## 1，创建NoteBook环境
-### 1.1 登陆GitCode创建NoteBook环境
-1. 登陆GitCode，点击右上角头像，选择NoteBook，点击创建，即可看到如下图所示的NoteBook环境，点击进入即可看到如下图所示的NoteBook环境。
-![gitcode-login.png](attachment/gitcode-login.png)
-2. 根据组委会给的镜像以及镜像版本，选择以及硬件资源，创建NoteBook环境。
-![create_netobook.png](attachment/create_netobook.png)
-3. 创建完成后进入页面，即可看到如下图所示的NoteBook环境。
-![netobook.png](attachment/netobook.png)
-
-
-## 2，比赛代码创建和运行
-TODO: 待完善
-
-
-## 3，创建和提交代码 
-1. Fork 项目，创建仓库到队长或个人的仓库
-![img.png](img.png)
-2. 在NetoBook中将仓库clone到本地
-1. 在GitCode的右上角点击头像 -> 个人设置 -> 安全设置 -> 访问令牌 -> 点击 "新建访问令牌". 请你设置你的到期时间，并复制token，保存好，后面需要用到。
-2. 设置你的Git的'name'以及'email'. 如果你不清楚你的账号名字以及邮箱，请点击 右上角点击头像 -> [用户资料,电子邮箱],即可看到自己的账号名字以及邮箱。
-~~~
-git config user.name "name"
-git config user.email  "email"
-~~~
-3. 创建案例
-将你写的代码提交到 entries/[个人/团队名称]下,然后写好你的 `README.md`和 git commit 的提交信息
-4. 提交案例
-~~~
-cd entries
-git add . 
-git commit -m "提交案例"
-https://username:token@gitcode.com/chenzi00103/test-mofatest-mofa.git
-
-https://chenzi00103:@gitcode.com/chenzi00103/test-mofatest-mofa.git
-~~~
-
-
-以下是优化后的文档，目的是让读者更清晰、流畅地了解如何在比赛中使用 GitCode-NoteBook 运行案例和提交代码。
-
----
 
 # 在比赛中如何使用 GitCode-NoteBook 运行案例和提交代码
+
+本文档将指导你如何在比赛中使用 GitCode-NoteBook 环境来运行案例代码并提交你的项目。本文适合所有参与比赛的新手，无需任何先前的 Git 或编程经验。
+
+## 目录
+
+1. [创建 NoteBook 环境](#1-创建-notebook-环境)
+    - [1.1 登录 GitCode 并创建 NoteBook 环境](#11-登录-gitcode-并创建-notebook-环境)
+2. [比赛代码创建和运行](#2-比赛代码创建和运行)
+3. [创建和提交代码](#3-创建和提交代码)
+    - [3.1 Fork 项目并获取项目信息](#31-fork-项目并获取项目信息)
+    - [3.2 配置 Git 访问令牌和用户信息](#32-配置-git-访问令牌和用户信息)
+    - [3.3 设置 Git 全局配置并克隆项目](#33-设置-git-全局配置并克隆项目)
+    - [3.4 更新代码环境](#34-更新代码环境)
+    - [3.5 创建案例并提交代码](#35-创建案例并提交代码)
+    - [3.6 提交案例流程总结](#36-提交案例流程总结)
+4. [常见问题及解决办法](#4-常见问题及解决办法)
+5. [附录](#5-附录)
+
+---
 
 ## 1. 创建 NoteBook 环境
 
 ### 1.1 登录 GitCode 并创建 NoteBook 环境
 
-1. **登录 GitCode**：进入 [GitCode 官网](https://gitcode.net/)，点击右上角的头像，选择 **NoteBook**。
-   
+1. **登录 GitCode**：
+    - 打开浏览器，访问 [GitCode 官网](https://gitcode.net/)。
+    - 点击右上角的 **头像**，然后选择 **NoteBook**。
+
+    ![gitcode-login.png](attachment/gitcode-login.png)
+
 2. **创建 NoteBook 环境**：
-   - 点击 **创建** 按钮，选择组委会提供的镜像及版本号，根据比赛需求配置硬件资源。
-   - 创建成功后，将看到如下图所示的 NoteBook 环境界面。点击进入即可。
-   
-   ![gitcode-login.png](attachment/gitcode-login.png)
+    - 在 NoteBook 页面，点击 **创建** 按钮。
+    - 根据组委会提供的 **镜像名称** 和 **版本号** 选择合适的开发环境。
+    - 配置所需的 **硬件资源**（如 CPU 核数、内存大小）。
+    - 点击 **创建**，等待环境初始化完成。
 
-3. **配置 NoteBook 环境**：
-   - 根据组委会提供的指导，设置开发环境的镜像和资源配置，如 CPU 和内存大小。
-   
-   ![create_netobook.png](attachment/create_netobook.png)
+    ![create_notebook.png](attachment/create_notebook.png)
 
-4. **进入 NoteBook 环境**：
-   - 创建完成后，进入 NoteBook 界面，查看如下所示的工作环境。
-   
-   ![netobook.png](attachment/netobook.png)
+3. **进入 NoteBook 环境**：
+    - 创建完成后，你将看到新创建的 NoteBook 环境列表。
+    - 点击相应的 NoteBook，进入工作界面。
+
+    ![notebook.png](attachment/notebook.png)
+
+---
 
 ## 2. 比赛代码创建和运行
 
-**TODO: 待完善** 
+**待完善**：此部分将详细介绍如何在 NoteBook 环境中创建比赛代码、运行测试案例以及调试代码。请稍后查看更新。
 
-该部分将涵盖如何在 NoteBook 中创建和运行比赛代码的详细步骤。
+---
 
 ## 3. 创建和提交代码
 
-### 3.1 Fork 项目并创建仓库
+### 3.1 Fork 项目并获取项目信息
 
 1. **Fork 项目**：
-   - 登录 GitCode，找到比赛项目，点击 **Fork**，将项目复制到个人或队长的仓库中。
+    - 登录 GitCode，找到比赛官方提供的项目仓库（通常在比赛通知或官网提供的链接中）。
+    - 点击 **Fork** 按钮，将官方仓库复制到你个人或团队的仓库中。
 
-   ![img.png](img.png)
+    ![fork_project.png](attachment/fork_project.png)
 
-2. **克隆仓库到 NoteBook 本地**：
-   - 进入 NoteBook 环境，打开终端，将 Fork 后的仓库克隆到本地：
-   
-   ```bash
-   git clone https://gitcode.com/username/project.git
-   ```
+2. **获取个人用户名和项目名称**：
+    - **用户名**：
+        - 登录 GitCode 后，点击右上角 **头像**，选择 **个人设置**。
+        - 在 **用户信息** 页面，可以看到你的 **用户名**。
+    - **项目名称**：
+        - 在你的 GitCode 仓库列表中，找到你刚刚 Fork 的项目，项目名称通常在仓库列表中显示。
 
 ### 3.2 配置 Git 访问令牌和用户信息
 
 1. **创建访问令牌**：
-   - 在 GitCode 的右上角点击头像，选择 **个人设置 -> 安全设置 -> 访问令牌**，点击 **新建访问令牌**。
-   - 设置到期时间，并生成令牌，复制保存该令牌，后续将用于认证。
+    - 在 GitCode 的右上角，点击 **头像**，选择 **个人设置**。
+    - 进入 **安全设置**，找到 **访问令牌** 选项，点击 **新建访问令牌**。
+    - 设置令牌的描述（例如：“比赛提交令牌”）和到期时间，然后点击 **创建访问令牌**。
+    - **复制生成的访问令牌**，并妥善保存，因为稍后提交代码时需要使用。
+
+    ![create_token.png](attachment/create_token.png)
 
 2. **配置 Git 用户信息**：
-   - 设置 Git 的用户名和邮箱：
+    - 在 NoteBook 的终端中，设置你的 Git 用户名和邮箱：
 
-   ```bash
-   git config --global user.name "your_name"
-   git config --global user.email "your_email"
-   ```
+    ```bash
+    git config --global user.name "你的姓名"
+    git config --global user.email "你的邮箱地址"
+    ```
 
-   - 如果不确定账号信息，可以在 GitCode 右上角点击头像，选择 **用户资料** 查看用户名和邮箱。
+    > **提示**：确保用户名和邮箱与你的 GitCode 账户信息一致。
 
-### 3.3 创建案例并提交代码
+    - **查找用户名和邮箱**：
+        - 点击右上角 **头像**，选择 **用户资料**，查看你的 **用户名** 和 **注册邮箱**。
+
+### 3.3 设置 Git 全局配置并克隆项目
+
+3. **克隆仓库到 NoteBook 本地**：
+    - 回到 GitCode 中 Fork 的项目仓库页面，点击 **Clone** 按钮。
+    - 在弹出的窗口中，选择 `https` 选项，找到 **克隆到本地** 的 URL，并复制该命令。例如：
+
+    ```bash
+    git clone https://gitcode.com/你的用户名/项目名称.git
+    ```
+
+    - 运行成功后，当前目录下会自动创建一个名为 `mofa` 的文件夹。
+
+### 3.4 更新代码环境
+
+1. **进入项目目录**：
+    - 在 NoteBook 的终端中，导航到克隆的项目目录，通常路径为 `项目名称/python`：
+
+    ```bash
+    cd mofa/python
+    ```
+
+2. **更新依赖包**：
+    - 使用 `pip` 更新项目所需的依赖包：
+
+    ```bash
+    pip3 install -e .
+    ```
+
+    > **说明**：此命令会根据 `setup.py` 文件安装或更新项目的依赖包。
+
+### 3.5 创建案例并提交代码
 
 1. **创建案例**：
-   - 将编写的代码提交到 `entries/[个人或团队名称]` 目录下，确保代码结构清晰，并编写 `README.md` 文件说明案例内容。
-   
-   - 在提交代码前，请确保已更新所有文件并准备提交：
+    - 在克隆下来的本地仓库中，导航到 `Community/[个人或团队名称]` 目录。如果该目录不存在，可以自行创建：
 
-   ```bash
-   cd hackathon
-   git add .
-   git commit -m "添加 [个人或团队名称] 的案例"
-   ```
+    ```bash
+    cd mofa/Community/你的团队名称
+    ```
 
-2. **提交代码到远程仓库**：
-   - 使用以下命令提交代码到远程仓库，替换 `username` 和 `project` 为实际的用户名和项目名，`token` 为之前生成的访问令牌：
+    - 编写或修改代码，确保代码结构清晰。
+    - 创建或更新 `README.md` 文件，简要说明你的案例内容和功能：
 
-   ```bash
-   git remote set-url origin https://username:token@gitcode.com/username/project.git
-   git push origin main
-   ```
+    ```bash
+    nano README.md
+    ```
 
-   - 如果令牌已经包含在 URL 中：
+    > **提示**：你可以使用任何文本编辑器（如 `nano`, `vim`, 或者 NoteBook 提供的编辑器）来编辑 `README.md` 文件。
 
-   ```bash
-   git push https://username:token@gitcode.com/username/project.git
-   ```
+2. **提交代码**：
+    - **添加更改**：
 
-### 3.4 提交案例流程总结
+    ```bash
+    git add .
+    ```
 
-1. **Fork 比赛项目** 到个人或团队的仓库。
-2. **克隆仓库** 到 NoteBook 本地环境。
-3. **配置 Git 用户信息和访问令牌**。
-4. **编写案例代码** 并提交到指定的文件夹 `hackathon/[个人/团队名称]`。
-5. **提交代码** 到远程仓库。
+    - **提交更改并添加提交信息**：
+
+    ```bash
+    git commit -m "添加 [个人/团队名称] 的案例"
+    ```
+
+    - **设置远程仓库的 URL（包含访问令牌）**：
+
+    ```bash
+    git remote set-url origin https://你的用户名:你的访问令牌@gitcode.com/你的用户名/项目名称.git
+    ```
+
+    > **示例**：
+
+    ```bash
+    git remote set-url origin https://johnDoe:abcdef123456@gitcode.com/johnDoe/mofa.git
+    ```
+
+    - **推送代码到远程仓库**：
+
+    ```bash
+    git push origin main
+    ```
+
+    > **注意**：
+    >
+    > - 将 `你的用户名`、`你的访问令牌` 和 `项目名称` 替换为实际信息。
+    > - 如果默认分支不是 `main`，请使用相应的分支名称（例如 `master`）。
+
+### 3.6 提交案例流程总结
+
+1. **Fork 比赛项目** 到个人或团队的 GitCode 仓库。
+2. **获取个人用户名和项目名称**：
+    - **用户名**：通过个人设置获取。
+    - **项目名称**：在仓库列表中查看。
+3. **克隆仓库** 到 NoteBook 本地环境。
+4. **配置 Git 用户信息和访问令牌**。
+5. **设置 Git 全局配置** 并 **克隆项目**。
+6. **更新代码环境** 以确保依赖包正确安装。
+7. **编写案例代码** 并确保 `README.md` 文件完善。
+8. **提交代码** 到远程仓库。
 
 ---
+
+## 4. 常见问题及解决办法
+
+### 4.1 无法登录 GitCode
+
+- **解决办法**：
+    - 确认网络连接正常。
+    - 检查用户名和密码是否正确。
+    - 如果忘记密码，可以通过 **找回密码** 功能重置。
+
+### 4.2 访问令牌丢失或泄露
+
+- **解决办法**：
+    - 如果访问令牌丢失，请重新创建新的访问令牌。
+    - 确保令牌保存在安全的地方，避免泄露。
+
+### 4.3 克隆仓库失败
+
+- **解决办法**：
+    - 确认仓库 URL 是否正确。
+    - 检查是否配置了正确的访问令牌。
+    - 确认网络连接正常。
+
+### 4.4 提交代码遇到冲突
+
+- **解决办法**：
+    - 拉取最新的远程仓库代码：
+
+    ```bash
+    git pull origin main
+    ```
+
+    - 解决代码冲突后，重新提交代码。
+
+---
+
+## 5. 附录
+
+- **Git 基础知识**：
+    - 如果你对 Git 不熟悉，建议先学习一些基础知识，如 [Git 官方文档](https://git-scm.com/doc)。
+
+- **GitCode 帮助中心**：
+    - 更多关于 GitCode 的使用，可以参考 [GitCode 帮助中心](https://gitcode.net/help)。
 

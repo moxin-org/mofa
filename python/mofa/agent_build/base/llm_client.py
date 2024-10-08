@@ -1,5 +1,10 @@
 from dsp import LM
 import requests
+import dspy
+
+from mofa.utils.envs.util import init_proxy_env, init_env
+
+
 class SiliconFlowClient(LM):
     def __init__(self, model:str, api_key:str, base_url:str=None):
         self.model = model
@@ -40,3 +45,22 @@ class SiliconFlowClient(LM):
         response = self.basic_request(prompt, **kwargs)
         completions = [result.get('message').get("content") for result in response["choices"]]
         return completions
+
+def init_dspy_llm_client(agent_config:dict) :
+    if agent_config.get('proxy_url', None) is not None:
+        init_proxy_env(proxy_url=agent_config.get('proxy_url', 'http://127.0.0.1:10809'))
+    if agent_config.get('envs', None) is not None: init_env(env=agent_config['envs'])
+    if agent_config.get('model_api_key') != 'ollama' and agent_config.get('model_name',None) is None:
+        turbo = dspy.OpenAI(model=agent_config.get('model_name'), max_tokens=agent_config.get('model_max_tokens'),
+                            api_key=agent_config.get('model_api_key'), api_base=agent_config.get('model_api_url', None))
+    elif agent_config.get('model_api_key') == 'ollama':
+        turbo = dspy.OllamaLocal(model=agent_config.get('model_name', 'llama3'),
+                                 base_url=agent_config.get('model_api_url', 'http://127.0.0.1:11434'), )
+    else:
+        turbo = SiliconFlowClient(
+            model=agent_config.get('model_name'),
+            api_key=agent_config.get('model_api_key'),
+            base_url=agent_config.get('model_api_url', None),
+        )
+
+    dspy.settings.configure(lm=turbo)

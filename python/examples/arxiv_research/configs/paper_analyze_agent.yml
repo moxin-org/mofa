@@ -9,10 +9,8 @@ AGENT:
 
 RAG:
   RAG_ENABLE: true
-#  MODULE_PATH: /opt/bce-embedding-base_v1
-  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
+#  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
 #  MODULE_PATH: text-embedding-3-small
-  RAG_MODEL_NAME: null
   CHROMA_PATH: ./data/output/chroma_store
   COLLECTION_NAME: mofa
   IS_UPLOAD_FILE: true
@@ -20,7 +18,10 @@ RAG:
     - ./data/output/arxiv_papers
   ENCODING: utf-8
   CHUNK_SIZE: 256
-  RAG_SEARCH_NUM: 2
+  RAG_SEARCH_NUM: 4
+  RAG_MODEL_NAME: netease-youdao/bce-embedding-base_v1
+  RAG_MODEL_API_URL: https://api.siliconflow.cn/v1
+  RAG_MODEL_API_KEY:    
 
 LOG:
   LOG_PATH: ./data/output/log/paper_dataflow.md
@@ -28,7 +29,7 @@ LOG:
   LOG_STEP_NAME: paper_analyze_agent
 
 MODEL:
-  MODEL_API_KEY:  
+  MODEL_API_KEY:   
   MODEL_NAME: gpt-4o
   MODEL_MAX_TOKENS: 2048
 

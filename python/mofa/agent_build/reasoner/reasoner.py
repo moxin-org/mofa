@@ -43,7 +43,19 @@ class ReasonerRagModule(BaseRag):
         self.task_evaluation = FindTaskKeyWordsModule()
         self.quality_enhancer = QualityEnhancerModule()
         self.rag_search_num = rag_search_num
+    def rag_retrieval(self,question:str):
+        try:
+            task_result = self.task_evaluation.serialization_result(self.task_evaluation.forward(question=question).answer)
+            keywords = task_result.get('keywords')
+            keywords.append(question)
+            keywords = list(set(keywords))
+        except Exception as e:
+            print(e)
+            keywords = [question]
+        print('task keywords  : ', keywords)
 
+        all_rag_result = self.search(keywords=keywords, k=self.rag_search_num)
+        return all_rag_result
     def rag_search(self, question: str, llm_result: str = ''):
         try:
             task_result = self.task_evaluation.serialization_result(self.task_evaluation.forward(question=question).answer)
