@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "/home/sunny/mofa/python/examples/code_assistant/scripts/content.py", line 90, in <module>
+    main()
+  File "/home/sunny/mofa/python/examples/code_assistant/scripts/content.py", line 61, in main
+    inputs = load_agent_config(yaml_file_path)
+  File "/home/sunny/mofa/python/mofa/kernel/utils/util.py", line 15, in load_agent_config
+    params = read_yaml(yaml_file)
+  File "/home/sunny/mofa/python/mofa/utils/files/read.py", line 14, in read_yaml
+    prime_service = yaml.safe_load(file)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/scanner.py", line 116, in check_token
+    self.fetch_more_tokens()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/scanner.py", line 223, in fetch_more_tokens
+    return self.fetch_value()
+  File "/home/sunny/anaconda3/envs/mofa/lib/python3.10/site-packages/yaml/scanner.py", line 577, in fetch_value
+    raise ScannerError(None, None,
+yaml.scanner.ScannerError: mapping values are not allowed here
+  in "/home/sunny/mofa/python/examples/code_assistant/configs/code_content_agent.yml", line 7, column 39
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/xdg-ubuntu-xorg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/sunny/.config/sagemaker/config.yaml

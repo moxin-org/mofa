@@ -1,0 +1,2 @@
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/xdg-ubuntu-xorg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/sunny/.config/sagemaker/config.yaml
