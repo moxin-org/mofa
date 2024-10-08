@@ -1,0 +1,2 @@
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/nkucodetest/.config/sagemaker/config.yaml

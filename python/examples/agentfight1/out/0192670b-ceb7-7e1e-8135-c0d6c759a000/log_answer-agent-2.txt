@@ -1,0 +1,9 @@
+2024-10-07 20:55:11,361 - 140658530211008 - predict.py-predict:17 - WARNING: 	*** In DSPy 2.5, all LM clients except `dspy.LM` are deprecated. ***
+ 		You are using the client SiliconFlowClient, which will be removed in DSPy 2.6.
+ 		Changing the client is straightforward and will let you use new features (Adapters) that improve the consistency of LM outputs, especially when using chat LMs. 
+
+ 		Learn more about the changes and how to migrate at
+ 		https://github.com/stanfordnlp/dspy/blob/main/examples/migration.ipynb
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/nkucodetest/.config/sagemaker/config.yaml
+Agent 2 Output: Answer: 二战，即第二次世界大战，是从1939年至1945年发生在全球范围内的一场大规模军事冲突。这场战争主要涉及两大军事同盟：轴心国（包括德国、意大利和日本）和同盟国（包括美国、英国、苏联和中国等）。战争的起因复杂，包括经济危机、政治野心和民族主义情绪的上升。战争期间发生了许多重大事件，如珍珠港事件、诺曼底登陆和广岛与长崎的原子弹爆炸。最终，同盟国取得了胜利，战后世界秩序发生了重大变化，包括联合国的成立和冷战的开始。

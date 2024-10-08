@@ -1,0 +1,20 @@
+2024-10-07 20:59:36,888 - 140083557622976 - predict.py-predict:17 - WARNING: 	*** In DSPy 2.5, all LM clients except `dspy.LM` are deprecated. ***
+ 		You are using the client SiliconFlowClient, which will be removed in DSPy 2.6.
+ 		Changing the client is straightforward and will let you use new features (Adapters) that improve the consistency of LM outputs, especially when using chat LMs. 
+
+ 		Learn more about the changes and how to migrate at
+ 		https://github.com/stanfordnlp/dspy/blob/main/examples/migration.ipynb
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+RuntimeError: Dora Runtime raised an error.
+
+Caused by:
+   0: main task failed
+   1: failed to send node output
+   2: unknown output
+
+Location:
+    apis/rust/node/src/node/mod.rs:256:13
+sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/sagemaker/config.yaml
+sagemaker.config INFO - Not applying SDK defaults from location: /home/nkucodetest/.config/sagemaker/config.yaml
+Agent 2 Output: Answer: 一战，即第一次世界大战（1914-1918年），是一场主要发生在欧洲但最终影响到全球的重大冲突。这场战争涉及多个国家，主要分为两个联盟：同盟国（包括德国、奥匈帝国、土耳其和保加利亚）和协约国（包括英国、法国、俄罗斯、意大利和美国等）。战争的起因复杂，包括民族主义的兴起、军备竞赛、同盟体系的形成以及一系列政治和军事危机，如萨拉热窝事件。战争导致了巨大的破坏和人员伤亡，估计有超过1600万人死亡，其中包括约1000万军事人员和600万平民。一战不仅改变了国际政治格局，也为第二次世界大战和冷战的爆发埋下了伏笔。
