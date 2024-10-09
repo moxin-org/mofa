@@ -40,7 +40,7 @@
 ### 2.1 登录 GitCode 并创建 NoteBook 环境
 
 1. **登录 GitCode**：
-    - 打开浏览器，访问 [GitCode 官网](https://gitcode.net/)。
+    - 打开浏览器，访问 [GitCode 官网](https://gitcode.com/)。
     - 点击右上角的 **头像**，然后选择 **NoteBook**。
 
     ![gitcode-login.png](attachment/gitcode-login.png)
