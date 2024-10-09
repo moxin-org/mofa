@@ -1,4 +1,4 @@
-# Query Assistant Example in MoFA
+# Code Assistant Example in MoFA
 
 **语言**: 中文
 
