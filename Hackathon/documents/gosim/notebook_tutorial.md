@@ -142,13 +142,14 @@
 #### 4.5.1 创建案例
 
 1. **创建案例**：
-    - 在克隆下来的本地仓库中，导航到 `Community/[个人或团队名称]` 目录。如果该目录不存在，可以自行创建：
+    - 在克隆下来的本地仓库中，创建一个属于你们[个人/团队名称]的目录,到 `/mofa/Hackathon/projects/[个人或团队名称]` 目录。如果该目录不存在，可以自行创建：
 
     ```bash
-    cd 项目名称/Community/你的团队名称
+    cd 项目名称/Hackathon/projects/你的团队名称
     ```
 
     - 编写或修改代码，确保代码结构清晰。
+    - 你的案例文件应该包含在 `/mofa/Hackathon/projects/[个人或团队名称]` 目录下。
     - 创建或更新 `README.md` 文件，简要说明你的案例内容和功能：
 
     ```bash
@@ -234,6 +235,7 @@
         - `README.md`：用于说明案例内容及逻辑。
         - `案例_dataflow-graph.html`：使用 Dora Graph 生成当前 dataflow 对应的展示结构。
         - `README_en.md`：当前 dataflow 流程说明的英文版本。
+        - `agent_response.json`: 用于保存你的agent的任务和结果。内容结构是{"task":"你的名称是什么？","agent_response":"我的名字是xxx"}
     - **请勿上传**：
         - 你的 API 密钥。
         - 由 `dora/python/log` 生成的一些文件。
