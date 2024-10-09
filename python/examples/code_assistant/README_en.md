@@ -1,6 +1,6 @@
-Code Assistant Example in MoFA
+# Code Assistant Example in MoFA
 
-Language: English
+**Language**: English
 ## 1. Functionality Description
 
 The **Code Assistant** is a simple code aid tool designed to provide code based on user input requirements. Its design pattern is: **receive question + query corresponding part of the code + return code**.
