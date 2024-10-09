@@ -1,9 +1,0 @@
-2024-10-06 20:45:47,259 - 139628133962944 - predict.py-predict:17 - WARNING: 	*** In DSPy 2.5, all LM clients except `dspy.LM` are deprecated. ***
- 		You are using the client SiliconFlowClient, which will be removed in DSPy 2.6.
- 		Changing the client is straightforward and will let you use new features (Adapters) that improve the consistency of LM outputs, especially when using chat LMs. 
-
- 		Learn more about the changes and how to migrate at
- 		https://github.com/stanfordnlp/dspy/blob/main/examples/migration.ipynb
-sagemaker.config INFO - Not applying SDK defaults from location: /etc/xdg/sagemaker/config.yaml
-sagemaker.config INFO - Not applying SDK defaults from location: /home/nkucodetest/.config/sagemaker/config.yaml
-Agent 1 Output: Answer: 一战，即第一次世界大战，发生在1914年至1918年之间。这场战争主要由欧洲列强之间的紧张关系和同盟体系引发，特别是奥匈帝国皇储弗朗茨·费迪南德在萨拉热窝遇刺事件成为导火索。战争涉及全球多个国家和地区，包括同盟国（主要由德国、奥匈帝国、土耳其和保加利亚组成）和协约国（主要由英国、法国、俄罗斯、意大利和美国等组成）。一战导致了巨大的破坏和人员伤亡，估计有超过1600万人死亡，其中包括士兵和平民。这场战争不仅改变了国际政治格局，也为第二次世界大战和20世纪的一系列重大事件奠定了基础。
