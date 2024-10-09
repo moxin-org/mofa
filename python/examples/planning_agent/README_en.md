@@ -3,7 +3,7 @@
 ## 1. Functionality
 The Planning Agent is capable of breaking down complex large tasks into smaller subtasks, while annotating task dependencies and execution methods (synchronous or asynchronous).
 
-## 2. 
+## 2. Use Cases
 1. Input a large task and obtain a list of decomposed smaller tasks.
 2. Get structured task information, including task descriptions, dependencies, and execution types.
 
