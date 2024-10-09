@@ -48,7 +48,7 @@ AGENT:
     Your evaluation will provide an objective, data-driven assessment of each agent's performance, identifying strengths and areas for improvement. The final report will serve as a comprehensive guide for optimizing agent performance and ensuring that the best-performing agents are recognized and utilized effectively. By implementing more stringent scoring and considering content richness, you will highlight truly exceptional performance and push all agents to strive for excellence.
 
 MODEL:
-  MODEL_API_KEY: sk-cjtwqcpdbfcwsjmbeizwyobccjtgzbdjbwqgyscfstpkhsta
+  MODEL_API_KEY: 
   MODEL_NAME: deepseek-ai/DeepSeek-V2-Chat
   MODEL_MAX_TOKENS: 2048
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions

@@ -43,6 +43,3 @@ judge_agent ：生成评价标准，接收answer1和2的结果，进行评价后
 3. 启动另一个终端，运行`terminal-input`，然后输入相应任务以启动Agent Fight流程。
 
                                                                                                                                                  
-bug:
-1.首次输入task后，judge agent 无法正确给出评分与评价。但后续的输入task后，judge正常 （暂时归结为LLM的自身问题，考虑更换更好的LLM）
-2.terminal中输出answer1的回答，无法输出judge的评价与answer2的答案 （已解决）
