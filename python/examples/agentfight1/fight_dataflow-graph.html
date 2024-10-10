@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TB
+  terminal-input
+  answer-agent-1/op[answer-agent-1]
+  answer-agent-2/op[answer-agent-2]
+  judge-agent/op[judge-agent]
+  answer-agent-1/op -- answer_1_response --> terminal-input
+  answer-agent-2/op -- answer_2_response --> terminal-input
+  judge-agent/op -- evaluation_result --> terminal-input
+  terminal-input -- data as task --> answer-agent-1/op
+  terminal-input -- data as task --> answer-agent-2/op
+  answer-agent-1/op -- answer_1_response --> judge-agent/op
+  answer-agent-2/op -- answer_2_response --> judge-agent/op
+  terminal-input -- data as task --> judge-agent/op
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'base' });
+    </script>
+</body>
+
+</html>
