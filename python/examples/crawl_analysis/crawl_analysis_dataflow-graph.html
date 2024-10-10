@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TB
+  terminal-input
+  crawl-agent/op[crawl-agent]
+  memory-retrieval/op[memory-retrieval]
+  reasoner-agent/op[reasoner-agent]
+  memory-record/op[memory-record]
+  memory-record/op -- memory_log --> terminal-input
+  crawl-agent/op -- crawl_result as node_results --> terminal-input
+  reasoner-agent/op -- reasoner_response as resoner_response --> terminal-input
+  terminal-input -- data as task --> crawl-agent/op
+  terminal-input -- data as task --> memory-retrieval/op
+  memory-retrieval/op -- context_memory --> reasoner-agent/op
+  crawl-agent/op -- crawl_result --> reasoner-agent/op
+  terminal-input -- data as task --> reasoner-agent/op
+  reasoner-agent/op -- reasoner_response --> memory-record/op
+  terminal-input -- data as task --> memory-record/op
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'base' });
+    </script>
+</body>
+
+</html>
