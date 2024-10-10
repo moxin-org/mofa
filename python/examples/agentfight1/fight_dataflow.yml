@@ -1,0 +1,36 @@
+nodes:
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs: 
+      evaluation_result: judge-agent/evaluation_result
+      answer_1_response: answer-agent-1/answer_1_response
+      answer_2_response: answer-agent-2/answer_2_response
+      
+  - id: answer-agent-1
+    operator:
+      python: scripts/answer_agent_1.py
+      inputs:
+        task: terminal-input/data
+      outputs:
+        - answer_1_response
+
+  - id: answer-agent-2
+    operator:
+      python: scripts/answer_agent_2.py
+      inputs:
+        task: terminal-input/data
+      outputs:
+        - answer_2_response
+
+  - id: judge-agent
+    operator:
+      python: scripts/judge_agent.py
+      inputs:
+        task: terminal-input/data
+        answer_1_response: answer-agent-1/answer_1_response
+        answer_2_response: answer-agent-2/answer_2_response
+      outputs:
+        - evaluation_result
