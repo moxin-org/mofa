@@ -92,3 +92,7 @@ transformers==4.45.1
 
 # --------- ultralytics --------- #
 ultralytics==8.3.5
+
+
+# --------- web sider --------- #
+scrapegraphai
