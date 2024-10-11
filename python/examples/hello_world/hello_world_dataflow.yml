@@ -6,9 +6,9 @@ nodes:
     outputs:
       - data
     inputs:
-      agent_response: reasoner-agent/agent_response
+      agent_response: agent/agent_response
 
-  - id: reasoner-agent
+  - id: agent
     operator:
       python: scripts/agent.py
       inputs:
