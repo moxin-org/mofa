@@ -51,7 +51,7 @@ MODEL:
    | ------------------------------- | ------------------------------------------------------------ |
    | `hello_mofa_dataflow.yml`       | 根据当前目录，需要更改`build: pip install -e ../../node-hub/terminal-input`的路径(可以在mofa/node-hub/terminal-input中找到. 可以填写绝对路径) |
    | `hello_mofa_dataflow.yml`       | 根据当前目录，需要更改`build: pip install -e ../../agent-hub/llm`的路径(可以在mofa/agent-hub/llm中找到. 可以填写绝对路径)
-   | `scripts\reasoner_agent.py`     | 修改`reasoner_agent.py`文件中`yaml_file_path`变量对应的configs的`yml`文件路径                                                     |
+   
 
 
 ## 4. 运行Agent
