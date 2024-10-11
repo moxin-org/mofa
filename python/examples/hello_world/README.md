@@ -1,4 +1,4 @@
-# Basic hello_world Template  
+# hello_world Examples  
 
 MoFA中最基本的智能体设计模式的实现
 
@@ -52,9 +52,6 @@ hello_world可以说是最简单的智能体。它的设计模式是：定制的
    | `configs\hello_world_agent.yml` | 根据定制要求，改写定制Prompts和大语言模型参数等. 包括Rag              |
    | `scripts\hello_world_agent.py`     | 修改`hello_world_agent.py`文件中`yaml_file_path`变量对应的configs的`yml`文件路径                                                     |
 
-   
-
-### 方法二：(待定)
 
 ## 4. 运行Agent
 
@@ -65,4 +62,3 @@ hello_world可以说是最简单的智能体。它的设计模式是：定制的
 3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入任务即可
 
 
-### 方法二：（待定）
