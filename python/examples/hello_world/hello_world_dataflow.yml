@@ -1,0 +1,17 @@
+nodes:
+
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      agent_response: reasoner-agent/agent_response
+
+  - id: reasoner-agent
+    operator:
+      python: scripts/agent.py
+      inputs:
+        task: terminal-input/data
+      outputs:
+        - agent_response
