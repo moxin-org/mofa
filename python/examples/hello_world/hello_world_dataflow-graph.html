@@ -9,9 +9,9 @@
     <div class="mermaid">
         flowchart TB
   terminal-input
-  reasoner-agent/op[reasoner-agent]
-  reasoner-agent/op -- agent_response --> terminal-input
-  terminal-input -- data as task --> reasoner-agent/op
+  agent/op[agent]
+  agent/op -- agent_response --> terminal-input
+  terminal-input -- data as task --> agent/op
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
