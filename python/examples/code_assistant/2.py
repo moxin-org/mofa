@@ -1,1 +1,0 @@
-print("hello world from 2.py")
