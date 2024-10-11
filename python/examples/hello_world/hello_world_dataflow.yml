@@ -1,0 +1,17 @@
+nodes:
+
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      agent_response: agent/agent_response
+
+  - id: agent
+    operator:
+      python: scripts/agent.py
+      inputs:
+        task: terminal-input/data
+      outputs:
+        - agent_response

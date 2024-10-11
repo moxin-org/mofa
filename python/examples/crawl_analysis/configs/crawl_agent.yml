@@ -1,0 +1,21 @@
+# llm:
+#   provider: openai
+#   config:
+#     model: "moonshot-v1-8k"
+#     openai_api_base: "https://openrouter.ai/api/v1"
+#     base_url: "https://api.moonshot.cn/v1"
+#     api_key: ""
+#     model_tokens: 4000
+
+# scraper_graph:
+#   verbose: true
+#   headless: true
+
+llm:
+    model: "groq/gemma-7b-it"
+    api_key: 
+    temperature: 0
+embeddings: 
+    model: "ollama/nomic-embed-text"
+
+source: "https://perinim.github.io/"

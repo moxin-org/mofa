@@ -1,3 +1,0 @@
-# MoFA Function
-
-MoFA Function是可以在Agent或Action节点运行中被即时执行的Python或XLang语言的简单程序碎片，可以在脚本中被定义。

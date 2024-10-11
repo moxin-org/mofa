@@ -7,4 +7,3 @@
 - 选手账户只在大赛结束前（2024.10.15）有效。
 - [大语言模型API手册](https://docs.siliconflow.cn/api-reference)。
 
-![image-20241004201856460](/Users/zonghuanwu/Library/CloudStorage/OneDrive-Personal/RelevantStudy/Futurewei/MOFA/GitHub/mofa/Hackathon/documents/images/siliconflow_logo.png)
