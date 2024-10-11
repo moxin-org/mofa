@@ -32,13 +32,18 @@ Configuration files are located in the `configs` directory. The `.yml` files def
 
 Ensure that you have installed all necessary packages for the MoFA project. This typically involves setting up a Python environment and installing the required packages.
 
-2. **Execute the Following Command to Start the Agent Process**
+2. **Install Code-assistant Dependencies**
+    ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Execute the Following Command to Start the Agent Process**
 
     ```bash
     dora up && dora build code_assistant_dataflow.yml && dora start code_assistant_dataflow.yml --attach
     ```
 
-3. **Initialize Task Input**
+4. **Initialize Task Input**
     Open another terminal window, run `terminal-input`, and then input the corresponding task to start the Query Assistant process.
 
    ```bash
@@ -46,4 +51,6 @@ Ensure that you have installed all necessary packages for the MoFA project. This
    Enter your task: Record and retrieve key information about machine learning
    ```
 
----
+### Attention
+As a demo, the content of the code must be in the code_assistant folder and be named as *.py.
+And all *.py files in this folder will be considered by the content agent.
