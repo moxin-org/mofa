@@ -8,7 +8,7 @@
 | API endpoint | http://llamatool.llm.secondstate.info/v1 |
 | Model name for chat | llamatool |
 
-| Llama-3.2-3b | Latest model from Mets | 
+| Llama-3.2-3b | Latest model from Meta | 
 | -------- | -------- |
 | API endpoint | http://llama3.2.llm.secondstate.info/v1 |
 | Model name for chat | llama-3.2-3b |
@@ -22,13 +22,6 @@
 | API endpoint | http://embedding.llm.secondstate.info/v1 |
 | Model name for embedding | llama-3.2-3b |
 
-| FLUX.1 12b | Text to image | 
-| -------- | -------- |
-| API endpoint | http://flux.llm.secondstate.info/v1 |
-
-| Whisper Large v3 | Voice to text | 
-| -------- | -------- |
-| API endpoint | http://whisper.llm.secondstate.info/v1 |
 
 上述所有的 API endpoint 都与 OpenAI API 完全兼容。可以参考以下文档来开发你的 LLM Agent
 
