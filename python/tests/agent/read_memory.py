@@ -2,6 +2,9 @@ import os
 
 import requests
 from mem0 import Memory
+
+from mofa.kernel.memory.util import load_user_id, load_mem0_client, get_mem0_search_text
+
 config = {
     "llm": {
         "provider": "openai",
@@ -25,9 +28,9 @@ config = {
     }
 
 }
-# os.environ["OPENAI_API_BASE"] = "https://api.siliconflow.cn/v1/"
-# os.environ["OPENAI_API_KEY"] = "sk"
-#
-# m = Memory.from_config(config)
-# related_memories = m.search(query="黑神话悟空", user_id="mofa")
-# print(related_memories)
+# task = "you name is ？ "
+# yaml_file_path = "/Users/chenzi/project/zcbc/mofa/python/examples/memory/configs/memory_retrieval.yml"
+# m = load_mem0_client(yaml_file_path)
+# user_id = load_user_id(yaml_file_path)
+# memory_result = m.search(task, user_id=user_id)
+# results = get_mem0_search_text(memory_result)

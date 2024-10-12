@@ -4,25 +4,8 @@ AGENT:
               当用户让你写代码或修改代码时，你会根据用户的需求以及用户所给的相关代码文件，尽可能少的改动用户代码，编写python代码完成相应功能。在修改代码的时候，你不能改动代码原本的功能，只能在原有代码基础上进行修改。
               请记住，无论是修改代码还是编写代码，都要给出完整的代码文件，不能只给出片段。
   TASK: 写python代码
-RAG:
-  RAG_ENABLE: false
-  MODULE_PATH: /Users/chenzi/project/module/bce-embedding-base_v1
-#  MODULE_PATH: null
-  RAG_MODEL_NAME: null
-  CHROMA_PATH: ./data/output/chroma_store
-  COLLECTION_NAME: mofa
-  IS_UPLOAD_FILE: true
-  FILES_PATH:
-    - /Users/chenzi/project/zcbc/Moxin-App-Engine/mofa/examples/query_assistant/2019-2021美团技术年货-后端篇.pdf
-  ENCODING: utf-8
-  CHUNK_SIZE: 256
-  RAG_SEARCH_NUM: 2
 
-WEB:
-  WEB_ENABLE: false
-  SERPER_API_KEY:
-  SEARCH_NUM: 20
-  SEARCH_ENGINE_TIMEOUT: 5
+
 
 MODEL:
   MODEL_API_KEY: 

@@ -20,5 +20,8 @@ def load_user_id(file_path:str):
     return read_yaml(file_path).get("user_id")
 
 def get_mem0_search_text(memory_datas):
-    results = list(set([memory_data.get("memory") for memory_data in memory_datas]))
+    try:
+        results = list(set([memory_data.get("memory") for memory_data in memory_datas]))
+    except Exception as e :
+        results = memory_datas.get("results")
     return results

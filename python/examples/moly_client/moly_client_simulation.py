@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:8000/v1", api_key="dummy_api_key")
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="  ")
 
 
 def test_list_models():
@@ -16,7 +16,7 @@ def test_list_models():
 def test_chat_completion(user_input):
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": user_input},
