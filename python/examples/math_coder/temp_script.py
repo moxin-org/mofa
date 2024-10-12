@@ -1,13 +1,15 @@
 import sympy as sp
 
-# Define the variable n as a symbol
-n = sp.symbols('n')
+# Define the variable
+x = sp.symbols('x')
 
-# Define the expression for the limit
-expression = ((n**4 + 3*n**3 - 6)**0.5 - (n-1)*(n+1)) / n
+# Define the equation
+equation = x**2 + 2*x + 1
 
-# Compute the limit as n approaches infinity
-limit_result = sp.limit(expression, n, sp.oo)
+# Solve the equation
+solutions = sp.solve(equation, x)
 
-# Print the result
-print(f"The limit of the given expression as n approaches infinity is: {limit_result}")
+# Print the solutions
+print("The solutions to the equation x**2 + 2*x + 1 = 0 are:")
+for solution in solutions:
+    print(solution)
