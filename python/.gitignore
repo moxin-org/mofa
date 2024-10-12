@@ -109,3 +109,6 @@ poetry.lock
 .env.secret
 
 /.iml/
+out/**
+local_cache/**
+data/**
