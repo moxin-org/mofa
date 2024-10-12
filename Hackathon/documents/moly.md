@@ -1,15 +1,16 @@
 # 在本地运行开源大语言模型
 
-参赛选手可以选择在自己的设备上通过 Moly 运行开源大语言模型，并以此为基础构建 LLM agent。
+参赛选手可以选择在自己的设备上运行开源大语言模型，并以此为基础构建 LLM agent。
+
+## 选项1： Moly GUI
 
 Moly 是一个使用 Rust 实现的在本地运行 LLM 的客户端工具，已支持多个开源模型，并且可以提供与 OpenAI 完全兼容的 API。
 
-## 1. 安装 Moly
 下载适合你设备的安装包。建议下载最新的预发布版本，因为我们正在快速发展。
 
-https://github.com/moxin-org/moly/releases/tag/v0.1.0-20241011
+https://github.com/moxin-org/moly/releases/tag/v0.1.0-dev-20241012
 
-## 2. 启动 Moly
+## 启动 Moly
 我们需要在固定的 API 服务器端口 8080 上启动 Moly。如果我们不指定端口，Moly 的默认行为是在你的电脑上找到一个空闲端口。
 
 在 MacOS 上，可以在终端窗口执行以下操作：
@@ -31,7 +32,8 @@ $Env:MOLY_API_SERVER_ADDR="localhost:8080"
 C:\Users\demo\AppData\Local\Moly\moly.exe
 ```
 
-## 3. 启动模型
+### 启动一个模型
+
 在 Moly UI 中下载一个模型（例如 Llama-3.1-8b-instruct），然后向它提问（例如：“你是谁？”）。确保你在聊天中收到回复。
 
 接下来，你可以通过运行以下命令测试本地 API 服务器：
@@ -77,7 +79,7 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 ```
 这一步是为了确保模型已加载并启动。
 
-## Moly 的 endpoint
+### 访问本地的 API Server
 
 如果你的 Moly 指定端口是 8080， Moly 的大模型 API server endpoint 如下所示：
 
@@ -92,9 +94,53 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 | EMBEDDING_API_KEY  | ANYTHING  |
 ```
 
+### 选项 2: headless LlamaEdge
 
-通过 Moly 运行的开源大语言模型有着和 OpenAI API 完全兼容的 API server，接下来你就可以用熟悉的工具构建 LLM Agent
+如果你使用的是没有 GUI 的服务器或边缘设备，你可以直接安装 [LlamaEdge](https://github.com/LlamaEdge) 来启动本地 LLM。
 
-参考资料：
-* [常用的 API Reference](https://llamaedge.com/docs/user-guide/api-reference)
-* [OpenAI python library](https://llamaedge.com/docs/user-guide/openai-api/intro#the-openai-python-library)
+#### 安装 LlamaEdge ( 20MB 没有依赖的）
+
+```
+curl -sSf 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install_v2.sh' | bash -s
+```
+
+#### 下载 LLM 和一个 embedding model
+
+
+```
+curl -LO https://hf-mirror.com/gaianet/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q5_K_M.gguf
+curl -LO https://hf-mirror.com/gaianet/Nomic-embed-text-v1.5-Embedding-GGUF/resolve/main/nomic-embed-text-v1.5.f16.gguf
+```
+
+#### 下载 API server 程序和 chatbot UI
+
+```
+curl -LO https://github.com/LlamaEdge/LlamaEdge/releases/latest/download/llama-api-server.wasm
+curl -LO https://github.com/LlamaEdge/chatbot-ui/releases/latest/download/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+
+```
+
+#### 启动 API server
+
+```
+nohup wasmedge --dir .:./dashboard --nn-preload default:GGML:AUTO:Llama-3.2-3B-Instruct-Q5_K_M.gguf --nn-preload embedding:GGML:AUTO:nomic-embed-text-v1.5.f16.gguf llama-api-server.wasm --model-name llama-32-3b,nomic-embed --ctx-size 32768,8192 --batch-size 128,8192 --prompt-template llama-3-chat,embedding --log-prompts --log-stat &
+```
+
+打开下面的网站查看已加载的 LLM 和 embedding 模型！
+
+```
+curl http://localhost:8080/v1/models
+```
+
+#### 访问 API server
+
+|  Key | Value |
+| ------------- | ------------- |
+| API endpoint  | `http://localhost:8080/v1`  |
+| LLM model name  | `llama-32-3b`  |
+| Embedding model name  | `nomic-embed`  |
+| API key | `GAIA` |
+| API docs | [/chat/completions](https://platform.openai.com/docs/api-reference/chat/create) | [/embeddings](https://platform.openai.com/docs/api-reference/embeddings/create) |
+
