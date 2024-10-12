@@ -327,7 +327,7 @@ Caused by:
   failed to get node config from daemon: multiple dataflows contains dynamic node id terminal-input. Please only have one running dataflow with the specified node id if you want to use dynamic node.
 ~~~
 
-**你可以使用下面的命令后，重新运行 `terminal-input`**:
+**你可以使用下面的命令后，重新运行 `dora up && dora build  dataflow.yml && dora start dataflow.yml`/`terminal-input`**:
 ~~~
 dora destroy && dora up
 ~~~
