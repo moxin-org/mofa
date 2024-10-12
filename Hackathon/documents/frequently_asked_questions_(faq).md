@@ -319,3 +319,16 @@ return DoraStatus.CONTINUE
 - **继续监听**：返回继续状态，等待下一个事件。
 
 
+## 问题 5: 运行`terminal-input`之后，报错：
+~~~
+RuntimeError: Could not setup node from node id. Make sure to have a running dataflow with this dynamic node.
+
+Caused by:
+  failed to get node config from daemon: multiple dataflows contains dynamic node id terminal-input. Please only have one running dataflow with the specified node id if you want to use dynamic node.
+~~~
+
+**你可以使用下面的命令后，重新运行 `terminal-input`**:
+~~~
+dora destroy && dora up
+~~~
+ 
