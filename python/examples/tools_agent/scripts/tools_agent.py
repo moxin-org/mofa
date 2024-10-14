@@ -37,7 +37,8 @@ class Operator:
                 # agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
 
                 # Initialize an LLM (example using OpenAI)
-                llm = OpenAI(temperature=0)
+                os.environ["OPENAI_API_KEY"] = inputs.get('model_api_key')
+                llm = OpenAI(temperature=0,model=inputs.get('model_name'),openai_api_key=inputs.get('model_api_key'),base_url=inputs.get("model_api_url"))
 
                 # Create tools list (in this case, only the calculator tool)
                 function_name = inputs.get('tool_func', "calculator")

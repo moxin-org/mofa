@@ -148,4 +148,6 @@ curl http://localhost:8080/v1/models
 1. 你可以到Mofa的案例中找到`/mofa/python/examples/moly_client`
 2. 查看`moly_client/dataflow.yml`,找到`dora-openai-server`的node,我们在这个`dora-openai-server`中使用了`fastapi`来作为我们的后端服务端.当你启动这个`dataflow`之后,dora将会在你的后台默认启动一个8000端口的服务。你的信息会通过这个服务传递给`Moly`的应用去展示.
 3. 你可以在`Moli`的界面中选择并且对你已经做好的`Dora-Dataflow`进行提问并且获取结果
-4. 我们推荐您根据自己的需求对`dora-openai-server`这个节点进行功能上的扩展和修改.当前它仅仅支持接收一个`dataflow`的节点输出。您可以修改它的内容.让它接收多个节点的输出.也可以让它支持将多个节点的输出合并成一个输出。
+
+## 我们对于选手的期望
+1. 我们推荐您根据自己的需求对`dora-openai-server`这个节点进行功能上的扩展和修改.当前它仅仅支持接收一个`dataflow`的节点输出。您可以修改它的内容.让它接收多个节点的输出.也可以让它支持将多个节点的输出合并成一个输出。

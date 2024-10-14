@@ -4,13 +4,10 @@ AGENT:
   TASK: null
 
 MODEL:
-  # MODEL_API_KEY:
-  # MODEL_NAME: deepseek-ai/DeepSeek-V2-Chat
-  # MODEL_MAX_TOKENS: 2048
-  # MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
- MODEL_API_KEY:
- MODEL_NAME: gpt-4o-mini
- MODEL_MAX_TOKENS: 2048
+   MODEL_API_KEY:
+   MODEL_NAME: Qwen/Qwen2.5-72B-Instruct-128K
+   MODEL_API_URL: https://api.siliconflow.cn/v1
+
 
 ENV:
   PROXY_URL: null
