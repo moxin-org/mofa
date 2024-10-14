@@ -181,7 +181,7 @@
         - `data/info/ExplanatoryVideo.mp4` : 
             - **分辨率：**1080p 或 2K。
             - **文件大小：**最大限制 150MB。
-            - **时长：**3-10 分钟。
+            - **时长：**3-5 分钟。
             - **录制工具：**使用腾讯会议或 OBS 进行视频录制。
             - **内容要求：**
               - 根据你的README来进行演讲
@@ -200,6 +200,7 @@
     sudo apt install zip
     cd /examples 
     zip -r you_project.zip you_project/
+    用户自行添加 `gitcode君`微信号 然后私聊将文件发给他
     ~~~
 
 ### 4.4 提交代码
