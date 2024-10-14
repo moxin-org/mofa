@@ -82,6 +82,34 @@ def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'u
                 )
                 all_data = use_langchain_split_and_gen_ids(loader)
             elif file_extension == ".md":
-                loader = UnstructuredMarkdownLoader(file_path )
-                all_data = use_langchain_split_and_gen_ids(loader)
+                # 使用 UnstructuredMarkdownLoader 处理 .md 文件
+                loader = UnstructuredMarkdownLoader(file_path)
+                docs = loader.load()
+
+                # 将文档分块
+                for doc in docs:
+                    doc.metadata['source'] = str(file_path)  # 确保文件路径是字符串
+                    chunks, id_num = split_text_into_chunks(doc=doc, chunk_size=chunk_size, id_num=id_num)
+                    all_data.extend(chunks)
+
     return all_data
+
+
+def split_text_into_chunks(doc, chunk_size, id_num):
+    """将文档按块大小分割，并为每个分块生成唯一的 ID"""
+    text = doc.page_content
+    chunks = []
+    for i in range(0, len(text), chunk_size):
+        chunk_text = text[i:i + chunk_size]
+        chunk_doc = Document(
+            page_content=chunk_text,
+            metadata={
+                "id": id_num,  # 使用生成的 id
+                'chunk_index': i // chunk_size,
+                'chunk_size': len(chunk_text),
+                'source': str(doc.metadata.get('source', 'unknown_source'))  # 确保文件路径是字符串
+            }
+        )
+        chunks.append(chunk_doc)
+        id_num += 1
+    return chunks, id_num
