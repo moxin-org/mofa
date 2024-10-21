@@ -33,6 +33,7 @@ class Operator:
                                         agent_result={
                                             "1, "+ inputs.get('log_step_name', "Step_one"): agent_result})
                 send_output("reasoner_response", pa.array([create_agent_output(step_name='reasoner_response', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',True))]),dora_event['metadata'])
+                print({"task":self.task,'response':agent_result})
                 print('reasoner_response:', agent_result)
 
         return DoraStatus.CONTINUE
