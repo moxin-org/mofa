@@ -24,14 +24,20 @@ CheckList：
     - 提交的案例结构应与 `examples` 目录下的原有案例结构一致，包含以下内容：
 
         - `configs/*.yml`：配置文件，定义配置的结构。
+        
         - `scripts/*.py`：包含 `dora-node` 和操作符的脚本文件。
+        
         - `案例名称_dataflow.yml`：`dora-dataflow` 的文件。
+        
         - `README.md`：如何编辑自己的 `README.md` 文件。示例参考：[sample_readme](sample_readme.md)
+        
         - `案例_dataflow-graph.html`：使用 Dora Graph 生成的 dataflow 展示结构。
-        - `agent_response.json`：用于保存您的 agent 的任务和结果，内容结构为：
+        
         - `data/input/*` ：用来保存这个`Dora-Dataflow`需要的输入数据
+        
         - `data/output/agent_response.json`：用来保存这个`Dora-Dataflow`的输出数据.要求格式如下.其中task代表你至少要执行的任务，response代表你的agent的输出结果
-            ```json
+            
+           ```json
            [
             {
                 "task": "你是谁?",
@@ -40,12 +46,16 @@ CheckList：
             {
                 "task": "你的名字是什么?",
                 "response": "Hello World"
-            }
+           }
           ]
           ```
+          
         - `data/info/[team.jpg｜personal.jpg]` ： 个人或者团队照片
+        
         - `data/info/[team.md｜personal.md]` ： 个人或者团队成员说明
+        
         - `data/info/ExplanatoryVideo.mp4` : 
+            
             - **分辨率：**1080p 或 2K。
             - **文件大小：**最大限制 150MB。
             - **时长：**3-5 分钟。
