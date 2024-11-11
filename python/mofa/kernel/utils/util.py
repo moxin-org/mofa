@@ -11,9 +11,9 @@ def make_crewai_tool(func):
     tool.name = func.__name__
     return tool(func)
 
-def load_agent_config(yaml_file:str):
+def load_agent_config(yaml_file:str,is_expand:bool=False):
     params = read_yaml(yaml_file)
-    if 'AGENT' in params:
+    if 'AGENT' in params or is_expand == True:
         config = {}
         for key in params.keys():
             if params.get(key,None) is not None:
