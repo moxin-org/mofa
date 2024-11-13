@@ -28,7 +28,10 @@ class Operator:
             print('-----------  : configs ',configs)
             os.environ["OPENAI_API_KEY"] = configs.get('model_api_key')
             llm_client = create_openai_client(api_key=configs.get('model_api_key'),**configs.get('llm_args',{}))
-            search_box_list = find_search_box(html_content.get('html_content'), llm_client=llm_client)
+            url = html_content.get('url')
+            is_google_url = False
+            if url in ['https://google.com/', 'https://google.com']: is_google_url = True
+            search_box_list = find_search_box(html_content.get('html_content'), llm_client=llm_client,is_google_url=is_google_url)
             discovery_search_box_result = {'search_box_list': search_box_list, 'html_content': html_content,'url':html_content.get('url')}
             ensure_directory_exists(configs.get('out_path'))
             with open(configs.get('out_path'), 'w', encoding='utf-8') as f:

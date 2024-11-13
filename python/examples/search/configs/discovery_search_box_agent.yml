@@ -1,5 +1,5 @@
 model:
-  model_api_key:  
+  model_api_key:    
   model_name: gpt-4o-mini
 
 html:
@@ -9,4 +9,4 @@ html:
     - script
 
 out:
-  out_path: ./data/output/discovery_search_box_agent_response.json
+  out_path: ./data/output/linuxfoundation_response.json

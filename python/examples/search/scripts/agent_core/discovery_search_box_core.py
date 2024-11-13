@@ -94,7 +94,7 @@ def extract_search_related_elements(html_content: str) -> List[BeautifulSoup]:
     search_elements = []
 
     # 定义要检查的标签
-    tags_to_search = ['input', 'button', 'svg', 'div', 'span', 'form']
+    tags_to_search = ['input', 'button', 'svg', 'div', 'span', 'form', 'textarea']
 
     # 搜索所有指定标签的元素
     for tag in tags_to_search:
@@ -115,7 +115,7 @@ def is_search_related(element: BeautifulSoup) -> bool:
     返回：
         bool: 如果元素可能与搜索功能相关，返回 True；否则返回 False。
     """
-    SEARCH_KEYWORDS = ['search', '搜索', 'query', '查找', '查询', 'icon-search', 'icon_search']
+    SEARCH_KEYWORDS = ['search', '搜索', 'query', '查找', '查询', 'icon-search', 'icon_search','検索','Search']
 
     # 检查元素的属性
     for attr in ['name', 'id', 'class', 'placeholder', 'aria-label', 'title']:
@@ -136,7 +136,33 @@ def is_search_related(element: BeautifulSoup) -> bool:
             return True
 
     return False
-
+def get_css_selector_with_google(tag):
+    """
+    获取 BeautifulSoup 标签的唯一 CSS 选择器
+    """
+    selector = []
+    while tag is not None and tag.name != '[document]':
+        sibling = tag.previous_sibling
+        nth = 1
+        while sibling:
+            if sibling.name == tag.name:
+                nth += 1
+            sibling = sibling.previous_sibling
+        if tag.get('id'):
+            selector_part = f"{tag.name}#{tag['id']}"
+            selector.insert(0, selector_part)
+            break  # ID 是唯一的，后续的选择器可以省略
+        else:
+            if tag.get('class'):
+                classes = ".".join(tag.get('class'))
+                selector_part = f"{tag.name}.{classes}"
+            else:
+                selector_part = tag.name
+            # 添加 :nth-of-type(n) 以确保选择器的唯一性
+            selector_part += f":nth-of-type({nth})"
+            selector.insert(0, selector_part)
+        tag = tag.parent
+    return " > ".join(selector)
 def get_css_selector(element: BeautifulSoup) -> str:
     """
     获取元素的 CSS 选择器路径。
@@ -163,30 +189,24 @@ def get_css_selector(element: BeautifulSoup) -> str:
         element = element.parent
     return ' > '.join(path)
 
-def find_search_elements_in_html(html_content: str) -> List[str]:
-    """
-    入口函数，查找 HTML 内容中可能与搜索功能相关的元素，并返回其 CSS 选择器路径列表。
+def find_search_elements_in_html(html_content: str,is_google_url:bool=False) -> List[str]:
 
-    参数：
-        html_content (str): 要解析的 HTML 文本内容。
-
-    返回：
-        List[str]: 可能与搜索功能相关的元素的 CSS 选择器路径列表。
-    """
     search_elements = extract_search_related_elements(html_content)
-    selectors = [get_css_selector(elem) for elem in search_elements]
-    selectors = [i for i in selectors if 'search' in i]
+    if is_google_url:
+        selectors = [get_css_selector_with_google(elem) for elem in search_elements]
+    else:
+        selectors = [get_css_selector(elem) for elem in search_elements]
     return selectors
 class FindSearchBoxSelector(BaseModel):
     selector: List[str] = None
-def find_search_box(html_content:str, llm_max_token:int=128000, llm_client=None):
+def find_search_box(html_content:str, llm_max_token:int=128000, llm_client=None,is_google_url:bool=False):
     search_box_html_result = []
     if len(html_content) <= llm_max_token:
         search_box_prompt = load_prompt(prompt_type='search_box', html_code=html_content)
         search_box_html = generate_json_from_llm(prompt=search_box_prompt, format_class=FindSearchBoxSelector, client=llm_client)
         search_box_html_result = search_box_html.selector
     else:
-        selectors = find_search_elements_in_html(html_content)
+        selectors = find_search_elements_in_html(html_content=html_content,is_google_url=is_google_url)
         if selectors:
             search_box_html_result = list(set(selectors))
     return search_box_html_result
