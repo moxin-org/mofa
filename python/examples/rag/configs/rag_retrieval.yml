@@ -16,6 +16,6 @@ RAG:
 
 
 MODEL:
-  MODEL_API_KEY:     
+  MODEL_API_KEY:   
   MODEL_NAME: Qwen/Qwen2.5-72B-Instruct
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions

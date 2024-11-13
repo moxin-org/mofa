@@ -25,7 +25,7 @@ LOG:
   LOG_STEP_NAME: report_writer_agent
 
 MODEL:
-  MODEL_API_KEY:   
+  MODEL_API_KEY:  
 #  MODEL_NAME: gpt-3.5-turbo
   MODEL_NAME: gpt-4o
   MODEL_MAX_TOKENS: 4096
