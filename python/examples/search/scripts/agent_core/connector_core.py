@@ -1,5 +1,5 @@
 import time
-
+import ray
 from bs4 import BeautifulSoup
 from crawl4ai import AsyncWebCrawler
 from selenium import webdriver
@@ -8,21 +8,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from ..agent_core.discovery_search_box_core import load_prompt, generate_json_from_llm,find_search_box
-def click_chrome_selector(url: str, selector: str, second_selector:str=None,search_text: str='',is_send_text:bool=True,time_out:int=10) -> str:
+from .discovery_search_box_core import find_search_box
+
+def click_chrome_selector(url: str, selector: str, second_selector:str=None,search_text: str='',is_send_text:bool=True,page_load_strategy:str='eager',time_out:int=10) -> str:
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')  # 无头模式
     options.add_argument('--disable-gpu')  # 禁用GPU
     options.add_argument('--start-maximized')  # 最大化窗口
-    options.page_load_strategy = 'eager'
-    # 创建一个Service实例
+    options.page_load_strategy = page_load_strategy
     service = Service()
 
-    # 初始化Chrome浏览器
     driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
 
-    # 显式等待元素出现并进行操作
     wait = WebDriverWait(driver, time_out)
     search_box = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, selector)))
     search_box.click()
@@ -91,7 +89,34 @@ def clean_html(html_content: str) -> str:
         tag.decompose()
     clean_html = str(soup)
     return clean_html
-
+@ray.remote
+def multi_request_search_box(url:str,search_box_selector:str,search_text:str,is_clean_html:bool=True):
+    try:
+        if 'svg' in search_box_selector.split('>')[-1]:
+            html_doc = click_chrome_selector(url=url, selector=search_box_selector, search_text=search_text,
+                                             is_send_text=False)
+            svg_search_box = find_search_box(html_doc)
+            svg_search_box_data = []
+            for i in svg_search_box:
+                try:
+                    html_doc = click_chrome_selector(url=url, selector=search_box_selector,
+                                                     second_selector=i,
+                                                     search_text=search_text)
+                    if is_clean_html:
+                        html_doc = clean_html(html_content=html_doc)
+                    svg_search_box_data.append(html_doc)
+                except Exception as e :
+                    print(e)
+                    continue
+            return svg_search_box_data
+        else:
+            html_doc = click_chrome_selector(url=url, selector=search_box_selector, search_text=search_text)
+            if is_clean_html:
+                html_doc = clean_html(html_content=html_doc)
+            return html_doc
+    except Exception as e :
+        print(e)
+        return None
 def load_search_box(url:str,search_box_html_result:list,search_text:str,is_clean_html:bool=True):
     new_search_box = []
     data = []
@@ -99,19 +124,20 @@ def load_search_box(url:str,search_box_html_result:list,search_text:str,is_clean
     if len(search_box_html_result) > 0:
         use_search_box = []
         for search_box_selector in search_box_html_result:
-            if 'svg' in search_box_selector.split('>')[-1]:
-                html_doc = click_chrome_selector(url=url, selector=search_box_selector, search_text=search_text,
-                                                 is_send_text=False)
-                svg_search_box = find_search_box(html_doc)
-                new_search_box = [search_box_selector + '|' + i for i in list(set(svg_search_box + new_search_box)) if
-                                  i not in use_search_box + search_box_html_result]
-            use_search_box.append(search_box_selector)
             try:
+                if 'svg' in search_box_selector.split('>')[-1]:
+                    html_doc = click_chrome_selector(url=url, selector=search_box_selector, search_text=search_text,
+                                                     is_send_text=False)
+                    svg_search_box = find_search_box(html_doc)
+                    new_search_box = [search_box_selector + '|' + i for i in list(set(svg_search_box + new_search_box)) if
+                                      i not in use_search_box + search_box_html_result]
+                    continue
+                use_search_box.append(search_box_selector)
                 html_doc = click_chrome_selector(url=url, selector=search_box_selector, search_text=search_text)
                 if is_clean_html:
                     html_doc = clean_html(html_content=html_doc)
 
-                data += html_doc
+                data.append(html_doc)
             except Exception as e:
                 print(search_box_selector, '---------------  \n')
                 continue
@@ -125,8 +151,21 @@ def load_search_box(url:str,search_box_html_result:list,search_text:str,is_clean
                     html_doc = clean_html(html_content=html_doc)
 
 
-                data += html_doc
+                data.append(html_doc)
             except Exception as e:
                 print(search_box_selector, '---------------  \n')
                 continue
     return data
+
+# def load_search_box(url:str,search_box_html_result:list,search_text:str,is_clean_html:bool=True):
+#     task_ids = [multi_request_search_box.remote(url=url,search_box_selector=i,search_text=search_text,is_clean_html=is_clean_html) for i in search_box_html_result]
+#     # task_ids = [multi_request_search_box(url=url,search_box_selector=i,search_text=search_text,is_clean_html=is_clean_html) for i in search_box_html_result]
+#     results = ray.get(task_ids)
+#     data = []
+#     for i in results:
+#         if i is not None:
+#             if isinstance(i,list):
+#                 data+=i
+#             else:
+#                 data.append(i)
+#     return data
