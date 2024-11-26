@@ -424,11 +424,12 @@ def login_jd(url:str='https://passport.jd.com/new/login.aspx',selector_data:dict
         selector_data = {'user_element_selector': '#loginname', 'pwd_element_selector': '#nloginpwd',
                          'login_button': '#loginsubmit',
                          'user_element_data': '18583383212', 'pwd_element_data': 'Tt66668888.'}
-    options = uc.ChromeOptions()
-    options.add_argument("--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
-    options.add_argument("--profile-directory=Default")  # 使用默认配置文件
+    # options = uc.ChromeOptions()
+    # options.add_argument("--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
+    # options.add_argument("--profile-directory=Default")  # 使用默认配置文件
 
-    driver = uc.Chrome(headless=False,use_subprocess=False,options=options)
+    # driver = uc.Chrome(headless=False,use_subprocess=False,options=options)
+    driver = uc.Chrome(headless=False,use_subprocess=False)
     driver.get(url)
     time.sleep(10)
 
@@ -462,25 +463,14 @@ def read_cookie_request_url(url:str,cookie_file_path:str=None,search_text:str='m
 
     # 2. 启动 undetected_chromedriver 浏览器实例
     options = uc.ChromeOptions()
-    options.add_argument(
-        "--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
-    options.add_argument("--profile-directory=Default")  # 使用默认配置文件
+    # options.add_argument(
+    #     "--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
+    # options.add_argument("--profile-directory=Default")  # 使用默认配置文件
 
-    driver = uc.Chrome(headless=False, use_subprocess=False, options=options)
+    # driver = uc.Chrome(headless=False, use_subprocess=False, options=options)
+    driver = uc.Chrome(headless=False, use_subprocess=False,)
     driver.get(url)
     time.sleep(5)
-    if cookie_file_path is not None:
-        with open(cookie_file_path, 'r', encoding='utf-8') as f:
-            cookies = json.load(f)
-        for cookie in cookies:
-            # 删除可能导致问题的字段
-            cookie.pop('sameSite', None)
-            cookie.pop('httpOnly', None)
-            cookie.pop('secure', None)
-            # 添加 cookie
-            driver.add_cookie(cookie)
-        driver.refresh()
-    time.sleep(10)
     input_search_selector = '#key'
     input_search_button_selector = '#search > div > div.form.hotWords > button'
 
@@ -496,7 +486,7 @@ if __name__ == '__main__':
     search_text = "mac mini 4 "
     html_source = read_cookie_request_url(url=home_page_url,cookie_file_path='jd_cookies.json',search_text=search_text)
     clena_html_source = clean_html_js_and_style(html_source)
-    api_key = "sk"
+    api_key = " "
     client = OpenAI(api_key=api_key)
     result = process_large_html_content(html_content=clena_html_source,llm_client=client,search_text=search_text)
     print(result)

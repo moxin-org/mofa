@@ -35,6 +35,9 @@ class HtmlSearchTextChunk(BaseModel):
     description:str = None
     media:List[Media] = None
     topic:str = None
+    model_name:str = None
+    price:str = None
+    model_size:str = None
 
 class HtmlSearchText(BaseModel):
     chunks:List[HtmlSearchTextChunk] = None
@@ -260,78 +263,6 @@ def use_llm_return_json(llm_client, prompt: str, format_class, supplement_prompt
 
     )
     return response.choices[0].message.parsed
-def calculate_slide_distance_debug(background_path: str, slide_path: str, debug_output_path: str = "debug_result.png") -> int:
-    """
-    通过优化滑块匹配算法找到滑块的缺口并计算需要滑动的距离，并保存调试图片。
-    :param background_path: 背景图片路径
-    :param slide_path: 滑块图片路径
-    :param debug_output_path: 保存调试图片的路径
-    :return: 滑块需要滑动的距离
-    """
-    # 读取背景图和滑块图
-    background = cv2.imread(background_path, cv2.IMREAD_GRAYSCALE)
-    slide = cv2.imread(slide_path, cv2.IMREAD_GRAYSCALE)
-
-    # 边缘检测
-    background_edges = cv2.Canny(background, 50, 150)
-    slide_edges = cv2.Canny(slide, 50, 150)
-
-    # 对背景图取反色
-    inverted_background = cv2.bitwise_not(background_edges)
-
-    # 模板匹配
-    result = cv2.matchTemplate(inverted_background, slide_edges, cv2.TM_CCOEFF_NORMED)
-    _, max_val, _, max_loc = cv2.minMaxLoc(result)
-
-    # 保存匹配结果到调试图片
-    debug_image = cv2.cvtColor(inverted_background, cv2.COLOR_GRAY2BGR)
-    h, w = slide_edges.shape[:2]
-    cv2.rectangle(debug_image, max_loc, (max_loc[0] + w, max_loc[1] + h), (0, 255, 0), 2)
-    cv2.imwrite(debug_output_path, debug_image)
-
-    print(f"匹配结果保存到: {debug_output_path}")
-    print(f"最大匹配置信度: {max_val}")
-
-
-    # 滑块需要移动的 x 坐标
-    distance = max_loc[0]
-    return distance
-
-
-def preprocess_image(image):
-    """
-    对图像进行预处理，减少噪声和干扰
-    :param image: 输入灰度图
-    :return: 处理后的图像
-    """
-    # 高斯模糊减少噪声
-    blurred = cv2.GaussianBlur(image, (5, 5), 0)
-    # 应用边缘检测
-    edges = cv2.Canny(blurred, 50, 150)
-    return edges
-
-def save_base64_as_image(base64_str: str, output_path: str) -> None:
-    """
-    将 Base64 编码的字符串保存为图片
-    :param base64_str: str - Base64 编码的字符串
-    :param output_path: str - 保存图片的路径
-    """
-    try:
-        # 移除可能存在的 `data:image/` 前缀和 `base64,` 标记
-        if "," in base64_str:
-            base64_str = base64_str.split(",")[1]
-
-        # 解码 Base64 字符串
-        image_data = base64.b64decode(base64_str)
-
-        # 保存到文件
-        with open(output_path, "wb") as f:
-            f.write(image_data)
-
-        print(f"图片已保存到: {output_path}")
-    except Exception as e:
-        print(f"保存图片失败: {e}")
-
 
 def extract_and_download_images(html: str, target_div_class: str, output_dir: str = "images") -> List[str]:
     """
@@ -423,40 +354,8 @@ def clean_html_js_and_style(html_content: str) -> str:
         tag.decompose()
     clean_html = str(soup)
     return clean_html
-def read_cookie_request_url(url:str,cookie_file_path:str=None,search_text:str='mac mini4 '):
 
-
-    # 2. 启动 undetected_chromedriver 浏览器实例
-    options = uc.ChromeOptions()
-    options.add_argument(
-        "--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
-    options.add_argument("--profile-directory=Default")  # 使用默认配置文件
-
-    driver = uc.Chrome(headless=False, use_subprocess=False, options=options)
-    driver.get(url)
-    time.sleep(5)
-    if cookie_file_path is not None:
-        with open(cookie_file_path, 'r', encoding='utf-8') as f:
-            cookies = json.load(f)
-        for cookie in cookies:
-            # 删除可能导致问题的字段
-            cookie.pop('sameSite', None)
-            cookie.pop('httpOnly', None)
-            cookie.pop('secure', None)
-            # 添加 cookie
-            driver.add_cookie(cookie)
-        driver.refresh()
-    time.sleep(10)
-    input_search_selector = '#key'
-    input_search_button_selector = '#search > div > div.form.hotWords > button'
-
-    driver.find_element(by='css selector', value=input_search_selector).send_keys(search_text)
-    driver.find_element(by='css selector', value=input_search_button_selector).click()
-    time.sleep(5)
-    html_context = driver.page_source
-    driver.close()
-    return html_context
-def login_medium(search_text:str,url:str='https://medium.com/',login_email:str='nayda@recorderxfm.com',cookie_file:str='medium.com.json',):
+def login_quora(search_text:str, url:str= 'https://www.quora.com/', cookie_file:str= 'www.quora.com.json', ):
 
     # options = uc.ChromeOptions()
     # options.add_argument("--user-data-dir=/Users/chenzi/Library/Application Support/Google/Chrome/Default")  # 替换为你的用户数据目录
@@ -468,19 +367,12 @@ def login_medium(search_text:str,url:str='https://medium.com/',login_email:str='
     driver.get(url)
     driver = add_driver_cookies(driver=driver,cookie_file_path=cookie_file)
     driver.refresh()
-    time.sleep(3)
-    driver.find_element(by='css selector', value='#root > div > div.x.c > div.x.y.z.ab.c > div.bb.o.ae.n.bc > div.n.o.bd > div > div > input').send_keys(search_text + Keys.RETURN)
+    print("Waiting for user to click")
+    time.sleep(random.choice([1, 6]))
 
-    # time.sleep(5)
-    # login_selection_button = '#root > div > div.l.n.x > div.aw.ax.n.x.ay.az.ba > div.bb.av.m.bc.bd.be.bf.bg.bh > div > div > div > div.n.o.bs > div.h.cu.cm.cn.co > div > p > span > a'
-    # driver.find_element(by='css selector', value=login_selection_button).click()
-    # driver.find_element(by='css selector', value='body > div:nth-child(19) > div > div > div > div.gt.dn.m.gu.n.bs.gv.gw.gx.gy.gz > div > div.hj.bt > div.hw.bt > button > div').click()
-    # time.sleep(1.5)
-    # driver.find_element(by='css selector', value='body > div:nth-child(19) > div > div > div > div.gt.dn.m.gu.n.bs.gv.gw.gx.gy.gz > div > div.hj.bt > div > div:nth-child(1) > span > div > div > input').send_keys(login_email)
-    # driver.find_element(by='css selector', value='body > div:nth-child(19) > div > div > div > div.gt.dn.m.gu.n.bs.gv.gw.gx.gy.gz > div > div.hj.bt > div > div.jb.hv.bt > button').click()
+    driver.find_element(by='css selector', value='#root > div > div.q-box > div > div.q-fixed.qu-fullX.qu-zIndex--header.qu-bg--raised.qu-borderBottom.qu-boxShadow--medium.qu-borderColor--raised > div > div:nth-child(2) > div > div.q-box.qu-flex--auto.qu-mx--small.qu-alignItems--center > div > div > form > div > div > div > div > div > input').send_keys(search_text + Keys.RETURN)
 
-
-    time.sleep(5)
+    time.sleep(random.choice([1, 4]))
     html_source = driver.page_source
     driver.close()
     return html_source
@@ -488,8 +380,8 @@ def login_medium(search_text:str,url:str='https://medium.com/',login_email:str='
 
 
 if __name__ == '__main__':
-    search_text = 'ai agent'
-    html_source = login_medium(search_text=search_text)
+    search_text = 'Ai Agent'
+    html_source = login_quora(search_text=search_text)
     clena_html_source = clean_html_js_and_style(html_source)
     api_key = " "
     client = OpenAI(api_key=api_key)
