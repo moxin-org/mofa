@@ -60,7 +60,8 @@ class ChatCompletionResponse(BaseModel):
 # This node will be responsible for sending inputs and receiving outputs from other components in the dataflow.
 node = Node()  # Optionally provide a name to connect to the dynamic dataflow
 
-
+def clean_string(input_string:str):
+    return input_string.encode('utf-8', 'replace').decode('utf-8')
 # Defines a POST endpoint /v1/chat/completions to handle chat completion requests.
 @app.post("/v1/chat/completions")
 async def create_chat_completion(request: ChatCompletionRequest):
@@ -77,28 +78,28 @@ async def create_chat_completion(request: ChatCompletionRequest):
         "No user message found.",
     )
 
-    try:
-        # safely evaluate the user input string into a Python object (e.g., list, int, float, etc.).
-        data = ast.literal_eval(data)
-    except ValueError:
-        print("Passing input as string")
-    except SyntaxError:
-        print("Passing input as string")
-    
+    # try:
+    #     # safely evaluate the user input string into a Python object (e.g., list, int, float, etc.).
+    #     data = ast.literal_eval(data)
+    # except ValueError:
+    #     print("Passing input as string")
+    # except SyntaxError:
+    #     print("Passing input as string")
+    #
     # Convert the evaluated data into a PyArrow array for efficient data processing
-    if isinstance(data, list):
-        data = pa.array(data)
-    elif isinstance(data, str):
-        data = pa.array([data])
-    elif isinstance(data, int):
-        data = pa.array([data])
-    elif isinstance(data, float):
-        data = pa.array([data])
-    elif isinstance(data, dict):
-        data = pa.array([data])
-    else:
-        data = pa.array(data)  # Fallback case to convert data to a PyArrow array
-
+    # if isinstance(data, list):
+    #     data = pa.array(data)
+    # elif isinstance(data, str):
+    #     data = pa.array([data])
+    # elif isinstance(data, int):
+    #     data = pa.array([data])
+    # elif isinstance(data, float):
+    #     data = pa.array([data])
+    # elif isinstance(data, dict):
+    #     data = pa.array([data])
+    # else:
+    #     data = pa.array(data)  # Fallback case to convert data to a PyArrow array
+    data = pa.array([clean_string(data)])
     # The message is then sent to the next node in the dataflow system with the output label 'v1/chat/completions'
     node.send_output("v1/chat/completions", data)
 
