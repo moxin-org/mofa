@@ -10,6 +10,6 @@ AI智能体就是有智能特点的计算机软件。随着大语言模型和应
 
 ![Image](https://mmbiz.qpic.cn/mmbiz_png/ibqbukt6PTv7GgGOVgGIQgKB7nIRZrSOfbsyEsWDNphZOVeJlt7Rm0m4N4acgtAcAU1AVFwJJmyR3IficL2xjpTQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
-图：MoFA认为：智能体有多种不同的设计模式。就好像elusive套娃，复杂的智能体，往往嵌套简单的智能体。
+图：MoFA认为：智能体有多种不同的设计模式。就好像俄罗斯套娃，复杂的智能体，往往嵌套简单的智能体。
 
 一般而言，复杂的智能体设计模式可以通过嵌套在比较简单的设计模式的智能体上构成。所以，在MoFA中，我们提供了一些实现基础的（简单的）智能体设计模式的智能体模版。使用这些模版，应用开发者能够构建原子智能体，并与其它的智能体进行组合，形成功能完善，符合复杂需求的超级智能体。
