@@ -28,7 +28,7 @@ import pyarrow as pa    # PyArrow for data serialization and transfer
 import ast # Abstract Syntax Trees for evaluating user input
 
 # Timeout duration for waiting on responses from Dora nodes
-DORA_RESPONSE_TIMEOUT = 10
+DORA_RESPONSE_TIMEOUT = 120
 
 # Create a FastAPI instance
 app = FastAPI()
