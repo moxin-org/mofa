@@ -6,14 +6,14 @@ from mofa.utils.envs.util import init_proxy_env, init_env
 
 
 class SiliconFlowClient(LM):
-    def __init__(self, model:str, api_key:str, base_url:str=None):
+    def __init__(self, model:str, api_key:str, base_url:str=None,max_tokens:int=4096):
         self.model = model
         self.api_key = api_key
         if base_url is None:
             base_url = "https://api.siliconflow.cn/v1/chat/completions"
         self.base_url = base_url
         self.history = []
-        self.kwargs = {"temperature":0.7}  # 初始化kwargs属性
+        self.kwargs = {"temperature":0.7,'max_tokens':max_tokens}  # 初始化kwargs属性
     def basic_request(self, prompt: str, **kwargs):
         headers = {
             "accept": "application/json",
@@ -26,7 +26,7 @@ class SiliconFlowClient(LM):
                 {"role": "user", "content": prompt}
             ],
             "stream": False,
-            "max_tokens": kwargs.get("max_tokens", 512),
+            "max_tokens": kwargs.get("max_tokens", 4096),
             "temperature": kwargs.get("temperature", 0.7),
             "top_p": kwargs.get("top_p", 0.7),
             "top_k": kwargs.get("top_k", 50),
