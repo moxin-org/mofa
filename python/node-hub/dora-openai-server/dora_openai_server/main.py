@@ -329,8 +329,8 @@ async def list_models():
             }
         ],
     }
-@app.get("/hello")
-async def list_models():
+@app.get("/v1/hello")
+async def hello():
     return "Hello World"
 # Starts the FastAPI server asynchronously using Uvicorn and also processes the events from the Dora node concurrently.
 async def run_fastapi():
