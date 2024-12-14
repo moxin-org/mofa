@@ -1,66 +1,61 @@
 # MoFA with DoRA
 
+[English](README.md) | [简体中文](README_cn.md)
+
 ### DORA
 
-[DORA](https://github.com/dora-rs/dora)是一个开源项目，实现面向数据流的中间件，旨在简化和简化基于人工智能的机器人应用程序的创建。它提供低延迟、可组合和分布式数据流功能。应用程序被建模为有向图，也称为管道（Pipeline）。DORA为Agent Flow提供了一个天然的多智能体多进程计算环境，以及模块化（Modular)和可组合（Composable）的基础。MoFA以DORA为执行器，建立了Agent框架。
+[DORA](https://github.com/dora-rs/dora) is an open-source project implementing a dataflow-oriented middleware,  designed to simplify and streamline the creation of AI-based robotic applications. It provides low-latency, composable, and distributed dataflow functionality. Applications are modeled as directed graphs, also known as Pipelines. DORA naturally offers a multi-agent, multi-process computation environment, as well as a foundation for modularity and composability. MoFA uses DORA as its executor to establish the Agent framework.
 
-### MoFA智能体模版
+### MoFA Agent Templates
 
-构建智能体有一定的设计模式（Design Pattern），MoFA提供一系列的设计模式的实现，供开发者作为模版使用。
+There are specific design patterns for building agents, and MoFA offers a series of implementations of these design patterns as templates for developers to use.
 
-- [设计模式](templates/design_patterns.md)
-- [reasoner](templates/reasoner_template.md)
-- [self_refine](templates/self_refine_template.md)
-- [crewai](templates/crewai_template.md)
+[Design Patterns ](templates/design_patterns.md)
+
+- [Reasoner](templates/reasoner_template.md)
+- [Self Refine](templates/self_refine_template.md)
+- [Crewai](templates/crewai_template.md)
 - ...
 
-### MoFA组合智能体
+### MoFA Composite Agents
 
-基于Dora-RS框架构建的MoFA智能体，实质上就是Dora-RS Dataflow。两个智能体之间可以通过数据连接进行组合，从而形成组合智能体。
+MoFA agents built on the Dora-RS framework essentially operate as Dora-RS Dataflows. Two agents can be combined via data connections, forming composite agents.
 
-![image-20241003202345018](images/composite_agent.png)
+![image-20241003202345018](images/composite_agent_en.png)
 
-在上述的self_refine Agent模版和下面将要介绍的服务智能体和案例，都是MoFA组合智能体。
+The self_refine Agent template mentioned above and the service agents and examples described below are all MoFA composite agents.
 
-### MoFA服务智能体
+### MoFA Service Agents
 
-智能体往往需要需要一些服务，包括检索增强生成，记忆，使用外部工具和任务规划和分解等。MoFA认为：Everything Agent。我们以MoFA智能体的方式提供RAG智能体，记忆智能体，规划智能体和行动智能体。开发者可以使用这些已经实现的服务智能体，与自己的智能体相连接组合从而获得相应的服务。MoFA也可以集成第三方的服务智能体，供开发者按照不同的需求使用。
+Agents often require certain services, such as retrieval-augmented generation (RAG), memory, external tool usage, and task planning/decomposition. MoFA follows the principle of "Everything is an Agent." It provides RAG agents, memory agents, planning agents, and action agents as MoFA agents. Developers can connect these pre-implemented service agents to their own agents to gain these services. MoFA also integrates third-party service agents for developers to use based on their needs.
 
-- rag
-- memory
-- action
-- planning
+- RAG
+- Memory
+- Action
+- Planning
 
+### Command Line
 
+In general, you can use the Dora-RS command line to run agents:
 
-### 命令行
+1. Install the MoFA project package.
 
-一般而言，可使用Dora-rs命令行运行
+2. Execute the following command to start the agent process:
 
-1. 安装MoFA项目包。
-
-2. 执行以下命令以启动智能体流程：
-
-   ```bash
+   ```sh
    dora up && dora build your_agent_dataflow.yml && dora start your_agent_dataflow.yml --attach
    ```
 
-3. 如果agent dataflow的第一个节点是dora用于输入输出的dynamic node。须启动另一个终端，运行`terminal-input`，然后输入相应任务以启动Agent流程。
+3. If the first node of the agent dataflow is a dynamic node used for input/output in Dora, open another terminal and run `terminal-input`. Enter the corresponding tasks to start the Agent process.
 
+### Web Services
 
+### Case Studies
 
-### Web服务
-
-
-
-### 案例分享
-
-- [Hello World：最简单的端到端流程](examples/hello_world.md)
+- [Hello World: The Simplest End-to-End Process](examples/hello_world.md)
   - [Hello World, With Dora-RS & Template](examples/hello_world_dora.md)
-  - [Hello World, With xMind](examples/hello_world_mofa.md)
-
-- 智能体组合案例
-  - [simplicity_ai](../examples/simplicity_ai/README.md)
-  - [arXiv_research](../examples/arxiv_research/README.md)
-  - [agent_fight](../examples/agent_fight/README.md)
-  - [query_assistant](../examples/query_assistant/README.md)
+- Composite Agent Examples:
+  - [Simplicity AI](../examples/simplicity_ai/README.md)
+  - [ArXiv Research](../examples/arxiv_research/README.md)
+  - [Agent Fight](../examples/agent_fight/README.md)
+  - [Query Assistant](../examples/query_assistant/README.md)
