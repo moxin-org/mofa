@@ -1,6 +1,8 @@
 # MoFA for Dora-RS
 
-在这个分支里，我们介绍建立在Dora-RS上的MoFA框架。
+[English](README.md) | [简体中文](README_cn.md)
+
+在这里，我们介绍如何安装、部署和启动建立在Dora-RS上的MoFA框架。
 
 ## Getting started
 
@@ -32,7 +34,6 @@ conda create -n py310 python=3.10.12 -y
 
 ```sh
 cd python && pip3 install -r requirements.txt && pip3 install -e .
-
 ```
 
 安装完毕之后，可以使用`mofa --help`命令查看Cli帮助信息
@@ -44,6 +45,7 @@ cd python && pip3 install -r requirements.txt && pip3 install -e .
 ```sh
 https://www.rust-lang.org/tools/install
 ```
+
 然后安装 `cargo install dora-cli --locked`
 
 ### 2. 配置
@@ -54,7 +56,7 @@ https://www.rust-lang.org/tools/install
 大语言模型推理 Api配置示例：
 使用**Openai**API：
 
-~~~
+~~~yaml
 MODEL:
   MODEL_API_KEY:  
   MODEL_NAME: gpt-4o-mini
@@ -65,7 +67,7 @@ MODEL:
 
 使用**Ollama**示例:
 
-~~~
+~~~yaml
 MODEL:
   MODEL_API_KEY: ollama
   MODEL_NAME: qwen:14b
@@ -73,11 +75,61 @@ MODEL:
   MODEL_API_URL: http://192.168.0.1:11434
 ~~~
 
-
-
 ### 3. 启动
 
-在命令端启用MOFA智能体
+
+---
+
+### 操作步骤说明
+
+以启动```examples```目录下的hello_world Agent为例：
+
+1. **进入指定目录**  
+   打开终端，切换到 `hello_world` 目录下，执行以下命令：  
+
+   ```bash
+   cd /mofa/python/examples/hello_world
+   ```
+
+2. **构建 Dataflow 文件**  
+   在当前目录下新建一个终端窗口，执行以下命令构建和准备运行 Dataflow：  
+
+   ```bash
+   dora up && dora build dataflow.yml
+   ```
+
+   其中，`dataflow.yml` 是描述你要执行的 Agent 流程的配置文件。
+
+3. **启动 Dataflow 流程**  
+   在同一终端中，启动 Dataflow 流程：  
+
+   ```bash
+   dora start dataflow.yml
+   ```
+
+4. **处理动态节点 (Dynamic Node)**  
+   如果 `dataflow.yml` 中某个节点的 `path` 被设置为 `dynamic`（例如：`path: dynamic`），需要在另一个终端窗口中单独运行该 Dynamic Node 的名称。  
+   **示例：** 以下配置中的节点 `terminal-input` 是一个动态节点：  
+
+   ```yaml
+   nodes:
+     - id: terminal-input
+       build: pip install -e ../../node-hub/terminal-input
+       path: dynamic
+       outputs:
+         - data
+       inputs:
+         agent_response: agent/agent_response
+   ```
+
+   对于上述节点，你需要开启一个新终端，并运行以下命令启动动态节点：  
+
+   ```bash
+   terminal-input
+   ```
+
+   这样可以确保 `terminal-input` 正常运行并接收/发送数据。
+
 
 ### 4. 详细文档
 

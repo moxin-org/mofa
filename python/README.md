@@ -2,110 +2,118 @@
 
 [English](README.md) | [简体中文](README_cn.md)
 
-在这里，我们介绍如何安装、部署和启动建立在Dora-RS上的MoFA框架。
+This guide explains how to install, deploy, and start the MoFA framework built on [Dora-RS](https://github.com/dora-rs/dora).
 
-## Getting started
+## Getting Started
 
-### 1. 安装
+### 1. Installation
 
-1. 克隆此项目切换到指定分支:
+1. **Clone the project and switch to the specified branch:**
 
 ```sh
-git clone <repository-url> && git checkout <branch-name> 
+git clone <repository-url> && git checkout <branch-name>
 ```
 
-**示例**:
+**Example**:
 
 ```sh
 git clone git@github.com:moxin-org/mofa.git && cd mofa
 ```
 
-2. 使用Python 3.10或以上环境：
+2. **Use Python 3.10 or later:**
 
-- 如果出现环境版本不匹配，请使用conda重新安装此环境。例如：
+- If there's a version mismatch, reinstall the environment using conda. For example:
 
 ```sh
 conda create -n py310 python=3.10.12 -y
 ```
 
-3. 项目环境部署
+3. **Set up the project environment:**
 
-- 安装环境的依赖：
+- Install the required dependencies:
 
-```sh
+```
 cd python && pip3 install -r requirements.txt && pip3 install -e .
-
 ```
 
-安装完毕之后，可以使用`mofa --help`命令查看Cli帮助信息
+Once installed, you can use the command `mofa --help` to view CLI help information.
 
-4. Rust和Dora-RS安装
+4. **Install Rust and Dora-RS:**
 
-由于底层的Dora-RS计算框架基于Rust语言开发，请你访问下面的页面，根据你的操作系统安装Rust环境：
+Since the Dora-RS computing framework is built using Rust, visit the following page to install Rust for your operating system:
+
+https://www.rust-lang.org/tools/install
+
+Then, install Dora-CLI:
 
 ```sh
-https://www.rust-lang.org/tools/install
+cargo install dora-cli --locked
 ```
-然后安装 `cargo install dora-cli --locked`
 
-### 2. 配置
+### 2. Configuration
 
-在 `examples` 这个目录下, 我们提供一些可用的智能体案例。在使用时，首先需要对智能体的configs目录下面的yml文件进行配置。 
-如果`node`如果使用的是pip的方式进行安装的. 那么请你到`agent-hub`中找到对应的node的名称,并且修改里面的`yml`文件
+In the `examples` directory, we provide some available agent examples. Before use, you need to configure the `.yml` files in the `configs` directory of the agent. If the `node` was installed via pip, locate the node's name in the `agent-hub` and modify the `.yml` file accordingly.
 
-大语言模型推理 Api配置示例：
-使用**Openai**API：
+**Example of configuring the LLM inference API:**
 
-~~~
+Using **OpenAI** API:
+
+```yaml
 MODEL:
-  MODEL_API_KEY:  
+  MODEL_API_KEY:
   MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
-~~~
+```
 
-当然你也可以配置成为Ollama模型，或Moxin提供的本地开源大模型：
+You can also configure it to use the Ollama model or the local open-source model provided by Moxin:
 
-使用**Ollama**示例:
+**Example using Ollama:**
 
-~~~
+```yaml
 MODEL:
   MODEL_API_KEY: ollama
   MODEL_NAME: qwen:14b
   MODEL_MAX_TOKENS: 2048
   MODEL_API_URL: http://192.168.0.1:11434
-~~~
+```
 
+### 3. Starting the Framework
 
+------
 
-### 3. 启动
+Example: Starting the `hello_world` Agent in the `examples` directory:
 
+1. **Navigate to the directory:**
 
----
+   Open the terminal, switch to the `hello_world` directory, and execute the following command:
 
-### 操作步骤说明
-
-1. **进入指定目录**  
-   打开终端，切换到 `hello_world` 目录下，执行以下命令：  
-   ```bash
+   ```sh
    cd /mofa/python/examples/hello_world
    ```
 
-2. **构建 Dataflow 文件**  
-   在当前目录下新建一个终端窗口，执行以下命令构建和准备运行 Dataflow：  
-   ```bash
-   dora up && dora build dataflow.yml
-   ```  
-   其中，`dataflow.yml` 是描述你要执行的 Agent 流程的配置文件。
+2. **Build the Dataflow file:**
 
-3. **启动 Dataflow 流程**  
-   在同一终端中，启动 Dataflow 流程：  
-   ```bash
+   Open a new terminal window in the current directory and execute the following command to prepare and build the Dataflow:
+
+   ```sh
+   dora up && dora build dataflow.yml
+   ```
+
+   Here, `dataflow.yml` is the configuration file describing the Agent's execution flow.
+
+3. **Start the Dataflow process:**
+
+   In the same terminal, start the Dataflow process:
+
+   ```sh
    dora start dataflow.yml
    ```
 
-4. **处理动态节点 (Dynamic Node)**  
-   如果 `dataflow.yml` 中某个节点的 `path` 被设置为 `dynamic`（例如：`path: dynamic`），需要在另一个终端窗口中单独运行该 Dynamic Node 的名称。  
-   **示例：** 以下配置中的节点 `terminal-input` 是一个动态节点：  
+4. **Handle dynamic nodes:**
+
+   If `dataflow.yml` specifies a node's `path` as `dynamic` (e.g., `path: dynamic`), you need to run that dynamic node in a separate terminal.
+   **Example:** The node `terminal-input` is a dynamic node in the following configuration:
+
    ```yaml
    nodes:
      - id: terminal-input
@@ -115,14 +123,16 @@ MODEL:
          - data
        inputs:
          agent_response: agent/agent_response
-   ```  
-   对于上述节点，你需要开启一个新终端，并运行以下命令启动动态节点：  
-   ```bash
+   ```
+
+   For the above node, open a new terminal and run the following command to start the dynamic node:
+
+   ```sh
    terminal-input
-   ```  
-   这样可以确保 `terminal-input` 正常运行并接收/发送数据。
+   ```
 
+   This ensures `terminal-input` runs properly and sends/receives data as required.
 
-### 4. 详细文档
+### 4. Detailed Documentation
 
-更多的详细文档在[documents](documents/README.md)子目录下。
+More detailed documentation is available in the [documents](documents/README.md) subdirectory.
