@@ -1,7 +1,9 @@
-# CrewAI模版
+# CrewAI Template
 
-[CrewAI](https://crewai.com)是一个多智能体协作平台。
+[English](crewai_template.md) | [Simplified Chinese](crewai_template_cn.md)
 
-MoFA也提供了一个CrewAI智能体AI，使得开发者只需要通过模版声明 CrewAI Agents, Tasks和Tools，就可以在MoFA里运行CrewAI 多智能体应用。
+[CrewAI](https://crewai.com/) is a multi-agent collaboration platform.
 
-[CrewAI在MoFA里的实现](../../mofa/agent_templates/reasoner_with_crewai/README.md)
+MoFA also provides a CrewAI agent AI, enabling developers to run CrewAI multi-agent applications within MoFA simply by declaring CrewAI Agents, Tasks, and Tools through templates.
+
+[Implementation of CrewAI in MoFA](../../mofa/agent_templates/reasoner_with_crewai/README.md)

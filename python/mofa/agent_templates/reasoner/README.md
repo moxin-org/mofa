@@ -52,9 +52,6 @@ Reasoner可以说是最简单的智能体。它的设计模式是：定制的大
    | `configs\hello_world_agent.yml` | 根据定制要求，改写定制Prompts和大语言模型参数等. 包括Rag              |
    | `scripts\reasoner_agent.py`     | 修改`reasoner_agent.py`文件中`yaml_file_path`变量对应的configs的`yml`文件路径                                                     |
 
-   
-
-### 方法二：(待定)
 
 ## 4. 运行Agent
 
@@ -64,5 +61,3 @@ Reasoner可以说是最简单的智能体。它的设计模式是：定制的大
 2. `dora up && dora build  reasoner_dataflow.yml && dora start reasoner_dataflow.yml`
 3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入任务即可
 
-
-### 方法二：（待定）
