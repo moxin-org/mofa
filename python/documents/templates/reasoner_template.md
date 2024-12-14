@@ -1,12 +1,9 @@
-# Reasoner模版
+- # Reasoner Template
 
-Reasoner是最简单的智能体模版。核心就是为大语言模型配上开发者定制的提示：
+  [English](reasoner_template_patterns.md) | [Simplified Chinese](reasoner_template_cn.md)
 
-​	定制的提示 + 大语言模型的推理
+  The Reasoner is the simplest intelligent agent template. Its core is to pair a large language model with custom prompts:
 
-[MoFA里的Reasoner 模版实现](../../mofa/agent_templates/reasoner/README.md)
+  Custom Prompt + Large Language Model Reasoning
 
-Reasoner的几个例子
-
-- 爱因斯坦
-- 举一反三
+  [Implementation of the Reasoner Template in MoFA](../../mofa/agent_templates/reasoner/README.md)
