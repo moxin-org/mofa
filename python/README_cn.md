@@ -1,8 +1,6 @@
 # MoFA for Dora-RS
 
-[English](README.md) | [简体中文](README_cn.md)
-
-在这里，我们介绍如何安装、部署和启动建立在Dora-RS上的MoFA框架。
+在这个分支里，我们介绍建立在Dora-RS上的MoFA框架。
 
 ## Getting started
 
@@ -81,8 +79,7 @@ MODEL:
 
 在命令端启用MOFA智能体
 
-比如，
-
 ### 4. 详细文档
 
 更多的详细文档在[documents](documents/README.md)子目录下。
+
