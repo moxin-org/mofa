@@ -79,9 +79,49 @@ MODEL:
 
 ### 3. 启动
 
-在命令端启用MOFA智能体
 
-比如，
+---
+
+### 操作步骤说明
+
+1. **进入指定目录**  
+   打开终端，切换到 `hello_world` 目录下，执行以下命令：  
+   ```bash
+   cd /mofa/python/examples/hello_world
+   ```
+
+2. **构建 Dataflow 文件**  
+   在当前目录下新建一个终端窗口，执行以下命令构建和准备运行 Dataflow：  
+   ```bash
+   dora up && dora build dataflow.yml
+   ```  
+   其中，`dataflow.yml` 是描述你要执行的 Agent 流程的配置文件。
+
+3. **启动 Dataflow 流程**  
+   在同一终端中，启动 Dataflow 流程：  
+   ```bash
+   dora start dataflow.yml
+   ```
+
+4. **处理动态节点 (Dynamic Node)**  
+   如果 `dataflow.yml` 中某个节点的 `path` 被设置为 `dynamic`（例如：`path: dynamic`），需要在另一个终端窗口中单独运行该 Dynamic Node 的名称。  
+   **示例：** 以下配置中的节点 `terminal-input` 是一个动态节点：  
+   ```yaml
+   nodes:
+     - id: terminal-input
+       build: pip install -e ../../node-hub/terminal-input
+       path: dynamic
+       outputs:
+         - data
+       inputs:
+         agent_response: agent/agent_response
+   ```  
+   对于上述节点，你需要开启一个新终端，并运行以下命令启动动态节点：  
+   ```bash
+   terminal-input
+   ```  
+   这样可以确保 `terminal-input` 正常运行并接收/发送数据。
+
 
 ### 4. 详细文档
 
