@@ -1,41 +1,45 @@
-# Math Coder 案例
+[English](README.md) | [Simplified Chinese](README_cn.md)
 
-**语言**: 中文
+# Math Coder
 
-## 1. 功能说明
+------
 
-Math Coder智能体通过从用户任务的输入，交予reasoner-agent进行分析，并生成代码执行输出数学相关问题的答案。
-其设计模式为：**代码生成+代码执行**。
+## 1. Overview
 
-**流程说明：**
+The Math Coder agent processes user task inputs, analyzes them via the reasoner-agent, and generates code to execute and solve math-related problems.
+The design pattern combines: **Code Generation + Code Execution**.
 
-reasoner-agent ：接收任务关键词，围绕task做出简要回答。
+**Process Description:**
 
+- **Reasoner-Agent**: Receives task keywords and provides concise answers based on the task.
 
-## 2. 配置方法
+------
 
-### 配置说明
+## 2. Configuration
 
-配置文件位于`configs`目录下，`.py`文件为实际运行的智能体代码。配置文件指定了各个Agent的行为、参数和模型提示等。
+### Configuration Overview
 
-### 配置步骤
+The configuration files are located in the `configs` directory, and `.py` files contain the actual agent code. Configuration files define the behavior, parameters, and model prompts for each agent.
 
+### Configuration Steps
 
-#### 3. 修改配置
+#### 3. Modify Configurations
 
-根据具体需求，编辑`configs`目录下的`.yml`配置文件。
-可以自定义修改里面的模型参数，建议不要修改以及提示词。
+Edit the `.yml` configuration files in the `configs` directory according to specific requirements.
+You can customize model parameters but it is recommended to avoid changing the prompts.
 
+------
 
-## 4. 运行智能体
+## 4. Running the Agent
 
-使用Dora-rs命令行运行
+### Run Using Dora-RS Command Line
 
-1. 安装MoFA项目包。
-2. 执行以下命令以启动智能体流程：
-   ```bash
+1. Install the MoFA project package.
+
+2. Execute the following commands to start the agent workflow:
+
+   ```shell
    dora up && dora build reasoner_dataflow.yml && dora start reasoner_dataflow.yml --attach
    ```
-3. 启动另一个终端，运行`terminal-input`，然后输入相应任务以启动Agent Fight流程。
 
-                                                                                                                                                
+3. Open another terminal, run `terminal-input`, and input the corresponding task to initiate the Agent Fight workflow.
