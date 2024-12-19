@@ -1,6 +1,6 @@
 # Agent Fight case
 
-** Language **: Chinese
+[English](README.md) | [简体中文](README_cn.md)
 
 ## 1. Function description
 

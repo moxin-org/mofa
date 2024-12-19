@@ -1,8 +1,10 @@
-# Hello MoFA  
+# Hello MoFA
 
-MoFA中最基本的智能体设计模式的实现. 不需要编写任何代码，通过利用MoFA `agent-hub` 和`node-hub`构造一个MoFA LLM Agent。
+[English](README.md) | [简体中文](README_cn.md)
 
-```
+This project demonstrates the most basic intelligent agent design pattern implemented in MoFA. Without writing any code, you can construct a MoFA LLM Agent using MoFA's `agent-hub` and `node-hub`.
+
+```yaml
 nodes:
   - id: terminal-input
     build: pip install -e ../../node-hub/terminal-input
@@ -21,19 +23,22 @@ nodes:
       - llm_results
 ```
 
-## 1. 功能说明
+## 1. Overview
 
-LLM可以说是最简单的智能体。它的设计模式是：定制的大语言模型提示 + 大语言模型推理。
+LLM (Large Language Model) serves as the simplest type of intelligent agent. Its design pattern includes:
 
-## 2. 使用场景
+- Customized prompts for large language models
+- Inference by large language models
 
-在智能体想定制大语言模型的提示时使用。
+## 2. Use Cases
 
-## 3. 配置方法
+This agent is useful when you need to customize prompts for a large language model.
 
-基本的配置原理就是通过更改`agent-hub/llm/llm_agent.yml`模版里的配置信息来调用不同的LLM。
+## 3. Configuration
 
-```   
+The basic configuration involves modifying the template configuration file `agent-hub/llm/llm_agent.yml` to utilize different LLMs.
+
+```yaml
 MODEL:
   # MODEL_API_KEY:
   # MODEL_NAME: deepseek-ai/DeepSeek-V2-Chat
@@ -42,23 +47,33 @@ MODEL:
   MODEL_API_KEY:
   MODEL_NAME: gpt-4o-mini
   MODEL_MAX_TOKENS: 2048
-```  
+```
 
-如果您想利用OpenAI的LLM， 并且已经在`.env`文件中配置了`OPENAPI_API_KEY`, 那不需要配置这里的`MODEL_API_KEY`. 
-   
+If you plan to use OpenAI's LLM and have already configured the `OPENAPI_API_KEY` in the `.env` file, you do not need to configure `MODEL_API_KEY` here.
 
-   | 文件                            | 说明                                                         |
-   | ------------------------------- | ------------------------------------------------------------ |
-   | `hello_mofa_dataflow.yml`       | 根据当前目录，需要更改`build: pip install -e ../../node-hub/terminal-input`的路径(可以在mofa/node-hub/terminal-input中找到. 可以填写绝对路径) |
-   | `hello_mofa_dataflow.yml`       | 根据当前目录，需要更改`build: pip install -e ../../agent-hub/llm`的路径(可以在mofa/agent-hub/llm中找到. 可以填写绝对路径)
-   
+| File                      | Description                                                  |
+| ------------------------- | ------------------------------------------------------------ |
+| `hello_mofa_dataflow.yml` | Update the path for `build: pip install -e ../../node-hub/terminal-input` based on the directory (absolute paths are allowed). |
+| `hello_mofa_dataflow.yml` | Update the path for `build: pip install -e ../../agent-hub/llm` based on the directory (absolute paths are allowed). |
 
+------
 
-## 4. 运行Agent
+## 4. Running the Agent
 
-### 在Dora-rs命令端里运行：
+### Run with Dora-RS Command-Line Tool:
 
-1. 安装MoFA项目包
-2. `dora up && dora build  hello_mofa_dataflow.yml && dora start hello_mofa_dataflow.yml`
-3. 启动另外一个命令端,在另外一个命令端运行 `terminal-input`.然后输入任务即可
+1. Install the MoFA project package.
 
+2. Execute the following command:
+
+   ```shell
+   dora up && dora build hello_mofa_dataflow.yml && dora start hello_mofa_dataflow.yml
+   ```
+
+3. Open another terminal window and run:
+
+   ```shell
+   terminal-input
+   ```
+
+   Input tasks to interact with the agent.
