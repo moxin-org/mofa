@@ -1,16 +1,15 @@
+[English](README.md) | [中文](README_cn.md)
 
----
+# Object Detection
 
-# 对象检测智能体
+## 1. Overview
 
-## 1. 功能说明
+This agent is to showcase how to process images. It is designed to do object detection on a uploaded image, then show the object detection results. 
 
-该对象检测智能体用于根据用户上传图片，进行对象检测，显示检测结果。
+## 2. Use Cases
 
-## 2. 使用场景
-
-## 3. 配置方法
-在 `object_detection_dataflow.yml`配置文件中, 请确保 `terminal-input` 指向正确的 MoFA `node-hub/terminal-input` 目录. 
+## 3. Configuration
+In the `object_detection_dataflow.yml` file, please make sure the `terminal-input` points to the right path of your MoFA `node-hub/terminal-input` directory. 
 ```
 - id: terminal-input
     build: pip install -e ../../../node-hub/terminal-input
@@ -20,14 +19,20 @@
     inputs:
 ```
 
-## 4. 运行智能体
+## 4. Running
 
-使用Dora-rs命令行运行
+Using Dora-rs Commands
 
-1. 安装MoFA项目包。
-2. 执行以下命令以启动智能体流程：
+1. Install the MoFA project package
+2. Run the following commands：
    ```bash
    dora up && dora build object_detection_dataflow.yml && dora start object_detection_dataflow.yml --attach
    ```
-3. 启动另一个终端，运行`terminal-input`，然后输入图片路径名即可启动流程。
+3. Open another terminal and run multiple-terminal-input. Enter the local image file name. 
+```
+$ terminal-input
+ Send You Task :  cat_and_dog.jpg
+ Send You Task :  test_image.jpg
+ Send You Task :
+```
 
