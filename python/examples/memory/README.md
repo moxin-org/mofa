@@ -1,40 +1,42 @@
+[English](README.md) | [中文](README_cn.md)
+
 # Memory Process Example in MoFA
 
-## 1. 功能
+## 1. Functionality
 
-MoFA 中的 **Memory** 代理负责管理和检索上下文记忆，以帮助用户在交互过程中保持一致性和相关性。其设计模式包括：**上下文检索 + 推理响应 + 记忆记录**。这一过程确保代理能够利用之前的对话和任务信息，提供更准确和相关的回答。
+The **Memory** agent in MoFA manages and retrieves contextual memory to assist users in maintaining consistency and relevance during interactions. Its design pattern includes: **Context Retrieval + Reasoning Response + Memory Recording**. This process ensures that the agent can utilize previous conversations and task information to provide more accurate and relevant answers.
 
-## 2. 用例
+## 2. Use Cases
 
-该代理适用于需要维护长期或短期记忆的任务，确保在多轮对话或复杂任务中，代理能够引用先前的信息以生成更好的响应。常见应用包括：
+This agent is suitable for tasks requiring the maintenance of long-term or short-term memory, ensuring that in multi-turn conversations or complex tasks, the agent can reference prior information to generate better responses. Common applications include:
 
-- **客户支持**：记住客户的需求和问题，跨多个互动提供持续和个性化的服务。
-- **项目管理**：跟踪和记录项目进展、任务分配及相关信息，辅助决策和报告生成。
-- **个人助理**：保留用户偏好、日程安排和交互历史，提供定制化的建议和提醒。
-- **研究辅助**：在科学过程中记录和检索相关的研究信息，辅助文献综述和数据分析。
+- **Customer Support**: Remembering customer needs and issues across multiple interactions to provide continuous and personalized service.
+- **Project Management**: Tracking and recording project progress, task assignments, and related information to aid in decision-making and report generation.
+- **Personal Assistant**: Retaining user preferences, schedules, and interaction history to offer customized suggestions and reminders.
+- **Research Assistance**: Recording and retrieving relevant research information during scientific processes to aid in literature reviews and data analysis.
 
-## 3. 配置方法
+## 3. Configuration Method
 
-### 配置概述
+### Configuration Overview
 
-配置文件位于 `configs` 目录中。`.yml` 文件定义了每个代理的行为、参数和模型设置。Python 脚本实现了每个代理的实际任务。
+Configuration files are located in the `configs` directory. The `.yml` files define the behavior, parameters, and model settings for each agent. The Python scripts implement the actual tasks of each agent.
 
-| **文件**                     | **用途**                                     |
+| **File**                     | **Purpose**                                     |
 | ---------------------------- | ----------------------------------------------- |
-| `configs/memory_config.yml`  | 配置 Memory 过程的参数，包括模型和存储设置。 |
-| `memory_retrieval.py`        | 执行上下文检索任务。            |
-| `reasoner_agent.py`          | 基于上下文生成智能响应。 |
-| `memory_record.py`           | 将关键交互信息记录到记忆存储中。 |
+| `configs/memory_config.yml`  | Configures parameters for the Memory process, including model and storage settings. |
+| `memory_retrieval.py`        | Executes the context retrieval task.            |
+| `reasoner_agent.py`          | Generates intelligent responses based on context. |
+| `memory_record.py`           | Records key interaction information into the memory store. |
 
-### 配置步骤
+### Configuration Steps
 
-#### 1. 修改配置文件
+#### 1. Modify the Configuration File
 
-根据您的具体需求编辑 `configs/memory_config.yml` 文件。您可以自定义模型参数和存储路径，但建议不要修改提示语。
+Edit the `configs/memory_config.yml` file according to your specific needs. You can customize the model parameters and storage paths, but it is recommended not to alter the prompts.
 
-#### 2. 配置文件示例
+#### 2. Configuration File Example
 
-以下是 Memory 过程的示例配置文件：
+Below is an example configuration file for the Memory process:
 
 ```yaml
 config:
@@ -43,7 +45,7 @@ config:
   llm:
     provider: openai
     config:
-      model: "Qwen/Qwen2.5-32B-Instruct"  # 替换为您的模型名称
+      model: "Qwen/Qwen2.5-32B-Instruct"  # Replace with your model name
       max_tokens: 1500
 
   vector_store:
@@ -58,71 +60,68 @@ config:
       model: "BAAI/bge-large-zh-v1.5"
 
 model:
-  model_api_key: "***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"  # 替换为您的 API 密钥
-  model_api_url: "https://api.siliconflow.cn/v1/"  # 替换为您的 API URL
+  model_api_key: "***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"  # Replace with your API key
+  model_api_url: "https://api.siliconflow.cn/v1/"  # Replace with your API URL
 
 user_id: "mofa"
 ```
 
-### 配置详情
+### Configuration Details
 
 #### `version`
 
-- **version**：配置文件的版本，目前设置为 `v1.1`。
+- **version**: The version of the configuration file, currently set to `v1.1`.
 
-#### `llm`（大型语言模型配置）
+#### `llm` (Large Language Model Configuration)
 
-- **provider**：语言模型提供商，这里是 `openai`。
-- **config**：与语言模型相关的配置。
-  - **model**：模型名称，例如 `"Qwen/Qwen2.5-32B-Instruct"`。
-  - **max_tokens**：模型生成的最大标记数，设置为 `1500`。
+- **provider**: The language model provider, here it is `openai`.
+- **config**: Configuration related to the language model.
+  - **model**: The name of the model, e.g., `"Qwen/Qwen2.5-32B-Instruct"`.
+  - **max_tokens**: The maximum number of tokens the model can generate, set to `1500`.
 
-#### `vector_store`（向量存储配置）
+#### `vector_store` (Vector Store Configuration)
 
-- **provider**：向量存储提供商，这里是 `chroma`。
-- **config**：与向量存储相关的配置。
-  - **collection_name**：向量集合的名称，设置为 `"memory_collection"`。
-  - **path**：数据库文件的路径，设置为 `"./db"`。
+- **provider**: The vector store provider, here it is `chroma`.
+- **config**: Configuration related to the vector store.
+  - **collection_name**: The name of the vector collection, set to `"memory_collection"`.
+  - **path**: The path to the database file, set to `"./db"`.
 
-#### `embedder`（嵌入模型配置）
+#### `embedder` (Embedding Model Configuration)
 
-- **provider**：嵌入模型提供商，这里是 `openai`。
-- **config**：与嵌入模型相关的配置。
-  - **model**：嵌入模型的名称，例如 `"BAAI/bge-large-zh-v1.5"`。
+- **provider**: The embedding model provider, here it is `openai`.
+- **config**: Configuration related to the embedding model.
+  - **model**: The name of the embedding model, e.g., `"BAAI/bge-large-zh-v1.5"`.
 
-#### `model`（模型 API 配置）
+#### `model` (Model API Configuration)
 
-- **model_api_key**：您的模型 API 密钥，请替换为您的实际 API 密钥，例如 `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`。
-- **model_api_url**：模型 API 的 URL，请替换为您的实际 API URL，例如 `"https://api.siliconflow.cn/v1/"`。
+- **model_api_key**: Your model API key, replace with your actual API key, e.g., `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`.
+- **model_api_url**: The URL of the model API, replace with your actual API URL, e.g., `"https://api.siliconflow.cn/v1/"`.
 
 #### `user_id`
 
-- **user_id**：用户标识符，设置为 `"mofa"`。用于识别和管理不同的用户请求和数据。
+- **user_id**: User identifier, set to `"mofa"`. Used to identify and manage different user requests and data.
 
-## 4. 运行代理
+## 4. Running the Agent
 
-### 使用 Dora-rs 命令行
+### Using Dora-rs Command Line
 
-1. **安装 MoFA 项目依赖**
+1. **Install MoFA Project Dependencies**
 
-   确保您已安装 MoFA 项目的所有必要依赖。这通常涉及设置 Python 环境并安装所需的包。
+   Ensure that you have installed all necessary dependencies for the MoFA project. This typically involves setting up a Python environment and installing required packages.
 
-2. **启动代理进程**
+2. **Start the Agent Process**
 
-   执行以下命令以启动 Memory 代理进程：
+   Execute the following command to start the Memory agent process:
 
    ```bash
    dora up && dora build memory_dataflow.yml && dora start memory_dataflow.yml --attach
    ```
 
-3. **初始化任务输入**
+3. **Initiate Task Input**
 
-   打开另一个终端窗口并运行 `terminal-input`，然后输入相应的任务以启动 Memory 过程。
+   Open another terminal window and run `terminal-input`, then input the corresponding task to start the Memory process.
 
    ```bash
    terminal-input
    Enter your task: Record and retrieve key information about machine learning
    ```
-
----
-
