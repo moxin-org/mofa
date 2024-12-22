@@ -1,29 +1,48 @@
-# xiaowang_start
+[English](README.md) | [中文](README_cn.md)
 
-基于MoFA的多层次动态反思智能体-xiaowang
+# xiaowang
 
-**语言**
+A multi-level dynamic reflective agent based on MoFA - xiaowang
 
-python3.10+
-rust
+**Languages:**
 
-## 1. 功能说明
+- Python 3.10+
+- Rust
 
-xiaowang是多层次动态反思智能体，运行时会动态决策反思层数并根据动态决策节点的反思层数进行相应深度的反思，相当于人类对大模型结果不满意时多次prompt以增加大模型输出的丰富性，准确性，可靠性。
+------
 
-## 2. 使用场景
+## 1. Overview
 
-任意大模型均可通过此方法增加思考深度以提高结果的可靠性。
+**xiaowang** is a multi-level dynamic reflective agent. During execution, it dynamically determines the level of reflection and performs corresponding depth of reflection based on decisions from dynamic decision nodes. This mimics a human process of repeatedly prompting a large model when dissatisfied with its results to improve the richness, accuracy, and reliability of the model's outputs.
 
+------
 
-## 3. 配置方法
+## 2. Use Cases
 
-更改xiaowang_start/configs里的多个.yml配置信息来微调和定制每个节点的提示词，API，密钥等。
+This method can increase the depth of thinking and improve the reliability of results for any large language model.
 
-## 4. 运行xiaowang
+------
 
-1. 安装MoFA项目包,安装相关依赖
-2. `dora up && dora build xiaowang_dataflow.yml && dora start xiaowang_dataflow.yml`
-3. 3. 启动另外一个命令端,在另外一个命令端运行 `xiaowang`.然后输入任务即可
+## 3. Configuration
 
+Modify multiple `.yml` configuration files in `xiaowang_start/configs` to fine-tune and customize each node's prompts, APIs, keys, etc.
 
+------
+
+## 4. Running xiaowang
+
+1. Install the MoFA project package and relevant dependencies.
+
+2. Execute the following command:
+
+   ```shell
+   dora up && dora build xiaowang_dataflow.yml && dora start xiaowang_dataflow.yml
+   ```
+
+3. Open another terminal and run:
+
+   ```shell
+   xiaowang
+   ```
+
+   Enter tasks to initiate the agent's workflow.
