@@ -109,3 +109,4 @@ poetry.lock
 .env.secret
 
 /.iml/
+demo/
