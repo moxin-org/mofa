@@ -141,3 +141,14 @@ def read_file_content(file_path:str):
             return file.read()
     else:
         return file_path
+    
+def flatten_dict_simple(nested_dict:dict, parent_key="", sep="."):
+    flat_dict = {}
+    for key, value in nested_dict.items():
+        if isinstance(value, dict):
+            flat_dict.update(flatten_dict_simple(value, parent_key, sep))
+        else:
+            flat_dict[key] = value
+    return flat_dict
+
+
