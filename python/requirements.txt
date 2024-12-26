@@ -35,7 +35,7 @@ langchain-openai==0.1.25
 langchain-community==0.2.17
 langchain_cohere==0.1.9
 langchain_postgres==0.0.12
-openai==1.51.0
+openai
 duckduckgo-search==6.2.13
 whisper==1.1.10
 arxiv==2.1.3
@@ -78,10 +78,9 @@ pyyaml==6.0.2
 crewai==0.67.1
 crewai-tools==0.12.1
 dspy-ai==2.5.3
-mem0ai==0.1.17
 
 # --------- distributed --------- #
-dora-rs==0.3.6
+dora-rs
 
 # --------- stock --------- #
 yfinance==0.2.44
