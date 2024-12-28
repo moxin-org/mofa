@@ -6,12 +6,12 @@ from mem0 import Memory
 from typing import Any, Dict
 from dora import Node
 from mofa.agent_build.base.base_agent import BaseMofaAgent
-from mofa.kernel.utils.util import create_agent_output
+from mofa.kernel.utils.util import create_agent_output, load_node_result
 from mofa.utils.files.read import read_yaml
 import pyarrow as pa
 RUNNER_CI = True if os.getenv("CI") == "true" else False
 
-class MemoryRetrievalAgent(BaseMofaAgent):
+class MemoryRecordAgent(BaseMofaAgent):    
     def load_config(self, config_path: str = None) -> Dict[str, Any]:
         if config_path is None:
             config_path = self.config_path
@@ -29,19 +29,12 @@ class MemoryRetrievalAgent(BaseMofaAgent):
         m = Memory.from_config(mem0_config)
         self.llm_client = m
         return self
-    def get_mem0_search_text(self,memory_datas):
-        try:
-            results = list(set([memory_data.get("memory") for memory_data in memory_datas]))
-        except Exception as e :
-            results = memory_datas.get("results")
-        return results
-    def run(self, task:str=None,*args, **kwargs):
+    def run(self,agent_result:str, task:str=None,*args, **kwargs):
         mem0_config = self.load_config()
         self.create_llm_client(mem0_config)
         user_id = self.load_user_id()
-        memory_result = self.llm_client.search(task, user_id=user_id)
-        results = self.get_mem0_search_text(memory_datas=memory_result)
-        return results
+        self.llm_client.add(agent_result.replace(":dataflow_status",""),user_id=user_id,metadata={"task":task})
+        return True
 
 def main():
 
@@ -62,10 +55,17 @@ def main():
         help="Tasks required for the memmory agent.",
         default="Paris Olympics",
     )
+    parser.add_argument(
+        "--agent_result",
+        type=str,
+        required=False,
+        help="Agent result data to be recorded in memory.",
+        default="",
+    )
 
     args = parser.parse_args()
     task = os.getenv("TASK", args.task)
-
+    task,agent_result  = None,None
     node = Node(
         args.name
     )  # provide the name to connect to the dataflow if dynamic node
@@ -75,15 +75,23 @@ def main():
  
         if event["type"] == "INPUT" and event['id'] in ['task','data']:
             task = event["value"][0].as_py()
-            memmory = MemoryRetrievalAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
+        if event["type"] == "INPUT" and event['id'] in ['agent_result']:
+            agent_result = load_node_result(event["value"][0].as_py())
+        if task is not None and agent_result is not None : 
+            memmory = MemoryRecordAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
                                 llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
-            result = memmory.run(task=task)
-            output_name = 'memory_retrieval_result'
-            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]), event['metadata'])
+            result = memmory.run(task=task,agent_result=agent_result)
+            print('memory_record_result : ',result)
+            output_name = 'memory_record_result'
+            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',True))]), event['metadata'])
+            task, agent_result = None, None
         # event = node.next(timeout=200)
 if __name__ == "__main__":
-    main()
-    # mem0 = MemoryRetrievalAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
-    #                             llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
-    # result = mem0.run(task='How to use the mem0-ai package in Python? ')
-    # print(result)
+    # main()
+    mem0 = MemoryRecordAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
+                                llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
+    result = mem0.run(task='How to use the mem0-ai package in Python? ',agent_result= 'Mem0 remembers user preferences and traits and continuously updates over time, making it ideal for applications like customer support chatbots and AI assistants. Mem0 offers two powerful ways to leverage our technology: our managed platform and our open source solution.')
+    print(result)
+    all_result = mem0.llm_client.get_all(user_id='mofa')
+    mem0.llm_client.search('How to use the mem0-ai package in Python?',user_id='mofa')
+    print("all_result : ",all_result)
