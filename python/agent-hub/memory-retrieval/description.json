@@ -1,19 +1,18 @@
 {
-    "name": "MemoryRetrievalAgent",
-    "description": "This agent is responsible for retrieving relevant information from mem0's memory based on a given task or query. It reads a YAML configuration, initializes a Memory client (mem0), and then searches for relevant memory entries. Finally, it returns the matching results as output.",
-    "inputs": [
-      {
-        "name": "task",
-        "type": "string",
-        "description": "The query or instruction that the agent uses to search the mem0 memory."
-      }
-    ],
-    "outputs": [
-      {
-        "name": "memeory_retrieval_result",
-        "type": "array",
-        "description": "A list of strings (the retrieved memory entries) relevant to the input task or data."
-      }
-    ]
-  }
-  
+  "name": "MemoryRetrievalAgent",
+  "description": "MemoryRetrievalAgent is an AI-powered assistant designed to retrieve relevant memory entries based on a user-provided task. It reads configuration files, initializes the Memory client (mem0), searches for pertinent information, and returns the retrieved memory entries.",
+  "inputs": [
+    {
+      "name": "task",
+      "type": "string",
+      "description": "The user-provided task or query that the agent uses to retrieve relevant memory entries."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "memory_retrieval_result",
+      "type": "array",
+      "description": "A list of memory entries retrieved by the agent based on the input task."
+    }
+  ]
+}

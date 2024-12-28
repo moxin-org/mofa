@@ -1,0 +1,21 @@
+system: null
+agent:
+  llm:
+    provider: openai
+    config:
+      model: "gpt-4o-mini"  # 替换为你的模型名称
+      max_tokens: 3200
+
+  vector_store:
+    provider: chroma
+    config:
+      collection_name: "mem0"
+      path: "./db"
+
+  embedder:
+    provider: openai
+    config:
+      model: "text-embedding-3-large"
+
+  user_id: "mofa"
+
