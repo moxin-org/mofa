@@ -2,7 +2,7 @@
 name = "beauty-context"
 version = "0.3.5"
 authors = [
-    "ZhongHuan Wu ",
+    "ZongHuan Wu ",
     "Cheng Chen",
 ]
 description = "Dora Beauty Context"

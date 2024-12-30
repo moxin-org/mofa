@@ -2,7 +2,7 @@
 name = "content-evaluation"
 version = "0.1.1"
 authors = [
-    "ZhongHuan Wu ",
+    "ZongHuan Wu ",
     "Cheng Chen",
 ]
 description = "Dora content-evaluation agent"
