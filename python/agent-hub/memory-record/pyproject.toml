@@ -2,7 +2,7 @@
 name = "memory-record"
 version = "0.1.1"
 authors = [
-    "ZhongHuan Wu ",
+    "ZongHuan Wu ",
     "Cheng Chen",
 ]
 description = "Use Mem0 to retrieve memory"

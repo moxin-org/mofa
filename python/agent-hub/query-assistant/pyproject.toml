@@ -2,7 +2,7 @@
 name = "query-assistant"
 version = "0.1.1"
 authors = [
-    "ZhongHuan Wu ",
+    "ZongHuan Wu ",
     "Cheng Chen",
 ]
 description = "A simple agent for answering queries"
