@@ -28,6 +28,7 @@ class Operator:
                 html_content  = load_url_with_selenium(url=url,time_out=configs.get('timeout',2),*configs.get('selenium_args',[]),)
             result = {'html_content':html_content,'url':url}
             print(result)
-            send_output("load_url_connector_response", pa.array([create_agent_output(step_name='load_url_connector_response', output_data=result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
+            send_output("load_url_connector_response", pa.array([create_agent_output(
+                agent_name='load_url_connector_response', agent_result=result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
 
         return DoraStatus.CONTINUE

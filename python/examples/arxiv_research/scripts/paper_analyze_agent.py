@@ -60,7 +60,7 @@ class Operator:
                 log_result = {"3, " + inputs.get('log_step_name', "Step_one"): {k.split('/')[-1]: v for d in all_result for k, v in d.items()}}
                 record_agent_result_log(agent_config=inputs,
                                         agent_result=log_result)
-                send_output("paper_analyze_result", pa.array([create_agent_output(step_name='paper_analyze_result', output_data=json.dumps(all_result),dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("paper_analyze_result", pa.array([create_agent_output(agent_name='paper_analyze_result', agent_result=json.dumps(all_result), dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 self.search_task,self.papers_info = None,None
                 print('agent_output:',all_result)
             return DoraStatus.CONTINUE

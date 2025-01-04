@@ -39,7 +39,7 @@ class Operator:
                 record_agent_result_log(agent_config=inputs,
                                         agent_result={
                                             "6, " + inputs.get('log_step_name', "Step_one"): agent_result})
-                send_output("refinement_result", pa.array([create_agent_output(step_name='refinement_result', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("refinement_result", pa.array([create_agent_output(agent_name='refinement_result', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 print('refinement_result : ',agent_result)
                 self.suggestion,self.writer_report = None,None
         return DoraStatus.CONTINUE

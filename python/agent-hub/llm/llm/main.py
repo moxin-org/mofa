@@ -53,8 +53,8 @@ def main():
             results['task'] = task
             results['result'] = agent_result
             print('agent_output:', results)
-            node.send_output("llm_results", pa.array([create_agent_output(step_name='llm_results', 
-                                                                          output_data=agent_result,
+            node.send_output("llm_results", pa.array([create_agent_output(agent_name='llm_results',
+                                                                          agent_result=agent_result,
                                                                           dataflow_status=os.getenv('IS_DATAFLOW_END',True))]),
                                                                           event['metadata'])
 

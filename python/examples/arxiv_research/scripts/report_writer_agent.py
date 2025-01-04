@@ -35,7 +35,7 @@ class Operator:
 
                 write_agent_log(log_type=inputs.get('log_type', None), log_file_path=inputs.get('log_path', None),
                                 data={"4, " +  inputs.get('log_step_name', "Step_one"): agent_result})
-                send_output("writer_report", pa.array([create_agent_output(step_name='writer_report', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("writer_report", pa.array([create_agent_output(agent_name='writer_report', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 print('agent_output:',agent_result)
                 self.search_task = None
                 self.paper_analyze_result = None

@@ -103,6 +103,7 @@ from mofa.run.run_agent import run_dspy_or_crewai_agent
 from mofa.utils.files.dir import get_relative_path
 from mofa.utils.log.agent import record_agent_result_log
 
+
 class Operator:
     """
     Dora-rs Operator 用于处理 INPUT 事件，加载配置，运行代理，记录日志，并发送结果。
@@ -112,39 +113,39 @@ class Operator:
         if dora_event.get("type") == "INPUT":
             agent_inputs = ['data', 'task']
             event_id = dora_event.get("id")
-            
+
             if event_id in agent_inputs:
                 task = dora_event["value"][0].as_py()
-                
+
                 yaml_file_path = get_relative_path(
                     current_file=__file__,
                     sibling_directory_name='configs',
                     target_file_name='reasoner_agent.yml'
                 )
-                
+
                 inputs = load_agent_config(yaml_file_path)
                 inputs["task"] = task
-                
+
                 agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
-                
+
                 log_step_name = inputs.get('log_step_name', "Step_one")
                 record_agent_result_log(
                     agent_config=inputs,
                     agent_result={f"1, {log_step_name}": {task: agent_result}}
                 )
-                
+
                 output_data = create_agent_output(
-                    step_name='keyword_results',
-                    output_data=agent_result,
+                    agent_name='keyword_results',
+                    agent_result=agent_result,
                     dataflow_status=os.getenv('IS_DATAFLOW_END', True)
                 )
-                
+
                 send_output(
                     "reasoner_result",
                     pa.array([output_data]),
                     dora_event.get('metadata', {})
                 )
-                
+
                 print('reasoner_results:', agent_result)
 
         return DoraStatus.CONTINUE

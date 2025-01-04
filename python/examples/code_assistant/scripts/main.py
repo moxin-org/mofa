@@ -65,9 +65,9 @@ def main():
                 results['task'] = task2
                 results['result'] = agent_result
                 print('agent_output:', results)
-                node.send_output("code_assistant_result", pa.array([create_agent_output(step_name='code_assistant',
-                                                                                    output_data=agent_result,
-                                                                                    dataflow_status=os.getenv(
+                node.send_output("code_assistant_result", pa.array([create_agent_output(agent_name='code_assistant',
+                                                                                        agent_result=agent_result,
+                                                                                        dataflow_status=os.getenv(
                                                                                         "IS_DATAFLOW_END",
                                                                                         True))]), event['metadata']) 
 
@@ -83,9 +83,9 @@ def main():
                 messagebox.showinfo("Task Information", f"Task: {task}")
                 root.destroy()
                 #print(inputs)
-                node.send_output("get_code", pa.array([create_agent_output(step_name='code_assistant',
-                                                                                    output_data=agent_result,
-                                                                                    dataflow_status=os.getenv(
+                node.send_output("get_code", pa.array([create_agent_output(agent_name='code_assistant',
+                                                                           agent_result=agent_result,
+                                                                           dataflow_status=os.getenv(
                                                                                         "IS_DATAFLOW_END",
                                                                                         True))]), event['metadata'])
 if __name__ == "__main__":

@@ -38,13 +38,13 @@ class Operator:
                     agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
                     self.local_iterations +=1
                     if 'Yes' in agent_result or 'yes' in agent_result:
-                        send_output("self_refine_end", pa.array([create_agent_output(step_name='self_refine_end',output_data=agent_result,dataflow_status=True)]),dora_event['metadata'])
+                        send_output("self_refine_end", pa.array([create_agent_output(agent_name='self_refine_end', agent_result=agent_result, dataflow_status=True)]), dora_event['metadata'])
                         self.search_task, self.refinement_report = None, None
                     else:
-                        send_output("evaluation_result", pa.array([create_agent_output(step_name='evaluation_result',output_data=self.refinement_report,dataflow_status=False)]),dora_event['metadata'])
+                        send_output("evaluation_result", pa.array([create_agent_output(agent_name='evaluation_result', agent_result=self.refinement_report, dataflow_status=False)]), dora_event['metadata'])
                         self.refinement_report = None
                 else:
-                    send_output("self_refine_end", pa.array([create_agent_output(step_name='self_refine_end',output_data='self_refine_end',dataflow_status=True)]),dora_event['metadata'])
+                    send_output("self_refine_end", pa.array([create_agent_output(agent_name='self_refine_end', agent_result='self_refine_end', dataflow_status=True)]), dora_event['metadata'])
                     self.search_task,self.refinement_report = None,None
         return DoraStatus.CONTINUE
 

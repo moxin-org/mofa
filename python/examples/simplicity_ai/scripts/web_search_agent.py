@@ -30,6 +30,6 @@ class Operator:
                 record_agent_result_log(agent_config=inputs,
                                         agent_result={
                                             inputs.get('log_step_name', "3, Web Search Answer "): {d.get('name'):d.get('url') for d in json.loads(agent_result.get('web_search_resource'))}})
-                send_output("web_search_results", pa.array([create_agent_output(step_name='web_search_results', output_data=agent_result.get('web_search_results'),dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
-                send_output("web_search_resource", pa.array([create_agent_output(step_name='web_search_resource', output_data=agent_result.get('web_search_resource'),dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("web_search_results", pa.array([create_agent_output(agent_name='web_search_results', agent_result=agent_result.get('web_search_results'), dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
+                send_output("web_search_resource", pa.array([create_agent_output(agent_name='web_search_resource', agent_result=agent_result.get('web_search_resource'), dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
         return DoraStatus.CONTINUE

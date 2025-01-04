@@ -41,7 +41,7 @@ class Operator:
                 record_agent_result_log(agent_config=inputs,
                                         agent_result={
                                             "2, " + inputs.get('log_step_name', "suggestion "): {self.search_task: agent_suggestion}})
-                send_output("suggestion", pa.array([create_agent_output(step_name='feedback_result', output_data=agent_suggestion,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("suggestion", pa.array([create_agent_output(agent_name='feedback_result', agent_result=agent_suggestion, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 print('agent_suggestion',agent_suggestion)
                 if self.writer_report is not None: self.writer_report= None
                 if self.refinement_report is not None: self.refinement_report= None

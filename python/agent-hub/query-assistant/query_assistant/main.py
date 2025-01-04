@@ -64,9 +64,9 @@ def main():
             results['task'] = task
             results['result'] = agent_result
             print('agent_output:', results)
-            node.send_output("query_assistant_result", pa.array([create_agent_output(step_name='query_assistant',
-                                                                                output_data=agent_result,
-                                                                                dataflow_status=os.getenv(
+            node.send_output("query_assistant_result", pa.array([create_agent_output(agent_name='query_assistant',
+                                                                                     agent_result=agent_result,
+                                                                                     dataflow_status=os.getenv(
                                                                                     "IS_DATAFLOW_END",
                                                                                     True))]), event['metadata'])
 

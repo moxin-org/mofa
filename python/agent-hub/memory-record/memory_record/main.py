@@ -83,7 +83,7 @@ def main():
             result = memmory.run(task=task,agent_result=agent_result)
             print('memory_record_result : ',result)
             output_name = 'memory_record_result'
-            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',True))]), event['metadata'])
+            node.send_output(output_name, pa.array([create_agent_output(agent_name=output_name, agent_result=result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), event['metadata'])
             task, agent_result = None, None
         # event = node.next(timeout=200)
 if __name__ == "__main__":

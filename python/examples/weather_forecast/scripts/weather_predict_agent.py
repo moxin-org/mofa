@@ -63,8 +63,8 @@ class Operator:
                     ],
                 )
                 weather_response = response.choices[0].message.content
-                send_output("weather_predict_response", pa.array([create_agent_output(step_name='weather_response',
-                                                                                      output_data=weather_response,
+                send_output("weather_predict_response", pa.array([create_agent_output(agent_name='weather_response',
+                                                                                      agent_result=weather_response,
                                                                                       dataflow_status=os.getenv(
                                                                                           'IS_DATAFLOW_END', True))]),
                             dora_event['metadata'])

@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 from pathlib import Path
-
 from attrs import define, field
 from typing import Any, Dict, Union
 from dora import Node
@@ -22,7 +21,6 @@ class LettaAgent(BaseMofaAgent):
     agent_state:Any =  field(factory=dict)
     def __attrs_post_init__(self) -> None:
         copy_file(input_file=self.llm_config_path,output_file=str(Path(self.llm_config_path).parent / '.env'),overwrite=True)
-        copy_file(input_file=self.llm_config_path,output_file=str(Path(self.llm_config_path).parent.parent / '.env'),overwrite=True)
         self.create_llm_client()
         self.agent_state_id = self.agent_state.id
     @property
@@ -88,7 +86,7 @@ def main():
         type=str,
         required=False,
         help="Tasks required for the memmory agent.",
-        default="Paris Olympics",
+        default="My name is Zi Chen",
     )
 
     args = parser.parse_args()
@@ -99,7 +97,7 @@ def main():
     )  # provide the name to connect to the dataflow if dynamic node
 
     # assert_data = ast.literal_eval(data)
-    agent = agent = LettaAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
+    agent  = LettaAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
                        llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
     for event in node:
 
@@ -108,7 +106,7 @@ def main():
 
             result = agent.run(task=task)
             output_name = 'letta_agent_result'
-            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',True))]), event['metadata'])
+            node.send_output(output_name, pa.array([create_agent_output(agent_name=output_name, agent_result=result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), event['metadata'])
 
 if __name__ == "__main__":
     # agent = LettaAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
@@ -116,3 +114,4 @@ if __name__ == "__main__":
     # result = agent.run(task='Paris Olympics')
     # print(result)
     main()
+    

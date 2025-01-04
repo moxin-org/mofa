@@ -28,9 +28,9 @@ class Operator:
             record_agent_result_log(agent_config=inputs,
                                     agent_result={
                                         "1, " + inputs.get('log_step_name', "Writer Report"): {task: agent_result}})
-            send_output("writer_report", pa.array([create_agent_output(step_name='writer_report_results',
-                                                                          output_data=agent_result,
-                                                                          dataflow_status=os.getenv('IS_DATAFLOW_END',
+            send_output("writer_report", pa.array([create_agent_output(agent_name='writer_report_results',
+                                                                       agent_result=agent_result,
+                                                                       dataflow_status=os.getenv('IS_DATAFLOW_END',
                                                                                                     False))]),
                         dora_event['metadata'])
             print('writer_report_result: ',agent_result)
