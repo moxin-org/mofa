@@ -72,9 +72,9 @@ class Operator:
                         collection_name = Path(files_path).name
                         rag_module = ReasonerRagModule(module_path=inputs.get("module_path"),model_name=inputs.get("rag_model_name"),  collection_name=collection_name, is_upload_file=inputs.get("is_upload_file"), files_path=[files_path],encoding=inputs.get("encoding"),chunk_size=inputs.get('chunk_size'),multi_process=False,rag_search_num=inputs.get("rag_search_num"),temperature=0.7,chroma_path=inputs.get("chroma_path"))
                         agent_result += rag_module.rag_retrieval(question=task)
-                send_output("context_rag", pa.array([create_agent_output(step_name='context_rag',
-                                                                              output_data=agent_result,
-                                                                              dataflow_status=os.getenv(
+                send_output("context_rag", pa.array([create_agent_output(agent_name='context_rag',
+                                                                         agent_result=agent_result,
+                                                                         dataflow_status=os.getenv(
                                                                                   'IS_DATAFLOW_END', False))]),
                             dora_event['metadata'])
 

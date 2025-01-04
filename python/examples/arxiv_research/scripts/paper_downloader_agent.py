@@ -29,7 +29,7 @@ class Operator:
                 record_agent_result_log(agent_config=inputs,agent_result={"2, "+ inputs.get('log_step_name', "Step_one"): agent_result})
 
                 print('-------  : ',agent_result)
-                send_output("papers_info", pa.array([create_agent_output(step_name='papers_info', output_data=arxiv_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("papers_info", pa.array([create_agent_output(agent_name='papers_info', agent_result=arxiv_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
 
                 print('agent_output:',agent_result)
         return DoraStatus.CONTINUE

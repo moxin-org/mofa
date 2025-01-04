@@ -1,3 +1,4 @@
+import json
 import os
 import attrs
 import pyarrow as pa
@@ -9,6 +10,55 @@ import yaml
 from dora import Node
 from dotenv import load_dotenv
 from pathlib import Path
+@define
+class MofaAgent():
+    agent_name:str = field(default='mofa-agent')
+    node:Any = field(default=None)
+    agent_inputs:dict = field(factory=dict)
+    description_file_path:Union[str,None] = field(default=Path(os.path.join(os.path.abspath(os.path.dirname(__file__)), )).parent / 'description.json')
+    event:Any = field(factory=dict)
+    def __attrs_post_init__(self):
+        self.node = Node(self.agent_name)
+        if not self.description_file_path.exists():
+            raise FileNotFoundError(f"Description file not found at {self.description_file_path}")
+        else:
+             self.init_agent_inputs
+
+    def _receive_event_input(self,event):
+        if event["type"] == "INPUT":
+            for agent_input in list(self.agent_inputs.keys()):
+                if event['id'] == agent_input and self.agent_inputs[agent_input] is None:
+                    try:
+                        input_data = load_node_result(event["value"][0].as_py())
+                    except Exception as e :
+                        input_data = event["value"][0].as_py()
+                    self.agent_inputs[agent_input] = input_data
+
+    def recevice_parameters(self):
+        for event in self.node:
+            self._receive_event_input(event=event)
+            self.event = event
+            return self
+    @property
+    def init_agent_inputs(self):
+        with open(self.description_file_path, 'r', encoding='utf-8') as f:
+                description = json.load(f)
+                self.agent_name = description['name']
+                self.agent_inputs = {input_item["name"]: None for input_item in description["inputs"]}
+    def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', True)):
+        self.node.send_output(
+            agent_output_name,
+            pa.array([create_agent_output(
+                agent_name=agent_output_name,
+                agent_result=agent_result,
+                dataflow_status=is_end_status
+            )]),
+            self.event['metadata']
+        )
+    @property
+    def is_inputs_empty(self) -> bool:
+        return all(value is None for value in self.agent_inputs.values())
+
 
 @define
 class BaseMofaAgent():
@@ -48,7 +98,7 @@ class BaseMofaAgent():
     def send_output(self, node:Node,event,output_name: str, output_data: Any,output_step_name:str=None,is_end_dataflow:bool=True):
         if output_step_name is None:
             output_step_name = output_name
-        node.send_output(output_name, pa.array([create_agent_output(step_name=output_step_name, output_data=output_data,dataflow_status=os.getenv('IS_DATAFLOW_END',is_end_dataflow))]), event['metadata'])
+        node.send_output(output_name, pa.array([create_agent_output(agent_name=output_step_name, agent_result=output_data, dataflow_status=os.getenv('IS_DATAFLOW_END', is_end_dataflow))]), event['metadata'])
     
     def run(self,task:str=None,*args,**kwargs):
         pass

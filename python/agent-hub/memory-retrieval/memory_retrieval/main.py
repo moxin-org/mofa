@@ -79,7 +79,7 @@ def main():
                                 llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
             result = memmory.run(task=task)
             output_name = 'memory_retrieval_result'
-            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]), event['metadata'])
+            node.send_output(output_name, pa.array([create_agent_output(agent_name=output_name, agent_result=result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), event['metadata'])
         # event = node.next(timeout=200)
 if __name__ == "__main__":
     main()

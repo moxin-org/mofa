@@ -27,7 +27,8 @@ class Operator:
                 search_box_html_datas = load_search_box(url=json_data['url'], search_box_html_result=json_data['search_box_list'],search_text=search_text)
                 if len(search_box_html_datas)>0:
                     break
-            send_output("search_box_connector_response", pa.array([create_agent_output(step_name='search_box_connector_response', output_data=search_box_html_datas, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
+            send_output("search_box_connector_response", pa.array([create_agent_output(
+                agent_name='search_box_connector_response', agent_result=search_box_html_datas, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
             print('-------  , ',search_box_html_datas)
         return DoraStatus.CONTINUE
 

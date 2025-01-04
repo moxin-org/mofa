@@ -56,8 +56,8 @@ class Operator:
                 
                 code_res = [execute_python_code(code_str) for code_str in code_strs]
 
-                send_output("reasoner_results", pa.array([create_agent_output(step_name='keyword_results', output_data=agent_result_str + '\n'.join([f'\n{stdout}\n{stderr}' for index, (stdout, stderr) in enumerate(code_res)])
-                                                                              ,dataflow_status=os.getenv('IS_DATAFLOW_END',True))]),dora_event['metadata'])
+                send_output("reasoner_results", pa.array([create_agent_output(agent_name='keyword_results', agent_result=agent_result_str + '\n'.join([f'\n{stdout}\n{stderr}' for index, (stdout, stderr) in enumerate(code_res)])
+                                                                              , dataflow_status=os.getenv('IS_DATAFLOW_END',True))]),dora_event['metadata'])
                 print('reasoner_results:', agent_result)
 
         return DoraStatus.CONTINUE

@@ -134,9 +134,9 @@ class Operator:
                 url = f"https://www.Windy.com/zh/-气象雷达-radar?radar,{geolocation_response},5\n"
                 print('--------: ',url)
                 downloader.execute(url=url,output_path=images_file_path)
-                send_output("windy_crawler_response", pa.array([create_agent_output(step_name='windy_crawler_response',
-                                                                                  output_data=images_file_path,
-                                                                                  dataflow_status=os.getenv(
+                send_output("windy_crawler_response", pa.array([create_agent_output(agent_name='windy_crawler_response',
+                                                                                    agent_result=images_file_path,
+                                                                                    dataflow_status=os.getenv(
                                                                                       'IS_DATAFLOW_END', False))]),
                             dora_event['metadata'])
                 print('windy_crawler_response:', images_file_path)

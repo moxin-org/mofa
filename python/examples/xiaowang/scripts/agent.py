@@ -32,7 +32,7 @@ class Operator:
                                         agent_result={
                                             "1, " + inputs.get('log_step_name', "Step_one"): {task: agent_result}})
                 # 发送代理的响应输出
-                send_output("agent_response", pa.array([create_agent_output(step_name='agent_response', output_data=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
+                send_output("agent_response", pa.array([create_agent_output(agent_name='agent_response', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
                 print('agent_response:', agent_result)  # 打印代理的响应结果
 
         return DoraStatus.CONTINUE  # 返回继续处理事件的状态

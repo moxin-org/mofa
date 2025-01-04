@@ -29,6 +29,6 @@ class Operator:
                 results = get_mem0_search_text(memory_result)
 
 
-                send_output("context_memory", pa.array([create_agent_output(step_name='context_memory', output_data=results,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("context_memory", pa.array([create_agent_output(agent_name='context_memory', agent_result=results, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
 
         return DoraStatus.CONTINUE

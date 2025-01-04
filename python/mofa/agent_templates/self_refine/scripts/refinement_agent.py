@@ -32,7 +32,7 @@ class Operator:
                 inputs['input_fields'] = {'search_task_suggestion':self.suggestion,'search_task':self.search_task,'task_result':self.writer_report}
                 agent_result = run_dspy_or_crewai_agent(agent_config=inputs)
                 print('inputs: ',inputs)
-                send_output("refinement_result", pa.array([create_agent_output(step_name='refinement_result', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("refinement_result", pa.array([create_agent_output(agent_name='refinement_result', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 print('refinement_result : ',agent_result)
                 self.suggestion,self.writer_report = None,None
         return DoraStatus.CONTINUE

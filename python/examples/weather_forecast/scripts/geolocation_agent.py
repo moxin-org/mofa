@@ -26,7 +26,7 @@ class Operator:
                 record_agent_result_log(agent_config=inputs,
                                         agent_result={
                                             "1, "+ inputs.get('log_step_name', "Step_one"): {task:agent_result}})
-                send_output("geolocation_response", pa.array([create_agent_output(step_name='geolocation_response', output_data=agent_result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]),dora_event['metadata'])
+                send_output("geolocation_response", pa.array([create_agent_output(agent_name='geolocation_response', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
                 print('geolocation_response:', agent_result)
 
         return DoraStatus.CONTINUE

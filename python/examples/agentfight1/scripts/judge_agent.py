@@ -39,7 +39,7 @@ class Operator:
                 record_agent_result_log(agent_config=inputs, agent_result={"Evaluation": agent_result})
                 #print('2')
 
-                send_output("evaluation_result", pa.array([create_agent_output(step_name='evaluation_result', output_data=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
+                send_output("evaluation_result", pa.array([create_agent_output(agent_name='evaluation_result', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
                 #print('3')
 
                 print('Received Answer 1:', self.answer_1)

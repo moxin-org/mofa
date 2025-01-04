@@ -37,6 +37,7 @@ class Operator:
             with open(configs.get('out_path'), 'w', encoding='utf-8') as f:
                 json.dump(discovery_search_box_result, f, ensure_ascii=False, indent=4)
             print(discovery_search_box_result)
-            send_output("discovery_search_box_response", pa.array([create_agent_output(step_name='discovery_search_box_response', output_data=discovery_search_box_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
+            send_output("discovery_search_box_response", pa.array([create_agent_output(
+                agent_name='discovery_search_box_response', agent_result=discovery_search_box_result, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
 
         return DoraStatus.CONTINUE

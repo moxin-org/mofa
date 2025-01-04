@@ -84,7 +84,7 @@ def main():
             result = reasoner.run(task=task,memory_context=memory_context)
             print('reasoner_result : ',result)
             output_name = 'reasoner_result'
-            node.send_output(output_name, pa.array([create_agent_output(step_name=output_name, output_data=result,dataflow_status=os.getenv('IS_DATAFLOW_END',False))]), event['metadata'])
+            node.send_output(output_name, pa.array([create_agent_output(agent_name=output_name, agent_result=result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), event['metadata'])
             task,memory_context = None,None
 if __name__ == "__main__":
     main()

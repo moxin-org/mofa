@@ -72,9 +72,9 @@ def main():
                 record_agent_result_log(agent_config=inputs,agent_result={inputs.get('log_step_name', "Step_one"): agent_result})
                 results['evaluation_result'] = agent_result
                 print('evaluation_result:', results)
-                node.send_output("evaluation_result", pa.array([create_agent_output(step_name='content_evaluation',
-                                                                                   output_data=agent_result,
-                                                                                   dataflow_status=os.getenv(
+                node.send_output("evaluation_result", pa.array([create_agent_output(agent_name='content_evaluation',
+                                                                                    agent_result=agent_result,
+                                                                                    dataflow_status=os.getenv(
                                                                                        "IS_DATAFLOW_END",
                                                                                        True))]), event['metadata'])
                 primary_data,second_data,source_task = None,None,None

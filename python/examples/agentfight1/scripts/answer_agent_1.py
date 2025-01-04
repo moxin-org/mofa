@@ -24,7 +24,7 @@ class Operator:
 
                 record_agent_result_log(agent_config=inputs, 
                                         agent_result={"Answer 1": agent_result})
-                send_output("answer_1_response", pa.array([create_agent_output(step_name='answer_1_response', output_data=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
+                send_output("answer_1_response", pa.array([create_agent_output(agent_name='answer_1_response', agent_result=agent_result, dataflow_status=os.getenv('IS_DATAFLOW_END', False))]), dora_event['metadata'])
 
                 #print('Agent 1 Output:', agent_result)
                 self.task = None

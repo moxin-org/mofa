@@ -36,7 +36,8 @@ class Operator:
                 "3, " + configs.get('log_step_name', "search_box_extractor_agent"): search_box_extractor_response}
             record_agent_result_log(agent_config={'log_path':'./data/output/log/search_box_extractor_agent.md'},
                                     agent_result=log_result)
-            send_output("search_box_extractor_response", pa.array([create_agent_output(step_name='search_box_extractor_response', output_data=search_box_extractor_response, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
+            send_output("search_box_extractor_response", pa.array([create_agent_output(
+                agent_name='search_box_extractor_response', agent_result=search_box_extractor_response, dataflow_status=os.getenv('IS_DATAFLOW_END', True))]), dora_event['metadata'])
             self.search_box_connector_response = None
 
         return DoraStatus.CONTINUE

@@ -38,8 +38,8 @@ class Operator:
         record_agent_result_log(agent_config=inputs,
                                 agent_result={inputs.get('log_step_name', "4, More Question Result"): agent_result})
 
-        send_output("more_question_results", pa.array([create_agent_output(step_name='more_question_results',
-                                                                           output_data=agent_result,
+        send_output("more_question_results", pa.array([create_agent_output(agent_name='more_question_results',
+                                                                           agent_result=agent_result,
                                                                            dataflow_status=os.getenv("IS_DATAFLOW_END",
                                                                                                      True))]),dora_event['metadata'])
         self.web_search_results = None
