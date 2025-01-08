@@ -29,7 +29,7 @@ def send_task_and_receive_data(node):
                     node_results = json.loads(event['value'].to_pylist()[0])
                     results = node_results.get('node_results')
                     is_dataflow_end = node_results.get('dataflow_status', False)
-                    if is_dataflow_end == False:
+                    if is_dataflow_end == False or is_dataflow_end == 'false':
                         try:
                             results_dict = json.loads(results)
                             if results_dict.get("post_list",None) is not None:
@@ -58,7 +58,7 @@ def send_task_and_receive_data(node):
                         # else:
                         #     click.echo(f"{node_results.get('step_name','')}: {results} :dataflow_status",)
                     sys.stdout.flush()
-                    if is_dataflow_end:
+                    if is_dataflow_end ==True or is_dataflow_end == 'true' or is_dataflow_end == 'True':
                         break
                     event = node.next(timeout=200)
 def main():

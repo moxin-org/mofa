@@ -40,14 +40,14 @@ def main():
     # Handle dynamic nodes, ask for the name of the node in the dataflow, and the same values as the ENV variables.
     agent = MofaAgent(description_file_path = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)), )).parent / 'description.json')
     while True:
-        agent.recevice_parameters()
+        agent.receive_parameter()
         print('agent_inputs : ',agent.agent_inputs)
         reasoner = ReasonerAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
                             llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
         result = reasoner.run(**agent.agent_inputs)
         print('reasoner_result : ',result)
-        output_name = 'reasoner_result'
-        agent.send_output(agent_output_name=output_name,agent_result=result)
+        agent_output_name = 'reasoner_result'
+        agent.send_output(agent_output_name=agent_output_name,agent_result=result)
         agent.init_agent_inputs
 if __name__ == "__main__":
     main()

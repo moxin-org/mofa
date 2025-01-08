@@ -45,7 +45,6 @@ def main():
             if event['id'] in ['image_path']:
                 image_path = event["value"][0].as_py()
                 
-                # TODO: 这里需要根据你的主函数进行配置
                 import cv2
                 import time
 

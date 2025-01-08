@@ -1,26 +1,26 @@
-import argparse
 import json
-import os
-from pathlib import Path
-
-from dora import Node
+from ruamel.yaml.util import load_yaml_guess_indent
 from mofa.agent_build.base.base_agent import MofaAgent
-from mofa.kernel.tools.web_search import search_web_with_serper
-from mofa.kernel.utils.util import create_agent_output
-import pyarrow as pa
 import os
 from dotenv import load_dotenv
-
-from serper_search import agent_config_dir_path
+from openai import OpenAI
+from deepseek import agent_config_dir_path
+from mofa.utils.files.read import read_yaml
 
 
 def main():
-
-    agent = MofaAgent(agent_name='serper_search')
+    agent = MofaAgent(agent_name='deepseek')
     while True:
         load_dotenv(agent_config_dir_path + '/.env.secret')
-        serper_result = search_web_with_serper(query=agent.receive_parameter(parameter_name='query'),subscription_key = os.getenv("SERPER_API_KEY"))
-        agent.send_output(agent_output_name='serper_result',agent_result=serper_result)
-
+        client = OpenAI(api_key=os.getenv('LLM_API_KEY'), base_url="https://api.deepseek.com")
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content": json.dumps(read_yaml(file_path = agent_config_dir_path + '/configs/agent.yml').get('agent').get('prompt'))},
+                {"role": "user", "content":  f"user query: {agent.receive_parameter(parameter_name='query')}  serper search data : {json.dumps(agent.receive_parameter(parameter_name='serper_result'))}"},
+            ],
+            stream=False
+        )
+        agent.send_output(agent_output_name='deepseek_result', agent_result=response.choices[0].message.content)
 if __name__ == "__main__":
     main()
