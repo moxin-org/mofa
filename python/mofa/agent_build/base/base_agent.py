@@ -46,11 +46,6 @@ class MofaAgent:
                 return input_data
             else:
                 continue
-# 有输入a，10秒之后获得输入b，我先拿到输入b ，然后再拿到输入a,查看是否有问题  # 先拿到输入b 然后拿输入a 确定是不行的
-# 有输入a，10秒之后获得输入b，我先拿到输入a ，然后再拿到输入b,查看是否有问题 # 确定是可以的
-# 有输入a和输入b，我要获取两个输入,不分先后，是否有问题  #
-# 在创建的agent的过程中，关于配置方面的问题，配置分几种？ 在创建agent的过程中配置的影响？
-
             # self.node.next(self.event_time_out)
     def receive_parameters(self,parameter_names:list)->dict:
         parameter_data = {}
