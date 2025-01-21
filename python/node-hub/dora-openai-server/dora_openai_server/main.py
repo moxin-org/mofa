@@ -196,6 +196,7 @@ from dora import Node  # Dora for node communication in a dataflow system
 import asyncio  # Asynchronous I/O operations
 import pyarrow as pa  # PyArrow for data serialization and transfer
 import ast  # Abstract Syntax Trees for evaluating user input
+import json
 
 # Timeout duration for waiting on responses from Dora nodes
 DORA_RESPONSE_TIMEOUT = 120
@@ -287,8 +288,12 @@ async def create_chat_completion(request: ChatCompletionRequest):
         # If the event is an input event with the expected ID, process the response
         elif event["type"] == "INPUT" and event["id"] == "v1/chat/completions":
             response = event["value"]
-            # Extract the first element of the response or set a default message if no response is received
-            response_str = response[0].as_py() if response else "No response received"
+            # Parse the JSON response and extract just the node_results
+            try:
+                response_json = json.loads(response[0].as_py())
+                response_str = response_json.get("node_results", "No response received")
+            except (json.JSONDecodeError, AttributeError):
+                response_str = "Error parsing response"
             break
         else:
             pass
