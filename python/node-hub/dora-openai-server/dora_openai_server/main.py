@@ -185,7 +185,7 @@
 # # If the script is run directly, start the FastAPI server and event loop
 # if __name__ == "__main__":
 #     asyncio.run(run_fastapi())
-
+import json
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # 需要导入 CORSMiddleware
@@ -289,6 +289,13 @@ async def create_chat_completion(request: ChatCompletionRequest):
             response = event["value"]
             # Extract the first element of the response or set a default message if no response is received
             response_str = response[0].as_py() if response else "No response received"
+            if "No response received" != response_str:
+                try:
+                    response_str = json.loads(response_str)
+                    response_str = response_str['node_results']
+                except Exception as e :
+                    pass
+
             break
         else:
             pass
