@@ -76,35 +76,16 @@ def create_prompt(
         messages, tokenize=False, add_generation_prompt=True
     )
 
-
-device = "cpu"  # or "cpu"
-tokenizer = AutoTokenizer.from_pretrained("jinaai/ReaderLM-v2")
-model = AutoModelForCausalLM.from_pretrained("jinaai/ReaderLM-v2").to(device)
-html = "<html><body><h1>Hello, world!</h1></body></html>"
-
-html = clean_html(html)
-
-input_prompt = create_prompt(html, tokenizer=tokenizer)
-inputs = tokenizer.encode(input_prompt, return_tensors="pt").to(device)
-outputs = model.generate(
-    inputs, max_new_tokens=2048, temperature=0, do_sample=False, repetition_penalty=1.08
-)
-
-print(tokenizer.decode(outputs[0]))
-
 def main():
-
     agent = MofaAgent(agent_name='readerlm-agent')
     device = os.getenv('model_device','cpu')
     model_path = os.getenv('model_path',"jinaai/ReaderLM-v2")
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForCausalLM.from_pretrained(model_path).to(device)
+    print('加载模型成功')
     while True:
         html = agent.receive_parameter('html')
-        print('agent_inputs : ',agent.agent_inputs)
-
         html = clean_html(html)
-
         input_prompt = create_prompt(html, tokenizer=tokenizer)
         inputs = tokenizer.encode(input_prompt, return_tensors="pt").to(device)
         outputs = model.generate(
