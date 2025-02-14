@@ -1,5 +1,7 @@
 import json
 import os
+from functools import wraps
+
 import attrs
 import pyarrow as pa
 from attrs import define, field
@@ -131,5 +133,15 @@ class BaseMofaAgent():
     def create_llm_client(self,config:dict=None,*args,**kwargs):
         if config is None:
             config = self.config
-        pass 
-        
+        pass
+
+
+def run_agent(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        while True:
+            try:
+                func(*args, **kwargs)
+            except Exception as e:
+                print(f"Error occurred: {e}")
+    return wrapper
