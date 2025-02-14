@@ -1,3 +1,4 @@
+import copy
 import json
 import os
 from functools import wraps
@@ -28,18 +29,20 @@ class MofaAgent:
         except Exception:
             return event["value"][0].as_py()
 
-    def _receive_event_input(self, event, parameter_names:Union[str,list[str]]):
+    def _receive_event_input(self, event, parameter_names:Union[str,dict]):
         if event["type"] == "INPUT":
             if isinstance(parameter_names,str):
 
                 if event['id'] == parameter_names :
                     input_data = self._parse_event_value(event=event)
                     return input_data
-            elif isinstance(parameter_names,list):
-                parameter_data = {}
-                if event['id'] in parameter_names :
-                    parameter_data[event['id']] = self._parse_event_value(event=event)
-                    return parameter_data 
+            elif isinstance(parameter_names,dict):
+                data = copy.deepcopy(parameter_names)
+                if event['id'] in list(data.keys()) :
+                    data[event['id']] = self._parse_event_value(event=event)
+                    return data
+                else:
+                    return data
     def receive_parameter(self,parameter_name:str):
         for event in self.node:
             input_data = self._receive_event_input(event=event, parameter_names=parameter_name)
@@ -49,22 +52,20 @@ class MofaAgent:
             else:
                 continue
             # self.node.next(self.event_time_out)
+
     def receive_parameters(self,parameter_names:list)->dict:
         parameter_data = {}
         if len(parameter_names) > 0:
             parameter_data = {key: None for key in parameter_names}
         for event in self.node:
-            is_parameter_data_status = all(value is None for value in parameter_data.values())
-            if is_parameter_data_status:
+
+            parameter_data = self._receive_event_input(event=event,parameter_names=parameter_data)
+            self.event = event
+            # self.node.next(self.event_time_out)
+            is_parameter_data_status = all(value is not None for value in parameter_data.values())
+            if is_parameter_data_status :
                 break
-            parameter_input_data = self._receive_event_input(event=event,parameter_names=parameter_names)
-            if parameter_input_data is not None:
-                parameter_data.update(parameter_input_data)
-                self.event = event
-            else:
-                continue
         return parameter_data
-            
             
     def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', True)):
         if is_end_status == 'true' or is_end_status == 'True':
