@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug, help wanted
+assignees: chengzi0103, XiaoKuge
+
+---
+
 **Description of the Issue:**
 Please provide a clear and concise description of the error or problem you encountered.
 
