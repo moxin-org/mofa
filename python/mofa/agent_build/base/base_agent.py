@@ -1,5 +1,8 @@
+import copy
 import json
 import os
+from functools import wraps
+
 import attrs
 import pyarrow as pa
 from attrs import define, field
@@ -26,18 +29,20 @@ class MofaAgent:
         except Exception:
             return event["value"][0].as_py()
 
-    def _receive_event_input(self, event, parameter_names:Union[str,list[str]]):
+    def _receive_event_input(self, event, parameter_names:Union[str,dict]):
         if event["type"] == "INPUT":
             if isinstance(parameter_names,str):
 
                 if event['id'] == parameter_names :
                     input_data = self._parse_event_value(event=event)
                     return input_data
-            elif isinstance(parameter_names,list):
-                parameter_data = {}
-                if event['id'] in parameter_names :
-                    parameter_data[event['id']] = self._parse_event_value(event=event)
-                    return parameter_data 
+            elif isinstance(parameter_names,dict):
+                data = copy.deepcopy(parameter_names)
+                if event['id'] in list(data.keys()) :
+                    data[event['id']] = self._parse_event_value(event=event)
+                    return data
+                else:
+                    return data
     def receive_parameter(self,parameter_name:str):
         for event in self.node:
             input_data = self._receive_event_input(event=event, parameter_names=parameter_name)
@@ -46,28 +51,21 @@ class MofaAgent:
                 return input_data
             else:
                 continue
-# 有输入a，10秒之后获得输入b，我先拿到输入b ，然后再拿到输入a,查看是否有问题  # 先拿到输入b 然后拿输入a 确定是不行的
-# 有输入a，10秒之后获得输入b，我先拿到输入a ，然后再拿到输入b,查看是否有问题 # 确定是可以的
-# 有输入a和输入b，我要获取两个输入,不分先后，是否有问题  #
-# 在创建的agent的过程中，关于配置方面的问题，配置分几种？ 在创建agent的过程中配置的影响？
-
             # self.node.next(self.event_time_out)
+
     def receive_parameters(self,parameter_names:list)->dict:
         parameter_data = {}
         if len(parameter_names) > 0:
             parameter_data = {key: None for key in parameter_names}
         for event in self.node:
-            is_parameter_data_status = all(value is None for value in parameter_data.values())
-            if is_parameter_data_status:
+
+            parameter_data = self._receive_event_input(event=event,parameter_names=parameter_data)
+            self.event = event
+            # self.node.next(self.event_time_out)
+            is_parameter_data_status = all(value is not None for value in parameter_data.values())
+            if is_parameter_data_status :
                 break
-            parameter_input_data = self._receive_event_input(event=event,parameter_names=parameter_names)
-            if parameter_input_data is not None:
-                parameter_data.update(parameter_input_data)
-                self.event = event
-            else:
-                continue
         return parameter_data
-            
             
     def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', True)):
         if is_end_status == 'true' or is_end_status == 'True':
@@ -136,5 +134,15 @@ class BaseMofaAgent():
     def create_llm_client(self,config:dict=None,*args,**kwargs):
         if config is None:
             config = self.config
-        pass 
-        
+        pass
+
+
+def run_agent(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        while True:
+            try:
+                func(*args, **kwargs)
+            except Exception as e:
+                print(f"Error occurred: {e}")
+    return wrapper

@@ -13,6 +13,5 @@ def main():
         num1 = agent.receive_parameter(parameter_name='num1')
         print('num1. : ', num1)
         result = multiply(num1)
-        time.sleep(10)
         agent.send_output(agent_output_name='multiply_numbers_result',agent_result=result)
 
