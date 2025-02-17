@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:8000/v1", api_key="  ")
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="asas")
 
 
 def test_list_models():
