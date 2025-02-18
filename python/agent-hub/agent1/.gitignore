@@ -4,4 +4,4 @@ data/**
 .env.secret
 ./**/.env.secret
 ./**/.db
-.env
+./**/.env
