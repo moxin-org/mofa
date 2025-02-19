@@ -8,7 +8,6 @@ import click
 import pyarrow as pa
 from dora import Node
 from mofa.utils.install_pkg.load_task_weaver_result import extract_important_content
-from rich import print
 RUNNER_CI = True if os.getenv("CI") == "true" else False
 
 
@@ -29,38 +28,10 @@ def send_task_and_receive_data(node):
                     node_results = json.loads(event['value'].to_pylist()[0])
                     results = node_results.get('node_results')
                     is_dataflow_end = node_results.get('dataflow_status', False)
-                    if is_dataflow_end == False or is_dataflow_end == 'false':
-                        try:
-                            results_dict = json.loads(results)
-                            if results_dict.get("post_list",None) is not None:
-                                extract_important_content(results_dict)
-                            else:
-                                click.echo(f"{node_results.get('step_name','')}: {results} ",)
-                                print(f" [bold magenta] {results} [/bold magenta]!", ":vampire:", locals(),flush=True)
-
-                        except:
-                            click.echo(f"{node_results.get('step_name','')}: {results} ",)
-                            print(f" [bold magenta] {results} [/bold magenta]!", ":vampire:", locals(), flush=True)
-                        # if results.get("post_list",None) is not None:
-                        #     extract_important_content(results)
-                        # else:
-                        #     click.echo(f"{node_results.get('step_name','')}: {results} ",)
-                    else:
-                        try:
-                            results_dict = json.loads(results)
-                            if results_dict.get("post_list", None) is not None:
-                                extract_important_content(results_dict)
-                                click.echo(":dataflow_status")
-                            else:
-                                click.echo(f"{node_results.get('step_name', '')}: {results} :dataflow_status", )
-                                print(f" [bold magenta] {results} [/bold magenta]!", ":vampire:", locals(), flush=True)
-
-                        except Exception:
-                            click.echo(f"{node_results.get('step_name', '')}: {results} :dataflow_status", )
-                        # if results.get("post_list",None) is not None:
-                        #     extract_important_content(results)
-                        # else:
-                        #     click.echo(f"{node_results.get('step_name','')}: {results} :dataflow_status",)
+                    step_name = node_results.get('step_name', '')
+                    click.echo(f'-------------{step_name}---------------')
+                    click.echo(f"{results} ", )
+                    click.echo(f'---------------------------------------')
                     sys.stdout.flush()
                     if is_dataflow_end ==True or is_dataflow_end == 'true' or is_dataflow_end == 'True':
                         break

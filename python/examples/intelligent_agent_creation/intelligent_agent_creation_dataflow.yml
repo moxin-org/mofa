@@ -5,13 +5,34 @@ nodes:
     outputs:
       - data
     inputs:
-      create_agent_main_result: create-agent-main/create_agent_main_result
+#      create_agent_config_result: create-agent-config/create_agent_config_result
+#      create_agent_main_result: create-agent-main/create_agent_main_result
+      create_agent_require_result: create-agent-require/create_agent_require_result
 
-  - id: create-agent-main
-    build: pip install -e ../../agent-hub/create-agent-main
-    path: create-agent-main
+#  - id: create-agent-config
+#    build: pip install -e ../../agent-hub/create-agent-config
+#    path: create-agent-config
+#    outputs:
+#      - create_agent_config_result
+#    inputs:
+#      query: terminal-input/data
+#    env:
+#      IS_DATAFLOW_END: false
+#  - id: create-agent-main
+#    build: pip install -e ../../agent-hub/create-agent-main
+#    path: create-agent-main
+#    outputs:
+#      - create_agent_main_result
+#    inputs:
+#      query: terminal-input/data
+#      agent_config: create-agent-config/create_agent_config_result
+#    env:
+#      IS_DATAFLOW_END: false
+  - id: create-agent-require
+    build: pip install -e ../../agent-hub/create-agent-require
+    path: create-agent-require
     outputs:
-      - create_agent_main_result
+      - create_agent_require_result
     inputs:
       query: terminal-input/data
     env:

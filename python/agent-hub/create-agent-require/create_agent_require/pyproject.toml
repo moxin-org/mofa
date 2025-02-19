@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "database-reader-agent"
+version = "0.1.0"
+authors = [
+    "ZongHuan Wu <wuzonghuan@moxin.com>",
+    "Cheng Chen <chengchen@moxin.com>",
+]
+description = "A simple database-reader-agent template"
+license = "MIT License"
+homepage = "https://github.com/moxin-org/mofa"
+documentation = "https://github.com/moxin-org/mofa/blob/main/README.md"
+readme = "README.md"
+packages = [{ include = "database_reader_agent" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+pyarrow = ">=5.0.0"
+psycopg2 = "*"
+
+[tool.poetry.scripts]
+database-reader-agent = "database_reader_agent.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
