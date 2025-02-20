@@ -61,10 +61,7 @@ def run(agent: MofaAgent):
     env_file_path = os.path.join(agent_config_dir_path, '.env.secret')
     agent_config_path = os.path.join(agent_config_dir_path, 'configs', 'agent.yml')
     user_query = agent.receive_parameter('query')
-
     result = generate_agent_config(response_model=LLMGeneratedRequire, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path)
-
-
     agent.send_output(agent_output_name='create_agent_require_result', agent_result=result.json())
 
 def main():
