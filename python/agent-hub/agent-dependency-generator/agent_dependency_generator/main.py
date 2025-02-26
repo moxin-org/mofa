@@ -53,6 +53,7 @@ def generate_agent_config(user_query:str,agent_config_path:str,env_file_path:str
             "content": user_query if add_prompt is None else f"{user_query}  {add_prompt}"
         }
     ]
+    print('----------- : ',messages)
     response = structor_llm(env_file=env_file_path, messages=messages, prompt=user_query,response_model=response_model)
     return response
 
