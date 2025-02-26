@@ -82,7 +82,7 @@ MoFA目前支持基于Dora-RS的智能体开发模式。
 
 MoFA项目是GOSIM 2024中国大会SUper Agent黑客马拉松大赛的编程框架之一。
 
-- 为参赛选手准备的文档在[这里>>>](Hackathon/documents/README.md).
+- 为参赛选手准备的文档在[这里>>>](Gosim_2024_Hackathon/documents/README.md).
 
 - 比赛的情况和结果在[这里>>>](https://gosim.gitcode.com/hackathon/)
 - 用MoFA编织你的人工智能应用程序，GOSIM China 2024 [YouTube](https://www.youtube.com/watch?v=FhL3orAVO6U)
