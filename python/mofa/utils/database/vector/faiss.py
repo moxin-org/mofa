@@ -1,17 +1,13 @@
 import json
 import os
 from typing import List
-
-from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import pickle
 from attr import attrib, attrs, define, field
-
 from mofa.utils.files.dir import make_dir
 from mofa.utils.model.load import load_embedding_model_by_sentence_transformer
 
-import pandas as pd
 
 @define
 class FaissIndex:

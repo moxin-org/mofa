@@ -9,14 +9,14 @@ agent:
     4. Other information is dynamically generated based on the template name
 
     **Input Requirements**  
-    - Template name (template_name): Used to generate project name and description
-    - Package name (package_name): Used to specify package path and script entry point
+    - agent_name: Used to generate project name and description
+    - module_name: Used to specify package path and script entry point
 
     **Generation Steps**  
     1. **Basic Information Generation**
-    - Project name: Directly use template_name
+    - Project name: Directly use agent_name
     - Version: Fixed as "0.1.0"
-    - Description: Generate in the format "A simple {template_name} template"
+    - Description: Generate in the format "A simple {agent_name} template"
     - License: Fixed as "MIT License"
     - Homepage and documentation links: Fixed to Moxin project related URLs
     - README file: Fixed as "README.md"
@@ -25,7 +25,6 @@ agent:
     - default format:
         ```toml
         authors = [
-            "ZongHuan Wu <wuzonghuan@moxin.com>",
             "Cheng Chen <chengchen@moxin.com>",
         ]
         ```
@@ -36,12 +35,12 @@ agent:
     - Other dependencies: Dynamically added based on code analysis (if code is provided)
 
     4. **Package Configuration**
-    - Package path: Use package_name
-    - Include rule: `{ include = "{package_name}" }`
+    - Package path: Use module_name
+    - Include rule: `{ include = "{module_name}" }`
 
     5. **Script Configuration**
-    - Script name: Use template_name
-    - Entry point: `"{package_name}.main:main"`
+    - Script name: Use agent_name
+    - Entry point: `"{module_name}.main:main"`
 
     6. **Build System**
     - Fixed to use Poetry build system:
@@ -53,12 +52,12 @@ agent:
 
     **Logic Processing Rules**  
     1. Input Validation
-    - Check if template_name and package_name are provided
+    - Check if agent_name and module_name are provided
     - Verify if names comply with Python package naming conventions
 
     2. Dynamic Content Generation
-    - Generate project name and description based on template_name
-    - Generate package path and script configuration based on package_name
+    - Generate project name and description based on agent_name
+    - Generate package path and script configuration based on module_name
 
     3. Fixed Content Handling
     - Ensure all fixed configurations (authors, Python version, etc.) are correct
@@ -68,11 +67,12 @@ agent:
     - Return error message if input is incomplete
     - Provide modification suggestions if names don't comply with conventions
 
+  
     **Example**
     Input:
     ```
-    template_name: data-processor
-    package_name: data_processor
+    agent_name: data-processor
+    module_name: data_processor
     ```
 
     Output:
