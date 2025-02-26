@@ -1,0 +1,22 @@
+  hello ! 🧛
+{
+    'agent': MofaAgent(
+        agent_name='agent1',
+        node=Node(),
+        agent_inputs={},
+        event={
+            '_cleanup': <builtins.NodeCleanupHandle object at 0x104c0b6b0>,
+            'metadata': {},
+            'value': <pyarrow.lib.StringArray object at 0x329b272e0>
+[
+  "hello"
+],
+            'id': 'query',
+            'kind': 'dora',
+            'type': 'INPUT'
+        },
+        event_time_out=20
+    ),
+    'print': <function print at 0x138a5c400>,
+    'query': 'hello'
+}

@@ -5,11 +5,15 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from mofa.utils.ai.conn import generate_json_from_llm, structor_llm
+from mofa.utils.files.dir import make_dir
 from mofa.utils.files.read import read_yaml
-from create_agent_main import agent_config_dir_path
+from agent_code_generator import agent_config_dir_path
 from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
+
+from mofa.utils.files.write import write_file
+
 
 class AgentInfo(BaseModel):
     """
@@ -45,17 +49,23 @@ def generate_agent_config(user_query:str,agent_config_path:str,env_file_path:str
 def run(agent: MofaAgent):
     env_file_path = os.path.join(agent_config_dir_path, '.env.secret')
     agent_config_path = os.path.join(agent_config_dir_path, 'configs', 'agent.yml')
+    receive_data = agent.receive_parameters(['query','agent_config'])
+    agent_name = json.loads(receive_data.get('agent_config')).get('agent_name',None)
+    module_name = json.loads(receive_data.get('agent_config')).get('module_name',None)
 
-    user_query = f"user q: {agent.receive_parameter('query')}  /n agent config:  {agent.receive_parameter('agent_config')}"
-    print('user_query : ',user_query)
+    user_query = f"user q: {receive_data.get('query')}  /n agent config:  {receive_data.get('agent_config')}"
     result = generate_agent_config(response_model=AgentInfo, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path)
+
+    if agent_name is not None:
+        make_dir(f"{agent_name}/{module_name}")
+        write_file(data=result.llm_generated_code, file_path=f"{agent_name}/{module_name}/main.py")
+        write_file(data=result.llm_generated_code, file_path=f"{agent_name}/{module_name}/__init__.py")
+    print('user_query : ',user_query)
     print('result : ',result.json())
-
-
-    agent.send_output(agent_output_name='create_agent_main_result', agent_result=result.json())
+    agent.send_output(agent_output_name='code_generator_result', agent_result=result.json())
 
 def main():
-    agent = MofaAgent(agent_name='create_agent_main')
+    agent = MofaAgent(agent_name='agent_code_generator')
     run(agent=agent)
 
 if __name__ == "__main__":
