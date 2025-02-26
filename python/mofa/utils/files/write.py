@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 import yaml
 
@@ -55,3 +56,15 @@ def copy_file(input_file='.env.secret', output_file='.env', overwrite=False):
             print(f"Input file '{input_file}' not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+def write_file(file_path:str,data:Any):
+    try:
+        if data is not None and data != '' and data !=' ' and data != 'null':
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(data)
+    except Exception as e :
+        print(e)
+        print(f'data: {data} ----- {file_path}')
