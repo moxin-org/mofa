@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
 from mofa.utils.files.write import write_file
-
+import toml
 
 class LLMGeneratedRequire(BaseModel):
     """
@@ -50,7 +50,11 @@ def generate_agent_config(user_query:str,agent_config_path:str,env_file_path:str
         },
         {
             "role": "user",
-            "content": user_query if add_prompt is None else f"{user_query}  {add_prompt}"
+            "content": user_query
+        },
+        {
+            "role": "system",
+            "content": add_prompt
         }
     ]
     print('----------- : ',messages)
@@ -68,8 +72,17 @@ def run(agent: MofaAgent):
     result = generate_agent_config(response_model=LLMGeneratedRequire, user_query=receive_data.get('query'), agent_config_path=agent_config_path, env_file_path=env_file_path,add_prompt=f"agent_name: {agent_name} module_name: {module_name}")
     if agent_name is not  None:
         make_dir(f"{agent_name}/{module_name}")
+        if result.readme in [' ','',None,'null']:
+            write_file(data=f'# This Ai {agent_name}', file_path=f"{agent_name}/README.md")
         write_file(data=result.readme,file_path=f"{agent_name}/README.md")
         write_file(data=result.toml,file_path=f"{agent_name}/pyproject.toml")
+        info = {"agent_name": agent_name, "module_name": module_name}
+        data = toml.loads(f"{agent_name}/pyproject.toml")
+        data['tool']['poetry']['name'] = info.get('agent_name')
+        data['tool']['poetry']['packages'][0]['include'] = info.get('module_name')
+        data['tool']['poetry']['scripts'] = {f"{info.get('agent_name')}": f"{info.get('module_name')}.main:main"}
+        write_file(data=data,file_path=f"{agent_name}/pyproject.toml")
+
     agent.send_output(agent_output_name='dependency_generator_result', agent_result=result.json())
 
 def main():

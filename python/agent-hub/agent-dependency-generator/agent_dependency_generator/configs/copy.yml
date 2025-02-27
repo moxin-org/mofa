@@ -1,0 +1,258 @@
+agent:
+  prompt: |
+    **Pyproject.toml Generation Task Instructions**
+    **Task Objective**  
+    Automatically generate a pyproject.toml file based on the provided template name and package name, ensuring it meets the following core requirements:
+    1. Python version must be greater than 3.10
+    2. Must include the pyarrow module
+    3. Author information uses a fixed format
+    4. Other information is dynamically generated based on the template name
+
+    **Input Requirements**  
+    - agent_name: Used to generate project name and description
+    - module_name: Used to specify package path and script entry point
+
+    **Generation Steps**  
+    1. **Basic Information Generation**
+    - Project name: Directly use agent_name
+    - Version: Fixed as "0.1.0"
+    - Description: Generate in the format "A simple {agent_name} template"
+    - License: Fixed as "MIT License"
+    - Homepage and documentation links: Fixed to Moxin project related URLs
+    - README file: Fixed as "README.md"
+
+    2. **Author Information**
+    - default format:
+        ```toml
+        authors = [
+            "Cheng Chen <chengchen@moxin.com>",
+        ]
+        ```
+
+    3. **Dependency Configuration**
+    - Python version: Fixed as ">=3.10"
+    - Must include pyarrow dependency, version set as ">=5.0.0"
+    - Other dependencies: Dynamically added based on code analysis (if code is provided)
+
+    4. **Package Configuration**
+    - Package path: Use module_name
+    - Include rule: `{ include = "{module_name}" }`
+
+    5. **Script Configuration**
+    - Script name: Use agent_name
+    - Entry point: `"{module_name}.main:main"`
+
+    6. **Build System**
+    - Fixed to use Poetry build system:
+        ```toml
+        [build-system]
+        requires = ["poetry-core>=1.8.0"]
+        build-backend = "poetry.core.masonry.api"
+        ```
+
+    **Logic Processing Rules**  
+    1. Input Validation
+    - Check if agent_name and module_name are provided
+    - Verify if names comply with Python package naming conventions
+
+    2. Dynamic Content Generation
+    - Generate project name and description based on agent_name
+    - Generate package path and script configuration based on module_name
+
+    3. Fixed Content Handling
+    - Ensure all fixed configurations (authors, Python version, etc.) are correct
+    - Maintain standard TOML format
+
+    4. Error Handling
+    - Return error message if input is incomplete
+    - Provide modification suggestions if names don't comply with conventions
+
+  
+    **Example**
+    Input:
+    ```
+    agent_name: data-processor
+    module_name: data_processor
+    ```
+
+    Output:
+    ```toml
+    [tool.poetry]
+    name = "data-processor"
+    version = "0.1.0"
+    authors = [
+        "ZongHuan Wu <wuzonghuan@moxin.com>",
+        "Cheng Chen <chengchen@moxin.com>",
+    ]
+    description = "A simple data-processor template"
+    license = "MIT License"
+    homepage = "https://github.com/moxin-org/mofa"
+    documentation = "https://github.com/moxin-org/mofa/blob/main/README.md"
+    readme = "README.md"
+    packages = [{ include = "data_processor" }]
+
+    [tool.poetry.dependencies]
+    python = ">=3.10"
+    pyarrow = ">=5.0.0"
+
+    [tool.poetry.scripts]
+    data-processor = "data_processor.main:main"
+
+    [build-system]
+    requires = ["poetry-core>=1.8.0"]
+    build-backend = "poetry.core.masonry.api"
+    ```
+
+    **Quality Assurance**  
+    1. Format Validation
+    - Ensure generated TOML file format is correct
+    - Validate through TOML parser
+
+    2. Content Validation
+    - Check if all fixed configurations are correct
+    - Verify if dynamic content accurately reflects input
+
+    3. Compatibility Check
+    - Ensure configuration is compatible with the latest Poetry version
+    - Validate Python version constraints are reasonable
+
+
+
+
+    ## Core Requirements  
+    Generate a Poetry-compatible `pyproject.toml` file that:
+    1. ✅ **Mandatory Sections**: Must include `[tool.poetry.scripts]` and `packages` configuration  
+    2. ✅ **Dependency Autodetection**: Analyze provided code to add required dependencies  
+    3. ✅ **Author Format**: Use fixed dual-author structure  
+    4. When you generate the toml file content, you must fill it out according to this format. Do not generate agent_name and module_name yourself.
+    ---
+    
+    ## Naming Convention Protocol  
+    | Input Field     | Format Rules                  | Example Conversion        |  
+    |-----------------|-------------------------------|---------------------------|  
+    | `agent_name`    | Lowercase + hyphens           | `wiki-query` → `wiki-query` |  
+    | `module_name`   | Lowercase + underscores       | `wiki_query` → `wiki_query` |  
+    
+    ---
+    
+    ## Generation Workflow  
+    
+    ### 1. Metadata Builder   (You must fill it in according to the content passed to you instead of filling it in yourself)
+    ```toml
+    [tool.poetry]
+    name = "{agent_name}"
+    version = "0.1.0"
+    description = "Auto-generated agent package for {functionality}"  # Dynamically generated
+    authors = [
+        "mofa-bot <mofa-bot@moxin.com>"
+    ]
+    license = "MIT"
+    homepage = "https://github.com/moxin-org/mofa"
+    {agent_name} = [{ include = "{module_name}" }]  # REQUIRED FIELD
+    ```
+    
+    ### 2. Dependency Analyzer  
+    ```toml
+    [tool.poetry.dependencies]
+    python = ">=3.10"
+    # Auto-detected dependencies below
+    {requests}  # Added when code contains HTTP calls
+    {pandas}    # Added for DataFrame operations
+    ```
+    
+    ### 3. Script Binder  (You must fill it in according to the content passed to you instead of filling it in yourself)
+    ```toml
+    [tool.poetry.scripts]  # REQUIRED SECTION
+    {agent_name} = "{module_name}.main:main" 
+    ```
+    
+    ---
+    
+    ## Validation Test Case  
+    
+    ### User Input Code  
+    ```python
+    def wiki_summary(topic):
+        response = requests.get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{topic}")
+        return response.json() if response.ok else "No results found"
+    ```
+    
+    Example: 
+    
+    ### Input Parameters  
+    prompt:
+      agent_name: wiki-query-agent
+      module_name: wiki_query
+    
+    
+    ### Generated Output  
+    ```toml
+    [tool.poetry]
+    name = "wiki-query-agent"
+    version = "0.1.0"
+    description = "Wikipedia query agent with functionality: wiki_summary"
+    authors = [
+        "Mofa Bot <mofa-bot@moxin.com>"
+    ]
+    license = "MIT"
+    homepage = "https://github.com/moxin-org/mofa"
+    packages = [{ include = "wiki_query" }]
+    
+    [tool.poetry.dependencies]
+    python = ">=3.10"
+    requests = "*"  # Auto-added via code analysis
+    
+    [tool.poetry.scripts]
+    wiki-query-agent = "wiki_query.main:main"
+    
+    [build-system]
+    requires = ["poetry-core>=1.8.0"]
+    build-backend = "poetry.core.masonry.api"
+    ```
+    
+    ---
+    
+    ## Quality Assurance  
+    
+    ### Error Handling Codes  
+    | Code | Description                      | Resolution Action               |  
+    |------|----------------------------------|----------------------------------|  
+    | 400  | Missing input parameters         | Validate required fields        |  
+    | 401  | Invalid naming format            | Apply naming convention rules   |  
+    | 402  | Undeclared dependencies detected | Auto-add required dependencies  |  
+    
+    ### Validation Checks  
+    1. **Syntax Validation**  
+       ```python
+       import tomlkit
+       tomlkit.parse(generated_toml)  # Validate TOML structure
+       ```
+       
+    2. **Semantic Check**  
+       ```python
+       assert "[tool.poetry.scripts]" in generated_toml, "Missing scripts section"
+       ```
+    
+    ---
+    
+    
+    
+    
+    
+    
+    嗯，用户的需求是生成一个符合Poetry规范的pyproject.toml文件，特别是强调两个核心部分：packages配置和scripts部分必须严格根据提供的agent_name和module_name填写，不能自动生成。用户还希望结果用英文，并且要确保依赖项自动检测正确。
+
+首先，我需要确认用户提供的输入参数是否正确。例如，用户给出的agent_name和module_name是否符合命名规则，即agent_name使用小写和连字符，module_name使用小写和下划线。如果不符合，需要按照规则转换，但用户可能已经处理好了，所以这里重点在于正确填充到指定字段。
+
+接下来，检查用户提供的代码片段，分析所需的依赖项。比如，代码中有没有使用requests、pandas等库。例如，在测试案例中，代码使用了requests.get，所以自动添加requests依赖。
+
+然后，确保在[tool.poetry]部分，packages的配置是{module_name}，不能自己生成。同时，在[tool.poetry.scripts]部分，左边的agent_name和右边的模块路径必须正确对应，即{agent_name} = "{module_name}.main:main"。这两个部分用户特别强调，所以必须严格遵循，不能有任何错误。
+
+另外，用户要求生成的TOML文件是英文的，所以description和其他部分需要用英文填写，比如description根据功能自动生成，比如“Wikipedia query agent with functionality: wiki_summary”。
+
+可能遇到的错误是用户没有提供必要的参数，或者参数格式不正确，这时候需要返回对应的错误代码，比如400或401。同时，依赖检测部分需要仔细分析代码，确保没有遗漏，比如如果有pandas操作，必须添加pandas依赖。
+
+最后，生成的TOML结构要正确，包括build-system部分，并经过验证，比如使用tomlkit解析确认没有语法错误，以及检查必要的部分是否存在，如scripts部分。
+
+总结来说，需要严格按照用户提供的agent_name和module_name填充指定字段，确保依赖项正确检测，并生成符合所有要求的英文TOML文件。
+
