@@ -67,8 +67,9 @@ def run(agent: MofaAgent):
     env_file_path = os.path.join(agent_config_dir_path, '.env.secret')
     agent_config_path = os.path.join(agent_config_dir_path, 'configs', 'agent.yml')
     receive_data = agent.receive_parameters(['query','agent_config'])
+    print('receive_data   : ',receive_data)
     agent_name = json.loads(receive_data.get('agent_config')).get('agent_name',None)
-    module_name = json.loads(receive_data.get('agent_config')).get('model_name',None)
+    module_name = json.loads(receive_data.get('agent_config')).get('module_name',None)
     result = generate_agent_config(response_model=LLMGeneratedRequire, user_query=receive_data.get('query'), agent_config_path=agent_config_path, env_file_path=env_file_path,add_prompt=f"agent_name: {agent_name} module_name: {module_name}")
     if agent_name is not  None:
         make_dir(f"{agent_name}/{module_name}")
@@ -76,11 +77,11 @@ def run(agent: MofaAgent):
             write_file(data=f'# This Ai {agent_name}', file_path=f"{agent_name}/README.md")
         write_file(data=result.readme,file_path=f"{agent_name}/README.md")
         write_file(data=result.toml,file_path=f"{agent_name}/pyproject.toml")
-        info = {"agent_name": agent_name, "module_name": module_name}
+        print('agent_name : ',agent_name,'    - --- module_name : ',module_name)
         data = toml.loads(f"{agent_name}/pyproject.toml")
-        data['tool']['poetry']['name'] = info.get('agent_name')
-        data['tool']['poetry']['packages'][0]['include'] = info.get('module_name')
-        data['tool']['poetry']['scripts'] = {f"{info.get('agent_name')}": f"{info.get('module_name')}.main:main"}
+        data['tool']['poetry']['name'] = agent_name
+        data['tool']['poetry']['packages'][0]['include'] = module_name
+        data['tool']['poetry']['scripts'] = {agent_name: f"{module_name}.main:main"}
         write_file(data=data,file_path=f"{agent_name}/pyproject.toml")
 
     agent.send_output(agent_output_name='dependency_generator_result', agent_result=result.json())
@@ -91,3 +92,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+receive_data = {'query': 'https://dog.ceo/api/breeds/image/random  提供超过20,000张狗狗图片，涵盖120多个品种。', 'agent_config': '{"env_config": null, "yml_config": "# DogImageFetcher Configuration\\n# This configuration file contains settings for fetching dog images\\n\\napi:\\n  base_url: https://dog.ceo/api\\n  breeds_endpoint: /breeds/image/random\\n  timeout: 30  # Timeout in seconds for API requests\\n", "agent_name": "DogImageFetcher", "module_name": "fetch_dog_image"}'}
