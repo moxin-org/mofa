@@ -45,6 +45,7 @@ agent:
     
     [tool.poetry.dependencies]
     python = ">=3.10"
+    pyarrow = ">= 5.0.0"
     # ⟨⟨auto⟩⟩ Detected from code patterns:
     # requests.get → requests = "*"
     
