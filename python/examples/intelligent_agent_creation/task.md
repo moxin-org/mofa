@@ -48,3 +48,8 @@ I want to create an agent to get some basic information about certain countries 
 
 ---- 加密货币实时价格（Finance 分类）  
 I want to create an agent to get the real-time price of cryptocurrency . btc_price = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").json() print(f"BTC价格: ${btc_price['bitcoin']['usd']}") # 输出示例: BTC价格: $43000
+
+
+
+--- 
+I want to create an agent .  that code is from openai import OpenAI  client = OpenAI(api_key="<DeepSeek API Key>", base_url="https://api.deepseek.com") response = client.chat.completions.create(model="deepseek-chat", messages=[{"role": "system", "content": "You are a helpful assistant"}, {"role": "user", "content": "Hello"},], stream=False) print(response.choices[0].message.content)
