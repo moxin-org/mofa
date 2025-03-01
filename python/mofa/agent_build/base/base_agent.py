@@ -2,7 +2,6 @@ import copy
 import json
 import os
 from functools import wraps
-
 import traceback
 import pyarrow as pa
 from attrs import define, field
