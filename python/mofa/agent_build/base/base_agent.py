@@ -2,8 +2,7 @@ import copy
 import json
 import os
 from functools import wraps
-
-import attrs
+import traceback
 import pyarrow as pa
 from attrs import define, field
 from typing import Any, Dict, Union
@@ -145,4 +144,5 @@ def run_agent(func):
                 func(*args, **kwargs)
             except Exception as e:
                 print(f"Error occurred: {e}")
+                traceback.print_exc()
     return wrapper

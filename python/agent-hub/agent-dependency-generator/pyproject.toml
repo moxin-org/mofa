@@ -14,6 +14,7 @@ packages = [{ include = "agent_dependency_generator" }]
 
 [tool.poetry.dependencies]
 pyarrow = ">= 5.0.0"
+toml = "*"
 
 [tool.poetry.scripts]
 agent-dependency-generator = "agent_dependency_generator.main:main"
