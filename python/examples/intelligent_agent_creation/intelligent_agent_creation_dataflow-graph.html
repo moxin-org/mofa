@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TB
+  terminal-input["**terminal-input**"]
+  agent-config-generator["**agent-config-generator**"]
+  agent-code-generator["**agent-code-generator**"]
+  agent-dependency-generator["**agent-dependency-generator**"]
+  agent-code-generator -- code_generator_result --> terminal-input
+  agent-config-generator -- config_generator_result --> terminal-input
+  agent-dependency-generator -- dependency_generator_result --> terminal-input
+  terminal-input -- data as query --> agent-config-generator
+  agent-config-generator -- config_generator_result as agent_config --> agent-code-generator
+  terminal-input -- data as query --> agent-code-generator
+  agent-config-generator -- config_generator_result as agent_config --> agent-dependency-generator
+  terminal-input -- data as query --> agent-dependency-generator
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'base' });
+    </script>
+</body>
+
+</html>
