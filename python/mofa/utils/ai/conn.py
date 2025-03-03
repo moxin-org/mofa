@@ -25,7 +25,7 @@ def generate_json_from_llm(client, prompt: str, format_class, messages: List[dic
     )
     return completion.choices[0].message.parsed
 
-def structor_llm(env_file:str,messages:list,response_model,model_name:str='o3-mini',*args,**kwargs):
+def structor_llm(env_file:str,messages:list,response_model,model_name:str='gpt-4o',*args,**kwargs):
 
     load_dotenv(env_file)
     max_loop = 3
