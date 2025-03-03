@@ -1,0 +1,5 @@
+api_name: Cat Facts
+endpoint: https://catfact.ninja/fact
+method: GET
+parameters: null
+description: Provides random cat facts.

@@ -1,0 +1,5 @@
+api_name: The Dog API
+endpoint: https://api.thedogapi.com/v1/images/search
+method: GET
+parameters: null
+description: Fetches random dog images.

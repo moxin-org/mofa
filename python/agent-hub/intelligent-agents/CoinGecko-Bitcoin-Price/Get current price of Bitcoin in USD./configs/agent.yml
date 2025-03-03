@@ -1,0 +1,5 @@
+api_name: CoinGecko Bitcoin Price
+endpoint: https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
+method: GET
+parameters: null
+description: Get current price of Bitcoin in USD.

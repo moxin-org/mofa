@@ -1,0 +1,7 @@
+# GitHub Repositories API Configuration
+api:
+  name: GitHub Repositories
+  endpoint: https://api.github.com/users/username/repos
+  method: GET
+  parameters: null
+  description: Lists public repositories for a specified user.

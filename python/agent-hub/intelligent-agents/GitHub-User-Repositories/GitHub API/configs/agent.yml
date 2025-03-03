@@ -1,0 +1,5 @@
+api_name: GitHub User Repositories
+endpoint: https://api.github.com/users/username/repos
+method: GET
+parameters: null
+description: List public repositories for the specified user.

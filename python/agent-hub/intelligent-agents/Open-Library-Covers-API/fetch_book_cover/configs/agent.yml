@@ -1,0 +1,5 @@
+api_name: Open Library Covers API
+endpoint: http://covers.openlibrary.org/b/ISBN/isbn-L.jpg
+method: GET
+parameters: null
+description: Fetches a book cover image by ISBN.

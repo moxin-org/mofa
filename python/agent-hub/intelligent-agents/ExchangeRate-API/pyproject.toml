@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ExchangeRate-API"
+version = "0.1.0"
+description = "Auto-generated agent package"
+authors = [
+    "AI Mofa Bot Generator <mofa-bot@moxin.com>",
+]
+packages = [{ include = "exchangerate_api" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+requests = "*"
+
+[tool.poetry.scripts]
+ExchangeRate-API = "exchangerate_api.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"

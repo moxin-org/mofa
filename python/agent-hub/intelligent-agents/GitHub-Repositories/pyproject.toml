@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "GitHub-Repositories"
+version = "0.1.0"
+description = "Auto-generated agent package"
+authors = [
+    "AI Mofa Bot Generator <mofa-bot@moxin.com>",
+]
+packages = [{ include = "list_public_repositories" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+requests = "*"
+
+[tool.poetry.scripts]
+GitHub-Repositories = "list_public_repositories.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"

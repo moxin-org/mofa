@@ -1,0 +1,5 @@
+api_name: Bored API
+endpoint: https://www.boredapi.com/api/activity
+method: GET
+parameters: null
+description: Suggests a random activity to do.

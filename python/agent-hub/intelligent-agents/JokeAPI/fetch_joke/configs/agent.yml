@@ -1,0 +1,5 @@
+api_name: JokeAPI
+endpoint: https://v2.jokeapi.dev/joke/Any
+method: GET
+parameters: null
+description: Fetches a random joke from various categories.
