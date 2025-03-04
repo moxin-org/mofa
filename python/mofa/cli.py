@@ -1,3 +1,5 @@
+import os
+import shutil
 import time
 import uuid
 import subprocess
@@ -9,6 +11,8 @@ from mofa.run.agent_evealution import agent_evaluation_cmd
 from mofa.utils.files.dir import get_subdirectories
 from mofa.utils.process.util import stop_process, stop_dora_dataflow
 
+import cookiecutter
+from cookiecutter.main import cookiecutter
 
 @click.group()
 def mofa_cli_group():
@@ -116,6 +120,42 @@ def run(agent_name: str = 'reasoner'):
             stop_process([dora_dataflow_process,task_input_process])
             stop_dora_dataflow(dataflow_name=dataflow_name)
             click.echo("Main process terminated.")
+
+@mofa_cli_group.command()
+@click.argument('agent_name', required=True)
+@click.option('--version', default='0.0.1', help='Version of the new agent')
+def new_agent(agent_name: str, version: str):
+    """Create a new agent from the template with configuration options using Cookiecutter."""
+
+    # Define the template directory
+    template_dir = os.path.join(os.path.dirname(agent_dir_path), 'agent-hub', 'agent-template')
+
+    # Ensure the template directory exists and contains cookiecutter.json
+    if not os.path.exists(template_dir):
+        click.echo(f"Template directory not found: {template_dir}")
+        return
+    if not os.path.isfile(os.path.join(template_dir, 'cookiecutter.json')):
+        click.echo(f"Template directory must contain a cookiecutter.json file: {template_dir}")
+        return
+
+    # Define the output directory
+    output_dir = os.path.join(os.path.dirname(agent_dir_path), 'agent-hub')
+
+    # Use Cookiecutter to generate the new agent from the template
+    try:
+        cookiecutter(
+            template=template_dir,
+            output_dir=output_dir,
+            no_input=False,  # Enable interactive input
+            extra_context={
+                'agent_name': agent_name,  # Use the provided agent_name
+                'version': version  # Use the provided version
+            }
+        )
+        click.echo(f"Successfully created new agent in {output_dir}/{agent_name}")
+    except Exception as e:
+        click.echo(f"Failed to create new agent: {e}")
+        return
 
 if __name__ == '__main__':
     mofa_cli_group()

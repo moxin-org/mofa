@@ -1,11 +1,12 @@
 [tool.poetry]
-name = "agent"
-version = "0.1.1"
+name = "{{cookiecutter.agent_name}}"
+version = "{{cookiecutter.version}}"
 authors = [
-    "ZongHuan Wu ",
-    "Cheng Chen",
+    {%- for author in cookiecutter.authors.split(',') %}
+    "{{ author.strip() }}"{%- if not loop.last %},{% endif -%}
+    {%- endfor %}
 ]
-description = "A simple agent template"
+description = "{{cookiecutter.description}}"
 license = "MIT License"
 homepage = "https://github.com/moxin-org/mofa"
 documentation = "https://github.com/moxin-org/mofa/blob/main/README.md"

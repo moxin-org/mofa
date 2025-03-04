@@ -1,0 +1,7 @@
+{
+    "user_agent_dir": "user-new-agent-dir",
+    "agent_name": "user-new-agent",
+    "description": "A user new agent template",
+	"version": "0.0.1",
+    "authors": "Author1, Author2"
+}
