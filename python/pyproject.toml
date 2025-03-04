@@ -30,6 +30,7 @@ furo = "2024.8.6"
 myst-parser = "4.0.0"
 pytest-mock = "3.14.0"
 pendulum = "3.0.0"
+python-dotenv = "*"
 
 [tool.poetry.group.date.dependencies]
 openpyxl = "3.1.5"
