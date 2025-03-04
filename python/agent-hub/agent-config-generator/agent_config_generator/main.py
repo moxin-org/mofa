@@ -69,8 +69,8 @@ def run(agent: MofaAgent):
     user_query = agent.receive_parameter('query')
     print('time : ',datetime.datetime.now().strftime("%H:%M:%S"))
     config_result = generate_agent_config(response_model=LLMGeneratedConfig, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path,prompt_selection='agent_name_gen_prompt ')
-    agent_name = config_result.agent_name
-    module_name,module_path = config_result.module_name,f"{agent_name}/{config_result.module_name}"
+    agent_name = config_result.agent_name.replace(' ','-').replace('_','-').replace('  ','-')
+    module_name,module_path = config_result.module_name.replace(' ','_').replace('  ','_').lower(),f"{agent_name}/{config_result.module_name}"
     make_dir(f"{agent_name}/{module_name}/configs")
     print('config_result : ',config_result.json())
     result = generate_agent_config(response_model=LLMGeneratedContent, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path,add_prompt=f"agent_name: {agent_name} module_name: {module_name}")
