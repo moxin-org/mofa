@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "deep-inquire"
+version = "0.1.1"
+authors = [
+    "Cheng Chen",
+]
+description = "deep inquire"
+license = "MIT License"
+homepage = "https://github.com/moxin-org/mofa"
+documentation = "https://github.com/mem0ai/mem0"
+readme = "README.md"
+packages = [{ include = "deep_inquire" }]
+
+[tool.poetry.dependencies]
+pyarrow = ">= 5.0.0"
+python-dotenv = "*"
+openai = "*"
+
+[tool.poetry.scripts]
+deep-inquire = "deep_inquire.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
