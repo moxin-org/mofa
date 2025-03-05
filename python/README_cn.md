@@ -48,6 +48,40 @@ https://www.rust-lang.org/tools/install
 
 然后安装 `cargo install dora-cli --locked`
 
+### 创建agent模板
+
+命令格式：
+```sh
+mofa new-agent agent-name --version x.y.z --output ../ --authors "Tom, Jack"
+```
+其中：
+- mofa 是命令本身。
+- new-agent 是子命令。
+- agent-name 是位置参数，表示要创建的代理名称。
+- --version x.y.z 是选项，指定代理的版本号。
+- --output ../ 是选项，指定输出目录。
+- --authors "Tom, Jack" 是选项，指定作者信息。
+
+示例：
+
+（1）在当前目录下创建名为agent-name的agent模板
+
+```sh
+mofa new-agent agent-name
+```
+
+（2）创建指定版本号和目录的agent模板
+
+```sh
+mofa new-agent agent-name --version 1.0.0 --output ../
+```
+
+（3）创建指定版本号和作者信息的agent模板
+
+```sh
+mofa new-agent agent-name --version 1.0.0 --output ../ --authors "Tom, Jack"
+```
+
 ### 2. 配置
 
 在 `examples` 这个目录下, 我们提供一些可用的智能体案例。在使用时，首先需要对智能体的configs目录下面的yml文件进行配置。 
