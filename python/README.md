@@ -50,6 +50,41 @@ Then, install Dora-CLI:
 cargo install dora-cli --locked
 ```
 
+### Create Agent Template
+
+Command format:
+```sh
+mofa new-agent agent-name --version x.y.z --output ../ --authors "Tom, Jack"
+```
+Where:
+- `mofa` is the command itself.
+- `new-agent` is the subcommand.
+- `agent-name` is the positional parameter, representing the name of the agent to be created.
+- `--version x.y.z` is an option, specifying the version number of the agent.
+- `--output ../` is an option, specifying the output directory.
+- `--authors "Tom, Jack"` is an option, specifying the author information.
+
+Examples:
+
+(1) Create an agent template named `agent-name` in the current directory
+
+```sh
+mofa new-agent agent-name
+```
+
+(2) Create an agent template with a specified version number and directory
+
+```sh
+mofa new-agent agent-name --version 1.0.0 --output ../
+```
+
+(3) Create an agent template with a specified version number and author information
+
+```sh
+mofa new-agent agent-name --version 1.0.0 --output ../ --authors "Tom, Jack"
+```
+
+
 ### 2. Configuration
 
 In the `examples` directory, we provide some available agent examples. Before use, you need to configure the `.yml` files in the `configs` directory of the agent. If the `node` was installed via pip, locate the node's name in the `agent-hub` and modify the `.yml` file accordingly.
