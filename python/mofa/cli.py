@@ -124,7 +124,9 @@ def run(agent_name: str = 'reasoner'):
 @mofa_cli_group.command()
 @click.argument('agent_name', required=True)
 @click.option('--version', default='0.0.1', help='Version of the new agent')
-def new_agent(agent_name: str, version: str):
+@click.option('--output', default=os.getcwd()+"/", help='agent output path')
+@click.option('--authors', default='Zonghuan Wu', help='authors')
+def new_agent(agent_name: str, version: str, output: str, authors: str):
     """Create a new agent from the template with configuration options using Cookiecutter."""
 
     # Define the template directory
@@ -138,21 +140,20 @@ def new_agent(agent_name: str, version: str):
         click.echo(f"Template directory must contain a cookiecutter.json file: {template_dir}")
         return
 
-    # Define the output directory
-    output_dir = os.path.join(os.path.dirname(agent_dir_path), 'agent-hub')
-
     # Use Cookiecutter to generate the new agent from the template
     try:
         cookiecutter(
             template=template_dir,
-            output_dir=output_dir,
-            no_input=False,  # Enable interactive input
+            output_dir=output,
+            no_input=True,  # Enable interactive input
             extra_context={
+                'user_agent_dir': agent_name,
                 'agent_name': agent_name,  # Use the provided agent_name
-                'version': version  # Use the provided version
+                'version': version,  # Use the provided version
+                'authors': authors
             }
         )
-        click.echo(f"Successfully created new agent in {output_dir}/{agent_name}")
+        click.echo(f"Successfully created new agent in {output}{agent_name}")
     except Exception as e:
         click.echo(f"Failed to create new agent: {e}")
         return
