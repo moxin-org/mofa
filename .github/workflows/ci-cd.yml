@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd python  
+          pip install -r requirements.txt  
+          pip install setuptools wheel twine  
+
+      - name: Build package
+        run: |
+          cd python  
+          python setup.py sdist bdist_wheel
+
+      - name: Publish to TestPyPI
+        if: github.ref == 'refs/heads/main'
+        env:
+          TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}  # TestPyPI 用户名
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}  # TestPyPI 密码
+        run: |
+          cd python  
+          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+          
+          
+
+git remote add upstream https://github.com/moxin-org/mofa.git
