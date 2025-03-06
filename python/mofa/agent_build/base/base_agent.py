@@ -159,9 +159,9 @@ class MofaAgent:
             )]),
             self.event['metadata']
         )
-        self.write_log(message=json.dumps(f"output name : {agent_output_name}  output data : {agent_result}"))
+        self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}"))
 
-    def write_log(self, message:str, level:str='DEBUG'):
+    def write_log(self, message:str, level:str='INFO'):
         if self.is_write_log:
             if message == "None" or message == " " or message == "" or message is None:
                 return
