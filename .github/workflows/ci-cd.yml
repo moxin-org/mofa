@@ -39,6 +39,3 @@ jobs:
           cd python  
           twine upload --repository-url https://test.pypi.org/legacy/ dist/*
           
-          
-
-git remote add upstream https://github.com/moxin-org/mofa.git
