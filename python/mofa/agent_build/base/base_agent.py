@@ -3,15 +3,81 @@ import json
 import os
 from functools import wraps
 import traceback
+from os import mkdir
 import pyarrow as pa
 from attrs import define, field
 from typing import Any, Dict, Union
+import logging
 from mofa.kernel.utils.util import create_agent_output, load_node_result
 from mofa.utils.files.read import read_yaml
 import yaml
 from dora import Node
 from dotenv import load_dotenv
 from pathlib import Path
+from mofa.utils.files.write import ensure_directory_exists
+from logging.handlers import RotatingFileHandler
+
+@define
+class MofaLogger:
+    agent_name: str
+    log_dir: str = field(default='logs')
+    log_file: str = field(default='agent.log')
+    max_log_size: int = field(default=10*1024*1024)  # 默认10MB
+    backup_count: int = field(default=5)
+    logger: logging.Logger = field(init=False, default=None)
+
+    def __attrs_post_init__(self):
+        """
+        初始化 NodeLogger 实例。
+        """
+        self.logger = logging.getLogger(self.agent_name)
+        self._setup_logger()
+
+        if os.getenv('LOG_FILE', None) is not None:
+            self.log_file = os.getenv('LOG_FILE')
+            ensure_directory_exists(file_path=self.log_file)
+
+    def _setup_logger(self):
+        """
+        设置日志记录器，包括日志目录的创建和日志处理器的配置。
+        """
+        # 创建日志目录（如果不存在）
+        if not os.path.exists(self.log_dir):
+            os.makedirs(self.log_dir, exist_ok=True)
+
+        # 创建日志文件的完整路径
+        log_path = os.path.join(self.log_dir, self.log_file)
+
+        # 创建一个 RotatingFileHandler，用于日志轮转
+        handler = RotatingFileHandler(
+            log_path,
+            maxBytes=self.max_log_size,
+            backupCount=self.backup_count,
+            encoding='utf-8'
+        )
+        handler.setLevel(logging.DEBUG)
+
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+
+        # 将处理器添加到记录器
+        self.logger.addHandler(handler)
+        self.logger.setLevel(logging.DEBUG)
+
+    def log(self,message:str, level:str='INFO' ):
+        """
+        记录日志消息。
+
+        :param level: 日志级别，例如 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+        :param message: 要记录的日志消息
+        """
+        log_method = getattr(self.logger, level.lower(), None)
+        if log_method:
+            log_method(message)
+        else:
+            self.logger.error(f"Invalid log level: {level}. Message: {message}")
+
+
 @define
 class MofaAgent:
     agent_name:str = field(default='mofa-agent')
@@ -19,8 +85,21 @@ class MofaAgent:
     agent_inputs:dict = field(factory=dict)
     event:Any = field(factory=dict)
     event_time_out:int = field(default=20)
+    is_write_log:bool = field(default=False)
+    log_file:str=field(default='agent.log')
+    agent_log:MofaLogger = field(init=False)
     def __attrs_post_init__(self):
         self.node = Node(self.agent_name)
+        env_files = ['.env.secret', '.env']
+        for env_file in env_files:
+            if os.path.exists(env_file):
+                load_dotenv(dotenv_path=env_file)
+        log_params = ['IS_WRITE_LOG', 'WRITE_LOG']
+        for log_status in log_params:
+            if os.getenv(log_status, None) is not None:
+                self.is_write_log = os.getenv(log_status)
+        self.agent_log = MofaLogger(agent_name=self.agent_name, log_file=self.log_file)
+
 
     def _parse_event_value(self, event):
         try:
@@ -47,6 +126,7 @@ class MofaAgent:
             input_data = self._receive_event_input(event=event, parameter_names=parameter_name)
             if input_data is not None:
                 self.event = event
+                self.write_log(message=json.dumps(f"{self.agent_name}  receive  data : {input_data}  "))
                 return input_data
             else:
                 continue
@@ -64,6 +144,7 @@ class MofaAgent:
             is_parameter_data_status = all(value is not None for value in parameter_data.values())
             if is_parameter_data_status :
                 break
+        self.write_log(message=json.dumps(f"{self.agent_name}  receive parameters data : {parameter_data}  "))
         return parameter_data
             
     def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', True)):
@@ -78,10 +159,17 @@ class MofaAgent:
             )]),
             self.event['metadata']
         )
+        self.write_log(message=json.dumps(f"output name : {agent_output_name}  output data : {agent_result}"))
 
+    def write_log(self, message:str, level:str='DEBUG'):
+        if self.is_write_log:
+            if message == "None" or message == " " or message == "" or message is None:
+                return
+            else:
+                self.agent_log.log(message=message, level=level)
 
 @define
-class BaseMofaAgent():
+class BaseMofaAgent:
     """
     A base class for MOFA agents, providing configuration management,
     resource initialization, and a context manager interface.
