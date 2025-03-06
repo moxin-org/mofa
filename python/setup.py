@@ -34,9 +34,13 @@ setup(
             'mofa=mofa.cli:mofa_cli_group',
         ],
     },
+
     install_requires=requirements,
     long_description=readme + '\n\n' + history,
     include_package_data=True,
+    package_data={
+        "": ["requirements.txt", "README.rst", "HISTORY.rst"],
+    },
     keywords='mofa',
     packages=find_packages(where='python', include=['mofa', 'mofa.*']),
     package_dir={'mofa': 'python/mofa'},
