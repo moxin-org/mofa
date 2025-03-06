@@ -42,7 +42,7 @@ graph LR
 
 ## 环境配置
 
-1. 配置密钥文件 (已预置)
+1. 配置密钥文件
 ```bash
 # .env.secret 已包含：
 LLM_API_KEY=
@@ -97,18 +97,3 @@ user_input = '大语言模型安全防护最新研究'
 }
 ```
 
-## 监控指标
-| 指标名称         | 说明                 | 正常范围     |
-|------------------|----------------------|-------------|
-| req_per_second   | 每秒处理请求数       | 5-15        |
-| avg_response_time| 平均响应时间(秒)     | 1.2-2.5     |
-| error_rate       | 错误率               | <0.05       |
-
-## 故障排查
-```bash
-# 查看节点日志
-dora logs dora-openai-server
-dora logs deep-inquire-agent
-
-# 检查服务状态
-dora status
