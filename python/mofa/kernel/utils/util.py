@@ -3,8 +3,6 @@ import os
 from typing import Union
 
 from crewai_tools import tool
-import yaml
-
 from mofa.utils.files.read import read_yaml
 
 
