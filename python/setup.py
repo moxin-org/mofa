@@ -19,16 +19,15 @@ test_requirements = []
 setup(
     name='mofa', 
     author="mofa",
-    author_email='cheng.chen@.net',
-    # python_requires='>=3.10',
-    python_requires='>=3.8',
+    author_email='cheng.chen@gmail.net',
+    python_requires='>=3.10',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Programming Language :: Python :: 3.10',
     ],
-    description="Moxin-App-Engine Example",
+    description="Mofa Agent",
     entry_points={
         'console_scripts': [
             'mofa=mofa.cli:mofa_cli_group',
@@ -46,7 +45,7 @@ setup(
     package_dir={'mofa': 'python/mofa'},
     test_suite='tests',
     tests_require=test_requirements,
-    version='0.1.1.dev0',
+    version='0.1.4.dev0',
     zip_safe=False,
     dependency_links=[]
 )
