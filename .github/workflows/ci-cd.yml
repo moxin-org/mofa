@@ -29,6 +29,7 @@ jobs:
       - name: Build package
         run: |
           cd python  
+          pip3 install -e . 
           python setup.py sdist bdist_wheel
 
       - name: Publish to PyPI
