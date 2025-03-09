@@ -50,7 +50,7 @@ setup(
 
     test_suite='tests',
     tests_require=test_requirements,
-    version='0.1.5',
+    version='0.1.6',
     zip_safe=False,
     dependency_links=[]
 )
