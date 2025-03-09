@@ -17,9 +17,9 @@ requirements = [pkg.replace('\n', '') for pkg in all_pkgs if "#" not in pkg]
 test_requirements = []
 
 setup(
-    name='mofa', 
-    author="mofa",
-    author_email='cheng.chen@gmail.net',
+    name='pymofa',
+    author="Cheng Chen, ZongHuan Wu",
+    author_email='chenzi00103@gmail.net, zonghuan.wu@gmail.com',
     python_requires='>=3.10',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -27,7 +27,7 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 3.10',
     ],
-    description="Mofa Agent",
+    description="MoFA is a software framework for building AI agents through a composition-based approach. Using MoFA, AI agents can be constructed via templates and combined in layers to form more powerful Super Agents.",
     entry_points={
         'console_scripts': [
             'mofa=mofa.cli:mofa_cli_group',
@@ -45,7 +45,7 @@ setup(
     package_dir={'mofa': 'python/mofa'},
     test_suite='tests',
     tests_require=test_requirements,
-    version='0.1.5.dev0',
+    version='0.1.2',
     zip_safe=False,
     dependency_links=[]
 )
