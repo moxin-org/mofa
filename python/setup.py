@@ -41,11 +41,13 @@ setup(
         "": ["requirements.txt", "README.rst", "HISTORY.rst"],
     },
     keywords='mofa',
-    packages=find_packages(where='python', include=['mofa', 'mofa.*']),
-    package_dir={'mofa': 'python/mofa'},
+    # packages=find_packages(where='python', include=['mofa', 'mofa.*']),
+    packages=find_packages(where='python'),
+    # package_dir={'mofa': 'python/mofa'},
+    package_dir={'': 'python'},
     test_suite='tests',
     tests_require=test_requirements,
-    version='0.1.2',
+    version='0.1.3',
     zip_safe=False,
     dependency_links=[]
 )
