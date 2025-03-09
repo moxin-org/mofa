@@ -109,13 +109,13 @@ Hello_World 是 MoFa 中最基本的智能体，设计模式为用户输入什�
 user_query = agent.receive_parameter('query')
 参数名称需与dataflow.yml中inputs定义一致
 自动完成类型校验（字符串/数字/布尔值）
-支持默认值设置（在agent-config.yml配置）
+支持默认值设置（在agent-dataflow.yml配置）
 输出参数发送
 agent.send_output(
     agent_output_name='hello_world_result',
     agent_result=processed_data
 )
-输出名称需与agent-config.yml中outputs定义一致
+输出名称需与agent-dataflow.yml中outputs定义一致
 支持多种数据类型：JSON对象、字符串、二进制数据
 自动处理结果序列化
 逻辑设计规范
