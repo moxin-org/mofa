@@ -57,15 +57,15 @@
 from setuptools import setup, find_packages
 
 # 读取 README 文件作为长描述
-with open('python/README.rst') as readme_file:
+with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 # 读取 HISTORY 文件作为更新历史
-with open('python/HISTORY.rst') as history_file:
+with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 # 读取 requirements.txt 中的依赖包
-with open('python/requirements.txt', encoding='utf-8') as requirements_file:
+with open('requirements.txt', encoding='utf-8') as requirements_file:
     all_pkgs = requirements_file.readlines()
 
 requirements = [pkg.strip() for pkg in all_pkgs if "#" not in pkg]
