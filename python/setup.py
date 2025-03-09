@@ -73,7 +73,7 @@ test_requirements = []
 
 setup(
     name='pymofa',
-    version='0.1.7',
+    version='0.1.8',
     author='Cheng Chen, ZongHuan Wu',
     author_email='chenzi00103@gmail.net, zonghuan.wu@gmail.com',
     description='MoFA is a software framework for building AI agents through a composition-based approach.',
@@ -91,7 +91,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'mofa=python.mofa.cli:mofa_cli_group',
+            'mofa=mofa.cli:mofa_cli_group',
         ],
     },
     classifiers=[
