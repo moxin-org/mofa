@@ -30,10 +30,15 @@ conda create -n py310 python=3.10.12 -y
 
 3. 项目环境部署
 
-- 安装环境的依赖：
+- 安装环境的依赖 (我们推荐使用uv 来加快安装过程)：
 
 ```sh
 cd python && pip3 install -r requirements.txt && pip3 install -e .
+```
+or
+```sh
+cd python && pip3 install uv && uv pip install -e . &&  pip3 install -e .
+
 ```
 
 安装完毕之后，可以使用`mofa --help`命令查看Cli帮助信息

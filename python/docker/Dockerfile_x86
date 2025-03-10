@@ -30,18 +30,6 @@ RUN rustc --version && cargo --version
 RUN cargo install dora-cli --locked && \
     pip3 install dora-rs
 
-# 验证 Python 版本
-RUN python3 --version
-#RUN mkdir -p /project && \
-#    cd /project && \
-#    git clone https://github.com/moxin-org/mofa.git && \
-#    cd mofa && \
-#    cd /project/mofa/python && \
-#    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
-#    pip install --upgrade --ignore-installed blinker && \
-#    pip3 install -e .  && \
-#    cd /project/mofa/python/mofa/agent_templates/reasoner && \
-#    dora build reasoner_dataflow.yml
 
 RUN mkdir -p /project && \
     cd /project && \
