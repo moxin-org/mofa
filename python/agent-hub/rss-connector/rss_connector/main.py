@@ -62,7 +62,7 @@ def run(agent:MofaAgent):
 
 
 def main():
-    agent = MofaAgent(agent_name='you-agent-name')
+    agent = MofaAgent(agent_name='rss-connector')
     run(agent=agent)
 if __name__ == "__main__":
     main()
