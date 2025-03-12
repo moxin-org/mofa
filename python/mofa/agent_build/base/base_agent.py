@@ -17,6 +17,8 @@ from pathlib import Path
 from mofa.utils.files.write import ensure_directory_exists
 from logging.handlers import RotatingFileHandler
 
+
+
 @define
 class MofaLogger:
     agent_name: str
@@ -159,6 +161,8 @@ class MofaAgent:
             )]),
             self.event['metadata']
         )
+        if message == "None" or message == " " or message == "" or message is None:
+            return
         self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}"))
 
     def write_log(self, message:str, level:str='INFO'):
