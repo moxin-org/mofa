@@ -71,6 +71,19 @@ dora build deep-inquire-dataflow.yml
 dora start deep-inquire-dataflow.yml --attach
 ```
 
+如果需要访问 OpenAI 等国外大模型，需要让 dora 启动的后能访问代理，比如使用 proxychains4 之类的工具：
+
+```bash
+# 启动Dora服务
+proxychains4 dora up
+
+# 构建数据流节点
+proxychains4 dora build deep-inquire-dataflow.yml
+
+# 启动并监控数据流
+proxychains4 dora start deep-inquire-dataflow.yml --attach
+```
+
 ## 测试方法
 
 ### 使用测试客户端
