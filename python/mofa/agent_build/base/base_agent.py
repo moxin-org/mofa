@@ -161,7 +161,7 @@ class MofaAgent:
             )]),
             self.event['metadata']
         )
-        if message == "None" or message == " " or message == "" or message is None:
+        if agent_result == "None" or agent_result == " " or agent_result == "" or agent_result is None:
             return
         self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}"))
 
