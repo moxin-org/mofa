@@ -161,13 +161,13 @@ class MofaAgent:
             )]),
             self.event['metadata']
         )
-        if agent_result == "None" or agent_result == " " or agent_result == "" or agent_result is None:
+        if agent_result == "None" or agent_result == " " or agent_result == "" or agent_result is None or agent_result == [] or agent_result == '[]':
             return
-        self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}"))
+        self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}  type : {type(agent_result)}" ))
 
     def write_log(self, message:str, level:str='INFO'):
         if self.is_write_log:
-            if message == "None" or message == " " or message == "" or message is None:
+            if message == "None" or message == " " or message == "" or message is None or message == [] or message == '[]':
                 return
             else:
                 self.agent_log.log(message=message, level=level)

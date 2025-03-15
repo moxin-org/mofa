@@ -9,6 +9,8 @@ import os
 # 加载环境变量
 load_dotenv(dotenv_path='.env.secret', override=True)
 LLM_API_KEY = os.getenv("LLM_API_KEY")
+os.environ['OPENAI_API_KEY'] = LLM_API_KEY
+
 LLM_BASE_URL= os.getenv("LLM_BASE_URL")
 DEFAULT_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "gpt-4o")
 
