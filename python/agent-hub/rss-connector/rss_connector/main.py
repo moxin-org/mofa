@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs, unquote
 
+
 def extract_real_url(redirect_url):
     """
     处理新浪跳转链接，提取真实新闻地址
@@ -35,7 +36,9 @@ def extract_real_url(redirect_url):
         return redirect_url  # 异常时返回原始链接
 
 def parse_rss(rss_url):
-    # 解析RSS源
+    """
+    解析RSS源
+    """
     feed = feedparser.parse(rss_url)
 
     news_list = []
