@@ -1,13 +1,13 @@
 nodes:
   - id: terminal-input
-    build: pip install -e ../../node-hub/terminal-input
+    build: pip install -e ../../node-hub/terminal-input --index-url https://mirrors.aliyun.com/pypi/simple
     path: dynamic
     outputs:
       - data
     inputs:
       agent_response: rss_connector-agent/rss_content
   - id: rss_connector-agent
-    build: pip install -e ../../agent-hub/rss-connector
+    build: pip install -e ../../agent-hub/rss-connector --index-url https://mirrors.aliyun.com/pypi/simple
     path: rss-connector
     outputs:
       - rss_content
