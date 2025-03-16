@@ -162,7 +162,7 @@ class ResearchGenerator:
             {"role": "system", "content": stage_description},
             {"role": "user", "content": f"Analyze the following context and provide detailed insights: {context}"}
         ]
-        return self.llm_client.generate_response(messages, max_tokens=100)
+        return self.llm_client.generate_response(messages, max_tokens=1000)
 
     def _llm_generate_content(self, prompt: str, related_articles: List[ArticleRef]) -> str:
         context = " ".join([a.snippet for a in related_articles])
@@ -170,7 +170,7 @@ class ResearchGenerator:
             {"role": "system", "content": prompt},
             {"role": "user", "content": f"Generate a comprehensive answer based on the following context: {context}"}
         ]
-        return self.llm_client.generate_response(messages, max_tokens=4800)
+        return self.llm_client.generate_response(messages, max_tokens=3860)
 
     def generate_stream(self):
         content_outputs = []
