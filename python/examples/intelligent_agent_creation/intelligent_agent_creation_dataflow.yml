@@ -27,7 +27,7 @@ nodes:
       query: terminal-input/data
       agent_config: agent-config-generator/config_generator_result
     env:
-      IS_DATAFLOW_END: true
+      IS_DATAFLOW_END: false
   - id: agent-dependency-generator
     build: pip install -e ../../agent-hub/agent-dependency-generator
     path: agent-dependency-generator
@@ -36,5 +36,6 @@ nodes:
     inputs:
       query: terminal-input/data
       agent_config: agent-config-generator/config_generator_result
+      agent_code: agent-code-generator/code_generator_result
     env:
-      IS_DATAFLOW_END: false
+      IS_DATAFLOW_END: true

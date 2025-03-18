@@ -59,7 +59,7 @@ def run(agent: MofaAgent):
     if agent_name is not None:
         make_dir(f"{agent_name}/{module_name}")
         write_file(data=result.llm_generated_code, file_path=f"{agent_name}/{module_name}/main.py")
-        write_file(data=result.llm_generated_code, file_path=f"{agent_name}/{module_name}/__init__.py")
+        write_file(data='    ', file_path=f"{agent_name}/{module_name}/__init__.py")
     print('user_query : ',user_query)
     print('result : ',result.json())
     agent.send_output(agent_output_name='code_generator_result', agent_result=result.json())
