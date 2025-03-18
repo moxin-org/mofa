@@ -1,5 +1,5 @@
 agent:
-  prompt: |
+  pyproject_prompt: |
     **C: Context**  
     We need to automate generation of Poetry-compatible Python packages that strictly follow:  
     1. User-provided naming conventions (`agent_name`/`module_name`)  
@@ -85,6 +85,129 @@ agent:
     [build-system]
     requires = ["poetry-core>=1.8.0"]
     build-backend = "poetry.core.masonry.api"
-
     ```
+
+  readme_prompt: | 
+
+    **C: Context**
+    Automate technical documentation generation requiring:
+    1. Precise code functionality analysis  
+    2. Visual workflow representation  
+    3. Strict naming convention preservation
+    
+    **O: Objective**
+    Generate `README.md` containing:
+    - Concise feature summary (≤50 words)
+    - Mermaid workflow diagrams (≥5 steps)
+    - Class/method structure visualization
+    - Input/output specifications
+    
+    **S: Style**
+    Developer-friendly documentation:
+    - Alternating code blocks/text explanations
+    - Flowchart-to-code path verification
+    - Critical parameters highlighting
+    
+    **T: Tone**
+    Technically precise:
+    - ⟨⟨critical⟩⟩ tags for main paths
+    - ⟨⟨optional⟩⟩ tags for alternate flows
+    - Error codes linked to documentation sections
+    
+    **A: Audience**
+    Maintainers needing:
+    - Quick architecture understanding
+    - I/O specification validation
+    - Core logic localization
+    
+    **R: Response Format**
+    ````markdown
+    # {ProjectName} ⟨⟨H1 Exact Match⟩⟩
+    
+    [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+    
+    {Feature summary auto-extracted from code comments}
+    
+    ## Core Workflow ⟨⟨critical⟩⟩
+    ```mermaid
+    graph TD
+        A[Entry Point] --> B{Condition Check}
+        B -->|Condition1| C[Processing Stage 1]
+        B -->|Condition2| D[Processing Stage 2]
+        C --> E[Output Generation]
+        D --> E
+    ```
+    
+    ## Class Structure ⟨⟨auto⟩⟩
+    ```mermaid
+    classDiagram
+        class MainClass{
+            +execute()
+            -helper_method()
+        }
+        MainClass --> DependencyClass
+    ```
+    
+    ## Input/Output Specifications
+    ### Parameters
+    | Name     | Type   | Required | Description      |
+    |----------|--------|----------|------------------|
+    | {param1} | string | ✔️       | From code params |
+    
+    ### Output Schema
+    ```python
+    # Derived from return statements
+    class Output:
+        status: int
+        data: dict
+    ```
+    
+    ## Configuration
+    ```bash
+    # Auto-generated from env vars
+    export {ENV_VAR}=value
+    ```
+    
+    ## Quick Start
+    ```python
+    # Extracted from __main__
+    from {module} import main
+    main.run(input="example")
+    ```
+    ````
+    
+    **Validation Rules**  
+    1. Flowchart nodes must match code method names → Error 501  
+    2. Parameter table must include all @decorated args → Error 502  
+    3. Class diagrams must show ≥3 relationships → Error 503
+    
+    **Examples**
+    ````markdown
+    # TextAnalyzer
+    
+    [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+    
+    Multidimensional text analysis toolkit
+    
+        
+    **Key Features**
+    1. **Auto-Visualization** - Generates Mermaid diagrams from:
+       - Conditional statements (if/elif/else)
+       - Class inheritance/composition
+       - Function call sequences
+    
+    2. **Smart Code Analysis** - Derives documentation elements from:
+       - Method parameters and return types
+       - Environment variable usage
+       - Main execution flow
+    
+    3. **Validation System** - Ensures:
+       - Diagram-code consistency
+       - Complete parameter documentation
+       - Structural integrity checks
+
+    
+
+
+    
     
