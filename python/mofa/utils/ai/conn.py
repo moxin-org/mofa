@@ -37,6 +37,8 @@ def structor_llm(env_file:str,messages:list,response_model,model_name:str='gpt-4
     else:
         client = instructor.from_openai(client=OpenAI(api_key=os.environ['OPENAI_API_KEY'],base_url=os.getenv('LLM_BASE_URL'),))
     try:
+        print('messagens -> ',messages)
+        print('llm_model_name -> ',os.getenv('LLM_MODEL_NAME','gpt-4o'))
         response = client.chat.completions.create(
             model=os.getenv('LLM_MODEL_NAME','gpt-4o'),
             messages=messages,

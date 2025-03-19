@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "DiabetesRiskAssessment"
+version = "0.1.0"
+description = "Auto-generated agent package"
+authors = [
+    "AI Mofa Bot Generator <mofa-bot@moxin.com>",
+]
+packages = [{ include = "diabetesriskreport" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+urllib3 = "*"
+uuid = "*"
+
+[tool.poetry.scripts]
+DiabetesRiskAssessment = "diabetesriskreport.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
