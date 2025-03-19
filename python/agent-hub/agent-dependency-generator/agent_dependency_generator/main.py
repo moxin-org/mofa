@@ -72,7 +72,7 @@ def run(agent: MofaAgent):
     module_name = json.loads(receive_data.get('agent_config')).get('module_name',None)
     agent_code = json.loads(receive_data.get('agent_config')).get('agent_code',None)
     result = generate_agent_config(response_model=LLMGeneratedTomlRequire, user_query=receive_data.get('query'), agent_config_path=agent_config_path, env_file_path=env_file_path, add_prompt=f"agent_name: {agent_name} module_name: {module_name}",prompt_selection='pyproject_prompt')
-    readme_result = generate_agent_config(response_model=LLMGeneratedReadmeRequire,user_query=receive_data.get('query'),agent_config_path=agent_config_path,env_file_path=env_file_path,add_prompt=f"agent_name: {agent_name} module_name: {module_name}  agent_code: {agent_code}",prompt_selection='readme_prompt')
+    readme_result = generate_agent_config(response_model=LLMGeneratedReadmeRequire,user_query=receive_data.get('query'),agent_config_path=agent_config_path,env_file_path=env_file_path,add_prompt=f" agent_code: {agent_code}",prompt_selection='readme_prompt')
     if agent_name is not  None:
         make_dir(f"{agent_name}/{module_name}")
         if readme_result.readme in [' ','',None,'null']:
