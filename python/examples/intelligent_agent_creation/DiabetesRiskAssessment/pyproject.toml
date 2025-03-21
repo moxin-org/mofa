@@ -5,7 +5,7 @@ description = "Auto-generated agent package"
 authors = [
     "AI Mofa Bot Generator <mofa-bot@moxin.com>",
 ]
-packages = [{ include = "diabetesriskreport" }]
+packages = [{ include = "apirequest" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10"
@@ -13,7 +13,7 @@ urllib3 = "*"
 uuid = "*"
 
 [tool.poetry.scripts]
-DiabetesRiskAssessment = "diabetesriskreport.main:main"
+DiabetesRiskAssessment = "apirequest.main:main"
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]

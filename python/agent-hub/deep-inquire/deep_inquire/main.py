@@ -175,7 +175,7 @@ class ResearchGenerator:
     def generate_stream(self):
         content_outputs = []
         # 生成各个思考阶段的输出（同步方式）
-        for stage in self.thinking_stages:
+        for id,stage in enumerate(self.thinking_stages):
             selected = stage["article_selector"](self.articles)
             context_articles = selected[:min(3, len(selected))]
             for article in context_articles:
@@ -186,7 +186,8 @@ class ResearchGenerator:
                 "type": "thinking",
                 "content": llm_output,
                 "articles": [a.dict() for a in context_articles],
-                "metadata": {"stage": stage["name"]}
+                "metadata": {"stage": stage["name"]},
+                'id':id
             }
         # 动态生成内容阶段，根据文章数量分块处理
         phase_prompts = [
@@ -211,7 +212,8 @@ class ResearchGenerator:
                 "type": "content",
                 "content": llm_content,
                 "articles": [a.dict() for a in related],
-                "metadata": {"confidence": float(np.random.uniform(0.7, 0.95))}
+                "metadata": {"confidence": float(np.random.uniform(0.7, 0.95))},
+                'id':i
             }
         # 最终综合阶段：结合之前所有内容生成最终总结
         final_context = "\n".join(content_outputs)
@@ -241,7 +243,8 @@ class ResearchGenerator:
             "metadata": {
                 "used_sources": len(self.used_articles),
                 "article_ids": list(self.used_articles)
-            }
+            },
+            'id':1
         }
 
 @run_agent

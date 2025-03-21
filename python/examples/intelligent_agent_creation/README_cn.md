@@ -68,13 +68,15 @@ graph TD
    - 用户提供功能需求和技术规范
    - Config Generator生成基础配置
 
-2. **依赖分析阶段**
+2. **代码生成阶段**
+   - Code Generator生成符合规范的代码
+   - 自动创建项目结构
+   
+3. **依赖分析阶段**
    - 系统分析代码特征
    - Dependency Generator生成依赖配置
 
-3. **代码生成阶段**
-   - Code Generator生成符合规范的代码
-   - 自动创建项目结构
+
 
 
 

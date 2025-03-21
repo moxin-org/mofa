@@ -91,7 +91,8 @@ async def dora_event_stream(request_model: str) -> AsyncGenerator[str, None]:
                         "content": parsed.get("content", ""),
                         "articles": parsed.get("articles", []),
                         "metadata": parsed.get("metadata", {}),
-                        'type': parsed.get('type', 'content')
+                        'type': parsed.get('type', 'content'),
+                        'id': parsed.get('id', 0),
                     },
                     "index": 0,
                     "finish_reason": finish_reason
