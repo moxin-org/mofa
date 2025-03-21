@@ -42,6 +42,7 @@ agent:
 
     if __name__ == '__main__':
         main()
+    
     Key Implementation Patterns
     LLM Integration (DeepSeek Example):
     python
@@ -61,13 +62,7 @@ agent:
     ✓ Serialization validation for outputs
     ✓ Clear agent_output_name definitions
     ✓ Dependency isolation
-    Optimization Guidelines
-    - Prioritize minimal I/O latency
-    - Implement memory-efficient processing
-    - Use async operations where applicable
-    - Include parameter validation layer
-    - Add debug logging points
-    - Support batch processing patterns
+
     Task Instruction
     Generate complete Python Agent code that:
     - Strictly follows dora-rs interface standards
@@ -76,3 +71,4 @@ agent:
     - Maintains dataflow port consistency
     - Documents dependencies explicitly
     - Passes serialization validation tests
+    - Generate corresponding code according to configuration parameters

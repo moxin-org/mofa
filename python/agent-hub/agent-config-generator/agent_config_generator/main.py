@@ -1,5 +1,8 @@
 import json
 import os
+import random
+import time
+
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from mofa.utils.ai.conn import generate_json_from_llm, structor_llm
 from mofa.utils.files.read import read_yaml
@@ -68,11 +71,12 @@ def run(agent: MofaAgent):
     agent_config_path = os.path.join(agent_config_dir_path, 'configs', 'agent.yml')
     user_query = agent.receive_parameter('query')
     print('time : ',datetime.datetime.now().strftime("%H:%M:%S"))
-    config_result = generate_agent_config(response_model=LLMGeneratedConfig, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path,prompt_selection='agent_name_gen_prompt ')
+    config_result = generate_agent_config(response_model=LLMGeneratedConfig, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path,prompt_selection='agent_name_gen_prompt')
     agent_name = config_result.agent_name.replace(' ','-').replace('_','-').replace('  ','-')
     module_name,module_path = config_result.module_name.replace(' ','_').replace('  ','_').lower(),f"{agent_name}/{config_result.module_name}"
     make_dir(f"{agent_name}/{module_name}/configs")
     print('config_result : ',config_result.json())
+    time.sleep(random.randint(1,5))
     result = generate_agent_config(response_model=LLMGeneratedContent, user_query=user_query, agent_config_path=agent_config_path, env_file_path=env_file_path,add_prompt=f"agent_name: {agent_name} module_name: {module_name}")
     print('agent_result: ',result.json())
     write_file(data=result.yml_config, file_path=f"{module_path}/configs/agent.yml")

@@ -16,6 +16,7 @@ nodes:
       query: dora-openai-server/v1/chat/completions
     env:
       IS_DATAFLOW_END: false
+      WRITE_LOG: true
 
   - id: agent-code-generator
     build: pip install -e ../../agent-hub/agent-code-generator
@@ -27,6 +28,7 @@ nodes:
       agent_config: agent-config-generator/config_generator_result
     env:
       IS_DATAFLOW_END: false
+      WRITE_LOG: true
 
   - id: agent-dependency-generator
     build: pip install -e ../../agent-hub/agent-dependency-generator
@@ -39,3 +41,4 @@ nodes:
       agent_code: agent-code-generator/code_generator_result
     env:
       IS_DATAFLOW_END: true
+      WRITE_LOG: true

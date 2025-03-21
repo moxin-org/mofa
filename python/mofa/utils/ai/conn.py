@@ -46,11 +46,12 @@ def structor_llm(env_file:str,messages:list,response_model,model_name:str='gpt-4
         )
     except Exception as e:
         print(f"Error: {e}")
+        print('Error Messagens -> ',messages,  "Error Model Name -> ",model_name)
         response = None
         for i in range(max_loop):
             try:
                 response = client.chat.completions.create(
-                    model=model_name,
+                    model=os.getenv('LLM_MODEL_NAME','gpt-4o'),
                     messages=messages,
                     response_model=response_model,
                 )
