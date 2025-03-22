@@ -28,3 +28,6 @@ xiaowang是多层次动态反思智能体，运行时会动态决策反思层数
 2. `dora up && dora build xiaowang_dataflow.yml && dora start xiaowang_dataflow.yml`
 3. 3. 启动另外一个命令端,在另外一个命令端运行 `xiaowang`.然后输入任务即可
 
+
+## 5. 视频地址
+https://www.bilibili.com/video/BV1pKXWYkEAs/?share_source=copy_web&vd_source=bb48ce619d6de47cd6da75e02f9eebba

@@ -46,3 +46,7 @@ Modify multiple `.yml` configuration files in `xiaowang_start/configs` to fine-t
    ```
 
    Enter tasks to initiate the agent's workflow.
+
+
+## 5. Video Link
+https://www.bilibili.com/video/BV1pKXWYkEAs/?share_source=copy_web&vd_source=bb48ce619d6de47cd6da75e02f9eebba
