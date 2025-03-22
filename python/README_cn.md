@@ -131,7 +131,7 @@ cd my-llm-agent
 
 ### 2.4.2. 配置环境变量 (1分钟)
 
-创建 `.env.secret` 文件：
+创建 `.env.secret` 文件(在Dataflow.yml目录同级进行创建)：
 ```plaintext
 LLM_API_KEY=your_api_key_here
 LLM_API_BASE=https://api.openai.com/v1  # 或其他API地址
