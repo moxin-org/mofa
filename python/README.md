@@ -130,7 +130,7 @@ cd my-llm-agent
 
 ### 2.4.2. Configure Environment Variables (1 minute)
 
-Create a `.env.secret` file:
+Create a `.env.secret` file(Create it at the same level as the Dataflow.yml directory):
 ```plaintext
 LLM_API_KEY=your_api_key_here
 LLM_API_BASE=[https://api.openai.com/v1](https://api.openai.com/v1)  # Or other API address
