@@ -16,12 +16,13 @@ RUNNER_CI = True if os.getenv("CI") == "true" else False
 def clean_string(input_string:str):
     return input_string.encode('utf-8', 'replace').decode('utf-8')
 def send_task_and_receive_data(node):
+    TIMEOUT = 300
     while True:
         data = input(
             " Send You Task :  ",
         )
         node.send_output("data", pa.array([clean_string(data)]))
-        event = node.next(timeout=200)
+        event = node.next(timeout=TIMEOUT)
         if event is not None:
             while True:
                 if event is not None:
@@ -35,7 +36,7 @@ def send_task_and_receive_data(node):
                     sys.stdout.flush()
                     if is_dataflow_end ==True or is_dataflow_end == 'true' or is_dataflow_end == 'True':
                         break
-                    event = node.next(timeout=200)
+                    event = node.next(timeout=TIMEOUT)
 def main():
 
     # Handle dynamic nodes, ask for the name of the node in the dataflow, and the same values as the ENV variables.
