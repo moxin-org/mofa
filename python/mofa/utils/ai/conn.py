@@ -5,8 +5,17 @@ import instructor
 
 from openai import OpenAI
 
-def create_openai_client(api_key: str=os.getenv("OPENAI_API_KEY"),*args,**kwargs) -> OpenAI:
-    client = OpenAI(api_key=api_key,**kwargs)
+def create_openai_client(api_key: str=os.getenv("OPENAI_API_KEY"),env_file:str=os.getenv('ENV_FILE','.env.secret'),*args,**kwargs) -> OpenAI:
+    load_dotenv(env_file)
+    if api_key is not None:
+        client = OpenAI(api_key=api_key,**kwargs)
+    else:
+        if os.getenv('LLM_API_KEY') is not None:
+            os.environ['OPENAI_API_KEY'] = os.getenv('LLM_API_KEY')
+        if os.getenv('LLM_BASE_URL', None) is None:
+            client =OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+        else:
+            client =OpenAI(api_key=os.environ['OPENAI_API_KEY'], base_url=os.getenv('LLM_BASE_URL'), )
     return client
 def generate_json_from_llm(client, prompt: str, format_class, messages: List[dict] = None, supplement_prompt: str = None, model_name: str = 'gpt-4o-mini') -> str:
 
@@ -37,7 +46,6 @@ def structor_llm(env_file:str,messages:list,response_model,model_name:str='gpt-4
     else:
         client = instructor.from_openai(client=OpenAI(api_key=os.environ['OPENAI_API_KEY'],base_url=os.getenv('LLM_BASE_URL'),))
     try:
-        print('messagens -> ',messages)
         print('llm_model_name -> ',os.getenv('LLM_MODEL_NAME','gpt-4o'))
         response = client.chat.completions.create(
             model=os.getenv('LLM_MODEL_NAME','gpt-4o'),

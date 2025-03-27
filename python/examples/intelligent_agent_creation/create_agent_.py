@@ -1,3 +1,5 @@
+import json
+
 from openai import OpenAI
 from typing import List
 client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="sk-jsha-1234567890")
@@ -72,16 +74,17 @@ client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="sk-jsha-1234567890
 # input_data = """
 # 维基百科摘要（Knowledge 分类） I want to create an agent to query the summary information corresponding to a certain wiki . def wiki_summary(topic): response = requests.get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{topic}") if response.ok: return response.json() return "未找到相关信息" print(wiki_summary("Python"))
 # """
-
+file_path = '/Users/chenzi/project/zcbc/mofa/python/agent-hub/api-list/api_list/crawl_results_20250327_155352.json'
+with open(file_path, 'r', encoding='utf-8') as f:
+    data = json.load(f)
 # 自然语言创建agent
-input_data = """
-我想创建一个agent,使用pandas来读取一个csv文件并显示前5行数据
-"""
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": input_data},
-    ],
-)
-print(f"output -> ",response.choices[0].message.content)
+for i  in data:
+    if i.get('llm_result',None) is not None:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": i.get('llm_result')},
+            ],
+        )
+        print(f"完成 -> ",i.get('url'))
