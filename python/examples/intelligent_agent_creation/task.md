@@ -53,7 +53,7 @@ I want to create an agent to get the real-time price of cryptocurrency . btc_pri
 
 --- 
 I want to create an agent .  that code is from openai import OpenAI  client = OpenAI(api_key="<DeepSeek API Key>", base_url="https://api.deepseek.com") response = client.chat.completions.create(model="deepseek-chat", messages=[{"role": "system", "content": "You are a helpful assistant"}, {"role": "user", "content": "Hello"},], stream=False) print(response.choices[0].message.content)
-
+†
 
 
 接口信息 调用地址：https://hdl.market.alicloudapi.com/diabetes/getReport 请求方式：  POST  返回类型：  JSON  API 调用： API 简单身份认证调用方法（APPCODE） API 签名认证调用方法（AppKey & AppSecret）  获取认证： AppKey & AppCode  接口参数 请求参数（Header） 无参数 请求参数（Query） 字段名称 必填 字段详情 age string N 年龄 sex string N 性别 type string N 固定参数 实例值： diabetesRisk weight string N 体重（kg） height string N 身高（米） systolicPressure string N 收缩压 diastolicPressure string N 舒张压 familyHistoryOfDiabetes string N 糖尿病家族史 实例值： 否,旁系亲属（爷爷/姥爷、奶奶/姥姥、姑、姨、叔、伯、舅、表/堂兄妹）,直系亲属（父母、兄妹、子女） historyOfHyperglycemia string N 血糖升高史（是、否） intakeOfVegetablesAndFruits string N 蔬菜、水果摄入情况（每天、偶尔） waist string N 腰围(cm)dailyExerciseTime string N 每天锻炼时间(分钟)
