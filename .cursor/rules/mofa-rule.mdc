@@ -1,0 +1,130 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Your rule content
+
+```markdown
+# Cursor-Specific Project Prompt
+
+## Project Overview
+This project is a Python-based intelligent agent generation system built using schema-driven development principles. The system leverages LLM (Large Language Models) to automatically create agents based on user-defined APIs and functional requirements.
+
+## Key Components
+1. **Agent Config Generator**: Generates configuration files for new agents
+2. **Agent Dependency Generator**: Analyzes and generates dependency configurations
+3. **Agent Code Generator**: Creates Python code following dora-rs framework standards
+
+## Development Guidelines
+- **Schema-First**: Always define data models in schemas before implementation
+- **Modular Architecture**: Use clean separation between components
+- **Type Safety**: Enforce strict type hints and validation
+- **Documentation**: Maintain comprehensive documentation for all generated code
+
+## Cursor-Specific Configuration
+When using Cursor for development, please configure the following settings:
+
+```json
+{
+  "editor.tabSize": 4,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.extraPaths": [
+    "./agent-hub",
+    "./node-hub"
+  ]
+}
+```
+
+## Code Generation Patterns
+When generating code, follow these patterns:
+
+1. **Configuration Files**:
+```python
+# config_generator.py
+def generate_config(spec: dict) -> dict:
+    """Generate agent configuration from specification"""
+    return {
+        "agent_name": spec.get("name"),
+        "inputs": spec.get("inputs", []),
+        "outputs": spec.get("outputs", []),
+        "dependencies": analyze_dependencies(spec)
+    }
+```
+
+2. **Dependency Management**:
+```python
+# dependency_generator.py
+def generate_pyproject(spec: dict) -> str:
+    """Generate pyproject.toml content"""
+    return f"""
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "{spec['name']}"
+version = "0.1.0"
+description = "Auto-generated agent"
+    """
+```
+
+3. **Agent Code Template**:
+```python
+# agent_template.py
+class Agent:
+    def __init__(self, config: dict):
+        self.config = config
+        self.validate_config()
+        
+    def validate_config(self):
+        """Validate configuration against schema"""
+        required_fields = ["inputs", "outputs"]
+        for field in required_fields:
+            if field not in self.config:
+                raise ValueError(f"Missing required field: {field}")
+```
+
+## Testing Guidelines
+- Write unit tests for all generated code
+- Use pytest fixtures for common test scenarios
+- Maintain 100% code coverage for core functionality
+- Validate against schema definitions
+
+## Documentation Standards
+- Use Google-style docstrings
+- Include type hints for all functions
+- Document schema requirements
+- Maintain README with usage examples
+
+## Development Workflow
+1. Define schema requirements
+2. Generate configuration
+3. Create dependencies
+4. Generate code
+5. Validate against schema
+6. Write tests
+7. Document functionality
+
+## Error Handling
+- Implement comprehensive error handling
+- Validate all inputs against schema
+- Provide meaningful error messages
+- Log errors with context
+
+## Performance Considerations
+- Optimize for memory usage
+- Minimize startup time
+- Use efficient data structures
+- Implement caching where appropriate
+
+## Security Best Practices
+- Validate all inputs
+- Use environment variables for secrets
+- Implement proper authentication
+- Follow least privilege principle
+```
