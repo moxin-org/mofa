@@ -31,14 +31,14 @@ RUN cargo install dora-cli --locked && \
     pip3 install dora-rs
 
 
-RUN mkdir -p /project && \
-    cd /project && \
-    git clone https://github.com/moxin-org/mofa.git && \
-    cd mofa && \
-    cd /project/mofa/python && \
-    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
-    pip install --upgrade --ignore-installed blinker && \
-    pip3 install uv && uv pip install --system -e . &&  pip3 install -e .
+#RUN mkdir -p /project && \
+#    cd /project && \
+#    git clone https://github.com/moxin-org/mofa.git && \
+#    cd mofa && \
+#    cd /project/mofa/python && \
+#    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
+#    pip install --upgrade --ignore-installed blinker && \
+#    pip3 install uv && uv pip install --system -e . &&  pip3 install -e .
 
 
 WORKDIR /project

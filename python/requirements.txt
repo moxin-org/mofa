@@ -79,6 +79,7 @@ pyyaml==6.0.2
 crewai==0.67.1
 crewai-tools==0.12.1
 dspy-ai==2.5.3
+mcp
 
 # --------- distributed --------- #
 dora-rs

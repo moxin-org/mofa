@@ -25,7 +25,7 @@ nodes:
       - code_generator_result
     inputs:
       query: dora-openai-server/v1/chat/completions
-      agent_config: agent-config-generator/config_generator_result
+      agent_config: agent-config-gejetnerator/config_generator_result
     env:
       IS_DATAFLOW_END: false
       WRITE_LOG: true

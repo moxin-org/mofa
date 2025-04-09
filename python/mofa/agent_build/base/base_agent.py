@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 from mofa.utils.files.write import ensure_directory_exists
 from logging.handlers import RotatingFileHandler
-
+from mcp.server.fastmcp import FastMCP
 
 
 @define
@@ -90,6 +90,7 @@ class MofaAgent:
     is_write_log:bool = field(default=False)
     log_file:str=field(default='agent.log')
     agent_log:MofaLogger = field(init=False)
+    mcp :Any = field(default=None)
     def __attrs_post_init__(self):
         self.node = Node(self.agent_name)
         env_files = ['.env.secret', '.env']
@@ -102,6 +103,17 @@ class MofaAgent:
                 self.is_write_log = os.getenv(log_status)
         self.agent_log = MofaLogger(agent_name=self.agent_name, log_file=self.log_file)
 
+    def __init_mcp(self):
+        if os.getenv('MCP', None) is not None and self.mcp is None:
+            self.mcp = FastMCP(self.agent_name)
+
+    def register_mcp_tool(self, func):
+        """动态注册 MCP 工具"""
+        tool_name = func.__name__
+        self.__init_mcp()
+        decorated_func = self.mcp.tool()(func)
+        # setattr(self, tool_name, decorated_func)
+        print(f"工具 '{tool_name}' 注册成功。")
 
     def _parse_event_value(self, event):
         try:
@@ -171,6 +183,11 @@ class MofaAgent:
                 return
             else:
                 self.agent_log.log(message=message, level=level)
+    def run_mcp(self,mcp_transport:str='sse'):
+        if self.mcp is not None:
+            print('mcp server 运行成功')
+            self.mcp.run(transport=mcp_transport)
+
 
 @define
 class BaseMofaAgent:
