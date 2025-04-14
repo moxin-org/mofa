@@ -87,9 +87,10 @@ async def main(urls: List[str]):
 
 
 if __name__ == "__main__":
-    url_list = pd.read_csv('extracted_apis.csv')['url'].tolist()
+    # url_list = pd.read_csv('extracted_apis.csv')['url'].tolist()
+    url_list = pd.read_csv('new_api.csv')['Documentation Link'].tolist()
 
-    urls_to_crawl = random.sample(url_list, 20)
+    urls_to_crawl = random.sample(url_list, 60)
 
     # urls_to_crawl = [
     #     'https://db.ygoprodeck.com/api-guide/',

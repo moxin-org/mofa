@@ -8,7 +8,7 @@ from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 @run_agent
 def run(agent:MofaAgent):
     url = agent.receive_parameter('url')
-    load_dotenv('/.env.secret')
+    load_dotenv('.env.secret')
     app = FirecrawlApp(api_key=os.getenv('FC_API_KEY'))
     # Scrape a website:
     scrape_result = app.scrape_url(

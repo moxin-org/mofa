@@ -5,7 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-
+.cursor
+.cadence
+.vscode
 # Distribution / packaging
 .Python
 env/
