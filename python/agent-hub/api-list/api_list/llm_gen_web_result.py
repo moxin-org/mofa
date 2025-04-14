@@ -3,7 +3,7 @@ import json
 from mofa.utils.ai.conn import create_openai_client
 
 client = create_openai_client(env_file='.env.secret')
-file_path = 'crawl_results_20250327_155352.json'
+file_path = 'crawl_results_20250411_142417.json'
 try:
     with open(file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -62,17 +62,20 @@ Resources: The content of the HTML document.
 By adding this explicit check and emphasizing it in the prompt, you ensure that the agent will return None when no APIs are detected in the HTML content. Remember to provide the HTML document to the agent when using this prompt.
 """
 for example_data in data:
-    if len(str(example_data['markdown'])) > 350 and example_data['status']=='success':
-        response = client.chat.completions.create(
-            model=os.getenv('LLM_MODEL_NAME', 'gpt-4o'),
-            messages=[
-                {"role": "system", "content": prompt},
-                {"role": "user", "content": example_data['markdown']},
-                {"role": "system", "content": example_data['url']},
-            ],
-        )
-        result = response.choices[0].message.content
-        example_data['llm_result'] = result
+    if len(str(example_data['markdown'])) > 350 and example_data['status']=='success' and example_data.get('llm_result',None) is None:
+        try:
+            response = client.chat.completions.create(
+                model=os.getenv('LLM_MODEL_NAME', 'gpt-4o'),
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": example_data['markdown']},
+                    {"role": "system", "content": example_data['url']},
+                ],
+            )
+            result = response.choices[0].message.content
+            example_data['llm_result'] = result
+        except Exception as e :
+            continue
         try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)

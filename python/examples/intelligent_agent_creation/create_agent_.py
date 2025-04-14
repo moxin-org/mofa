@@ -1,4 +1,5 @@
 import json
+import time
 
 from openai import OpenAI
 from typing import List
@@ -74,17 +75,32 @@ client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="sk-jsha-1234567890
 # input_data = """
 # 维基百科摘要（Knowledge 分类） I want to create an agent to query the summary information corresponding to a certain wiki . def wiki_summary(topic): response = requests.get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{topic}") if response.ok: return response.json() return "未找到相关信息" print(wiki_summary("Python"))
 # """
-file_path = '/Users/chenzi/project/zcbc/mofa/python/agent-hub/api-list/api_list/crawl_results_20250327_155352.json'
+file_path = '/Users/chenzi/project/zcbc/mofa/python/agent-hub/api-list/api_list/crawl_results_20250411_142417.json'
 with open(file_path, 'r', encoding='utf-8') as f:
     data = json.load(f)
+xx = ['https://macaddress.io/api', 'https://github.com/skolakoda/programming-quotes-api', 'https://cloudmersive.com/phone-number-validation-API', 'https://jokes.one/api/joke/', 'https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md', 'https://etherscan.io/apis', 'https://github.com/fawazahmed0/currency-api#readme', 'https://seller.flipkart.com/api-docs/FMSAPI.html']
+
+new_agent_apis = []
+error_url_apis =  []
 # 自然语言创建agent
 for i  in data:
-    if i.get('llm_result',None) is not None:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": i.get('llm_result')},
-            ],
-        )
-        print(f"完成 -> ",i.get('url'))
+    if i.get('llm_result',None) is not None and i.get('url') not in xx:
+        t1 = time.time()
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": i.get('llm_result')},
+                ],
+            )
+            print(f"完成 -> ",i.get('url'))
+            new_agent_apis.append(i.get('url'))
+            print('消耗时间 -> ',time.time()-t1)
+            print('------------')
+        except Exception as e :
+            print(e )
+            print('Error data' , i )
+            error_url_apis.append(i.get('url'))
+print('正确的是 ->',new_agent_apis)
+print('错误的是 ->',error_url_apis)
