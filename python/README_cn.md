@@ -58,8 +58,8 @@ git clone https://github.com/moxin-org/mofa.git
 cd mofa/python
 
 # 安装依赖
-uv pip install -e .
-pip install -e . 
+uv pip install -e . && pip install -e . 
+# 其中uv 可以加速安装依赖，而pip install -e . 会将py文件编译为.pyc文件，并且会将mofa安装到当前的python环境中
 ```
 
 ### 2.2.2 Docker 方式
@@ -81,7 +81,7 @@ mofa --help
 
 ### 2.3.1 启动数据流
 ```bash
-cd  /project/mofa/python/examples/hello_world
+cd  /mofa/python/examples/hello_world
 
 # 启动 Dora 服务
 dora up
@@ -101,7 +101,7 @@ terminal-input
 # 预期输出: hello
 ```
 
-### 2.3.3 **运行效果**
+交互结果示例：
 
 ```
 root@root hello_world % terminal-input                                           
