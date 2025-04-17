@@ -95,11 +95,6 @@ LLM_BASE_URL=https://api.openai.com/v1
 LLM_MODEL_NAME=gpt-4-turbo
 ```
 
-2. 安装依赖：
-```bash
-poetry install
-```
-
 
 ## 输出特征说明 🔍
 | 字段          | 说明                          | 示例值                      |

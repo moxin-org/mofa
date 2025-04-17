@@ -81,7 +81,9 @@ async def dora_event_stream(request_model: str) -> AsyncGenerator[str, None]:
             response_val = event["value"][0].as_py()
             parsed = json.loads(response_val)
             parsed = json.loads(parsed['node_results'])
-            finish_reason = "stop" if parsed.get("type") == "completion" else None
+            finish_reason = ''
+            if parsed.get("end",None) is not None:
+                finish_reason = "stop"
             stream_chunk = {
                 "id": str(uuid.uuid4()),
                 "object": "chat.completion.chunk",
