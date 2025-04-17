@@ -7,7 +7,7 @@ import os
 if __name__ == "__main__":
     client = OpenAI(base_url="http://127.0.0.1:8000/v3", api_key="sk-jsha-1234567890")
 
-    user_input = 'deepseek'
+    user_input = 'vllm 和 sglang的分析'
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
