@@ -1,6 +1,5 @@
 FROM ubuntu:22.04
 
-# 设置环境变量以非交互模式安装
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirrors.aliyun.com/ubuntu/|g' /etc/apt/sources.list
@@ -13,32 +12,27 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 设置默认 Python 版本
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
 
-# 安装 Rust 和 Cargo
 RUN apt-get update && apt-get install -y curl && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     /root/.cargo/bin/rustup default stable
 
-# 将 Cargo 的 bin 目录添加到 PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# 确认 Rust 和 Cargo 安装成功
 RUN rustc --version && cargo --version
 
-# 安装 dora-cli 和 dora-rs
 RUN cargo install dora-cli --locked && \
     pip3 install dora-rs
 
 
-#RUN mkdir -p /project && \
-#    cd /project && \
-#    git clone https://github.com/moxin-org/mofa.git && \
-#    cd mofa && \
-#    cd /project/mofa/python && \
-#    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
-#    pip install --upgrade --ignore-installed blinker && \
-#    pip3 install uv && uv pip install --system -e . &&  pip3 install -e .
+RUN mkdir -p /project && \
+    cd /project && \
+    git clone https://github.com/moxin-org/mofa.git && \
+    cd mofa && \
+    cd /project/mofa/python && \
+    pip3 install --upgrade pip --index-url https://pypi.org/simple && \
+    pip install --upgrade --ignore-installed blinker && \
+    pip3 install uv && uv pip install --system -e . &&  pip3 install -e .
 
 
 WORKDIR /project
