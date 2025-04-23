@@ -39,18 +39,19 @@ class LLMClient:
 
     def generate_response(self, messages: List[Dict], max_tokens: int = 3200, stream: bool = True):
         """
-        使用流式方式生成响应
+        Generate responses in a streaming fashion
         """
         response = self.client.chat.completions.create(
             model=self.model_name,
             messages=messages,
             max_tokens=max_tokens,
-            stream=stream  # 开启流式响应
+            stream=stream  # Enable streaming responses
         )
 
         for chunk in response:
-            # 每个 chunk 包含一部分内容
-            yield chunk.choices[0].delta.content  # 返回每个部分的内容
+            # Each chunk contains a portion of content
+            content = chunk.choices[0].delta.content
+            yield "" if content is None else content  # Ensure we always yield a string
 
 
 class ArticleRef:
@@ -245,13 +246,18 @@ class ResearchGenerator:
             for article in context_articles:
                 self.used_articles.add(article.url)
             for chunk in self._llm_think(stage["description"], context_articles, stage_id, substep_id,stage['name']):
-                think_outputs.append(chunk.get('content'))
+                content = chunk.get('content', '')
+                if content is not None:  # Ensure we only append string values
+                    think_outputs.append(content)
                 yield chunk
-            substep_id += 1  # 子步骤递增
-            stage_id += 1  # 增加阶段ID
+            substep_id += 1  # Increment substep
+            stage_id += 1  # Increment stage ID
+        
+        # Filter out any None values before joining
+        think_outputs = [output for output in think_outputs if output is not None]
         think_summary = ''
         for chunk in self._think_summary(''.join(think_outputs)):
-            think_summary += chunk.get('content')
+            think_summary += chunk.get('content', '')
             yield chunk
 
         num_articles = len(self.articles)

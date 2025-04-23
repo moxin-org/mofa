@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 from mofa.utils.files.write import ensure_directory_exists
 from logging.handlers import RotatingFileHandler
-from mcp.server.fastmcp import FastMCP
+# from mcp.server.fastmcp import FastMCP
 
 
 @define
