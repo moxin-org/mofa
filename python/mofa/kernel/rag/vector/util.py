@@ -1,6 +1,6 @@
 import json
 import time
-from typing import Union, List
+from typing import Union, List, Any
 
 from mofa.kernel.rag.split.util import split_files
 from mofa.utils.func.util import remove_duplicates_globally
@@ -37,7 +37,7 @@ def search_vector(vectorstore, keywords: Union[List[str],str], k: int = 4,**kwar
     return remove_duplicates_globally(data)
 
 
-def upload_files_to_vector(vectorstore, files_path: Union[List[str],str], chunk_size: int = 256, encoding: str = 'utf-8'):
+def upload_files_to_vector(vectorstore, files_path: Union[List[str],str], chunk_size: int = 256, encoding: str = 'utf-8',docs:Any=None):
     """
     Upload files to the vector store.
 
@@ -52,8 +52,9 @@ def upload_files_to_vector(vectorstore, files_path: Union[List[str],str], chunk_
     """
 
     t1 = time.time()
+    if docs is None:
+        docs = split_files(files_path=files_path, chunk_size=chunk_size, encoding=encoding)
 
-    docs = split_files(files_path=files_path, chunk_size=chunk_size, encoding=encoding)
     if len(docs) >= 1:
             if len(docs) > 30:
                 for i in range(0, len(docs), 30):
