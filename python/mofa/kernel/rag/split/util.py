@@ -6,7 +6,7 @@ from langchain_community.document_loaders import Docx2txtLoader, UnstructuredPow
 from langchain_community.document_loaders import UnstructuredPowerPointLoader
 from langchain_community.document_loaders import PyPDFLoader
 import time
-from mofa.utils.files.split import split_txt_by_langchain
+from mofa.utils.files.split import split_txt_by_langchain, create_documents_by_json_file
 
 from langchain_core.documents import Document
 
@@ -36,7 +36,7 @@ def split_docs_page_content(doc,chunk_size:int=328,):
             docs.append(document)
     return docs
 
-def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'utf-8'):
+def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'utf-8',):
     """
     Split the files from the given list of file paths into chunks and return a list of documents containing the split text.
 
@@ -91,7 +91,8 @@ def split_files(files_path: List[str], chunk_size: int = 256, encoding: str = 'u
                     doc.metadata['source'] = str(file_path)  # 确保文件路径是字符串
                     chunks, id_num = split_text_into_chunks(doc=doc, chunk_size=chunk_size, id_num=id_num)
                     all_data.extend(chunks)
-
+            elif file_extension == ".json":
+                all_data = create_documents_by_json_file(str(file_path))
     return all_data
 
 
