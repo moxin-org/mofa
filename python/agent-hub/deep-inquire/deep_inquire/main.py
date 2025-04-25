@@ -159,7 +159,8 @@ class ResearchGenerator:
             return filtered
         return articles
 
-    def _llm_think(self, stage_description: str, selected_articles: List[ArticleRef], stage_id: int, substep_id: int,stage_name:str=None):
+    def _llm_think(self, stage_description: str, selected_articles: List[ArticleRef], stage_id: int, substep_id: int,
+                   stage_name: str = None):
         context = " ".join([a.snippet for a in selected_articles])
         messages = [
             {"role": "system", "content": stage_description},
@@ -216,7 +217,6 @@ class ResearchGenerator:
         if type_content is None:
             type_content = 'content'
         for sub_stage_id, chunk in enumerate(self.llm_client.generate_response(messages)):
-
             yield {
                 "type": type_content,
                 "content": chunk,
@@ -235,7 +235,8 @@ class ResearchGenerator:
                 'end': 'yes'
 
             }
-    def generate_stream(self,user_query:str=''):
+
+    def generate_stream(self, user_query: str = ''):
         content_outputs = []  # 用于收集各阶段生成的内容
         substep_id = 0  # 初始子步骤ID
         think_outputs = []
@@ -245,14 +246,14 @@ class ResearchGenerator:
             context_articles = selected[:min(3, len(selected))]
             for article in context_articles:
                 self.used_articles.add(article.url)
-            for chunk in self._llm_think(stage["description"], context_articles, stage_id, substep_id,stage['name']):
+            for chunk in self._llm_think(stage["description"], context_articles, stage_id, substep_id, stage['name']):
                 content = chunk.get('content', '')
                 if content is not None:  # Ensure we only append string values
                     think_outputs.append(content)
                 yield chunk
             substep_id += 1  # Increment substep
             stage_id += 1  # Increment stage ID
-        
+
         # Filter out any None values before joining
         think_outputs = [output for output in think_outputs if output is not None]
         think_summary = ''
@@ -273,7 +274,7 @@ class ResearchGenerator:
             llm_content = ''
             for chunk in self._llm_generate_content(
                     prompt + '\n This is the content of the previous Think Summary' + think_summary + f'\n This is question {user_query}',
-                    related, stage_id, substep_id,stage=prompt.replace('...','')):
+                    related, stage_id, substep_id, stage=prompt.replace('...', '')):
                 llm_content += chunk.get('content')
                 yield chunk
             content_outputs.append(llm_content)
@@ -300,10 +301,11 @@ class ResearchGenerator:
                 "Audience: The final synthesis should be detailed, clear, and suitable for industry professionals and researchers seeking an in-depth analysis.\n\n"
                 "Action: Based on the aggregated content provided below, generate a final, structured synthesis that covers all the critical insights and details.\n\n"
                 "Aggregated Content:\n" + final_context + "\n\nFinal Synthesis: "
-                "Aggregated Thinking Data: \n" + think_summary + "\n\n"
+                                                          "Aggregated Thinking Data: \n" + think_summary + "\n\n"
 
         )
-        final_synthesis = self._llm_generate_content(final_prompt, self.articles, 0, 0, 'Complete the report', 'completion')
+        final_synthesis = self._llm_generate_content(final_prompt, self.articles, 0, 0, 'Complete the report',
+                                                     'completion')
         yield from final_synthesis
 
 
@@ -329,6 +331,8 @@ def run(agent: MofaAgent):
     results = []
     for chunk in generator.generate_stream(user_query=user_query):
         results.append(json.dumps(chunk, indent=2))
+        time.sleep(0.005)
+
         agent.send_output(agent_output_name='deep_inquire_result', agent_result=json.dumps(chunk, indent=2))
 
 
