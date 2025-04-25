@@ -5,7 +5,9 @@ nodes:
     outputs:
       - v3/chat/completions
     inputs:      
-      v3/chat/completions: deep-inquire-agent/deep_inquire_result
+      v3/chat/completions:
+        source: deep-inquire-agent/deep_inquire_result
+        queue_size: 1000
 
   - id: deep-inquire-agent
     build: pip install -e ../../agent-hub/deep-inquire
