@@ -30,6 +30,8 @@ def search_vector(vectorstore, keywords: Union[List[str],str], k: int = 4,**kwar
         data = []
         for keyword in keywords:
             results = vectorstore.similarity_search(keyword, k=k,**kwargs)
+            print('-------------------\n',results)
+
             data_values =  [item for d in data for sublist in d.values() for item in sublist]
             results = [item for item in results if item not in data_values]
             data.append({keyword: list(set([i.page_content for i in results]))})
