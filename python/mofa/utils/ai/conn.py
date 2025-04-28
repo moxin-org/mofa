@@ -5,7 +5,7 @@ import instructor
 
 from openai import OpenAI
 
-def create_openai_client(api_key: str=os.getenv("OPENAI_API_KEY"),env_file:str=os.getenv('ENV_FILE','.env.secret'),*args,**kwargs) -> OpenAI:
+def create_openai_client(api_key: str=os.getenv("OPENAI_API_KEY",None),env_file:str=os.getenv('ENV_FILE','.env.secret'),*args,**kwargs) -> OpenAI:
     load_dotenv(env_file)
     if api_key is not None:
         client = OpenAI(api_key=api_key,**kwargs)
