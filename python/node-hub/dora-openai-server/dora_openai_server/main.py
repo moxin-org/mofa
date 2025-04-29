@@ -8,6 +8,7 @@ from dora import Node  # Dora for node communication in a dataflow system
 import asyncio  # Asynchronous I/O operations
 import pyarrow as pa  # PyArrow for data serialization and transfer
 import ast  # Abstract Syntax Trees for evaluating user input
+from datetime import datetime
 
 # Timeout duration for waiting on responses from Dora nodes
 DORA_RESPONSE_TIMEOUT = 180
@@ -78,20 +79,23 @@ async def create_chat_completion(request: ChatCompletionRequest):
 
     # Convert the data into a PyArrow array for efficient data processing
     data = pa.array([clean_string(data)])
+    now = datetime.now()
+    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    print(formatted_time,'      received data:', data, )
     # The message is then sent to the next node in the dataflow system with the output label 'v1/chat/completions'
     node.send_output("v1/chat/completions", data)
-
+    print('发送完毕')
     # Dora Node Event Loop: Wait for response from the next node in the dataflow system.
     while True:
         # Get the next event from the node (with a timeout)
         event = node.next(timeout=DORA_RESPONSE_TIMEOUT)
-
         # Check if the event is an error or an input event for chat completions
-        if event["type"] == "ERROR":
-            response_str = "No response received. Err: " + event["value"][0].as_py()
-            break
+        # if event["type"] == "ERROR":
+        #     response_str = "No response received. Err: "
+        #     break
         # If the event is an input event with the expected ID, process the response
-        elif event["type"] == "INPUT" and event["id"] == "v1/chat/completions":
+        if  event["type"] == "INPUT" and event["id"] == "v1/chat/completions":
             response = event["value"]
             # Extract the first element of the response or set a default message if no response is received
             response_str = response[0].as_py() if response else "No response received"
