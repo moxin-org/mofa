@@ -13,7 +13,7 @@ packages = [{ include = "firecrawl_agent" }]
 
 [tool.poetry.dependencies]
 pyarrow = ">= 5.0.0"
-firecrawl = "*"
+firecrawl = ">= 2.4.3"
 
 [tool.poetry.scripts]
 firecrawl-agent = "firecrawl_agent.main:main"

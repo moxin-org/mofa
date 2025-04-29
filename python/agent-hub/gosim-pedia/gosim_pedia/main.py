@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -214,6 +215,10 @@ def run(agent:MofaAgent):
     env_file = '.env.secret'
     load_dotenv(env_file)
     query = agent.receive_parameter('query')
+    now = datetime.now()
+    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    print(formatted_time, '      received data:', query, )
     llm_client = create_openai_client()
     speaker_info = get_llm_response(client=llm_client, messages=[
         {"role": "system", "content": extract_speaker_prompt},
