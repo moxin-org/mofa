@@ -208,6 +208,8 @@ Format the biography in markdown using the following structure. Ensure each sect
 # OUTPUT FORMAT #
 Provide the biography in markdown format, with sections organized chronologically. Include videos, blogs, publications (with URLs), images, their descriptions, URLs, and source citations. Ensure all information is accurate, well-organized, and properly cited.
 
+# TONE #
+Use third-person consistently for professional bio tone.
 """
 
 @run_agent
@@ -228,13 +230,17 @@ def run(agent:MofaAgent):
     speaker_info_data = json.loads(speaker_info_data)
     speaker_name_and_organization = speaker_info_data.get('name') + ' - ' + speaker_info_data.get('organization')
     agent.send_output(agent_output_name='speaker_query', agent_result=speaker_name_and_organization)
-    tool_results = agent.receive_parameters(['firecrawl_result','serper_result','rag_result'])
+    speaker_link_search = f""""{speaker_info_data.get('name')}" ({speaker_info_data.get('organization')}) (site:github.com OR site:linkedin.com OR site:twitter.com OR site:x.com OR site:youtube.com OR site:medium.com OR site:dev.to OR site:substack.com OR site:gitlab.com OR site:bitbucket.org OR site:facebook.com OR site:instagram.com OR blog OR website OR "about.me" OR "speakerdeck.com" OR "personal website" OR "site:discord.com" OR "site:reddit.com")"""
+
+    agent.send_output(agent_output_name='speaker_link_query', agent_result=speaker_link_search)
+    tool_results = agent.receive_parameters(['firecrawl_result','serper_result','rag_result','firecrawl_link_result'])
 
     summary_messages = [
                 {"role": "system", "content": summary_prompt},
                 {"role": "user", "content": 'firecrawl_result: ' + json.dumps(tool_results.get('firecrawl_result'))},
                 {"role": "user", "content": 'serper_result: ' +json.dumps(tool_results.get('serper_result'))},
                 {"role": "user", "content": 'rag_result : '+json.dumps(tool_results.get('rag_result'))},
+                {"role": "user", "content": 'firecrawl_link_result : '+json.dumps(tool_results.get('firecrawl_link_result'))},
         ]
     summary_speaker_info = get_llm_response(client=llm_client,messages=summary_messages)
     agent.send_output('speaker_summary', summary_speaker_info)
