@@ -100,7 +100,64 @@
       direction="rtl"
       size="50%">
       <div class="log-container">
-        <pre class="agent-logs">{{ currentAgentLogs }}</pre>
+        <div v-if="parsedLogs.length > 0" class="structured-logs">
+          <!-- 日志过滤和搜索 -->
+          <div class="log-controls">
+            <el-input
+              v-model="logSearchText"
+              placeholder="搜索日志内容"
+              clearable
+              prefix-icon="el-icon-search"
+              @input="filterLogs"
+              class="log-search"
+            ></el-input>
+            <el-select 
+              v-model="logTypeFilter" 
+              placeholder="日志类型" 
+              clearable 
+              @change="filterLogs"
+              class="log-type-filter"
+            >
+              <el-option label="全部" value=""></el-option>
+              <el-option label="Dora Daemon" value="Dora Daemon"></el-option>
+              <el-option label="运行实例" value="运行实例"></el-option>
+              <el-option label="其他日志" value="其他"></el-option>
+            </el-select>
+            <el-button type="primary" size="small" @click="expandAllLogs" class="log-expand-btn">
+              {{ allExpanded ? '全部折叠' : '全部展开' }}
+            </el-button>
+          </div>
+
+          <!-- 日志条目数量显示 -->
+          <div class="log-stats">
+            <span>共 {{ parsedLogs.length }} 个日志条目</span>
+            <span v-if="filteredLogs.length !== parsedLogs.length">，当前显示 {{ filteredLogs.length }} 个</span>
+          </div>
+
+          <!-- 日志内容 -->
+          <el-collapse v-model="activeLogSections">
+            <el-collapse-item 
+              v-for="(section, index) in filteredLogs" 
+              :key="index" 
+              :name="index"
+              class="log-item"
+            >
+              <template #title>
+                <div class="log-section-title">
+                  <span>{{ section.title }}</span>
+                  <span class="log-time" v-if="section.time">{{ section.time }}</span>
+                </div>
+              </template>
+              <pre class="log-content" v-html="highlightSearchText(section.content)"></pre>
+            </el-collapse-item>
+          </el-collapse>
+
+          <!-- 无匹配结果提示 -->
+          <div v-if="filteredLogs.length === 0" class="no-logs-message">
+            没有找到匹配的日志条目
+          </div>
+        </div>
+        <pre v-else class="agent-logs">{{ currentAgentLogs }}</pre>
       </div>
       <template #footer>
         <div class="log-footer">
@@ -148,6 +205,12 @@ export default {
     // 日志查看相关变量
     const logDrawerVisible = ref(false)
     const currentAgentLogs = ref('')
+    const parsedLogs = ref([])
+    const filteredLogs = ref([])
+    const activeLogSections = ref([0]) // 默认展开第一个日志部分
+    const logSearchText = ref('')
+    const logTypeFilter = ref('')
+    const allExpanded = ref(false)
     const selectedAgentName = ref('')
     const copyDialogVisible = ref(false)
     const copyForm = ref({
@@ -168,6 +231,117 @@ export default {
       )
     })
     
+    // 解析日志内容，将其分为不同的部分
+    const parseLogContent = (logContent) => {
+      if (!logContent || typeof logContent !== 'string') {
+        return []
+      }
+
+      // 使用正则表达式匹配日志部分的标题行
+      const sectionRegex = /===\s+([^=]+)\s+===/g
+      const sections = []
+      let match
+      let lastIndex = 0
+      let sectionIndex = 0
+
+      // 查找所有日志部分
+      while ((match = sectionRegex.exec(logContent)) !== null) {
+        const title = match[1].trim()
+        const startIndex = match.index
+        
+        // 如果不是第一个部分，添加前一个部分的内容
+        if (sectionIndex > 0) {
+          const prevSection = sections[sectionIndex - 1]
+          prevSection.content = logContent.substring(lastIndex, startIndex).trim()
+        }
+        
+        // 提取时间信息（如果存在）
+        let timeMatch = null
+        if (title.includes('运行实例')) {
+          // 尝试从内容中提取时间信息
+          const contentAfterTitle = logContent.substring(startIndex + match[0].length)
+          timeMatch = contentAfterTitle.match(/\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}/)
+        }
+        
+        // 确定日志类型
+        let type = '其他'
+        if (title.includes('Dora Daemon')) {
+          type = 'Dora Daemon'
+        } else if (title.includes('运行实例')) {
+          type = '运行实例'
+        }
+        
+        sections.push({
+          title: title,
+          time: timeMatch ? timeMatch[0] : null,
+          content: '',
+          type: type
+        })
+        
+        lastIndex = startIndex + match[0].length
+        sectionIndex++
+      }
+      
+      // 添加最后一个部分的内容
+      if (sections.length > 0) {
+        const lastSection = sections[sections.length - 1]
+        lastSection.content = logContent.substring(lastIndex).trim()
+      } else {
+        // 如果没有找到任何部分，将整个日志作为一个部分
+        sections.push({
+          title: '日志内容',
+          time: null,
+          content: logContent,
+          type: '其他'
+        })
+      }
+      
+      return sections
+    }
+    
+    // 过滤日志
+    const filterLogs = () => {
+      if (!logSearchText.value && !logTypeFilter.value) {
+        // 如果没有搜索条件，显示所有日志
+        filteredLogs.value = parsedLogs.value
+      } else {
+        filteredLogs.value = parsedLogs.value.filter(log => {
+          // 类型过滤
+          const typeMatch = !logTypeFilter.value || log.type === logTypeFilter.value
+          
+          // 搜索文本过滤
+          const searchMatch = !logSearchText.value || 
+            log.content.toLowerCase().includes(logSearchText.value.toLowerCase()) ||
+            log.title.toLowerCase().includes(logSearchText.value.toLowerCase())
+            
+          return typeMatch && searchMatch
+        })
+      }
+    }
+    
+    // 高亮搜索文本
+    const highlightSearchText = (content) => {
+      if (!logSearchText.value || !content) return content
+      
+      // 转义特殊字符，避免正则表达式错误
+      const escapedSearchText = logSearchText.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const regex = new RegExp(escapedSearchText, 'gi')
+      
+      return content.replace(regex, match => `<span class="highlight">${match}</span>`)
+    }
+    
+    // 展开/折叠所有日志
+    const expandAllLogs = () => {
+      if (allExpanded.value) {
+        // 全部折叠
+        activeLogSections.value = []
+      } else {
+        // 全部展开
+        activeLogSections.value = filteredLogs.value.map((_, index) => index)
+      }
+      allExpanded.value = !allExpanded.value
+    }
+
     // 获取Agent日志
     const fetchAgentLogs = async (agentName) => {
       selectedAgentName.value = agentName
@@ -176,11 +350,23 @@ export default {
         const response = await agentStore.fetchAgentLogs(agentName)
         if (response && response.success) {
           currentAgentLogs.value = response.logs || '暂无日志'
+          // 解析日志内容
+          parsedLogs.value = parseLogContent(response.logs)
+          filteredLogs.value = parsedLogs.value
+          // 默认展开第一个部分
+          activeLogSections.value = parsedLogs.value.length > 0 ? [0] : []
+          // 重置过滤条件
+          logSearchText.value = ''
+          logTypeFilter.value = ''
         } else {
           currentAgentLogs.value = '获取日志失败'
+          parsedLogs.value = []
+          filteredLogs.value = []
         }
       } catch (error) {
         currentAgentLogs.value = `错误: ${error.message || error}`
+        parsedLogs.value = []
+        filteredLogs.value = []
       }
       logDrawerVisible.value = true
     }
@@ -296,6 +482,15 @@ export default {
       // 日志相关
       logDrawerVisible,
       currentAgentLogs,
+      parsedLogs,
+      filteredLogs,
+      activeLogSections,
+      logSearchText,
+      logTypeFilter,
+      allExpanded,
+      filterLogs,
+      highlightSearchText,
+      expandAllLogs,
       selectedAgentName,
       fetchAgentLogs
     }
@@ -329,18 +524,90 @@ export default {
 .log-container {
   height: 100%;
   padding: 10px;
-  background-color: #1e1e1e;
   border-radius: 4px;
   overflow-y: auto;
 }
 
 .agent-logs {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
-  color: #e0e0e0;
   white-space: pre-wrap;
+  font-family: monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow: auto;
+  height: 100%;
+  margin: 0;
   line-height: 1.5;
-  overflow-x: auto;
+}
+
+.structured-logs {
+  height: 100%;
+  overflow: auto;
+}
+
+.log-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.log-search {
+  flex: 1;
+}
+
+.log-type-filter {
+  width: 150px;
+}
+
+.log-stats {
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  color: #606266;
+}
+
+.no-logs-message {
+  padding: 20px;
+  text-align: center;
+  color: #909399;
+  font-style: italic;
+}
+
+.highlight {
+  background-color: #ffd04b;
+  color: #000;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.log-item {
+  margin-bottom: 5px;
+}
+
+.log-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.log-time {
+  font-size: 0.85em;
+  color: #8a8a8a;
+  margin-left: 10px;
+}
+
+.log-content {
+  white-space: pre-wrap;
+  font-family: monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow: auto;
+  margin: 0;
+  line-height: 1.5;
 }
 
 [data-theme="light"] .log-container {

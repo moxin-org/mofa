@@ -26,7 +26,7 @@
               <el-radio :label="true">使用系统安装的MOFA</el-radio>
               <el-radio :label="false">使用虚拟环境</el-radio>
             </el-radio-group>
-            <div class="form-help">            使用系统全局安装的MOFA或自定义虚拟环境</div>
+            <div class="form-help"></div>
           </el-form-item>
 
           <el-form-item label="MoFA 环境路径" v-if="!settingsForm.use_system_mofa">

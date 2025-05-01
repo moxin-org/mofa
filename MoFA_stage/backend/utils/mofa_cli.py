@@ -36,6 +36,20 @@ class MofaCLI:
         # 创建agent目录如果不存在
         os.makedirs(self.agents_dir, exist_ok=True)
         
+        # 存储所有可能的agent目录路径，用于搜索agent
+        self.possible_agent_dirs = [self.agents_dir]  # 当前配置的路径
+        
+        # 添加所有配置项中的路径
+        for storage_key, rel_path in AGENT_STORAGE_OPTIONS.items():
+            if rel_path:  # 如果不是空路径
+                full_path = os.path.join(self.mofa_dir, rel_path)
+                if full_path not in self.possible_agent_dirs:
+                    self.possible_agent_dirs.append(full_path)
+        
+        # 如果存在自定义路径，也添加到搜索路径中
+        if custom_path and os.path.exists(custom_path) and custom_path not in self.possible_agent_dirs:
+            self.possible_agent_dirs.append(custom_path)
+        
         # 根据设置决定是否使用系统命令或虚拟环境
         if self.use_system_mofa:
             # 使用系统安装的mofa
@@ -163,31 +177,10 @@ class MofaCLI:
                 print(f"CLI 命令出错: {cli_err}")
             
             # 2. 不管CLI命令是否成功，都尝试扫描所有可能的目录
-            # 获取所有可能的agent目录路径
-            possible_dirs = [self.agents_dir]  # 当前配置的路径
-            
-            # 添加所有配置项中的路径
-            # 使用类初始化时获取的AGENT_STORAGE_OPTIONS
-            # 先导入需要的模块
-            import sys
-            sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            from config import AGENT_STORAGE_OPTIONS
-            
-            for storage_key, rel_path in AGENT_STORAGE_OPTIONS.items():
-                if rel_path:  # 如果不是空路径
-                    full_path = os.path.join(self.mofa_dir, rel_path)
-                    if full_path not in possible_dirs:
-                        possible_dirs.append(full_path)
-            
-            # 如果存在自定义路径，也添加到搜索路径中
-            custom_path = self.settings.get('custom_agent_path', '')
-            if custom_path and os.path.exists(custom_path) and custom_path not in possible_dirs:
-                possible_dirs.append(custom_path)
-                
-            print(f"将根据以下路径扫描 Agent: {possible_dirs}")
+            print(f"将根据以下路径扫描 Agent: {self.possible_agent_dirs}")
             
             # 迭代所有可能的目录
-            for agent_dir in possible_dirs:
+            for agent_dir in self.possible_agent_dirs:
                 if os.path.exists(agent_dir) and os.path.isdir(agent_dir):
                     try:
                         # 获取目录下的所有文件夹
@@ -222,7 +215,17 @@ class MofaCLI:
     
     def get_agent_details(self, agent_name):
         """获取特定 agent 的详细信息"""
+        # 首先尝试在当前配置的agent目录中查找
         agent_path = os.path.join(self.agents_dir, agent_name)
+        
+        # 如果在当前配置的目录中找不到，则尝试在所有可能的目录中查找
+        if not os.path.exists(agent_path):
+            for possible_dir in self.possible_agent_dirs:
+                possible_path = os.path.join(possible_dir, agent_name)
+                if os.path.exists(possible_path):
+                    agent_path = possible_path
+                    break
+        
         if not os.path.exists(agent_path):
             return None
         
@@ -404,8 +407,9 @@ class MofaCLI:
         """获取指定agent的运行日志
         尝试从以下位置获取日志：
         1. agent目录下的logs子目录
-        2. MoFA目录下的logs子目录中与agent相关的日志
-        3. 系统临时目录中可能的日志文件
+        2. agent目录下的out目录及其子目录
+        3. MoFA目录下的logs子目录中与agent相关的日志
+        4. 系统临时目录中可能的日志文件
         """
         try:
             agent_path = os.path.join(self.agents_dir, agent_name)
@@ -425,6 +429,89 @@ class MofaCLI:
             ]
             
             logs_content = []
+            
+            # 检查agent目录下的out目录
+            out_dir = os.path.join(agent_path, "out")
+            if os.path.exists(out_dir) and os.path.isdir(out_dir):
+                # 检查dora-daemon.txt文件
+                daemon_log = os.path.join(out_dir, "dora-daemon.txt")
+                if os.path.exists(daemon_log) and os.path.isfile(daemon_log):
+                    try:
+                        with open(daemon_log, "r") as f:
+                            # 只读取最后200行，避免文件过大
+                            lines = f.readlines()
+                            content = "".join(lines[-200:] if len(lines) > 200 else lines)
+                            if content:
+                                logs_content.append(f"=== Dora Daemon 日志 ===\n{content}\n")
+                    except Exception as e:
+                        logs_content.append(f"无法读取Dora Daemon日志: {str(e)}")
+                
+                # 检查dora-coordinator.txt文件
+                coordinator_log = os.path.join(out_dir, "dora-coordinator.txt")
+                if os.path.exists(coordinator_log) and os.path.isfile(coordinator_log):
+                    try:
+                        with open(coordinator_log, "r") as f:
+                            # 只读取最后200行，避免文件过大
+                            lines = f.readlines()
+                            content = "".join(lines[-200:] if len(lines) > 200 else lines)
+                            if content:
+                                logs_content.append(f"=== Dora Coordinator 日志 ===\n{content}\n")
+                    except Exception as e:
+                        logs_content.append(f"无法读取Dora Coordinator日志: {str(e)}")
+                
+                # 检查out目录下的其他日志文件
+                for file in os.listdir(out_dir):
+                    file_path = os.path.join(out_dir, file)
+                    # 只处理文件，不处理目录
+                    if os.path.isfile(file_path) and file != "dora-daemon.txt" and file != "dora-coordinator.txt":
+                        # 检查是否是日志文件（有文本扩展名或包含“log”或“日志”字样）
+                        if file.endswith(".txt") or file.endswith(".log") or "log" in file.lower() or "日志" in file:
+                            try:
+                                with open(file_path, "r") as f:
+                                    # 只读取最后100行，避免文件过大
+                                    lines = f.readlines()
+                                    content = "".join(lines[-100:] if len(lines) > 100 else lines)
+                                    if content:
+                                        logs_content.append(f"=== {file} ===\n{content}\n")
+                            except Exception as e:
+                                logs_content.append(f"无法读取日志文件 {file}: {str(e)}")
+                
+                # 查找运行实例目录（UUID格式的目录）
+                instance_dirs = []
+                for item in os.listdir(out_dir):
+                    item_path = os.path.join(out_dir, item)
+                    # 检查是否是目录且看起来像UUID（包含连字符且长度合适）
+                    if os.path.isdir(item_path) and "-" in item and len(item) > 30:
+                        instance_dirs.append(item_path)
+                
+                # 按修改时间排序，最新的排在前面
+                instance_dirs.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                
+                # 处理所有实例目录
+                for instance_dir in instance_dirs:
+                    # 查找agent日志文件
+                    agent_log_pattern = f"log_{agent_name}*.txt"
+                    agent_logs = []
+                    
+                    # 使用glob模式查找匹配的日志文件
+                    for root, _, files in os.walk(instance_dir):
+                        for file in files:
+                            if file.startswith(f"log_{agent_name}") or file.startswith("log_") and "agent" in file.lower():
+                                agent_logs.append(os.path.join(root, file))
+                    
+                    # 处理找到的日志文件
+                    for log_file in agent_logs:
+                        try:
+                            with open(log_file, "r") as f:
+                                # 只读取最后100行，避免文件过大
+                                lines = f.readlines()
+                                content = "".join(lines[-100:] if len(lines) > 100 else lines)
+                                if content:
+                                    instance_name = os.path.basename(instance_dir)
+                                    file_name = os.path.basename(log_file)
+                                    logs_content.append(f"=== 运行实例 {instance_name} - {file_name} ===\n{content}\n")
+                        except Exception as e:
+                            logs_content.append(f"无法读取实例日志 {log_file}: {str(e)}")
             
             # 遍历所有可能的日志位置
             for location in log_locations:
@@ -483,7 +570,7 @@ class MofaCLI:
             
             # 如果仍然没有找到日志，返回一个默认消息
             if not logs_content:
-                logs_content.append(f"未找到 {agent_name} 的日志文件。请检查agent是否曾经运行过。")
+                logs_content.append(f"未找到 {agent_name} 的日志文件。可能是该Agent还未运行过。")
             
             return "\n\n".join(logs_content)
         except Exception as e:
@@ -510,7 +597,17 @@ class MofaCLI:
     
     def read_file(self, agent_name, file_path):
         """读取 agent 文件内容"""
+        # 首先尝试在当前配置的agent目录中查找
         full_path = os.path.join(self.agents_dir, agent_name, file_path)
+        
+        # 如果在当前配置的目录中找不到，则尝试在所有可能的目录中查找
+        if not os.path.exists(full_path):
+            for possible_dir in self.possible_agent_dirs:
+                possible_path = os.path.join(possible_dir, agent_name, file_path)
+                if os.path.exists(possible_path):
+                    full_path = possible_path
+                    break
+        
         if not os.path.exists(full_path):
             return {"success": False, "message": f"File {file_path} not found"}
         
@@ -523,7 +620,23 @@ class MofaCLI:
     
     def write_file(self, agent_name, file_path, content):
         """写入 agent 文件内容"""
-        full_path = os.path.join(self.agents_dir, agent_name, file_path)
+        # 首先尝试在当前配置的agent目录中查找agent
+        agent_path = os.path.join(self.agents_dir, agent_name)
+        
+        # 如果在当前配置的目录中找不到，则尝试在所有可能的目录中查找
+        if not os.path.exists(agent_path):
+            for possible_dir in self.possible_agent_dirs:
+                possible_path = os.path.join(possible_dir, agent_name)
+                if os.path.exists(possible_path):
+                    agent_path = possible_path
+                    break
+        
+        # 如果仍然找不到，则使用当前配置的目录创建新的agent
+        if not os.path.exists(agent_path):
+            agent_path = os.path.join(self.agents_dir, agent_name)
+            os.makedirs(agent_path, exist_ok=True)
+        
+        full_path = os.path.join(agent_path, file_path)
         dir_path = os.path.dirname(full_path)
         
         try:
