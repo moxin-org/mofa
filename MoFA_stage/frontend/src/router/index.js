@@ -1,0 +1,47 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+// 导入页面组件
+import AgentList from '../views/AgentList.vue'
+import AgentEdit from '../views/AgentEdit.vue'
+import AgentCreate from '../views/AgentCreate.vue'
+import Settings from '../views/Settings.vue'
+import NotFound from '../views/NotFound.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      redirect: '/agents'
+    },
+    {
+      path: '/agents',
+      name: 'agents',
+      component: AgentList
+    },
+    {
+      path: '/agents/create',
+      name: 'agent-create',
+      component: AgentCreate
+    },
+    {
+      path: '/agents/:agentName/edit',
+      name: 'agent-edit',
+      component: AgentEdit,
+      props: true
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound
+    }
+  ]
+})
+
+export default router
