@@ -5,6 +5,7 @@ import AgentList from '../views/AgentList.vue'
 import AgentEdit from '../views/AgentEdit.vue'
 import AgentCreate from '../views/AgentCreate.vue'
 import Settings from '../views/Settings.vue'
+import Terminal from '../views/Terminal.vue'
 import NotFound from '../views/NotFound.vue'
 import DataFlowList from '../views/dataflow/DataFlowList.vue'
 import DataFlowEditor from '../views/dataflow/DataFlowEditor.vue'
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: Settings
+    },
+    {
+      path: '/terminal',
+      name: 'terminal',
+      component: Terminal
     },
     {
       path: '/dataflows',

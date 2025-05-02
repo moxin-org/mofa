@@ -8,8 +8,8 @@ DEBUG = True
 SECRET_KEY = 'mofa-stage-secret-key'
 
 # MoFA 配置
-DEFAULT_MOFA_ENV = '/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/mofa_test_env'
-DEFAULT_MOFA_DIR = '/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa'
+DEFAULT_MOFA_ENV = '/mnt/c/Users/msuser/Desktop/code/mofa/mofa_venv'
+DEFAULT_MOFA_DIR = '/mnt/c/Users/msuser/Desktop/code/mofa'
 # 默认使用系统MOFA
 USE_SYSTEM_MOFA = True
 # Agent存储位置选项

@@ -1,9 +1,10 @@
 export const messages = {
   en: {
     sidebar: {
-      controlCenter: 'MoFA Stage Control Center',
+      controlCenter: 'MoFA Stage Control',
       agentsList: 'Agents List',
       dataflowOrchestration: 'Dataflow Orchestration',
+      commandLine: 'Command Line',
       settings: 'Settings'
     },
     common: {
@@ -49,6 +50,26 @@ export const messages = {
       editorFontSize: 'Editor Font Size',
       editorTabSize: 'Editor Tab Size'
     },
+    terminal: {
+      environmentInfo: 'Environment Information',
+      environmentType: 'Environment Type',
+      openTerminal: 'Open Terminal',
+      configurationRequired: 'Please configure the MoFA environment in Settings first',
+      notConfigured: 'Not configured',
+      platformInfo: 'Platform Information',
+      openingTerminal: 'Opening terminal...',
+      windowsPrompt: 'For Windows users, we recommend using WSL (Windows Subsystem for Linux)',
+      terminalOpenSuccess: 'Terminal opened successfully',
+      terminalOpenError: 'Failed to open terminal',
+      enterCommand: 'Enter command...',
+      executing: 'Executing...',
+      clear: 'Clear',
+      execute: 'Execute',
+      sessionInitialized: 'Terminal session initialized',
+      newTab: 'New Terminal',
+      closeTab: 'Close Terminal',
+      interrupted: 'Command interrupted'
+    },
     agent: {
       list: 'Agent List',
       create: 'Create Agent',
@@ -77,6 +98,7 @@ export const messages = {
       controlCenter: 'MoFA Stage 控制中心',
       agentsList: 'Agents 列表',
       dataflowOrchestration: '数据流编排',
+      commandLine: '命令行',
       settings: '设置'
     },
     common: {
@@ -106,8 +128,8 @@ export const messages = {
       useVirtualEnv: '使用虚拟环境',
       mofaEnvPath: 'MoFA 环境路径',
       browse: '浏览',
-      mofaEnvPathHelp: '指定 MoFA 虚拟环境路径，例如：/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/mofa_test_env',
-      mofaDirHelp: '指定 MoFA 项目根目录，例如：/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa',
+      mofaEnvPathHelp: '指定 MoFA 虚拟环境路径，例如：/mnt/c/Users/msuser/Desktop/code/mofa/mofa_venv',
+      mofaDirHelp: '指定 MoFA 项目根目录，例如：/mnt/c/Users/msuser/Desktop/code/mofa',
       agentStorage: 'Agent 存储位置',
       examplesDir: 'examples目录 (/python/examples)',
       agentHubDir: 'agent-hub目录 (/python/agent-hub)',
@@ -121,6 +143,26 @@ export const messages = {
       darkTheme: '暗色',
       editorFontSize: '编辑器字体大小',
       editorTabSize: '编辑器缩进大小'
+    },
+    terminal: {
+      environmentInfo: '环境信息',
+      environmentType: '环境类型',
+      openTerminal: '打开命令行',
+      configurationRequired: '请先在设置中配置MoFA环境',
+      notConfigured: '未配置',
+      platformInfo: '平台信息',
+      openingTerminal: '正在打开命令行...',
+      windowsPrompt: '对于Windows用户，我们推荐使用WSL(Windows Subsystem for Linux)',
+      terminalOpenSuccess: '命令行已成功打开',
+      terminalOpenError: '打开命令行失败',
+      enterCommand: '输入命令...',
+      executing: '正在执行...',
+      clear: '清除',
+      execute: '执行',
+      sessionInitialized: '终端会话已初始化',
+      newTab: '新建终端',
+      closeTab: '关闭终端',
+      interrupted: '命令已中断'
     },
     agent: {
       list: 'Agent 列表',

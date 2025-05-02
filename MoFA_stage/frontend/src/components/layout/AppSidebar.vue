@@ -19,6 +19,10 @@
           <el-icon><Connection /></el-icon>
           <span>{{ $t('sidebar.dataflowOrchestration') }}</span>
         </el-menu-item>
+        <el-menu-item index="/terminal">
+          <el-icon><Monitor /></el-icon>
+          <span>{{ $t('sidebar.commandLine') }}</span>
+        </el-menu-item>
         <el-menu-item index="/settings">
           <el-icon><Setting /></el-icon>
           <span>{{ $t('sidebar.settings') }}</span>
@@ -36,14 +40,15 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSettingsStore } from '../../store/settings'
 import { useI18n } from 'vue-i18n'
-import { Menu, Setting, Connection } from '@element-plus/icons-vue'
+import { Menu, Setting, Connection, Monitor } from '@element-plus/icons-vue'
 
 export default {
   name: 'AppSidebar',
   components: {
     Menu,
     Setting,
-    Connection
+    Connection,
+    Monitor
   },
   setup() {
     const route = useRoute()
