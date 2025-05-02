@@ -11,7 +11,8 @@ export const useSettingsStore = defineStore('settings', {
       mofa_dir: '',
       theme: 'light',
       editor_font_size: 14,
-      editor_tab_size: 4
+      editor_tab_size: 4,
+      language: localStorage.getItem('language') || 'zh'
     },
     isLoading: false,
     error: null

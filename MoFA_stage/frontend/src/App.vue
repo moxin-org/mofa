@@ -11,6 +11,7 @@ import { onMounted } from 'vue'
 import { useAgentStore } from './store/agent'
 import { useSettingsStore } from './store/settings'
 import AppLayout from './components/layout/AppLayout.vue'
+import { setLanguage } from './utils/i18n'
 
 export default {
   name: 'App',
@@ -27,13 +28,20 @@ export default {
       document.documentElement.setAttribute('data-theme', theme)
     }
     
+    // 应用语言设置
+    const applyLanguage = () => {
+      const lang = settingsStore.settings.language || 'zh'
+      setLanguage(lang)
+    }
+    
     onMounted(async () => {
       // 初始化应用时加载设置和 agent 列表
       await settingsStore.fetchSettings()
       await agentStore.fetchAgents()
       
-      // 应用主题设置
+      // 应用主题和语言设置
       applyTheme()
+      applyLanguage()
     })
     
     return {}

@@ -6,5 +6,6 @@
   "editor_tab_size": 4,
   "use_system_mofa": true,
   "agent_storage": "examples",
-  "custom_agent_path": ""
+  "custom_agent_path": "",
+  "language": "en"
 }

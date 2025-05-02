@@ -1,69 +1,81 @@
 <template>
   <div class="page-container">
     <div class="page-header">
-      <h1 class="page-title">Agent 列表</h1>
+      <h1 class="page-title">{{ $t('agent.list') }}</h1>
+      <div class="search-container">
+        <el-input
+          v-model="searchQuery"
+          placeholder="搜索Agent..."
+          clearable
+          @input="handleSearch"
+        >
+          <template #prefix>
+            <el-icon><Search /></el-icon>
+          </template>
+        </el-input>
+      </div>
       <div class="page-actions">
         <el-button type="primary" @click="handleCreateAgent">
           <el-icon><Plus /></el-icon>
-          创建 Agent
+          {{ $t('agent.create') }}
         </el-button>
       </div>
     </div>
 
-    <!-- 加载中状态 -->
+    <!-- Loading state -->
     <el-card v-if="isLoading" class="loading-container">
       <el-skeleton :rows="5" animated />
     </el-card>
 
-    <!-- 空状态 -->
-    <el-empty v-else-if="filteredAgents.length === 0" description="没有找到 Agent">
-      <el-button type="primary" @click="handleCreateAgent">创建第一个 Agent</el-button>
+    <!-- Empty state -->
+    <el-empty v-else-if="filteredAgents.length === 0" :description="$t('agent.noAgentsFound')">
+      <el-button type="primary" @click="handleCreateAgent">{{ $t('agent.createFirst') }}</el-button>
     </el-empty>
 
-    <!-- Agent 卡片列表 -->
+    <!-- Agent card list -->
     <div v-else class="agent-cards">
       <el-card v-for="agent in filteredAgents" :key="agent" class="agent-card">
         <template #header>
           <div class="agent-card-header">
             <h3 class="agent-card-title">{{ agent }}</h3>
             <div class="agent-status" v-if="isAgentRunning(agent)">
-              <el-tag type="success" size="small">运行中</el-tag>
+              <el-tag type="success" size="small">{{ $t('agent.running') }}</el-tag>
             </div>
           </div>
         </template>
 
         <div class="agent-card-body">
-          <p class="agent-description">{{ agentDescription(agent) || '无描述信息' }}</p>
+          <p class="agent-description">{{ agentDescription(agent) || $t('agent.noDescription') }}</p>
         </div>
 
         <div class="agent-card-footer">
           <el-button-group>
-            <el-tooltip content="复制" placement="top">
+            <el-tooltip :content="$t('common.copy')" placement="top">
               <el-button size="small" @click="handleCopyAgent(agent)">
                 <el-icon><CopyDocument /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip content="编辑" placement="top">
+            <el-tooltip :content="$t('common.edit')" placement="top">
               <el-button size="small" @click="handleEditAgent(agent)">
                 <el-icon><Edit /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip content="查看日志" placement="top">
+            <el-tooltip :content="$t('agent.viewLogs')" placement="top">
               <el-button size="small" type="info" @click="fetchAgentLogs(agent)">
                 <el-icon><Document /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip content="运行" placement="top" v-if="!isAgentRunning(agent)">
+            <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)">
               <el-button size="small" type="success" @click="handleRunAgent(agent)">
                 <el-icon><VideoPlay /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip content="停止" placement="top" v-else>
+            <el-tooltip :content="$t('agent.stop')" placement="top" v-else>
               <el-button size="small" type="danger" @click="handleStopAgent(agent)">
                 <el-icon><VideoPause /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip content="删除" placement="top">
+            <el-tooltip :content="$t('common.delete')" placement="top">
               <el-button size="small" type="danger" @click="handleDeleteAgent(agent)">
                 <el-icon><Delete /></el-icon>
               </el-button>
@@ -73,30 +85,30 @@
       </el-card>
     </div>
 
-    <!-- 复制 Agent 对话框 -->
-    <el-dialog v-model="copyDialogVisible" title="复制 Agent" width="30%">
+    <!-- Copy Agent Dialog -->
+    <el-dialog v-model="copyDialogVisible" :title="$t('agent.copyAgent')" width="30%">
       <el-form :model="copyForm" label-width="80px">
-        <el-form-item label="源 Agent">
+        <el-form-item :label="$t('agent.sourceAgent')">
           <el-input v-model="copyForm.source" disabled />
         </el-form-item>
-        <el-form-item label="新 Agent">
-          <el-input v-model="copyForm.target" placeholder="请输入新 Agent 名称" />
+        <el-form-item :label="$t('agent.newAgent')">
+          <el-input v-model="copyForm.target" :placeholder="$t('agent.enterNewAgentName')" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="copyDialogVisible = false">取消</el-button>
+          <el-button @click="copyDialogVisible = false">{{ $t('common.cancel') }}</el-button>
           <el-button type="primary" @click="confirmCopyAgent" :loading="isCopying">
-            确认复制
+            {{ $t('agent.confirmCopy') }}
           </el-button>
         </span>
       </template>
     </el-dialog>
     
-    <!-- Agent 日志抽屉 -->
+    <!-- Agent Log Drawer -->
     <el-drawer
       v-model="logDrawerVisible"
-      :title="`${selectedAgentName} 运行日志`"
+      :title="`${selectedAgentName} ${$t('agent.runningLogs')}`"
       direction="rtl"
       size="50%">
       <div class="log-container">
@@ -175,6 +187,7 @@ import { useRouter } from 'vue-router'
 import { useAgentStore } from '../store/agent'
 import { Plus, Search, Edit, Delete, CopyDocument, VideoPlay, VideoPause, Document, View } from '@element-plus/icons-vue'
 import { ElMessageBox, ElMessage, ElDrawer } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'AgentList',
@@ -192,15 +205,10 @@ export default {
   setup() {
     const router = useRouter()
     const agentStore = useAgentStore()
+    const { t } = useI18n()
     
-    // 从全局上下文中获取搜索查询
-    const globalSearchQuery = inject('searchQuery', ref(''))
+    // 本地搜索查询
     const searchQuery = ref('')
-    
-    // 同步全局搜索查询到本地搜索查询
-    watch(globalSearchQuery, (newVal) => {
-      searchQuery.value = newVal
-    })
     
     // 日志查看相关变量
     const logDrawerVisible = ref(false)
@@ -223,13 +231,18 @@ export default {
     const error = computed(() => agentStore.error)
     
     const filteredAgents = computed(() => {
-      const query = searchQuery.value.trim().toLowerCase()
-      if (!query) return agentStore.agents
+      const agents = agentStore.agents
+      if (!searchQuery.value) return agents
       
-      return agentStore.agents.filter(agent => 
-        agent.toLowerCase().includes(query)
+      return agents.filter(agent => 
+        agent.toLowerCase().includes(searchQuery.value.toLowerCase())
       )
     })
+  
+    // 处理搜索
+    const handleSearch = () => {
+      // 搜索逻辑已经在 filteredAgents 计算属性中处理
+    }
     
     // 解析日志内容，将其分为不同的部分
     const parseLogContent = (logContent) => {
@@ -418,20 +431,20 @@ export default {
     
     const handleDeleteAgent = (agentName) => {
       ElMessageBox.confirm(
-        `确定要删除 Agent "${agentName}" 吗？此操作不可恢复！`,
-        '确认删除',
+        t('agent.deleteConfirm', { name: agentName }),
+        t('agent.delete'),
         {
-          confirmButtonText: '删除',
-          cancelButtonText: '取消',
+          confirmButtonText: t('common.delete'),
+          cancelButtonText: t('common.cancel'),
           type: 'warning'
         }
       )
         .then(async () => {
           const result = await agentStore.deleteAgent(agentName)
           if (result) {
-            ElMessage.success(`成功删除 Agent: ${agentName}`)
+            ElMessage.success(t('agent.deleteSuccess', { name: agentName }))
           } else {
-            ElMessage.error(`删除 Agent 失败: ${error.value}`)
+            ElMessage.error(t('agent.deleteError', { error: error.value }))
           }
         })
         .catch(() => {
@@ -467,6 +480,7 @@ export default {
       searchQuery,
       isLoading,
       filteredAgents,
+      handleSearch,
       copyDialogVisible,
       copyForm,
       isCopying,
@@ -508,6 +522,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 400px;
 }
 
 .page-title {

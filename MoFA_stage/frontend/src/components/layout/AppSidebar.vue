@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-header">
-      <h2 class="sidebar-title">MoFA Stage Dashboard</h2>
+      <h2 class="sidebar-title">{{ $t('sidebar.controlCenter') }}</h2>
     </div>
     <div class="sidebar-menu">
       <el-menu
@@ -13,16 +13,20 @@
         :active-text-color="computedTheme.activeTextColor">
         <el-menu-item index="/agents">
           <el-icon><Menu /></el-icon>
-          <span>Agents 列表</span>
+          <span>{{ $t('sidebar.agentsList') }}</span>
+        </el-menu-item>
+        <el-menu-item index="/dataflows">
+          <el-icon><Connection /></el-icon>
+          <span>{{ $t('sidebar.dataflowOrchestration') }}</span>
         </el-menu-item>
         <el-menu-item index="/settings">
           <el-icon><Setting /></el-icon>
-          <span>设置</span>
+          <span>{{ $t('sidebar.settings') }}</span>
         </el-menu-item>
       </el-menu>
     </div>
     <div class="sidebar-footer">
-      <span>MoFA_Stage v0.1.0</span>
+      <span>MoFA_Stage v0.1.1</span>
     </div>
   </div>
 </template>
@@ -31,17 +35,20 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSettingsStore } from '../../store/settings'
-import { Menu, Setting } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
+import { Menu, Setting, Connection } from '@element-plus/icons-vue'
 
 export default {
   name: 'AppSidebar',
   components: {
     Menu,
-    Setting
+    Setting,
+    Connection
   },
   setup() {
     const route = useRoute()
     const settingsStore = useSettingsStore()
+    const { t } = useI18n()
     
     const activeRoute = computed(() => {
       return route.path

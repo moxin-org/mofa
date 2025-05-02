@@ -4,23 +4,14 @@
       <el-icon class="app-logo" :size="24"><Connection /></el-icon>
       <h1 class="app-title">MoFA Stage</h1>
     </div>
-    <div class="search-container">
-      <el-input
-        v-model="searchQuery"
-        placeholder="搜索Agent..."
-        clearable
-        @input="emitSearch"
-      >
-        <template #prefix>
-          <el-icon><Search /></el-icon>
-        </template>
-      </el-input>
-    </div>
+
     <div class="header-actions">
+      <!-- 隐藏的创建Agent按钮 - 
       <el-button type="primary" @click="handleCreateAgent">
         <el-icon><Plus /></el-icon>
         创建 Agent
       </el-button>
+      -->
       <el-tooltip content="应用设置" placement="bottom">
         <el-button circle @click="goToSettings">
           <el-icon><Setting /></el-icon>
@@ -45,8 +36,6 @@ export default {
   },
   setup(props, { emit }) {
     const router = useRouter()
-    const searchQuery = ref('')
-    
     const handleCreateAgent = () => {
       router.push('/agents/create')
     }
@@ -55,15 +44,9 @@ export default {
       router.push('/settings')
     }
     
-    const emitSearch = () => {
-      emit('search', searchQuery.value)
-    }
-    
     return {
-      searchQuery,
       handleCreateAgent,
-      goToSettings,
-      emitSearch
+      goToSettings
     }
   }
 }
@@ -108,12 +91,6 @@ export default {
   font-weight: 600;
   margin: 0;
   color: var(--primary-color);
-}
-
-.search-container {
-  flex: 1;
-  max-width: 500px;
-  margin: 0 20px;
 }
 
 .header-actions {

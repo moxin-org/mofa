@@ -6,6 +6,8 @@ import AgentEdit from '../views/AgentEdit.vue'
 import AgentCreate from '../views/AgentCreate.vue'
 import Settings from '../views/Settings.vue'
 import NotFound from '../views/NotFound.vue'
+import DataFlowList from '../views/dataflow/DataFlowList.vue'
+import DataFlowEditor from '../views/dataflow/DataFlowEditor.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +37,17 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: Settings
+    },
+    {
+      path: '/dataflows',
+      name: 'dataflows',
+      component: DataFlowList
+    },
+    {
+      path: '/dataflows/:flowId/edit',
+      name: 'dataflow-edit',
+      component: DataFlowEditor,
+      props: true
     },
     {
       path: '/:pathMatch(.*)*',

@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 # 引入路由
 from routes.agents import agents_bp
 from routes.settings import settings_bp
+from routes.dataflows import dataflows_bp
 
 def create_app():
     """创建 Flask 应用"""
@@ -26,6 +27,7 @@ def create_app():
     # 注册蓝图
     app.register_blueprint(agents_bp)
     app.register_blueprint(settings_bp)
+    app.register_blueprint(dataflows_bp)
     
     # 主页路由
     @app.route('/')

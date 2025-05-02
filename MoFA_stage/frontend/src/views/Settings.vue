@@ -1,10 +1,10 @@
 <template>
   <div class="page-container">
     <div class="page-header">
-      <h1 class="page-title">设置</h1>
+      <h1 class="page-title">{{ $t('settings.title') }}</h1>
       <div class="page-actions">
-        <el-button @click="resetSettings" :loading="isResetting">重置为默认</el-button>
-        <el-button type="primary" @click="saveSettings" :loading="isSaving">保存设置</el-button>
+        <el-button @click="resetSettings" :loading="isResetting">{{ $t('settings.reset') }}</el-button>
+        <el-button type="primary" @click="saveSettings" :loading="isSaving">{{ $t('settings.save') }}</el-button>
       </div>
     </div>
 
@@ -16,62 +16,62 @@
       <el-card class="settings-card">
         <template #header>
           <div class="card-header">
-            <h3>MoFA 环境设置</h3>
+            <h3>{{ $t('settings.mofaEnvironment') }}</h3>
           </div>
         </template>
 
         <el-form :model="settingsForm" label-position="top">
-          <el-form-item label="MoFA 命令源">
+          <el-form-item :label="$t('settings.mofaCommandSource')">
             <el-radio-group v-model="settingsForm.use_system_mofa">
-              <el-radio :label="true">使用系统安装的MOFA</el-radio>
-              <el-radio :label="false">使用虚拟环境</el-radio>
+              <el-radio :label="true">{{ $t('settings.useSystemMofa') }}</el-radio>
+              <el-radio :label="false">{{ $t('settings.useVirtualEnv') }}</el-radio>
             </el-radio-group>
             <div class="form-help"></div>
           </el-form-item>
 
-          <el-form-item label="MoFA 环境路径" v-if="!settingsForm.use_system_mofa">
+          <el-form-item :label="$t('settings.mofaEnvPath')" v-if="!settingsForm.use_system_mofa">
             <el-input 
               v-model="settingsForm.mofa_env_path" 
               placeholder="/path/to/mofa_venv"
             >
               <template #append>
-                <el-button @click="selectMofaEnvPath">浏览</el-button>
+                <el-button @click="selectMofaEnvPath">{{ $t('settings.browse') }}</el-button>
               </template>
             </el-input>
-            <div class="form-help">指定 MoFA 虚拟环境路径，例如：/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/mofa_test_env</div>
+            <div class="form-help">{{ $t('settings.mofaEnvPathHelp') }}</div>
           </el-form-item>
 
-          <el-form-item label="MoFA 项目目录">
+          <el-form-item :label="$t('settings.mofaDir')">
             <el-input 
               v-model="settingsForm.mofa_dir" 
               placeholder="/path/to/mofa"
             >
               <template #append>
-                <el-button @click="selectMofaDir">浏览</el-button>
+                <el-button @click="selectMofaDir">{{ $t('settings.browse') }}</el-button>
               </template>
             </el-input>
-            <div class="form-help">指定 MoFA 项目根目录，例如：/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa</div>
+            <div class="form-help">{{ $t('settings.mofaDirHelp') }}</div>
           </el-form-item>
 
-          <el-form-item label="Agent 存储位置">
+          <el-form-item :label="$t('settings.agentStorage')">
             <el-select v-model="settingsForm.agent_storage" style="width: 100%">
-              <el-option label="examples目录 (/python/examples)" value="examples" />
-              <el-option label="agent-hub目录 (/python/agent-hub)" value="agent-hub" />
-              <el-option label="自定义目录" value="custom" />
+              <el-option :label="$t('settings.examplesDir')" value="examples" />
+              <el-option :label="$t('settings.agentHubDir')" value="agent-hub" />
+              <el-option :label="$t('settings.customDir')" value="custom" />
             </el-select>
-            <div class="form-help">选择存放Agent的目录，官方推荐使用agent-hub目录</div>
+            <div class="form-help">{{ $t('settings.agentStorageHelp') }}</div>
           </el-form-item>
 
-          <el-form-item label="自定义Agent路径" v-if="settingsForm.agent_storage === 'custom'">
+          <el-form-item :label="$t('settings.customAgentPath')" v-if="settingsForm.agent_storage === 'custom'">
             <el-input 
               v-model="settingsForm.custom_agent_path" 
               placeholder="/path/to/custom/agent/directory"
             >
               <template #append>
-                <el-button @click="selectCustomAgentPath">浏览</el-button>
+                <el-button @click="selectCustomAgentPath">{{ $t('settings.browse') }}</el-button>
               </template>
             </el-input>
-            <div class="form-help">输入存储Agent的完整目录路径</div>
+            <div class="form-help">{{ $t('settings.customAgentPathHelp') }}</div>
           </el-form-item>
         </el-form>
       </el-card>
@@ -79,19 +79,26 @@
       <el-card class="settings-card">
         <template #header>
           <div class="card-header">
-            <h3>编辑器设置</h3>
+            <h3>{{ $t('settings.editorSettings') }}</h3>
           </div>
         </template>
 
         <el-form :model="settingsForm" label-position="top">
-          <el-form-item label="主题">
-            <el-select v-model="settingsForm.theme" style="width: 100%">
-              <el-option label="亮色" value="light" />
-              <el-option label="暗色" value="dark" />
+          <el-form-item :label="$t('settings.language')">
+            <el-select v-model="settingsForm.language" style="width: 100%" @change="handleLanguageChange">
+              <el-option label="中文" value="zh" />
+              <el-option label="English" value="en" />
             </el-select>
           </el-form-item>
 
-          <el-form-item label="编辑器字体大小">
+          <el-form-item :label="$t('settings.theme')">
+            <el-select v-model="settingsForm.theme" style="width: 100%">
+              <el-option :label="$t('settings.lightTheme')" value="light" />
+              <el-option :label="$t('settings.darkTheme')" value="dark" />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item :label="$t('settings.editorFontSize')">
             <el-slider 
               v-model="settingsForm.editor_font_size" 
               :min="10" 
@@ -101,7 +108,7 @@
             />
           </el-form-item>
 
-          <el-form-item label="编辑器缩进大小">
+          <el-form-item :label="$t('settings.editorTabSize')">
             <el-slider 
               v-model="settingsForm.editor_tab_size" 
               :min="2" 
@@ -121,6 +128,7 @@ import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { useSettingsStore } from '../store/settings'
 import { ElMessage } from 'element-plus'
 import { Setting, Folder, Document } from '@element-plus/icons-vue'
+import { setLanguage } from '../utils/i18n'
 
 export default {
   name: 'Settings',
@@ -135,7 +143,8 @@ export default {
       custom_agent_path: '',
       theme: 'light',
       editor_font_size: 14,
-      editor_tab_size: 4
+      editor_tab_size: 4,
+      language: localStorage.getItem('language') || 'zh'
     })
     
     const isLoading = computed(() => settingsStore.isLoading)
@@ -198,6 +207,14 @@ export default {
       // 在实际环境中，这里可以集成文件选择对话框
       ElMessage.info('需要集成服务器端文件选择')
     }
+
+    const handleLanguageChange = (value) => {
+      // Update language immediately without waiting for save
+      setLanguage(value)
+      
+      // Save settings to apply changes server-side
+      saveSettings()
+    }
     
     // Apply theme when it changes
     const applyTheme = (theme) => {
@@ -224,7 +241,8 @@ export default {
       resetSettings,
       selectMofaEnvPath,
       selectMofaDir,
-      selectCustomAgentPath
+      selectCustomAgentPath,
+      handleLanguageChange
     }
   }
 }

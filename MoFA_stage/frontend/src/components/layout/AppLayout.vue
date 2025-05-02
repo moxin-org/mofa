@@ -2,9 +2,9 @@
   <div class="main-layout">
     <AppSidebar />
     <div class="main-content">
-      <AppHeader @search="handleSearch" />
+      <AppHeader />
       <div class="content-container">
-        <slot :searchQuery="searchQuery"></slot>
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -22,19 +22,7 @@ export default {
     AppSidebar
   },
   setup() {
-    const searchQuery = ref('')
-    
-    // 提供搜索查询给所有子组件
-    provide('searchQuery', searchQuery)
-    
-    const handleSearch = (query) => {
-      searchQuery.value = query
-    }
-    
-    return {
-      searchQuery,
-      handleSearch
-    }
+    return {}
   }
 }
 </script>
