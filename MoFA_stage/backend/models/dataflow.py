@@ -10,7 +10,7 @@ class DataFlow:
     def __init__(self, flow_id=None, name=None, description=None):
         self.flow_id = flow_id or str(uuid.uuid4())
         self.name = name or f"Flow-{self.flow_id[:8]}"
-        self.description = description or "Agent数据流"
+        self.description = description or ""
         self.nodes = []  # 代表流程中的Agent节点
         self.connections = []  # 代表节点之间的连接
         self.created_at = datetime.now().isoformat()

@@ -1,18 +1,18 @@
 <template>
   <div class="dataflow-list-container">
     <div class="header">
-      <h1>数据流编排</h1>
-      <el-button type="primary" @click="createNewDataFlow">创建新数据流</el-button>
+      <h1>{{ $t('dataflow.title') }}</h1>
+      <el-button type="primary" @click="createNewDataFlow">{{ $t('dataflow.createNew') }}</el-button>
     </div>
 
     <el-card class="description-card">
       <div class="description">
-        <p>数据流编排允许您将多个Agent连接在一起，形成一个数据处理流水线。一个Agent的输出可以作为另一个Agent的输入，实现复杂的数据处理和任务编排。</p>
+        <p>{{ $t('dataflow.description') }}</p>
       </div>
     </el-card>
 
     <div class="dataflow-list">
-      <el-empty v-if="dataFlows.length === 0" description="暂无数据流，点击上方按钮创建" />
+      <el-empty v-if="dataFlows.length === 0" :description="$t('dataflow.noDataflows')" />
       
       <el-row :gutter="20" v-else>
         <el-col :span="8" v-for="flow in dataFlows" :key="flow.flow_id">
@@ -21,14 +21,15 @@
               <div class="card-header">
                 <h3>{{ flow.name }}</h3>
                 <div class="actions">
-                  <el-button type="primary" size="small" @click="editDataFlow(flow)">编辑</el-button>
-                  <el-button type="success" size="small" @click="runDataFlow(flow)">运行</el-button>
+                  <el-button type="primary" size="small" @click="editFlowVisually(flow)">{{ $t('dataflow.editFlow') }}</el-button>
                   <el-dropdown trigger="click" @command="handleCommand($event, flow)">
-                    <el-button type="info" size="small" icon="el-icon-more"></el-button>
+                    <el-button type="primary" size="small">{{ $t('common.edit') }} <i class="el-icon-arrow-down el-icon--right"></i></el-button>
                     <template #dropdown>
                       <el-dropdown-menu>
-                        <el-dropdown-item command="duplicate">复制</el-dropdown-item>
-                        <el-dropdown-item command="delete" divided>删除</el-dropdown-item>
+                        <el-dropdown-item command="edit">{{ $t('dataflow.editInfo') }}</el-dropdown-item>
+                        <el-dropdown-item command="run">{{ $t('agent.run') }}</el-dropdown-item>
+                        <el-dropdown-item command="duplicate">{{ $t('dataflow.copy') }}</el-dropdown-item>
+                        <el-dropdown-item command="delete" divided>{{ $t('common.delete') }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
@@ -36,23 +37,23 @@
               </div>
             </template>
             <div class="card-content">
-              <p class="description">{{ flow.description || '无描述' }}</p>
+              <p class="description">{{ flow.description || $t('dataflow.noDescription') }}</p>
               <div class="stats">
                 <div class="stat-item">
-                  <span class="label">节点数:</span>
+                  <span class="label">{{ $t('dataflow.nodeCount') }}:</span>
                   <span class="value">{{ flow.nodes.length }}</span>
                 </div>
                 <div class="stat-item">
-                  <span class="label">连接数:</span>
+                  <span class="label">{{ $t('dataflow.connectionCount') }}:</span>
                   <span class="value">{{ flow.connections.length }}</span>
                 </div>
                 <div class="stat-item">
-                  <span class="label">状态:</span>
+                  <span class="label">{{ $t('dataflow.status') }}:</span>
                   <el-tag :type="getStatusType(flow.status)">{{ flow.status }}</el-tag>
                 </div>
               </div>
               <div class="last-updated">
-                <span>最后更新: {{ formatDate(flow.updated_at) }}</span>
+                <span>{{ $t('dataflow.lastUpdated') }}: {{ formatDate(flow.updated_at) }}</span>
               </div>
             </div>
           </el-card>
@@ -63,25 +64,25 @@
     <!-- 创建/编辑数据流对话框 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="isEditing ? '编辑数据流' : '创建新数据流'"
+      :title="isEditing ? $t('dataflow.editInfo') : $t('dataflow.createNew')"
       width="30%"
     >
       <el-form :model="formData" label-width="80px">
-        <el-form-item label="名称">
-          <el-input v-model="formData.name" placeholder="请输入数据流名称"></el-input>
+        <el-form-item :label="$t('dataflow.name')">
+          <el-input v-model="formData.name" :placeholder="$t('dataflow.enterName')"></el-input>
         </el-form-item>
-        <el-form-item label="描述">
+        <el-form-item :label="$t('dataflow.descriptionLabel')">
           <el-input
             v-model="formData.description"
             type="textarea"
-            placeholder="请输入数据流描述"
+            :placeholder="$t('dataflow.enterDescription')"
           ></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="saveDataFlow">确定</el-button>
+          <el-button @click="dialogVisible = false">{{ $t('common.cancel') }}</el-button>
+          <el-button type="primary" @click="saveDataFlow">{{ $t('common.confirm') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -89,14 +90,14 @@
     <!-- 确认删除对话框 -->
     <el-dialog
       v-model="deleteDialogVisible"
-      title="确认删除"
+      :title="$t('dataflow.confirmDelete')"
       width="30%"
     >
-      <span>确定要删除数据流 "{{ selectedFlow?.name }}" 吗？此操作不可恢复。</span>
+      <span>{{ $t('dataflow.deleteConfirm', { name: selectedFlow?.name }) }}</span>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="deleteDialogVisible = false">取消</el-button>
-          <el-button type="danger" @click="confirmDelete">确定删除</el-button>
+          <el-button @click="deleteDialogVisible = false">{{ $t('common.cancel') }}</el-button>
+          <el-button type="danger" @click="confirmDelete">{{ $t('common.delete') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -197,20 +198,29 @@ export default {
       try {
         const response = await dataflowApi.runDataFlow(flow.flow_id)
         if (response.data.success) {
-          ElMessage.success('数据流已开始运行')
+          ElMessage.success($t('dataflow.runSuccess'))
           await fetchDataFlows()
         } else {
-          ElMessage.error(response.data.message || '运行数据流失败')
+          ElMessage.error(response.data.message || $t('dataflow.runError'))
         }
       } catch (error) {
         console.error('Error running dataflow:', error)
-        ElMessage.error('运行数据流失败')
+        ElMessage.error($t('dataflow.runError'))
       }
+    }
+
+    // 编辑数据流可视化界面
+    const editFlowVisually = (flow) => {
+      router.push(`/dataflows/${flow.flow_id}/edit`)
     }
 
     // 处理下拉菜单命令
     const handleCommand = (command, flow) => {
-      if (command === 'duplicate') {
+      if (command === 'edit') {
+        editDataFlow(flow)
+      } else if (command === 'run') {
+        runDataFlow(flow)
+      } else if (command === 'duplicate') {
         duplicateDataFlow(flow)
       } else if (command === 'delete') {
         selectedFlow.value = flow
@@ -222,7 +232,7 @@ export default {
     const duplicateDataFlow = async (flow) => {
       try {
         const newFlow = {
-          name: `${flow.name} (复制)`,
+          name: `${flow.name} (${$t('dataflow.copy')})`,
           description: flow.description,
           nodes: flow.nodes,
           connections: flow.connections
@@ -290,6 +300,7 @@ export default {
       formData,
       createNewDataFlow,
       editDataFlow,
+      editFlowVisually,
       saveDataFlow,
       runDataFlow,
       handleCommand,
@@ -351,7 +362,7 @@ export default {
 
 .actions {
   display: flex;
-  gap: 5px;
+  gap: 10px;
 }
 
 .card-content {
@@ -365,6 +376,7 @@ export default {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 

@@ -1,21 +1,21 @@
 <template>
   <div class="dataflow-editor">
     <div class="editor-header">
-      <h1>{{ dataFlow.name || '数据流编辑器' }}</h1>
+      <h1>{{ dataFlow.name || $t('dataflow.editor') }}</h1>
       <div class="actions">
-        <el-button class="action-button" @click="saveDataFlow">编辑</el-button>
-        <el-button class="action-button" @click="runDataFlow">运行</el-button>
-        <el-button class="action-button" @click="goBack">删除</el-button>
+        <el-button class="action-button" type="success" @click="saveDataFlow">{{ $t('common.save') }}</el-button>
+        <el-button class="action-button" type="primary" @click="runDataFlow">{{ $t('agent.run') }}</el-button>
+        <el-button class="action-button" @click="goBack">{{ $t('common.back') }}</el-button>
       </div>
     </div>
 
     <div class="editor-container">
       <div class="sidebar">
-        <h3>可用 Agents</h3>
+        <h3>{{ $t('dataflow.availableAgents') }}</h3>
         <div class="search-box">
           <el-input
             v-model="searchQuery"
-            placeholder="搜索 Agent"
+            :placeholder="$t('dataflow.searchAgent')"
             prefix-icon="el-icon-search"
             clearable
           />
@@ -29,10 +29,9 @@
             @dragstart="onDragStart($event, agent)"
           >
             <div class="agent-name">{{ agent.name }}</div>
-            <div class="agent-description">{{ agent.description || '无描述' }}</div>
           </div>
           <div v-if="filteredAgents.length === 0" class="no-agents">
-            未找到符合条件的 Agent
+            {{ $t('dataflow.noAgentsFound') }}
           </div>
           <div v-if="isLoading" class="loading-agents">
             <el-skeleton :rows="5" animated />
@@ -47,7 +46,7 @@
           @dragover="onDragOver($event)"
         >
           <div v-if="dataFlow.nodes.length === 0" class="empty-canvas">
-            <p>从左侧拖拽 Agent 到此处开始创建数据流</p>
+            <p>{{ $t('dataflow.dragAgents') }}</p>
           </div>
 
           <div
@@ -65,9 +64,9 @@
                   <el-button type="info" size="small" icon="el-icon-more" circle></el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item command="copy">复制</el-dropdown-item>
-                      <el-dropdown-item command="edit">编辑</el-dropdown-item>
-                      <el-dropdown-item command="delete" divided>删除</el-dropdown-item>
+                      <el-dropdown-item command="copy">{{ $t('dataflow.copy') }}</el-dropdown-item>
+                      <el-dropdown-item command="edit">{{ $t('common.edit') }}</el-dropdown-item>
+                      <el-dropdown-item command="delete" divided>{{ $t('common.delete') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -83,17 +82,17 @@
                       v-if="input.type === 'text'" 
                       type="text" 
                       v-model="input.value" 
-                      :placeholder="`输入${input.name}`"
+                      :placeholder="$t('dataflow.inputLabel') + ' ' + input.name"
                     />
                     <div v-if="input.type === 'file'" class="file-input-group">
-                      <input type="text" v-model="input.value" placeholder="选择文件" readonly />
-                      <el-button size="small" type="primary">上传</el-button>
+                      <input type="text" v-model="input.value" :placeholder="$t('dataflow.selectFile')" readonly />
+                      <el-button size="small" type="primary">{{ $t('dataflow.upload') }}</el-button>
                     </div>
                     <el-button 
                       v-if="input.type === 'text'" 
                       size="small" 
                       type="primary"
-                    >提交</el-button>
+                    >{{ $t('dataflow.submit') }}</el-button>
                   </div>
                   <div class="port input-port" @mousedown="startConnection($event, node.id, input.name, 'target')">
                     <span class="port-dot"></span>
@@ -106,7 +105,7 @@
                     size="small" 
                     icon="el-icon-plus" 
                     @click="addInput(node.id)"
-                  >添加输入</el-button>
+                  >{{ $t('dataflow.addInput') }}</el-button>
                 </div>
               </div>
               
@@ -130,7 +129,7 @@
                     size="small" 
                     icon="el-icon-plus" 
                     @click="addOutput(node.id)"
-                  >添加输出</el-button>
+                  >{{ $t('dataflow.addOutput') }}</el-button>
                 </div>
               </div>
             </div>
@@ -162,19 +161,19 @@
       </div>
 
       <div class="properties-panel">
-        <h3>属性面板</h3>
+        <h3>{{ $t('dataflow.propertiesPanel') }}</h3>
         <div v-if="selectedNode" class="node-properties">
-          <h4>节点属性</h4>
+          <h4>{{ $t('dataflow.nodeProperties') }}</h4>
           <el-form label-width="80px">
             <el-form-item label="Agent">
               <el-input v-model="selectedNode.agent_name" disabled />
             </el-form-item>
-            <el-form-item label="输入端口">
+            <el-form-item :label="$t('dataflow.inputPorts')">
               <div v-for="(port, index) in ['input1', 'input2']" :key="`in-${index}`">
                 <el-tag>{{ port }}</el-tag>
               </div>
             </el-form-item>
-            <el-form-item label="输出端口">
+            <el-form-item :label="$t('dataflow.outputPorts')">
               <div v-for="(port, index) in ['output']" :key="`out-${index}`">
                 <el-tag type="success">{{ port }}</el-tag>
               </div>
@@ -182,21 +181,21 @@
           </el-form>
         </div>
         <div v-else-if="selectedConnection" class="connection-properties">
-          <h4>连接属性</h4>
+          <h4>{{ $t('dataflow.connectionProperties') }}</h4>
           <el-form label-width="80px">
-            <el-form-item label="来源">
+            <el-form-item :label="$t('dataflow.source')">
               <el-input :value="getConnectionSourceLabel(selectedConnection)" disabled />
             </el-form-item>
-            <el-form-item label="目标">
+            <el-form-item :label="$t('dataflow.target')">
               <el-input :value="getConnectionTargetLabel(selectedConnection)" disabled />
             </el-form-item>
             <el-form-item>
-              <el-button type="danger" @click="removeConnection(selectedConnection.id)">删除连接</el-button>
+              <el-button type="danger" @click="removeConnection(selectedConnection.id)">{{ $t('dataflow.deleteConnection') }}</el-button>
             </el-form-item>
           </el-form>
         </div>
         <div v-else class="no-selection">
-          <p>选择节点或连接以查看属性</p>
+          <p>{{ $t('dataflow.selectToViewProperties') }}</p>
         </div>
       </div>
     </div>
@@ -215,7 +214,7 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const flowId = route.params.id
+    const flowId = route.params.flowId
 
     // 加载状态
     const isLoading = ref(true)
@@ -289,7 +288,12 @@ export default {
       try {
         isLoading.value = true
         const response = await agentApi.getAllAgents()
-        agents.value = response.data.agents || []
+        
+        // 将字符串数组转换为对象数组，以便添加更多属性
+        agents.value = (response.data.agents || []).map(agentName => ({
+          name: agentName,
+          description: ''
+        }))
         
         // 获取每个agent的详细信息，包括输入输出参数
         for (const agent of agents.value) {
@@ -345,6 +349,17 @@ export default {
     // 返回列表页
     const goBack = () => {
       router.push('/dataflows')
+    }
+
+    // 处理编辑器顶部下拉菜单命令
+    const handleEditorCommand = (command) => {
+      if (command === 'save') {
+        saveDataFlow()
+      } else if (command === 'run') {
+        runDataFlow()
+      } else if (command === 'back') {
+        goBack()
+      }
     }
 
     // 拖拽开始
@@ -800,6 +815,7 @@ export default {
       addInput,
       addOutput,
       handleNodeCommand,
+      handleEditorCommand,
       duplicateNode,
       editNode
     }
@@ -1070,7 +1086,7 @@ export default {
 }
 
 .actions .action-button + .action-button {
-  margin-left: 8px;
+  margin-left: 10px;
 }
 
 .action-button {
