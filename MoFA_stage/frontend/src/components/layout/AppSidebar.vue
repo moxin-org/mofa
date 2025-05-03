@@ -15,10 +15,12 @@
           <el-icon><Menu /></el-icon>
           <span>{{ $t('sidebar.agentsList') }}</span>
         </el-menu-item>
+        <!-- Hidden dataflow orchestration tab as requested
         <el-menu-item index="/dataflows">
           <el-icon><Connection /></el-icon>
           <span>{{ $t('sidebar.dataflowOrchestration') }}</span>
         </el-menu-item>
+        -->
         <el-menu-item index="/terminal">
           <el-icon><Monitor /></el-icon>
           <span>{{ $t('sidebar.commandLine') }}</span>
