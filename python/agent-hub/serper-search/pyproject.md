@@ -21,5 +21,3 @@ serper-search = "serper_search.main:main"
 [build-system]
 requires = ["poetry-core>=1.8.0"]
 build-backend = "poetry.core.masonry.api"
-
-
