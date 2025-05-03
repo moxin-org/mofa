@@ -25,6 +25,13 @@
               <el-form-item label="作者">
                 <el-input v-model="helloWorldForm.authors" placeholder="您的名字" />
               </el-form-item>
+              <el-form-item label="Agent 类型">
+                <el-radio-group v-model="helloWorldForm.agentType">
+                  <el-radio label="agent-hub">{{ $t('settings.agentHubDir') }}</el-radio>
+                  <el-radio label="examples">{{ $t('settings.examplesDir') }}</el-radio>
+                </el-radio-group>
+                <div class="form-help">{{ $t('agent.agentTypeHelp') }}</div>
+              </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="createHelloWorldAgent" :loading="isCreating">
                   创建 Agent
@@ -48,6 +55,14 @@
               </el-form-item>
               <el-form-item label="新 Agent 名称" required>
                 <el-input v-model="copyForm.target" placeholder="输入唯一的 Agent 名称" />
+              </el-form-item>
+              <el-form-item label="Agent 类型">
+                <el-radio-group v-model="copyForm.agentType">
+                  <el-radio label="auto">{{ $t('agent.autoDetect') }}</el-radio>
+                  <el-radio label="agent-hub">{{ $t('settings.agentHubDir') }}</el-radio>
+                  <el-radio label="examples">{{ $t('settings.examplesDir') }}</el-radio>
+                </el-radio-group>
+                <div class="form-help">{{ $t('agent.agentTypeHelp') }}</div>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="createCopyAgent" :loading="isCreating">
@@ -82,12 +97,14 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAgentStore } from '../store/agent'
 import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'AgentCreate',
   setup() {
     const router = useRouter()
     const agentStore = useAgentStore()
+    const { t } = useI18n()
     
     const activeTab = ref('hello-world')
     const isCreating = ref(false)
@@ -97,15 +114,17 @@ export default {
     const helloWorldForm = ref({
       name: '',
       version: '0.0.1',
-      authors: 'MoFA_Stage User'
+      authors: 'MoFA_Stage User',
+      agentType: 'agent-hub' // 默认为 agent-hub 类型
     })
     
     const copyForm = ref({
       source: '',
-      target: ''
+      target: '',
+      agentType: 'auto' // 默认为自动检测类型
     })
     
-    const agents = computed(() => agentStore.agents)
+    const agents = computed(() => agentStore.allAgents)
     
     // 从 Hello World 模板创建 Agent
     const createHelloWorldAgent = async () => {
@@ -118,7 +137,8 @@ export default {
       const result = await agentStore.createAgent({
         name: helloWorldForm.value.name,
         version: helloWorldForm.value.version,
-        authors: helloWorldForm.value.authors
+        authors: helloWorldForm.value.authors,
+        agent_type: helloWorldForm.value.agentType // 传递 Agent 类型
       })
       isCreating.value = false
       
@@ -138,9 +158,12 @@ export default {
       }
       
       isCreating.value = true
+      // 如果选择了 'auto'，则传递 null 作为 agentType
+      const agentType = copyForm.value.agentType === 'auto' ? null : copyForm.value.agentType
       const result = await agentStore.copyAgent(
         copyForm.value.source,
-        copyForm.value.target
+        copyForm.value.target,
+        agentType // 传递 Agent 类型
       )
       isCreating.value = false
       
@@ -208,5 +231,11 @@ h3 {
 p {
   color: var(--text-color-secondary);
   margin-bottom: 20px;
+}
+
+.form-help {
+  font-size: 12px;
+  color: var(--text-color-secondary);
+  margin-top: 4px;
 }
 </style>

@@ -26,15 +26,20 @@
     <el-card v-if="isLoading" class="loading-container">
       <el-skeleton :rows="5" animated />
     </el-card>
-
-    <!-- Empty state -->
-    <el-empty v-else-if="filteredAgents.length === 0" :description="$t('agent.noAgentsFound')">
-      <el-button type="primary" @click="handleCreateAgent">{{ $t('agent.createFirst') }}</el-button>
-    </el-empty>
-
-    <!-- Agent card list -->
-    <div v-else class="agent-cards">
-      <el-card v-for="agent in filteredAgents" :key="agent" class="agent-card">
+    
+    <!-- Tabs for different agent categories -->
+    <div v-else>
+      <el-tabs v-model="activeTab" class="agent-tabs">
+        <!-- Agent Hub Tab -->
+        <el-tab-pane :label="'Agent Hub (' + filteredHubAgents.length + ')'" name="hub">
+          <!-- Empty state for hub agents -->
+          <el-empty v-if="filteredHubAgents.length === 0" :description="$t('agent.noAgentsFound')">
+            <el-button type="primary" @click="handleCreateAgent">{{ $t('agent.createFirst') }}</el-button>
+          </el-empty>
+          
+          <!-- Hub Agent card list -->
+          <div v-else class="agent-cards">
+            <el-card v-for="agent in filteredHubAgents" :key="agent" class="agent-card">
         <template #header>
           <div class="agent-card-header">
             <h3 class="agent-card-title">{{ agent }}</h3>
@@ -82,17 +87,88 @@
             </el-tooltip>
           </el-button-group>
         </div>
-      </el-card>
+            </el-card>
+          </div>
+        </el-tab-pane>
+        
+        <!-- Examples Tab -->
+        <el-tab-pane :label="'Dataflows (' + filteredExampleAgents.length + ')'" name="examples">
+          <!-- Empty state for example agents -->
+          <el-empty v-if="filteredExampleAgents.length === 0" :description="$t('agent.noExamplesFound') || 'No example agents found'">
+          </el-empty>
+          
+          <!-- Example Agent card list -->
+          <div v-else class="agent-cards">
+            <el-card v-for="agent in filteredExampleAgents" :key="agent" class="agent-card">
+              <template #header>
+                <div class="agent-card-header">
+                  <h3 class="agent-card-title">{{ agent }}</h3>
+                  <div class="agent-status" v-if="isAgentRunning(agent)">
+                    <el-tag type="success" size="small">{{ $t('agent.running') }}</el-tag>
+                  </div>
+                </div>
+              </template>
+
+              <div class="agent-card-body">
+                <p class="agent-description">{{ agentDescription(agent) || $t('agent.noDescription') }}</p>
+              </div>
+
+              <div class="agent-card-footer">
+                <el-button-group>
+                  <el-tooltip :content="$t('common.copy')" placement="top">
+                    <el-button size="small" @click="handleCopyAgent(agent)">
+                      <el-icon><CopyDocument /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip :content="$t('common.edit')" placement="top">
+                    <el-button size="small" @click="handleEditAgent(agent)">
+                      <el-icon><Edit /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip :content="$t('agent.viewLogs')" placement="top">
+                    <el-button size="small" type="info" @click="fetchAgentLogs(agent)">
+                      <el-icon><Document /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)">
+                    <el-button size="small" type="success" @click="handleRunAgent(agent)">
+                      <el-icon><VideoPlay /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip :content="$t('agent.stop')" placement="top" v-else>
+                    <el-button size="small" type="danger" @click="handleStopAgent(agent)">
+                      <el-icon><VideoPause /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip :content="$t('common.delete')" placement="top">
+                    <el-button size="small" type="danger" @click="handleDeleteAgent(agent)">
+                      <el-icon><Delete /></el-icon>
+                    </el-button>
+                  </el-tooltip>
+                </el-button-group>
+              </div>
+            </el-card>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
 
     <!-- Copy Agent Dialog -->
-    <el-dialog v-model="copyDialogVisible" :title="$t('agent.copyAgent')" width="30%">
-      <el-form :model="copyForm" label-width="80px">
+    <el-dialog v-model="copyDialogVisible" :title="$t('agent.copyAgent')" width="40%">
+      <el-form :model="copyForm" label-width="120px">
         <el-form-item :label="$t('agent.sourceAgent')">
           <el-input v-model="copyForm.source" disabled />
         </el-form-item>
         <el-form-item :label="$t('agent.newAgent')">
           <el-input v-model="copyForm.target" :placeholder="$t('agent.enterNewAgentName')" />
+        </el-form-item>
+        <el-form-item :label="$t('settings.agentType')">
+          <el-radio-group v-model="copyForm.agentType">
+            <el-radio label="auto">{{ $t('agent.autoDetect') }}</el-radio>
+            <el-radio label="agent-hub">{{ $t('settings.agentHubDir') }}</el-radio>
+            <el-radio label="examples">{{ $t('settings.examplesDir') }}</el-radio>
+          </el-radio-group>
+          <div class="form-help">{{ $t('agent.agentTypeHelp') }}</div>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -112,72 +188,110 @@
       direction="rtl"
       size="50%">
       <div class="log-container">
-        <div v-if="parsedLogs.length > 0" class="structured-logs">
-          <!-- 日志过滤和搜索 -->
-          <div class="log-controls">
-            <el-input
-              v-model="logSearchText"
-              placeholder="搜索日志内容"
-              clearable
-              prefix-icon="el-icon-search"
-              @input="filterLogs"
-              class="log-search"
-            ></el-input>
-            <el-select 
-              v-model="logTypeFilter" 
-              placeholder="日志类型" 
-              clearable 
-              @change="filterLogs"
-              class="log-type-filter"
-            >
-              <el-option label="全部" value=""></el-option>
-              <el-option label="Dora Daemon" value="Dora Daemon"></el-option>
-              <el-option label="运行实例" value="运行实例"></el-option>
-              <el-option label="其他日志" value="其他"></el-option>
-            </el-select>
-            <el-button type="primary" size="small" @click="expandAllLogs" class="log-expand-btn">
-              {{ allExpanded ? '全部折叠' : '全部展开' }}
-            </el-button>
-          </div>
-
-          <!-- 日志条目数量显示 -->
-          <div class="log-stats">
-            <span>共 {{ parsedLogs.length }} 个日志条目</span>
-            <span v-if="filteredLogs.length !== parsedLogs.length">，当前显示 {{ filteredLogs.length }} 个</span>
-          </div>
-
-          <!-- 日志内容 -->
+        <div class="log-controls">
+          <el-input v-model="logSearchText" placeholder="搜索日志..." clearable class="log-search">
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-select v-model="logTypeFilter" placeholder="日志类型" clearable class="log-type-filter">
+            <el-option label="所有" value="all" />
+            <el-option label="INFO" value="INFO" />
+            <el-option label="DEBUG" value="DEBUG" />
+            <el-option label="WARNING" value="WARNING" />
+            <el-option label="ERROR" value="ERROR" />
+          </el-select>
+          <el-button @click="expandAllLogs" type="primary" plain>
+            {{ allExpanded ? '折叠全部' : '展开全部' }}
+          </el-button>
+        </div>
+        
+        <div class="log-stats" v-if="filteredLogs.length > 0">
+          显示 {{ filteredLogs.length }} 条日志
+        </div>
+        
+        <div class="structured-logs" v-if="parsedLogs.length > 0">
           <el-collapse v-model="activeLogSections">
-            <el-collapse-item 
-              v-for="(section, index) in filteredLogs" 
-              :key="index" 
-              :name="index"
-              class="log-item"
-            >
+            <el-collapse-item v-for="(section, index) in filteredLogs" :key="index" :name="index.toString()">
               <template #title>
                 <div class="log-section-title">
-                  <span>{{ section.title }}</span>
-                  <span class="log-time" v-if="section.time">{{ section.time }}</span>
+                  <span v-html="highlightSearchText(section.title)"></span>
+                  <span class="log-time">{{ section.time }}</span>
                 </div>
               </template>
               <pre class="log-content" v-html="highlightSearchText(section.content)"></pre>
             </el-collapse-item>
           </el-collapse>
-
-          <!-- 无匹配结果提示 -->
-          <div v-if="filteredLogs.length === 0" class="no-logs-message">
-            没有找到匹配的日志条目
-          </div>
         </div>
-        <pre v-else class="agent-logs">{{ currentAgentLogs }}</pre>
-      </div>
-      <template #footer>
+        
+        <div v-else-if="currentAgentLogs" class="agent-logs">
+          <pre>{{ currentAgentLogs }}</pre>
+        </div>
+        
+        <div v-else class="no-logs-message">
+          {{ $t('agent.noLogs') }}
+        </div>
+        
         <div class="log-footer">
-          <el-button @click="logDrawerVisible = false">关闭</el-button>
+          <el-button @click="logDrawerVisible = false">{{ $t('common.close') }}</el-button>
           <el-button type="primary" @click="fetchAgentLogs(selectedAgentName)">刷新日志</el-button>
         </div>
-      </template>
+      </div>
     </el-drawer>
+    
+    <!-- Process Output Dialog -->
+    <el-dialog 
+      v-model="processOutputDialogVisible" 
+      :title="$t('agent.processOutput') + ' - ' + selectedAgentName" 
+      width="80%" 
+      :before-close="handleCloseProcessDialog"
+      fullscreen
+      destroy-on-close
+    >
+      <div class="process-output-container">
+        <el-tabs v-model="terminalTab">
+          <el-tab-pane label="进程输出" name="output">
+            <div class="process-output-header">
+              <div class="process-info" v-if="processOutput">
+                <el-tag :type="processOutput.is_running ? 'success' : 'info'">
+                  {{ processOutput.is_running ? '运行中' : '已停止' }}
+                </el-tag>
+                <span class="process-elapsed-time" v-if="processOutput.elapsed_time">
+                  运行时间: {{ formatElapsedTime(processOutput.elapsed_time) }}
+                </span>
+              </div>
+              <div class="process-controls">
+                <el-button type="primary" size="small" @click="refreshProcessOutput" :loading="refreshingOutput">
+                  <el-icon><Refresh /></el-icon> 刷新
+                </el-button>
+                <el-button type="primary" size="small" @click="toggleAutoRefresh">
+                  {{ autoRefresh ? '停止自动刷新' : '自动刷新' }}
+                </el-button>
+                <el-button type="danger" size="small" @click="handleStopAgent(selectedAgentName)">
+                  <el-icon><VideoPause /></el-icon> 停止运行
+                </el-button>
+              </div>
+            </div>
+            
+            <div class="process-output-content">
+              <pre v-if="processOutput && processOutput.all_output && processOutput.all_output.length > 0" class="process-output-text">
+{{ processOutput.all_output.join('\n') }}</pre>
+              <div v-else class="no-output-message">
+                {{ $t('agent.noOutput') }}
+              </div>
+            </div>
+          </el-tab-pane>
+          
+          <el-tab-pane label="SSH 终端" name="ssh">
+            <ssh-terminal 
+              :title="`${selectedAgentName} SSH 终端`" 
+              :auto-connect="true" 
+              :agent-path="getAgentPath(selectedAgentName)" 
+            />
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -185,9 +299,10 @@
 import { ref, computed, onMounted, inject, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAgentStore } from '../store/agent'
-import { Plus, Search, Edit, Delete, CopyDocument, VideoPlay, VideoPause, Document, View } from '@element-plus/icons-vue'
+import { Search, Plus, Edit, Document, VideoPlay, VideoPause, Delete, CopyDocument, Refresh, Close, View } from '@element-plus/icons-vue'
 import { ElMessageBox, ElMessage, ElDrawer } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import SshTerminal from '../components/SshTerminal.vue'
 
 export default {
   name: 'AgentList',
@@ -200,7 +315,10 @@ export default {
     VideoPlay,
     VideoPause,
     Document,
-    View
+    View,
+    Refresh,
+    Close,
+    SshTerminal
   },
   setup() {
     const router = useRouter()
@@ -210,33 +328,62 @@ export default {
     // 本地搜索查询
     const searchQuery = ref('')
     
-    // 日志查看相关变量
+    // 日志相关
     const logDrawerVisible = ref(false)
     const currentAgentLogs = ref('')
     const parsedLogs = ref([])
     const filteredLogs = ref([])
-    const activeLogSections = ref([0]) // 默认展开第一个日志部分
+    const activeLogSections = ref([])
     const logSearchText = ref('')
     const logTypeFilter = ref('')
     const allExpanded = ref(false)
     const selectedAgentName = ref('')
+    
+    // 进程输出相关
+    const processOutputDialogVisible = ref(false)
+    const processOutput = ref(null)
+    const refreshingOutput = ref(false)
+    const autoRefresh = ref(false)
+    const autoRefreshInterval = ref(null)
+    const terminalTab = ref('ssh')  // 默认显示 SSH 终端页面
     const copyDialogVisible = ref(false)
     const copyForm = ref({
       source: '',
-      target: ''
+      target: '',
+      agentType: 'auto' // 'auto', 'agent-hub' 或 'examples'
     })
     const isCopying = ref(false)
     
     const isLoading = computed(() => agentStore.isLoading)
     const error = computed(() => agentStore.error)
     
-    const filteredAgents = computed(() => {
-      const agents = agentStore.agents
-      if (!searchQuery.value) return agents
-      
-      return agents.filter(agent => 
-        agent.toLowerCase().includes(searchQuery.value.toLowerCase())
+    const activeTab = ref('hub') // 默认显示hub标签页
+    
+    // 过滤hub代理列表
+    const filteredHubAgents = computed(() => {
+      if (!searchQuery.value) {
+        return agentStore.hubAgents
+      }
+      const query = searchQuery.value.toLowerCase()
+      return agentStore.hubAgents.filter(agent => 
+        agent.toLowerCase().includes(query)
       )
+    })
+    
+    // 过滤example代理列表
+    const filteredExampleAgents = computed(() => {
+      if (!searchQuery.value) {
+        return agentStore.exampleAgents
+      }
+      const query = searchQuery.value.toLowerCase()
+      return agentStore.exampleAgents.filter(agent => 
+        agent.toLowerCase().includes(query)
+      )
+    })
+    
+    // 兼容原有代码，合并所有过滤后的代理
+    const filteredAgents = computed(() => {
+      return [...filteredHubAgents.value, ...filteredExampleAgents.value]
     })
   
     // 处理搜索
@@ -350,9 +497,95 @@ export default {
         activeLogSections.value = []
       } else {
         // 全部展开
-        activeLogSections.value = filteredLogs.value.map((_, index) => index)
+        activeLogSections.value = filteredLogs.value.map((_, index) => index.toString())
       }
       allExpanded.value = !allExpanded.value
+    }
+    
+    // 获取进程输出
+    const fetchProcessOutput = async (agentName) => {
+      selectedAgentName.value = agentName
+      refreshingOutput.value = true
+      
+      try {
+        const result = await agentStore.fetchProcessOutput(agentName)
+        
+        if (result.success) {
+          processOutput.value = result
+          processOutputDialogVisible.value = true
+          
+          // 如果进程已经结束，停止自动刷新
+          if (!result.is_running && autoRefresh.value) {
+            toggleAutoRefresh()
+          }
+        } else {
+          ElMessage.warning(`获取进程输出失败: ${result.error}`)
+        }
+      } catch (error) {
+        console.error('Error fetching process output:', error)
+        ElMessage.error(`获取进程输出时出错: ${error.message || error}`)
+      } finally {
+        refreshingOutput.value = false
+      }
+    }
+    
+    // 刷新进程输出
+    const refreshProcessOutput = () => {
+      if (selectedAgentName.value) {
+        fetchProcessOutput(selectedAgentName.value)
+      }
+    }
+    
+    // 处理关闭进程输出对话框
+    const handleCloseProcessDialog = () => {
+      processOutputDialogVisible.value = false
+      
+      // 如果自动刷新已开启，停止自动刷新
+      if (autoRefresh.value) {
+        toggleAutoRefresh()
+      }
+    }
+    
+    // 切换自动刷新
+    const toggleAutoRefresh = () => {
+      autoRefresh.value = !autoRefresh.value
+      
+      if (autoRefresh.value) {
+        // 启动自动刷新
+        autoRefreshInterval.value = setInterval(() => {
+          refreshProcessOutput()
+        }, 2000) // 每2秒刷新一次
+      } else {
+        // 停止自动刷新
+        if (autoRefreshInterval.value) {
+          clearInterval(autoRefreshInterval.value)
+          autoRefreshInterval.value = null
+        }
+      }
+    }
+    
+    // 格式化运行时间
+    const formatElapsedTime = (seconds) => {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = Math.floor(seconds % 60)
+      
+      if (minutes > 0) {
+        return `${minutes}分${remainingSeconds}秒`
+      } else {
+        return `${remainingSeconds}秒`
+      }
+    }
+    
+    // 获取 Agent 路径
+    const getAgentPath = (agentName) => {
+      // 检查是否是 example 类型的 Agent
+      const isExample = agentStore.exampleAgents.includes(agentName)
+      
+      if (isExample) {
+        return `/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/examples/${agentName}`
+      } else {
+        return `/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/agent-hub/${agentName}`
+      }
     }
 
     // 获取Agent日志
@@ -418,12 +651,14 @@ export default {
       }
       
       isCopying.value = true
-      const result = await agentStore.copyAgent(copyForm.value.source, copyForm.value.target)
+      // 如果选择了 'auto'，则传递 null 作为 agentType
+      const agentType = copyForm.value.agentType === 'auto' ? null : copyForm.value.agentType
+      const result = await agentStore.copyAgent(copyForm.value.source, copyForm.value.target, agentType)
       isCopying.value = false
       
       if (result) {
-        ElMessage.success(`成功复制 Agent: ${copyForm.value.source} → ${copyForm.value.target}`)
         copyDialogVisible.value = false
+        ElMessage.success(`成功复制 Agent: ${copyForm.value.source} → ${copyForm.value.target}`)
       } else {
         ElMessage.error(`复制 Agent 失败: ${error.value}`)
       }
@@ -456,8 +691,22 @@ export default {
       const result = await agentStore.runAgent(agentName)
       if (result.success) {
         ElMessage.success(`Agent ${agentName} 已启动`)
-        // 自动打开日志查看
-        setTimeout(() => fetchAgentLogs(agentName), 500)
+        
+        // 检查是否是 example 类型的 Agent
+        const isExample = agentStore.exampleAgents.includes(agentName)
+        
+        if (isExample) {
+          // 如果是 example 类型，直接打开 SSH 终端对话框
+          selectedAgentName.value = agentName
+          processOutputDialogVisible.value = true
+          terminalTab.value = 'ssh'  // 默认显示 SSH 终端页面
+          
+          // 同时获取进程输出，以便在另一个标签页显示
+          setTimeout(() => fetchProcessOutput(agentName), 500)
+        } else {
+          // 如果是 agent-hub 类型，打开日志查看
+          setTimeout(() => fetchAgentLogs(agentName), 500)
+        }
       } else {
         ElMessage.error(`启动 Agent 失败: ${result.error}`)
       }
@@ -479,6 +728,9 @@ export default {
     return {
       searchQuery,
       isLoading,
+      activeTab,
+      filteredHubAgents,
+      filteredExampleAgents,
       filteredAgents,
       handleSearch,
       copyDialogVisible,
@@ -506,7 +758,19 @@ export default {
       highlightSearchText,
       expandAllLogs,
       selectedAgentName,
-      fetchAgentLogs
+      fetchAgentLogs,
+      // 进程输出相关
+      processOutputDialogVisible,
+      processOutput,
+      refreshingOutput,
+      autoRefresh,
+      fetchProcessOutput,
+      refreshProcessOutput,
+      toggleAutoRefresh,
+      formatElapsedTime,
+      handleCloseProcessDialog,
+      terminalTab,
+      getAgentPath
     }
   }
 }
@@ -645,6 +909,10 @@ export default {
   margin-top: 16px;
 }
 
+.agent-tabs {
+  margin-bottom: 20px;
+}
+
 .agent-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -698,5 +966,67 @@ export default {
 
 .loading-container {
   padding: 40px;
+}
+
+/* 进程输出样式 */
+.process-output-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+}
+
+.process-output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.process-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.process-elapsed-time {
+  font-size: 0.9em;
+  color: #606266;
+}
+
+.process-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.process-output-content {
+  flex: 1;
+  overflow: auto;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.process-output-text {
+  white-space: pre-wrap;
+  font-family: monospace;
+  color: #d4d4d4;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.no-output-message {
+  padding: 20px;
+  text-align: center;
+  color: #909399;
+  font-style: italic;
+}
+
+[data-theme="light"] .process-output-content {
+  background-color: #f5f5f5;
+}
+
+[data-theme="light"] .process-output-text {
+  color: #333;
 }
 </style>

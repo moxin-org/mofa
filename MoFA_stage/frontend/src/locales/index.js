@@ -90,13 +90,22 @@ export const messages = {
       browse: 'Browse',
       mofaEnvPathHelp: 'Specify MoFA virtual environment path, e.g.: /mnt/c/Users/msuser/Desktop/code/mofa_venv',
       mofaDirHelp: 'Specify MoFA project root directory, e.g.: /mnt/c/Users/msuser/Desktop/code/mofa',
+      agentHubStorage: 'Agent Hub Storage',
+      examplesStorage: 'Examples Storage',
+      useDefaultPath: 'Use default path',
+      useCustomPath: 'Use custom path',
+      agentHubPath: 'Agent Hub Path',
+      examplesPath: 'Examples Path',
+      agentHubPathHelp: 'Enter the full directory path for storing atomic agents',
+      examplesPathHelp: 'Enter the full directory path for storing example combinations',
+      // 保留旧的键值对以保持兼容性
       agentStorage: 'Agent Storage Location',
       examplesDir: 'examples directory (/python/examples)',
       agentHubDir: 'agent-hub directory (/python/agent-hub)',
       customDir: 'Custom directory',
-      agentStorageHelp: 'Choose the directory to store Agents, officially recommended to use the agent-hub directory',
+      agentStorageHelp: 'Choose the directory for storing agents, official recommendation is to use agent-hub directory',
       customAgentPath: 'Custom Agent Path',
-      customAgentPathHelp: 'Enter the full directory path to store Agents',
+      customAgentPathHelp: 'Enter the full directory path for storing agents',
       editorSettings: 'Editor Settings',
       theme: 'Theme',
       lightTheme: 'Light',
@@ -125,26 +134,32 @@ export const messages = {
       interrupted: 'Command interrupted'
     },
     agent: {
-      list: 'Agent List',
+      list: 'Agent Hub',
       create: 'Create Agent',
       edit: 'Edit Agent',
       delete: 'Delete Agent',
       deleteConfirm: 'Are you sure you want to delete agent "{name}"? This action cannot be undone!',
-      deleteSuccess: 'Successfully deleted agent: {name}',
+      deleteSuccess: 'Agent {name} deleted successfully',
       deleteError: 'Failed to delete agent: {error}',
-      createFirst: 'Create First Agent',
-      noAgentsFound: 'No Agents Found',
+      createFirst: 'Create your first Agent',
+      noAgentsFound: 'No agents found',
+      noExamplesFound: 'No dataflow examples found',
       running: 'Running',
-      noDescription: 'No description available',
+      logs: 'Logs',
+      noLogs: 'No logs available',
       viewLogs: 'View Logs',
+      processOutput: 'Process Output',
+      noOutput: 'No output available',
       run: 'Run',
       stop: 'Stop',
       copyAgent: 'Copy Agent',
       sourceAgent: 'Source Agent',
       newAgent: 'New Agent',
-      enterNewAgentName: 'Enter new Agent name',
+      enterNewAgentName: 'Enter new agent name',
       confirmCopy: 'Confirm Copy',
-      runningLogs: 'Running Logs'
+      runningLogs: 'Running Logs',
+      autoDetect: 'Auto detect',
+      agentTypeHelp: 'Choose where to store the new agent. Auto detect will use the same type as the source agent.'
     }
   },
   zh: {
@@ -166,7 +181,12 @@ export const messages = {
       error: '错误',
       copy: '复制',
       more: '更多',
-      back: '返回'
+      back: '返回',
+      logs: '日志',
+      noLogs: '暂无日志',
+      viewLogs: '查看日志',
+      processOutput: '进程输出',
+      noOutput: '暂无输出'
     },
     dataflow: {
       title: '数据流编排',
@@ -238,6 +258,16 @@ export const messages = {
       browse: '浏览',
       mofaEnvPathHelp: '指定 MoFA 虚拟环境路径，例如：/mnt/c/Users/msuser/Desktop/code/mofa/mofa_venv',
       mofaDirHelp: '指定 MoFA 项目根目录，例如：/mnt/c/Users/msuser/Desktop/code/mofa',
+      agentHubStorage: 'Agent Hub 存储',
+      examplesStorage: 'Examples 存储',
+      useDefaultPath: '使用默认路径',
+      useCustomPath: '使用自定义路径',
+      agentHubPath: 'Agent Hub 路径',
+      examplesPath: 'Examples 路径',
+      agentHubPathHelp: '输入存储原子 Agent 的完整目录路径',
+      examplesPathHelp: '输入存储示例组合的完整目录路径',
+      
+      // 保留旧的键值对以保持兼容性
       agentStorage: 'Agent 存储位置',
       examplesDir: 'examples目录 (/python/examples)',
       agentHubDir: 'agent-hub目录 (/python/agent-hub)',
@@ -282,6 +312,7 @@ export const messages = {
       deleteError: '删除 Agent 失败: {error}',
       createFirst: '创建第一个 Agent',
       noAgentsFound: '没有找到 Agent',
+      noExamplesFound: '没有找到数据流示例',
       running: '运行中',
       noDescription: '无描述信息',
       viewLogs: '查看日志',
@@ -292,7 +323,9 @@ export const messages = {
       newAgent: '新 Agent',
       enterNewAgentName: '请输入新 Agent 名称',
       confirmCopy: '确认复制',
-      runningLogs: '运行日志'
+      runningLogs: '运行日志',
+      autoDetect: '自动检测',
+      agentTypeHelp: '选择存储新 Agent 的位置。自动检测将使用与源 Agent 相同的类型。'
     }
   }
 }

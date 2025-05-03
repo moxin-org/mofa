@@ -6,7 +6,8 @@ import agentApi from '../api/agent'
 
 export const useAgentStore = defineStore('agent', {
   state: () => ({
-    agents: [],
+    hubAgents: [],
+    exampleAgents: [],
     currentAgent: null,
     currentAgentFiles: [],
     currentFile: null,
@@ -14,11 +15,18 @@ export const useAgentStore = defineStore('agent', {
     error: null,
     runningAgents: {}, // 保存正在运行的 agent 进程 ID
     agentLogs: {}, // 保存每个agent的日志
+    processOutputs: {}, // 保存进程输出
   }),
   
   getters: {
+    // 获取所有agents（合并hub和example）
+    allAgents: (state) => {
+      return [...state.hubAgents, ...state.exampleAgents]
+    },
+    
     getAgentByName: (state) => (name) => {
-      return state.agents.find(agent => agent === name)
+      // 在两个列表中查找agent
+      return state.hubAgents.includes(name) || state.exampleAgents.includes(name) ? name : undefined
     },
     
     isAgentRunning: (state) => (agentName) => {
@@ -33,7 +41,8 @@ export const useAgentStore = defineStore('agent', {
       try {
         const response = await agentApi.getAllAgents()
         if (response.data && response.data.success) {
-          this.agents = response.data.agents
+          this.hubAgents = response.data.hub_agents || []
+          this.exampleAgents = response.data.example_agents || []
         } else {
           throw new Error('Failed to fetch agents')
         }
@@ -152,11 +161,18 @@ export const useAgentStore = defineStore('agent', {
       }
     },
     
-    async copyAgent(sourceAgent, targetAgent) {
+    /**
+     * 复制 Agent
+     * @param {string} sourceAgent - 源 Agent 名称
+     * @param {string} targetAgent - 目标 Agent 名称
+     * @param {string} [agentType=null] - Agent 类型，'agent-hub' 或 'examples'，如果为 null 则自动检测
+     * @returns {Promise<boolean>} - 操作是否成功
+     */
+    async copyAgent(sourceAgent, targetAgent, agentType = null) {
       this.isLoading = true
       this.error = null
       try {
-        const response = await agentApi.copyAgent(sourceAgent, targetAgent)
+        const response = await agentApi.copyAgent(sourceAgent, targetAgent, agentType)
         if (response.data && response.data.success) {
           await this.fetchAgents()
           return true
@@ -178,7 +194,10 @@ export const useAgentStore = defineStore('agent', {
       try {
         const response = await agentApi.deleteAgent(agentName)
         if (response.data && response.data.success) {
-          this.agents = this.agents.filter(agent => agent !== agentName)
+          // 从两个列表中都尝试移除
+          this.hubAgents = this.hubAgents.filter(agent => agent !== agentName)
+          this.exampleAgents = this.exampleAgents.filter(agent => agent !== agentName)
+          
           if (this.currentAgent && this.currentAgent.name === agentName) {
             this.currentAgent = null
             this.currentAgentFiles = []
@@ -266,6 +285,43 @@ export const useAgentStore = defineStore('agent', {
           success: false,
           error: error.message || '获取日志失败',
           logs: `错误: ${error.message || error}`
+        }
+      }
+    },
+    
+    /**
+     * 获取正在运行的进程的输出
+     * @param {string} agentName - Agent 名称
+     * @returns {Promise<Object>} - 包含进程输出的对象
+     */
+    async fetchProcessOutput(agentName) {
+      try {
+        const response = await agentApi.fetchProcessOutput(agentName)
+        
+        if (response.data && response.data.success) {
+          // 将输出保存到状态中
+          this.processOutputs[agentName] = response.data
+          return {
+            success: true,
+            ...response.data
+          }
+        } else {
+          return {
+            success: false, 
+            error: response.data.message || '获取进程输出失败',
+            is_running: false,
+            new_output: [],
+            all_output: []
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching process output:', error)
+        return {
+          success: false,
+          error: error.message || '获取进程输出失败',
+          is_running: false,
+          new_output: [],
+          all_output: []
         }
       }
     }

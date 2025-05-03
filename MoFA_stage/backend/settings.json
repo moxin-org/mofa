@@ -1,11 +1,15 @@
 {
   "mofa_env_path": "/mnt/c/Users/ufop/Desktop/code/mofa_third_stage/mofa_venv",
-  "mofa_dir": "/mnt/c/Users/Yao/Desktop/code/mofa/mofa",
+  "mofa_dir": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa",
   "theme": "light",
   "editor_font_size": 14,
   "editor_tab_size": 4,
   "use_system_mofa": true,
-  "agent_storage": "agent-hub",
-  "custom_agent_path": "",
-  "language": "zh"
+  "use_default_agent_hub_path": false,
+  "use_default_examples_path": false,
+  "agent_hub_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/agent-hub",
+  "examples_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/examples",
+  "custom_agent_hub_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/agent-hub",
+  "custom_examples_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/examples",
+  "language": "en"
 }

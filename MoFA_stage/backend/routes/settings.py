@@ -10,7 +10,9 @@ import json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.file_ops import read_file, write_file
-from config import DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA, DEFAULT_AGENT_STORAGE, AGENT_STORAGE_OPTIONS
+from config import (DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA, 
+                   DEFAULT_AGENT_HUB_PATH, DEFAULT_EXAMPLES_PATH,
+                   CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH)
 
 settings_bp = Blueprint('settings', __name__, url_prefix='/api/settings')
 
@@ -22,8 +24,13 @@ DEFAULT_SETTINGS = {
     "mofa_env_path": DEFAULT_MOFA_ENV,
     "mofa_dir": DEFAULT_MOFA_DIR,
     "use_system_mofa": USE_SYSTEM_MOFA,
-    "agent_storage": DEFAULT_AGENT_STORAGE,
-    "custom_agent_path": "",  # 如果用户选择自定义路径，则在这里指定
+    # 分开存储agent-hub和examples的路径
+    "use_default_agent_hub_path": True,  # 是否使用默认agent-hub路径
+    "use_default_examples_path": True,  # 是否使用默认examples路径
+    "agent_hub_path": DEFAULT_AGENT_HUB_PATH,  # 默认agent-hub路径
+    "examples_path": DEFAULT_EXAMPLES_PATH,  # 默认examples路径
+    "custom_agent_hub_path": CUSTOM_AGENT_HUB_PATH,  # 自定义agent-hub路径
+    "custom_examples_path": CUSTOM_EXAMPLES_PATH,  # 自定义examples路径
     "theme": "light",
     "editor_font_size": 14,
     "editor_tab_size": 4

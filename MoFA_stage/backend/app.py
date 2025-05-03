@@ -48,5 +48,12 @@ def create_app():
     return app
 
 if __name__ == '__main__':
+    import argparse
+    
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description='MoFA_Stage Backend Server')
+    parser.add_argument('--port', type=int, default=5000, help='Port to run the server on')
+    args = parser.parse_args()
+    
     app = create_app()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=args.port, debug=True)

@@ -21,10 +21,14 @@ def get_mofa_cli():
 
 @agents_bp.route('/', methods=['GET'])
 def get_agents():
-    """获取所有 agents 列表"""
+    """获取所有 agents 列表，按来源分类"""
     mofa_cli = get_mofa_cli()
-    agents = mofa_cli.list_agents()
-    return jsonify({"success": True, "agents": agents})
+    agents_data = mofa_cli.list_agents()
+    return jsonify({
+        "success": True, 
+        "hub_agents": agents_data["hub_agents"],
+        "example_agents": agents_data["example_agents"]
+    })
 
 @agents_bp.route('/<agent_name>', methods=['GET'])
 def get_agent_details(agent_name):
@@ -43,12 +47,17 @@ def create_agent():
     agent_name = data.get('name')
     version = data.get('version', '0.0.1')
     authors = data.get('authors', 'MoFA_Stage User')
+    agent_type = data.get('agent_type', 'agent-hub')  # 默认为 agent-hub 类型
     
     if not agent_name:
         return jsonify({"success": False, "message": "Agent name is required"}), 400
     
+    # 验证 agent_type 是否有效
+    if agent_type not in ['agent-hub', 'examples']:
+        return jsonify({"success": False, "message": "Invalid agent_type. Must be 'agent-hub' or 'examples'"}), 400
+    
     mofa_cli = get_mofa_cli()
-    result = mofa_cli.create_agent(agent_name, version, authors)
+    result = mofa_cli.create_agent(agent_name, version, authors, agent_type)
     return jsonify(result)
 
 @agents_bp.route('/copy', methods=['POST'])
@@ -57,12 +66,17 @@ def copy_agent():
     data = request.json
     source_agent = data.get('source')
     target_agent = data.get('target')
+    agent_type = data.get('agent_type')  # 可以是 None，这样会自动检测源 Agent 的类型
     
     if not source_agent or not target_agent:
         return jsonify({"success": False, "message": "Source and target agent names are required"}), 400
     
+    # 如果指定了 agent_type，验证其是否有效
+    if agent_type is not None and agent_type not in ['agent-hub', 'examples']:
+        return jsonify({"success": False, "message": "Invalid agent_type. Must be 'agent-hub' or 'examples'"}), 400
+    
     mofa_cli = get_mofa_cli()
-    result = mofa_cli.copy_agent(source_agent, target_agent)
+    result = mofa_cli.copy_agent(source_agent, target_agent, agent_type)
     return jsonify(result)
 
 @agents_bp.route('/<agent_name>', methods=['DELETE'])
@@ -74,12 +88,38 @@ def delete_agent(agent_name):
 
 @agents_bp.route('/<agent_name>/run', methods=['POST'])
 def run_agent(agent_name):
-    """运行指定的 agent"""
+    """运行指定的 agent或示例"""
     data = request.json
     timeout = data.get('timeout', 5)  # 默认超时5秒
+    agent_type = data.get('agent_type', 'auto')  # 默认自动检测类型
     
     mofa_cli = get_mofa_cli()
-    result = mofa_cli.run_agent(agent_name, timeout)
+    
+    # 根据类型或自动检测运行不同的agent
+    if agent_type == 'example':
+        # 明确指定为示例，直接运行示例
+        result = mofa_cli.run_example(agent_name, timeout)
+    elif agent_type == 'atomic':
+        # 明确指定为原子化agent，直接运行原子化agent
+        result = mofa_cli.run_agent(agent_name, timeout)
+    else:
+        # 自动检测类型
+        # 首先检查是否为原子化agent
+        agent_path = os.path.join(mofa_cli.agent_hub_dir, agent_name)
+        if os.path.exists(agent_path) and os.path.isdir(agent_path):
+            result = mofa_cli.run_agent(agent_name, timeout)
+        else:
+            # 检查是否为示例
+            example_path = os.path.join(mofa_cli.examples_dir, agent_name)
+            if os.path.exists(example_path) and os.path.isdir(example_path):
+                result = mofa_cli.run_example(agent_name, timeout)
+            else:
+                # 都不存在，返回错误
+                result = {
+                    "success": False,
+                    "message": f"Agent or example '{agent_name}' not found in either agent-hub or examples directory"
+                }
+    
     return jsonify(result)
 
 @agents_bp.route('/<agent_name>/logs', methods=['GET'])
@@ -92,12 +132,17 @@ def get_agent_logs(agent_name):
         # 即使日志为None也返回空字符串而不是404
         if logs is None:
             logs = f"未找到 {agent_name} 的日志文件。可能是该Agent还未运行过。"
-            
+        
         return jsonify({"success": True, "logs": logs})
     except Exception as e:
-        print(f"获取日志发生错误: {str(e)}")
-        # 出错时也返回200状态码，避免前端显示404
-        return jsonify({"success": False, "logs": f"获取日志时发生错误: {str(e)}"})
+        return jsonify({"success": False, "error": str(e), "logs": "获取日志时出错"})
+
+@agents_bp.route('/<agent_name>/process-output', methods=['GET'])
+def get_process_output(agent_name):
+    """获取正在运行的进程的输出"""
+    mofa_cli = get_mofa_cli()
+    result = mofa_cli.get_process_output(agent_name)
+    return jsonify(result)
 
 @agents_bp.route('/stop/<process_id>', methods=['POST'])
 def stop_agent(process_id):

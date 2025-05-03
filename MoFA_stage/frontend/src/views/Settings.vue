@@ -53,25 +53,44 @@
             <div class="form-help">{{ $t('settings.mofaDirHelp') }}</div>
           </el-form-item>
 
-          <el-form-item :label="$t('settings.agentStorage')">
-            <el-select v-model="settingsForm.agent_storage" style="width: 100%">
-              <el-option :label="$t('settings.examplesDir')" value="examples" />
-              <el-option :label="$t('settings.agentHubDir')" value="agent-hub" />
-              <el-option :label="$t('settings.customDir')" value="custom" />
-            </el-select>
-            <div class="form-help">{{ $t('settings.agentStorageHelp') }}</div>
+          <!-- Agent Hub 设置 -->
+          <el-form-item :label="$t('settings.agentHubStorage')">
+            <el-radio-group v-model="settingsForm.use_default_agent_hub_path">
+              <el-radio :label="true">{{ $t('settings.useDefaultPath') }}</el-radio>
+              <el-radio :label="false">{{ $t('settings.useCustomPath') }}</el-radio>
+            </el-radio-group>
           </el-form-item>
 
-          <el-form-item :label="$t('settings.customAgentPath')" v-if="settingsForm.agent_storage === 'custom'">
+          <el-form-item :label="$t('settings.agentHubPath')" v-if="!settingsForm.use_default_agent_hub_path">
             <el-input 
-              v-model="settingsForm.custom_agent_path" 
-              placeholder="/path/to/custom/agent/directory"
+              v-model="settingsForm.custom_agent_hub_path" 
+              placeholder="/path/to/custom/agent-hub/directory"
             >
               <template #append>
-                <el-button @click="selectCustomAgentPath">{{ $t('settings.browse') }}</el-button>
+                <el-button @click="selectCustomAgentHubPath">{{ $t('settings.browse') }}</el-button>
               </template>
             </el-input>
-            <div class="form-help">{{ $t('settings.customAgentPathHelp') }}</div>
+            <div class="form-help">{{ $t('settings.agentHubPathHelp') }}</div>
+          </el-form-item>
+
+          <!-- Examples 设置 -->
+          <el-form-item :label="$t('settings.examplesStorage')">
+            <el-radio-group v-model="settingsForm.use_default_examples_path">
+              <el-radio :label="true">{{ $t('settings.useDefaultPath') }}</el-radio>
+              <el-radio :label="false">{{ $t('settings.useCustomPath') }}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item :label="$t('settings.examplesPath')" v-if="!settingsForm.use_default_examples_path">
+            <el-input 
+              v-model="settingsForm.custom_examples_path" 
+              placeholder="/path/to/custom/examples/directory"
+            >
+              <template #append>
+                <el-button @click="selectCustomExamplesPath">{{ $t('settings.browse') }}</el-button>
+              </template>
+            </el-input>
+            <div class="form-help">{{ $t('settings.examplesPathHelp') }}</div>
           </el-form-item>
         </el-form>
       </el-card>
@@ -139,8 +158,12 @@ export default {
       mofa_env_path: '',
       mofa_dir: '',
       use_system_mofa: true,
-      agent_storage: 'examples',
-      custom_agent_path: '',
+      use_default_agent_hub_path: true,
+      use_default_examples_path: true,
+      agent_hub_path: '',
+      examples_path: '',
+      custom_agent_hub_path: '',
+      custom_examples_path: '',
       theme: 'light',
       editor_font_size: 14,
       editor_tab_size: 4,
@@ -203,7 +226,12 @@ export default {
       ElMessage.info('需要集成服务器端文件选择')
     }
     
-    const selectCustomAgentPath = () => {
+    const selectCustomAgentHubPath = () => {
+      // 在实际环境中，这里可以集成文件选择对话框
+      ElMessage.info('需要集成服务器端文件选择')
+    }
+    
+    const selectCustomExamplesPath = () => {
       // 在实际环境中，这里可以集成文件选择对话框
       ElMessage.info('需要集成服务器端文件选择')
     }
@@ -241,7 +269,8 @@ export default {
       resetSettings,
       selectMofaEnvPath,
       selectMofaDir,
-      selectCustomAgentPath,
+      selectCustomAgentHubPath,
+      selectCustomExamplesPath,
       handleLanguageChange
     }
   }

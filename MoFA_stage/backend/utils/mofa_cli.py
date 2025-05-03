@@ -5,6 +5,7 @@ import os
 import subprocess
 import json
 import shutil
+import time
 from pathlib import Path
 import sys
 
@@ -14,41 +15,74 @@ class MofaCLI:
         import os
         # 添加项目根目录到 Python 路径
         sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        from config import DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, AGENT_STORAGE_OPTIONS, DEFAULT_AGENT_STORAGE, USE_SYSTEM_MOFA
+        from config import (
+            DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA,
+            DEFAULT_AGENT_HUB_PATH, DEFAULT_EXAMPLES_PATH,
+            CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH
+        )
         
         self.settings = settings or {}
         self.mofa_env_path = self.settings.get('mofa_env_path', DEFAULT_MOFA_ENV)
         self.mofa_dir = self.settings.get('mofa_dir', DEFAULT_MOFA_DIR)
         self.use_system_mofa = self.settings.get('use_system_mofa', USE_SYSTEM_MOFA)
         
-        # 设置Agent存储路径
-        agent_storage = self.settings.get('agent_storage', DEFAULT_AGENT_STORAGE)
-        custom_path = self.settings.get('custom_agent_path', '')
-        
-        if agent_storage == 'custom' and custom_path:
-            # 使用用户提供的自定义路径
-            self.agents_dir = custom_path
+        # 设置原子化Agent（agent-hub）存储路径
+        use_default_agent_hub = self.settings.get('use_default_agent_hub_path', True)
+        if use_default_agent_hub:
+            self.agent_hub_dir = self.settings.get('agent_hub_path', DEFAULT_AGENT_HUB_PATH)
         else:
-            # 使用预定义的路径
-            relative_path = AGENT_STORAGE_OPTIONS.get(agent_storage, AGENT_STORAGE_OPTIONS[DEFAULT_AGENT_STORAGE])
-            self.agents_dir = os.path.join(self.mofa_dir, relative_path)
+            custom_agent_hub = self.settings.get('custom_agent_hub_path', '')
+            self.agent_hub_dir = custom_agent_hub if custom_agent_hub else DEFAULT_AGENT_HUB_PATH
+        
+        # 设置示例组合（examples）存储路径
+        use_default_examples = self.settings.get('use_default_examples_path', True)
+        if use_default_examples:
+            self.examples_dir = self.settings.get('examples_path', DEFAULT_EXAMPLES_PATH)
+        else:
+            custom_examples = self.settings.get('custom_examples_path', '')
+            self.examples_dir = custom_examples if custom_examples else DEFAULT_EXAMPLES_PATH
             
-        # 创建agent目录如果不存在
-        os.makedirs(self.agents_dir, exist_ok=True)
+        # 创建目录如果不存在
+        try:
+            # 首先检查目录的父目录是否存在
+            agent_hub_parent = os.path.dirname(self.agent_hub_dir)
+            examples_parent = os.path.dirname(self.examples_dir)
+            
+            if os.path.exists(agent_hub_parent):
+                os.makedirs(self.agent_hub_dir, exist_ok=True)
+            else:
+                print(f"Warning: Parent directory for agent_hub_dir does not exist: {agent_hub_parent}")
+                # 创建一个临时目录作为备用
+                self.agent_hub_dir = os.path.join(os.path.dirname(__file__), '../temp/agent-hub')
+                os.makedirs(self.agent_hub_dir, exist_ok=True)
+            
+            if os.path.exists(examples_parent):
+                os.makedirs(self.examples_dir, exist_ok=True)
+            else:
+                print(f"Warning: Parent directory for examples_dir does not exist: {examples_parent}")
+                # 创建一个临时目录作为备用
+                self.examples_dir = os.path.join(os.path.dirname(__file__), '../temp/examples')
+                os.makedirs(self.examples_dir, exist_ok=True)
+        except Exception as e:
+            print(f"Error creating directories: {e}")
+            # 如果无法创建目录，使用临时目录
+            temp_dir = os.path.join(os.path.dirname(__file__), '../temp')
+            os.makedirs(temp_dir, exist_ok=True)
+            self.agent_hub_dir = os.path.join(temp_dir, 'agent-hub')
+            self.examples_dir = os.path.join(temp_dir, 'examples')
+            os.makedirs(self.agent_hub_dir, exist_ok=True)
+            os.makedirs(self.examples_dir, exist_ok=True)
         
-        # 存储所有可能的agent目录路径，用于搜索agent
-        self.possible_agent_dirs = [self.agents_dir]  # 当前配置的路径
+        # 存储正在运行的进程信息
+        self._running_processes = {}
         
-        # 添加所有配置项中的路径
-        for storage_key, rel_path in AGENT_STORAGE_OPTIONS.items():
-            if rel_path:  # 如果不是空路径
-                full_path = os.path.join(self.mofa_dir, rel_path)
-                if full_path not in self.possible_agent_dirs:
-                    self.possible_agent_dirs.append(full_path)
+        # 存储所有可能的目录路径，用于搜索
+        self.agent_dirs = [self.agent_hub_dir]  # agent-hub目录
+        self.example_dirs = [self.examples_dir]  # examples目录
         
-        # 如果存在自定义路径，也添加到搜索路径中
-        if custom_path and os.path.exists(custom_path) and custom_path not in self.possible_agent_dirs:
-            self.possible_agent_dirs.append(custom_path)
+        # 兼容旧版本的代码，保留agents_dir和possible_agent_dirs属性
+        self.agents_dir = self.agent_hub_dir
+        self.possible_agent_dirs = [self.agent_hub_dir, self.examples_dir]
         
         # 根据设置决定是否使用系统命令或虚拟环境
         if self.use_system_mofa:
@@ -149,69 +183,87 @@ class MofaCLI:
             return ""
     
     def list_agents(self):
-        """获取所有 agent 列表，从多个可能的目录扫描"""
+        """获取所有 agent 列表，分别从 agent-hub 和 examples 目录扫描"""
         try:
             # 输出当前使用的目录和设置
-            print(f"Current agents_dir = {self.agents_dir}")
+            print(f"Current agent_hub_dir = {self.agent_hub_dir}")
+            print(f"Current examples_dir = {self.examples_dir}")
             print(f"Current settings: use_system_mofa = {self.use_system_mofa}, mofa_dir = {self.mofa_dir}")
             
-            agents = set()  # 使用集合避免重复
+            # 创建两个集合分别存储不同来源的agents
+            hub_agents = set()  # agent-hub目录的agents（原子化单位）
+            example_agents = set()  # examples目录的agents
             cli_success = False
             
-            # 1. 先尝试使用 mofa CLI 命令
+            # 1. 先尝试使用 mofa CLI 命令，但不直接使用结果，因为我们需要知道每个agent的来源
             try:
                 output = self._run_command("mofa agent-list")
-                
-                # 如果命令成功，解析输出
                 if output:
                     for line in output.split("\n"):
                         if line.startswith("[") and line.endswith("]"):
-                            # 解析 agent 列表
                             agents_text = line.strip("[]").replace("'", "").replace(" ", "")
                             cli_agents = [agent for agent in agents_text.split(",") if agent]
-                            agents.update(cli_agents)
                             cli_success = True
                             print(f"CLI 命令成功获取到 {len(cli_agents)} 个 agents: {cli_agents}")
                             break
             except Exception as cli_err:
                 print(f"CLI 命令出错: {cli_err}")
             
-            # 2. 不管CLI命令是否成功，都尝试扫描所有可能的目录
-            print(f"将根据以下路径扫描 Agent: {self.possible_agent_dirs}")
+            # 2. 扫描 agent-hub 目录（原子化单位）
+            print(f"扫描 agent-hub 目录: {self.agent_hub_dir}")
+            if os.path.exists(self.agent_hub_dir) and os.path.isdir(self.agent_hub_dir):
+                try:
+                    for item in os.listdir(self.agent_hub_dir):
+                        item_path = os.path.join(self.agent_hub_dir, item)
+                        if os.path.isdir(item_path) and not item.startswith('.'):
+                            hub_agents.add(item)
+                    print(f"从 agent-hub 目录读取到 {len(hub_agents)} 个原子化Agent")
+                except Exception as dir_err:
+                    print(f"读取 agent-hub 目录时出错: {dir_err}")
+            else:
+                print(f"agent-hub 目录不存在或无法访问: {self.agent_hub_dir}")
             
-            # 迭代所有可能的目录
-            for agent_dir in self.possible_agent_dirs:
-                if os.path.exists(agent_dir) and os.path.isdir(agent_dir):
-                    try:
-                        # 获取目录下的所有文件夹
-                        for item in os.listdir(agent_dir):
-                            item_path = os.path.join(agent_dir, item)
-                            if os.path.isdir(item_path) and not item.startswith('.'):
-                                agents.add(item)
-                        print(f"从 {agent_dir} 读取到 Agent。当前总计: {len(agents)}个")
-                    except Exception as dir_err:
-                        print(f"读取目录 {agent_dir} 时出错: {dir_err}")
-                else:
-                    print(f"目录不存在或无法访问: {agent_dir}")
+            # 3. 扫描 examples 目录
+            print(f"扫描 examples 目录: {self.examples_dir}")
+            if os.path.exists(self.examples_dir) and os.path.isdir(self.examples_dir):
+                try:
+                    for item in os.listdir(self.examples_dir):
+                        item_path = os.path.join(self.examples_dir, item)
+                        if os.path.isdir(item_path) and not item.startswith('.'):
+                            example_agents.add(item)
+                    print(f"从 examples 目录读取到 {len(example_agents)} 个dataflow示例")
+                except Exception as dir_err:
+                    print(f"读取 examples 目录时出错: {dir_err}")
+            else:
+                print(f"examples 目录不存在或无法访问: {self.examples_dir}")
             
             # 将集合转为列表并排序
-            agents_list = sorted(list(agents))
-            print(f"最终找到 {len(agents_list)} 个 agents: {agents_list}")
+            hub_agents_list = sorted(list(hub_agents))
+            example_agents_list = sorted(list(example_agents))
+            print(f"最终找到 {len(hub_agents_list)} 个原子化Agent和 {len(example_agents_list)} 个dataflow示例")
             
             # 如果没有找到任何agent，返回一些默认示例
-            if not agents_list:
-                default_agents = ["hello_world", "reasoner", "memory", "rag"]
-                print(f"未找到任何 agent，返回默认示例: {default_agents}")
-                return default_agents
+            if not hub_agents_list and not example_agents_list:
+                print(f"未找到任何 agent，返回默认示例")
+                return {
+                    "hub_agents": ["hello_world", "reasoner"],
+                    "example_agents": ["memory", "rag"]
+                }
                 
-            return agents_list
+            return {
+                "hub_agents": hub_agents_list,
+                "example_agents": example_agents_list
+            }
             
         except Exception as e:
             import traceback
             print(f"Error listing agents: {e}")
             print(traceback.format_exc())
             # 在出错时返回一些默认的 agent 示例
-            return ["hello_world", "reasoner", "memory", "rag"]
+            return {
+                "hub_agents": ["hello_world", "reasoner"],
+                "example_agents": ["memory", "rag"]
+            }
     
     def get_agent_details(self, agent_name):
         """获取特定 agent 的详细信息"""
@@ -258,20 +310,75 @@ class MofaCLI:
                 })
         return files
     
-    def create_agent(self, agent_name, version="0.0.1", authors="MoFA_Stage User"):
-        """创建一个新的 agent"""
+    def create_agent(self, agent_name, version="0.0.1", authors="MoFA_Stage User", agent_type="agent-hub"):
+        """创建一个新的 agent
+        
+        Args:
+            agent_name: Agent 的名称
+            version: Agent 的版本号
+            authors: Agent 的作者
+            agent_type: Agent 的类型，可以是 'agent-hub'（原子 agent）或 'examples'（组合示例）
+        """
         try:
+            # 根据 agent_type 选择输出目录
+            if agent_type == "agent-hub":
+                output_dir = self.agent_hub_dir
+            elif agent_type == "examples":
+                output_dir = self.examples_dir
+            else:
+                return {"success": False, "message": f"Invalid agent_type: {agent_type}. Must be 'agent-hub' or 'examples'"}
+            
+            print(f"创建 {agent_type} 类型的 Agent: {agent_name} 到目录: {output_dir}")
+            
             # 确保目录存在
-            output_dir = os.path.dirname(self.agents_dir) if not self.agents_dir.endswith('/agent-hub') and not self.agents_dir.endswith('/examples') else self.agents_dir
             os.makedirs(output_dir, exist_ok=True)
             
-            cmd = f"mofa new-agent {agent_name} --version {version} --output {output_dir} --authors \"{authors}\""
-            result = self._run_command(cmd)
+            # 使用不同的模板，根据 agent 类型
+            template_path = ""
+            if agent_type == "agent-hub":
+                template_path = os.path.join(self.agent_hub_dir, "hello-world")
+            else:  # examples
+                template_path = os.path.join(self.examples_dir, "hello_world")
             
+            # 检查模板是否存在
+            if not os.path.exists(template_path):
+                print(f"警告: 模板路径不存在: {template_path}，将尝试使用 mofa new-agent 命令")
+                cmd = f"mofa new-agent {agent_name} --version {version} --output {output_dir} --authors \"{authors}\""
+                result = self._run_command(cmd)
+            else:
+                # 使用模板复制创建新 agent
+                agent_dir = os.path.join(output_dir, agent_name)
+                if os.path.exists(agent_dir):
+                    return {"success": False, "message": f"Agent directory already exists: {agent_dir}"}
+                
+                # 复制模板目录
+                import shutil
+                shutil.copytree(template_path, agent_dir)
+                
+                # 更新 agent 名称和版本
+                template_name = os.path.basename(template_path)
+                self._update_agent_name_in_files(agent_dir, template_name, agent_name)
+                
+                # 更新 README.md
+                readme_path = os.path.join(agent_dir, "README.md")
+                if os.path.exists(readme_path):
+                    with open(readme_path, "r") as f:
+                        content = f.read()
+                    content = content.replace(template_name, agent_name)
+                    content = content.replace("# " + template_name, "# " + agent_name)
+                    with open(readme_path, "w") as f:
+                        f.write(content)
+                else:
+                    # 创建一个基本的 README.md
+                    with open(readme_path, "w") as f:
+                        f.write(f"# {agent_name} Agent\n\nCreated by {authors}\nVersion: {version}\n\nThis is a {agent_type} agent.")
+                
+                result = f"Created {agent_type} agent '{agent_name}' from template '{template_name}'"
+        
             if not result:
                 # 命令失败，尝试手动创建一个基本agent目录
                 print(f"尝试手动创建基本agent目录: {agent_name}")
-                agent_dir = os.path.join(self.agents_dir, agent_name)
+                agent_dir = os.path.join(output_dir, agent_name)
                 
                 if not os.path.exists(agent_dir):
                     os.makedirs(agent_dir, exist_ok=True)
@@ -279,28 +386,38 @@ class MofaCLI:
                     # 创建一个基本的README.md
                     readme_path = os.path.join(agent_dir, "README.md")
                     with open(readme_path, "w") as f:
-                        f.write(f"# {agent_name} Agent\n\nCreated by {authors}\nVersion: {version}\n\nThis is a basic agent template.")
+                        f.write(f"# {agent_name} Agent\n\nCreated by {authors}\nVersion: {version}\n\nThis is a {agent_type} agent.")
                     
                     # 创建一个基本的dataflow配置
                     dataflow_path = os.path.join(agent_dir, f"{agent_name}_dataflow.yml")
                     with open(dataflow_path, "w") as f:
                         f.write(f"# {agent_name} Agent Dataflow Configuration\n\nname: {agent_name}\nversion: {version}\n\nnodes: []\n\nlinks: []")
                         
-                    return {"success": True, "message": f"Created basic agent structure for {agent_name}"}
+                    return {"success": True, "message": f"Created basic {agent_type} agent structure for {agent_name}"}
                 else:
                     return {"success": False, "message": f"Agent directory already exists: {agent_name}"}
             
             return {"success": True, "message": result}
         except Exception as e:
+            import traceback
+            trace = traceback.format_exc()
+            print(f"创建 Agent 时出错: {str(e)}\n{trace}")
             return {"success": False, "message": str(e)}
     
     def run_agent(self, agent_name, timeout=5):
-        """运行指定的 agent（非阻塞方式）
-        这个方法仅启动 agent，然后在指定时间后返回
-        实际应用中，应该通过 WebSocket 或其他方式实时返回输出
+        """运行指定的原子化agent（非阻塞方式）
+        这个方法专门用于运行 agent-hub 中的原子化agent
         """
         try:
-            # 这里仅模拟启动，实际应用需要更复杂的进程管理
+            # 首先检查这个agent是否存在于agent-hub目录中
+            agent_path = os.path.join(self.agent_hub_dir, agent_name)
+            if not os.path.exists(agent_path) or not os.path.isdir(agent_path):
+                return {
+                    "success": False, 
+                    "message": f"Agent {agent_name} not found in agent-hub directory. If this is an example, use run_example instead."
+                }
+            
+            # 使用适合原子化agent的命令运行
             cmd = f"cd {self.mofa_dir} && mofa run --agent-name {agent_name}"
             # 在后台运行，以便不阻塞 API 响应
             process = subprocess.Popen(
@@ -314,9 +431,108 @@ class MofaCLI:
             # 仅等待 timeout 秒，然后返回进程 ID
             return {
                 "success": True, 
-                "message": f"Agent {agent_name} started", 
-                "process_id": process.pid
+                "message": f"Atomic agent {agent_name} started", 
+                "process_id": process.pid,
+                "agent_type": "atomic"
             }
+        except Exception as e:
+            return {"success": False, "message": str(e)}
+            
+    def run_example(self, example_name, timeout=5):
+        """运行指定的dataflow示例（非阻塞方式）
+        这个方法专门用于运行 examples 目录中的dataflow示例
+        dataflow示例可能需要不同的启动参数或环境设置
+        
+        新的运行方式：使用 dora 命令运行 dataflow
+        1. cd 到示例目录
+        2. dora up
+        3. dora build xxx_dataflow.yml
+        4. dora start xxx_dataflow.yml
+        """
+        print(f"\n\n===== 开始运行 example: {example_name} =====")
+        try:
+            # 首先检查这个示例是否存在于examples目录中
+            example_path = os.path.join(self.examples_dir, example_name)
+            if not os.path.exists(example_path) or not os.path.isdir(example_path):
+                return {
+                    "success": False, 
+                    "message": f"Example {example_name} not found in examples directory. If this is an atomic agent, use run_agent instead."
+                }
+            
+            # 查找 dataflow 配置文件
+            dataflow_files = [f for f in os.listdir(example_path) if f.endswith('_dataflow.yml') or f.endswith('.yml')]
+            if not dataflow_files:
+                return {
+                    "success": False,
+                    "message": f"No dataflow configuration file found in {example_name}"
+                }
+            
+            # 选择第一个找到的 dataflow 文件
+            dataflow_file = dataflow_files[0]
+            print(f"使用 dataflow 文件: {dataflow_file}")
+            
+            # 新的运行方式：使用单个命令执行所有 dora 操作
+            print(f"Running dora commands in {example_path}...")
+            
+            # 创建一个单一的命令，执行所有 dora 操作
+            dora_cmd = f"cd {example_path} && echo '=== Running dora up ===' && dora up && echo '\n=== Building dataflow {dataflow_file} ===' && dora build {dataflow_file} && echo '\n=== Starting dataflow {dataflow_file} ===' && dora start {dataflow_file}"
+            
+            # 初始化输出行列表
+            output_lines = [
+                f"Running dora commands in {example_path}...",
+                f"Dataflow file: {dataflow_file}",
+                "Command: dora up && dora build && dora start",
+                "----------------------------------------"
+            ]
+            
+            # 在后台运行 dora 命令
+            process = subprocess.Popen(
+                dora_cmd,
+                shell=True, 
+                stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE,
+                text=True,
+                cwd=example_path  # 设置工作目录
+            )
+            
+            # 保存进程信息，以便后续获取输出
+            self._running_processes[example_name] = {
+                "process": process,
+                "start_time": time.time(),
+                "output_lines": output_lines,  # 已经有了前面命令的输出
+                "type": "example"
+            }
+            
+            # 返回结果
+            return {
+                "success": True, 
+                "message": f"Example {example_name} started with dora", 
+                "process_id": process.pid,
+                "agent_type": "example",
+                "dataflow_file": dataflow_file
+            }
+            
+            # 旧的运行方式（注释掉）
+            '''
+            # 使用适合组合式示例的命令运行
+            cmd = f"cd {self.mofa_dir} && mofa run --agent-name {example_name} --example"
+            # 在后台运行，以便不阻塞 API 响应
+            process = subprocess.Popen(
+                cmd, 
+                shell=True, 
+                stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            # 仅等待 timeout 秒，然后返回进程 ID
+            return {
+                "success": True, 
+                "message": f"Example {example_name} started", 
+                "process_id": process.pid,
+                "agent_type": "example"
+            }
+            '''
         except Exception as e:
             return {"success": False, "message": str(e)}
     
@@ -328,58 +544,192 @@ class MofaCLI:
             return {"success": True, "message": f"Agent process {process_id} stopped"}
         except Exception as e:
             return {"success": False, "message": str(e)}
+            
+    def get_process_output(self, agent_name):
+        """获取正在运行的进程的输出
+        
+        Args:
+            agent_name: Agent 的名称
+            
+        Returns:
+            包含进程输出的字典
+        """
+        try:
+            if agent_name not in self._running_processes:
+                return {
+                    "success": False,
+                    "message": f"No running process found for {agent_name}"
+                }
+                
+            process_info = self._running_processes[agent_name]
+            process = process_info["process"]
+            
+            # 读取新的输出
+            new_output = []
+            
+            # 非阻塞地读取所有可用的输出
+            def read_output(pipe, prefix=""):
+                output = []
+                try:
+                    # 将文件描述符设置为非阻塞模式
+                    import fcntl
+                    import os
+                    fd = pipe.fileno()
+                    fl = fcntl.fcntl(fd, fcntl.F_GETFL)
+                    fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+                    
+                    # 尝试读取所有可用的输出
+                    while True:
+                        try:
+                            line = pipe.readline()
+                            if not line:
+                                break
+                            line = line.strip()
+                            if prefix:
+                                line = f"{prefix}{line}"
+                            output.append(line)
+                        except:
+                            break
+                except Exception as e:
+                    output.append(f"Error reading output: {str(e)}")
+                return output
+            
+            # 读取标准输出和错误输出
+            stdout_lines = read_output(process.stdout)
+            stderr_lines = read_output(process.stderr, prefix="ERROR: ")
+            
+            # 合并输出
+            new_output = stdout_lines + stderr_lines
+            process_info["output_lines"].extend(new_output)
+            
+            # 检查进程是否已经结束
+            is_running = process.poll() is None
+            
+            return {
+                "success": True,
+                "is_running": is_running,
+                "new_output": new_output,
+                "all_output": process_info["output_lines"],
+                "process_type": process_info["type"],
+                "start_time": process_info["start_time"],
+                "elapsed_time": time.time() - process_info["start_time"]
+            }
+        except Exception as e:
+            import traceback
+            trace = traceback.format_exc()
+            print(f"获取进程输出时出错: {str(e)}\n{trace}")
+            return {"success": False, "message": str(e)}
     
     def delete_agent(self, agent_name):
-        """删除指定的 agent"""
+        """删除指定的 agent
+        
+        会自动检查 agent-hub 和 examples 目录
+        """
         try:
-            agent_path = os.path.join(self.agents_dir, agent_name)
-            if not os.path.exists(agent_path):
-                return {"success": False, "message": f"Agent {agent_name} not found"}
+            # 首先检查 agent-hub 目录
+            agent_hub_path = os.path.join(self.agent_hub_dir, agent_name)
+            # 然后检查 examples 目录
+            examples_path = os.path.join(self.examples_dir, agent_name)
+            
+            # 检查 agent 是否存在于任一目录
+            if os.path.exists(agent_hub_path):
+                agent_path = agent_hub_path
+                agent_type = "agent-hub"
+            elif os.path.exists(examples_path):
+                agent_path = examples_path
+                agent_type = "examples"
+            else:
+                # 兼容旧版本，检查 self.agents_dir
+                agent_path = os.path.join(self.agents_dir, agent_name)
+                if not os.path.exists(agent_path):
+                    return {"success": False, "message": f"Agent {agent_name} not found in any directory"}
+                agent_type = "unknown"
             
             # 递归删除目录
             import shutil
+            print(f"删除 {agent_type} 类型的 Agent: {agent_name} 路径: {agent_path}")
             shutil.rmtree(agent_path)
-            return {"success": True, "message": f"Agent {agent_name} deleted"}
+            return {"success": True, "message": f"{agent_type} Agent {agent_name} deleted"}
         except Exception as e:
+            import traceback
+            trace = traceback.format_exc()
+            print(f"删除 Agent 时出错: {str(e)}\n{trace}")
             return {"success": False, "message": str(e)}
     
-    def copy_agent(self, source_agent, target_agent):
-        """复制一个 agent 作为新的 agent"""
+    def copy_agent(self, source_agent, target_agent, agent_type=None):
+        """复制一个 agent 作为新的 agent
+        
+        Args:
+            source_agent: 源 Agent 的名称
+            target_agent: 目标 Agent 的名称
+            agent_type: Agent 的类型，可以是 'agent-hub'（原子 agent）或 'examples'（组合示例）
+                       如果为 None，则会自动检测源 Agent 的类型
+        """
         try:
             # 输出日志以便于调试
             print(f"尝试复制 Agent {source_agent} 到 {target_agent}")
-            print(f"agents_dir = {self.agents_dir}")
             
-            # 处理源和目标路径
-            source_path = os.path.join(self.agents_dir, source_agent)
-            target_path = os.path.join(self.agents_dir, target_agent)
+            # 首先检查源 Agent 的类型，如果没有指定 agent_type
+            if agent_type is None:
+                # 检查在 agent-hub 目录中
+                if os.path.exists(os.path.join(self.agent_hub_dir, source_agent)):
+                    agent_type = "agent-hub"
+                    source_path = os.path.join(self.agent_hub_dir, source_agent)
+                # 检查在 examples 目录中
+                elif os.path.exists(os.path.join(self.examples_dir, source_agent)):
+                    agent_type = "examples"
+                    source_path = os.path.join(self.examples_dir, source_agent)
+                else:
+                    # 尝试在其他可能的目录中查找
+                    print(f"在默认目录中找不到源 Agent: {source_agent}")
+                    source_path = None
+                    other_locations = []
+                    
+                    # 导入配置文件中的AGENT_STORAGE_OPTIONS
+                    import sys
+                    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+                    from config import AGENT_STORAGE_OPTIONS
+                    
+                    for key, rel_path in AGENT_STORAGE_OPTIONS.items():
+                        other_path = os.path.join(self.mofa_dir, rel_path, source_agent)
+                        other_locations.append(other_path)
+                        if os.path.exists(other_path):
+                            print(f"在其他位置找到了源 Agent: {other_path}")
+                            source_path = other_path
+                            # 根据路径判断 agent 类型
+                            if "agent-hub" in other_path:
+                                agent_type = "agent-hub"
+                            elif "examples" in other_path:
+                                agent_type = "examples"
+                            else:
+                                # 默认使用 agent-hub
+                                agent_type = "agent-hub"
+                            break
+                    
+                    if source_path is None:
+                        return {"success": False, "message": f"Source agent '{source_agent}' not found. Searched in agent-hub, examples, and {other_locations}"}
+            else:
+                # 根据指定的 agent_type 选择源路径
+                if agent_type == "agent-hub":
+                    source_path = os.path.join(self.agent_hub_dir, source_agent)
+                elif agent_type == "examples":
+                    source_path = os.path.join(self.examples_dir, source_agent)
+                else:
+                    return {"success": False, "message": f"Invalid agent_type: {agent_type}. Must be 'agent-hub' or 'examples'"}
+            
+            # 根据 agent_type 选择目标路径
+            if agent_type == "agent-hub":
+                target_path = os.path.join(self.agent_hub_dir, target_agent)
+            else:  # examples
+                target_path = os.path.join(self.examples_dir, target_agent)
             
             print(f"source_path = {source_path}")
             print(f"target_path = {target_path}")
+            print(f"agent_type = {agent_type}")
             
             # 检查源路径是否存在
             if not os.path.exists(source_path):
-                print(f"错误: 源 Agent 路径不存在: {source_path}")
-                
-                # 尝试在其他可能的目录中查找
-                other_locations = []
-                
-                # 导入配置文件中的AGENT_STORAGE_OPTIONS
-                import sys
-                sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-                from config import AGENT_STORAGE_OPTIONS
-                
-                for key, rel_path in AGENT_STORAGE_OPTIONS.items():
-                    other_path = os.path.join(self.mofa_dir, rel_path, source_agent)
-                    other_locations.append(other_path)
-                    if os.path.exists(other_path):
-                        print(f"在其他位置找到了源 Agent: {other_path}")
-                        source_path = other_path
-                        target_path = os.path.join(self.agents_dir, target_agent)  # 目标仍然写到选定的存储位置
-                        break
-                
-                if not os.path.exists(source_path):
-                    return {"success": False, "message": f"Source agent '{source_agent}' not found. Searched in: {source_path} and {other_locations}"}
+                return {"success": False, "message": f"Source agent '{source_agent}' not found at {source_path}"}
             
             # 检查目标路径是否已存在
             if os.path.exists(target_path):
@@ -390,13 +740,13 @@ class MofaCLI:
             
             # 复制目录
             import shutil
-            print(f"正在复制: {source_path} -> {target_path}")
+            print(f"正在复制 {agent_type} agent: {source_path} -> {target_path}")
             shutil.copytree(source_path, target_path)
             
             # 更新配置文件中的名称
             self._update_agent_name_in_files(target_path, source_agent, target_agent)
             
-            return {"success": True, "message": f"Agent '{source_agent}' successfully copied to '{target_agent}'"}
+            return {"success": True, "message": f"{agent_type} agent '{source_agent}' successfully copied to '{target_agent}'"}
         except Exception as e:
             import traceback
             trace = traceback.format_exc()
