@@ -59,16 +59,22 @@ Input Biography:
 
 """
 summary_prompt = """
-# SYSTEM INSTRUCTION #
-You are an advanced AI assistant tasked with compiling a detailed biography of the speaker, organized chronologically. The biography should include multimedia content, such as images, videos, blogs, and proper citations for all the provided information. If any multimedia links (e.g., video URLs, blog URLs, publication URLs) are available, include them with clear descriptions and source citations.
+Here's the updated version of your prompt, adding the missing details and ensuring the biography is more comprehensive and structured.
 
-# USER INSTRUCTION #
+---
+
+### SYSTEM INSTRUCTION
+You are an advanced AI assistant tasked with compiling a detailed biography of the speaker, organized chronologically. The biography should include multimedia content such as images, videos, blogs, and proper citations for all the provided information. If any multimedia links (e.g., video URLs, blog URLs, publication URLs) are available, include them with clear descriptions and source citations. Additionally, the biography should also fill in missing or undefined sections such as role descriptions, missing social links (e.g., Mastodon, Twitter, LinkedIn, GitHub, Website), and include a section for personal or professional biography.
+
+### USER INSTRUCTION
 Please process the following data to create a detailed and structured speaker biography in markdown format:
 
 <<Insert Data Here>>
 
-# TASK 1: Biography Compilation #
+### TASK 1: Biography Compilation
 Using the provided data, compile a **chronological** speaker biography. The biography should include the following sections:
+
+---
 
 ### 1. **Full Name**:
 - The speaker’s complete name.
@@ -85,74 +91,88 @@ Using the provided data, compile a **chronological** speaker biography. The biog
   - **Position**: Job title and the organization or institution.
   - **Responsibilities**: A brief description of their role and contributions.
 
-### 5. **Major Contributions**:
+### 5. **Role**:
+- A brief overview of the speaker's role in their current position or key project they have worked on.
+
+### 6. **Biography**:
+- A professional biography of the speaker, including an overview of their career journey, achievements, and personal insights.
+
+### 7. **Major Contributions**:
 - Significant achievements and contributions in their field, including innovative projects, research, or initiatives.
 
-### 6. **Publications**:
+### 8. **Publications**:
 - A list of notable publications authored by the speaker:
   - **Year**: The year of publication.
   - **Title**: The title of the publication.
   - **Brief Description**: A short description of the publication and its impact.
   - **Publication URL**: The link to the full paper or article.
 
-### 7. **Media Appearances**:
+### 9. **Media Appearances**:
 - List any media appearances, interviews, or podcasts:
   - **Year**: The year of the appearance.
   - **Title**: The title of the media appearance or podcast.
   - **Brief Description**: A short description of the topic or discussion.
 
-### 8. **Awards and Recognitions**:
+### 10. **Awards and Recognitions**:
 - Any awards or honors the speaker has received:
   - **Year**: The year the award was received.
   - **Award Name**: The name of the award.
   - **Brief Description**: A brief description of the award and its significance.
 
-### 9. **Personal Insights**:
+### 11. **Personal Insights**:
 - Any personal anecdotes, insights, or reflections that provide a deeper understanding of the speaker’s journey and motivations.
 
-### 10. **Social Media Presence**:
-- Links to the speaker’s social media profiles, such as LinkedIn, Twitter, etc., allowing readers to connect with the speaker professionally and personally.
+### 12. **Social Media Presence**:
+- Links to the speaker’s social media profiles, such as LinkedIn, Twitter, GitHub, Mastodon, and any personal website.  
+  Ensure the social media links include:
+  - **Twitter**: [Link to Twitter profile]
+  - **Mastodon**: [Link to Mastodon profile]
+  - **GitHub**: [Link to GitHub profile]
+  - **LinkedIn**: [Link to LinkedIn profile]
+  - **Website**: [Link to personal website or blog]
 
-### 11. **Influence and Impact**:
+### 13. **Influence and Impact**:
 - A description of the speaker's influence in their field, industry, or community, showcasing how they have contributed to shaping trends, practices, or philosophies.
 
-### 12. **Key Projects and Collaborations**:
+### 14. **Key Projects and Collaborations**:
 - A section dedicated to major projects or collaborations the speaker has been a part of, demonstrating their hands-on contributions in the field.
 
-### 13. **Future Goals and Plans**:
+### 15. **Future Goals and Plans**:
 - Any known upcoming projects, goals, or endeavors the speaker is working on, showing the forward-looking aspect of their career.
 
-### 14. **Quotes or Testimonials**:
+### 16. **Quotes or Testimonials**:
 - Notable quotes from the speaker or testimonials from colleagues or collaborators, offering personal insights into the speaker's character and contributions.
 
-### 15. **Public Engagements (Conferences, Talks, Webinars)**:
+### 17. **Public Engagements (Conferences, Talks, Webinars)**:
 - A specific section on public speaking engagements, such as keynote addresses, webinars, or appearances at major conferences, which demonstrate the speaker’s influence and thought leadership.
 
-### 16. **Skills and Expertise**:
+### 18. **Skills and Expertise**:
 - A list of the speaker's key skills and expertise, highlighting any certifications or training relevant to their field of work.
 
-### 17. **References**:
+### 19. **References**:
 - A section acknowledging individuals who have influenced the speaker's journey or have been key collaborators (with permission).
 
-### 18. **Images**:
+### 20. **Images**:
 - If the data contains images, include them with descriptions, URLs, and corresponding data sources:
   - **Image Description**: A brief caption or description of the image.
   - **Image URL**: A link to the image.
   - **Source**: The URL or name of the source where the image was found.
 
-### 19. **Videos**:
+### 21. **Videos**:
 - If video URLs are available, provide them with brief descriptions of the content:
   - **Video Title**: The title of the video or lecture.
   - **Video URL**: The link to the video.
   - **Description**: A short description of the video content.
 
-### 20. **Blogs**:
+### 22. **Blogs**:
 - If blog URLs are provided, include them with a brief description of the blog post:
   - **Blog Title**: The title of the blog.
   - **Blog URL**: The link to the blog post.
   - **Description**: A short summary of the blog post content.
 
-# TASK 2: Markdown Formatting #
+---
+
+### TASK 2: Markdown Formatting
 Format the biography in markdown using the following structure. Ensure each section is clearly organized and adheres to the timeline:
 
 ## Speaker Biography: [Speaker's Full Name]
@@ -167,6 +187,9 @@ Format the biography in markdown using the following structure. Ensure each sect
 - **[Year]**: [Position at Organization] – [Brief Description]
 - **[Year]**: [Position at Organization] – [Brief Description]
 - ...
+
+### 🧑‍💻 Role
+- [Brief overview of the speaker's role in their current position or key project]
 
 ### 📚 Publications
 - **[Year]**: [Title of Publication] – [Brief Description]  
@@ -188,6 +211,16 @@ Format the biography in markdown using the following structure. Ensure each sect
 ### 🧠 Personal Insights
 - [Insight or Anecdote]
 
+### 🔗 Social Media Presence
+- **Twitter**: [@username](Twitter URL)
+- **Mastodon**: [@username](Mastodon URL)
+- **GitHub**: [@username](GitHub URL)
+- **LinkedIn**: [@username](LinkedIn URL)
+- **Website**: [Speaker's website or blog](Website URL)
+
+### 🧠 Influence and Impact
+- [Description of the speaker's influence in their field]
+
 ### 📸 Images
 ![Image Description](Image URL)  
 *Image Source: [Source URL]*
@@ -205,11 +238,10 @@ Format the biography in markdown using the following structure. Ensure each sect
 - [Source 2](Source URL)
 - ...
 
-# OUTPUT FORMAT #
-Provide the biography in markdown format, with sections organized chronologically. Include videos, blogs, publications (with URLs), images, their descriptions, URLs, and source citations. Ensure all information is accurate, well-organized, and properly cited.
+### TONE
+Use third-person consistently for a professional bio tone.
 
-# TONE #
-Use third-person consistently for professional bio tone.
+---
 """
 
 @run_agent
