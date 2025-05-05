@@ -48,7 +48,7 @@ Professional Experience: The speakerâ€™s work history, including companies theyâ
 
 @run_agent
 def run(agent:MofaAgent):
-
+    load_dotenv('.env.secret')
     query = agent.receive_parameter('query')
     app = FireCrawl()
     scrape_result = json.dumps(app.deep_research(query=query))
