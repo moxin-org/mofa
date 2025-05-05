@@ -107,3 +107,18 @@ npm run dev
 
 前端开发服务器将在 http://localhost:3000 上运行。
 
+
+### 冲突解决
+
+```bash
+# 查找并杀死占用端口的进程
+for port in 3000 5000 5001 5002 8888; do
+    pid=$(lsof -t -i:$port)
+    if [ -n "$pid" ]; then
+        kill -9 $pid
+        echo "Killed process on port $port"
+    else
+        echo "No process found on port $port"
+    fi
+done
+```

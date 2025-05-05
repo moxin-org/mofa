@@ -36,7 +36,7 @@
       </el-menu>
     </div>
     <div class="sidebar-footer">
-      <span>MoFA_Stage v0.1.3</span>
+      <span>MoFA_Stage v0.2.0</span>
     </div>
   </div>
 </template>

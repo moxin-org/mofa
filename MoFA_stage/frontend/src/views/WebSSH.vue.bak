@@ -7,22 +7,15 @@
     <div class="webssh-layout">
       <!-- Examples Sidebar -->
       <div class="examples-sidebar">
-        <div class="examples-header">Dataflows</div>
-        <div class="examples-search">
-          <el-input
-            v-model="searchQuery"
-            placeholder="搜索Dataflow..."
-            clearable
-            @input="filterExamples"
-          >
-            <template #prefix>
-              <el-icon><Search /></el-icon>
-            </template>
-          </el-input>
+        <div class="examples-header">Examples</div>
+        <div class="run-button">
+          <el-button type="primary" @click="runSelectedExample" :disabled="!selectedExample" block>
+            <el-icon><VideoPlay /></el-icon> Run Agent
+          </el-button>
         </div>
         <div class="examples-list">
           <div 
-            v-for="example in filteredExamples" 
+            v-for="example in examples" 
             :key="example.name" 
             class="example-item" 
             :class="{ active: selectedExample === example.name }"
@@ -36,14 +29,14 @@
       <!-- SSH Terminal Card -->
       <el-card class="ssh-card">
         <el-tabs 
-          v-model="activeTabName" 
-          type="card" 
-          addable 
-          closable 
-          @tab-add="handleTabAdd" 
-          @tab-remove="handleTabRemove"
-          @tab-change="handleTabChange"
-          class="terminal-tabs"
+        v-model="activeTabName" 
+        type="card" 
+        addable 
+        closable 
+        @tab-add="handleTabAdd" 
+        @tab-remove="handleTabRemove"
+        @tab-change="handleTabChange"
+        class="terminal-tabs"
       >
         <el-tab-pane
           v-for="session in sessions"
@@ -86,7 +79,7 @@
          <div class="action-hint">
            Click the '+' button to open a new SSH tab.
          </div>
-        </div>
+       </div>
       </el-card>
     </div>
 
@@ -128,9 +121,8 @@
 import { ref, reactive, onMounted, onBeforeUnmount, nextTick, watch, shallowRef, onActivated, onDeactivated } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useSettingsStore } from '../store/settings'
-import { useAgentStore } from '../store/agent'
 import XtermTerminalTab from '../components/XtermTerminalTab.vue'
-import { Loading, Monitor, QuestionFilled, VideoPlay, Search } from '@element-plus/icons-vue'
+import { Loading, Monitor, QuestionFilled, VideoPlay } from '@element-plus/icons-vue'
 
 export default {
   name: 'WebSSH',
@@ -140,11 +132,9 @@ export default {
     Monitor,
     QuestionFilled,
     VideoPlay,
-    Search,
   },
   setup() {
     const settingsStore = useSettingsStore()
-    const agentStore = useAgentStore()
     const showSettingsDialog = ref(false)
     const activeTabName = ref('')
     const sessions = ref([])
@@ -152,8 +142,6 @@ export default {
     const platformInfo = ref('')
     const savedMofaDir = ref('')
     const examples = ref([])
-    const filteredExamples = ref([])
-    const searchQuery = ref('')
     const selectedExample = ref('')
     const sshConfigForm = ref(null)
     const rememberConfig = ref(true)
@@ -197,81 +185,61 @@ export default {
           platformInfo.value = 'Error: ' + error.message
         }
 
-        // Load SSH settings if available
         if (settingsStore.settings && settingsStore.settings.ssh) {
           // Copy SSH settings to local config
-          Object.assign(sshConfig, settingsStore.settings.ssh)
+          Object.assign(sshConfig, settingsStore.settings.ssh);
           console.log('Loaded SSH settings from store:', 
-              {...sshConfig, password: sshConfig.password ? '******' : ''})
+              {...sshConfig, password: sshConfig.password ? '******' : ''});
         } else {
-          console.warn('No SSH settings found in store')
+          console.warn('No SSH settings found in store');
         }
         
         // Attempt to load last used config from local storage as fallback
-        const savedConfig = localStorage.getItem('webssh_last_config')
+        const savedConfig = localStorage.getItem('webssh_last_config');
         if (savedConfig) {
           try {
-            const parsed = JSON.parse(savedConfig)
+            const parsed = JSON.parse(savedConfig);
             // Only override non-empty fields from local storage
-            if (parsed.hostname) sshConfig.hostname = parsed.hostname
-            if (parsed.port) sshConfig.port = parsed.port
-            if (parsed.username) sshConfig.username = parsed.username
+            if (parsed.hostname) sshConfig.hostname = parsed.hostname;
+            if (parsed.port) sshConfig.port = parsed.port;
+            if (parsed.username) sshConfig.username = parsed.username;
             // Password will be loaded from store, not localStorage
             
             console.log('Merged with localStorage config:', 
-                {...sshConfig, password: sshConfig.password ? '******' : ''})
+                {...sshConfig, password: sshConfig.password ? '******' : ''});
           } catch(e) {
-            console.error('Failed to parse saved SSH config', e)
-            localStorage.removeItem('webssh_last_config')
+            console.error('Failed to parse saved SSH config', e);
+            localStorage.removeItem('webssh_last_config');
           }
-        }
-        
-        // Fetch examples list from API
-        try {
-          // 使用agent store获取examples列表
-          await agentStore.fetchAgents()
-          
-          // 从store中获取example_agents
-          const exampleAgents = agentStore.exampleAgents || []
-          
-          // 转换为与当前组件兼容的格式
-          if (exampleAgents.length > 0) {
-            examples.value = exampleAgents.map(name => {
-              return {
-                name: name,
-                path: `/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/${name}`
-              }
-            })
-            filteredExamples.value = examples.value
-          } else {
-            console.warn('No examples found from API, using fallback')
-            // 如果API没有返回examples，使用默认的fallback
-            examples.value = [
-              { name: 'hello_world', path: '/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/hello_world' },
-              { name: 'add_numbers', path: '/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/add_numbers' }
-            ]
-            filteredExamples.value = examples.value
-          }
-        } catch (error) {
-          console.error('Error fetching examples:', error)
-          // 出错时使用默认的fallback
-          examples.value = [
-            { name: 'hello_world', path: '/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/hello_world' },
-            { name: 'add_numbers', path: '/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/add_numbers' }
-          ]
-          filteredExamples.value = examples.value
         }
         
         // Automatically open a tab if config is valid and no sessions exist
         if (sessions.value.length === 0 && sshConfig.hostname && sshConfig.username) {
-          addTab({...sshConfig})
+          addTab({...sshConfig});
         }
         
-        isInitialized.value = true
-      } catch (error) {
-        console.error('Error initializing component:', error)
-        platformInfo.value = 'Error: ' + error.message
-      }
+        isInitialized.value = true;
+      }).catch(err => {
+        console.error('Failed to load settings:', err);
+        
+        // Try to use localStorage as fallback
+        const savedConfig = localStorage.getItem('webssh_last_config');
+        if (savedConfig) {
+          try {
+            const parsed = JSON.parse(savedConfig);
+            Object.assign(sshConfig, parsed);
+            
+            // Automatically open a tab if config is valid and no sessions exist
+            if (sessions.value.length === 0 && sshConfig.hostname && sshConfig.username) {
+              addTab({...sshConfig});
+            }
+          } catch(e) {
+            console.error('Failed to parse saved SSH config', e);
+          }
+        }
+        
+        isInitialized.value = true;
+      });
     };
     
     // Load settings on mount
@@ -466,35 +434,9 @@ export default {
       // handleTabRemove(session.name); 
     }
 
-    // Select an example from the sidebar and copy to clipboard
+    // Select an example from the sidebar
     const selectExample = (exampleName) => {
       selectedExample.value = exampleName
-      
-      // 获取settings中的examples路径
-      const settings = settingsStore.settings
-      let examplesPath = ''
-      
-      // 优先使用custom_examples_path，如果不存在则使用examples_path
-      if (settings.custom_examples_path) {
-        examplesPath = settings.custom_examples_path
-      } else if (settings.examples_path) {
-        examplesPath = settings.examples_path
-      } else {
-        examplesPath = '/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples'
-      }
-      
-      // 构建完整命令
-      const fullCommand = `cd ${examplesPath}/${exampleName} && dora up && dora build ${exampleName}_dataflow.yml && dora start ${exampleName}_dataflow.yml`
-      
-      // 复制命令到剪贴板
-      navigator.clipboard.writeText(fullCommand)
-        .then(() => {
-          ElMessage.success(`已复制完整命令到剪贴板`)
-        })
-        .catch(err => {
-          console.error('Failed to copy text: ', err)
-          ElMessage.error('复制到剪贴板失败')
-        })
     }
     
     // Run the selected example
@@ -536,61 +478,44 @@ export default {
       // Send the commands to the terminal
       const commandString = commands.join(' ')
       
-      // Send command to the terminal
-      if (terminalComponent && terminalComponent.ws && terminalComponent.ws.readyState === WebSocket.OPEN) {
-        // Send the command to the terminal
-        terminalComponent.ws.send(JSON.stringify({ type: 'input', data: commandString }))
-        
-        // Send Enter key
-        terminalComponent.ws.send(JSON.stringify({ type: 'input', data: '\r' }))
-        
-        ElMessage.success(`Running example: ${selectedExample.value}`)
-      } else {
-        ElMessage.error('Terminal not connected')
+      // Send each character to the terminal with a slight delay
+      const sendCommandToTerminal = (command) => {
+        if (terminalComponent && terminalComponent.ws && terminalComponent.ws.readyState === WebSocket.OPEN) {
+          // Send the command to the terminal
+          terminalComponent.ws.send(JSON.stringify({ type: 'input', data: command }))
+          
+          // Send Enter key
+          terminalComponent.ws.send(JSON.stringify({ type: 'input', data: '\r' }))
+          
+          ElMessage.success(`Running example: ${selectedExample.value}`)
+        } else {
+          ElMessage.error('Terminal not connected')
+        }
       }
+      
+      // Execute the command
+      sendCommandToTerminal(commandString)
     }
     
-    // Initialize component on mount
-    onMounted(() => {
-      initializeComponent()
-    })
-    
-    // 过滤examples列表
-const filterExamples = () => {
-  if (!searchQuery.value) {
-    filteredExamples.value = examples.value
-  } else {
-    const query = searchQuery.value.toLowerCase()
-    filteredExamples.value = examples.value.filter(example => 
-      example.name.toLowerCase().includes(query)
-    )
-  }
-}
-
-return {
+    return {
       showSettingsDialog,
       sshConfig,
       sshConfigForm,
       rememberConfig,
       sessions,
       activeTabName,
-      platformInfo,
-      savedMofaDir,
-      examples,
-      filteredExamples,
-      searchQuery,
-      selectedExample,
       handleTabAdd,
       handleTabRemove,
       handleTabChange,
       saveSettingsAndAddTab,
       handleStatusChange,
       handleSessionError,
-      setSessionRef,
+      setSessionRef, // Expose ref setter function
       resetSshConfig,
+      examples,
+      selectedExample,
       selectExample,
-      runSelectedExample,
-      filterExamples
+      runSelectedExample
     }
   }
 }
@@ -640,10 +565,6 @@ return {
 }
 
 .run-button {
-  margin: 10px 15px;
-}
-
-.examples-search {
   margin: 10px 15px;
 }
 

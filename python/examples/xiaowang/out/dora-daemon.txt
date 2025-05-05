@@ -22,3 +22,45 @@
 2025-05-05T01:20:34.564639Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_generate
 2025-05-05T01:20:34.567572Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_reflection
 2025-05-05T01:20:34.688080Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # xiaowang_terminal
+2025-05-05T03:01:07.278456Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon: received ctrlc signal -> stopping all dataflows
+2025-05-05T03:01:07.301042Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon: received destroy command -> exiting
+2025-05-05T03:01:07.316770Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:07.316767Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:07.316764Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:07.316774Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:07.322521Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: zenoh::api::session: close session zid=856f52c80c208212308090d5d46c637e
+2025-05-05T03:01:07.968957Z ERROR dora_daemon: failed to report ctrl-c event to dora-coordinator
+2025-05-05T03:01:08.233394Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:08.233467Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:08.242802Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:08.243615Z  WARN dora_daemon::node_communication: failed to send event to daemon
+
+Location:
+    /home/yao/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/dora-daemon-0.3.11/src/node_communication/mod.rs:504:26
+2025-05-05T03:01:08.529634Z  WARN dora_daemon: process 449319 was killed on drop because it was still running
+2025-05-05T03:01:08.539650Z  WARN dora_daemon: process 449321 was killed on drop because it was still running
+2025-05-05T03:01:08.549077Z  WARN dora_daemon: process 449322 was killed on drop because it was still running
+2025-05-05T03:01:08.557658Z  WARN dora_daemon: process 449332 was killed on drop because it was still running
+2025-05-05T03:01:08.566452Z  WARN dora_daemon: process 449333 was killed on drop because it was still running
+2025-05-05T03:01:08.985794Z  WARN dora_daemon: received 3rd ctrlc signal -> aborting immediately

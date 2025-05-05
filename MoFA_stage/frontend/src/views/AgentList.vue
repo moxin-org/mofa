@@ -70,16 +70,16 @@
                 <el-icon><Document /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)">
+            <!-- <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)" :hide-after="0">
               <el-button size="small" type="success" @click="handleRunAgent(agent)">
                 <el-icon><VideoPlay /></el-icon>
               </el-button>
             </el-tooltip>
-            <el-tooltip :content="$t('agent.stop')" placement="top" v-else>
+            <el-tooltip :content="$t('agent.stop')" placement="top" v-else :hide-after="0">
               <el-button size="small" type="danger" @click="handleStopAgent(agent)">
                 <el-icon><VideoPause /></el-icon>
               </el-button>
-            </el-tooltip>
+            </el-tooltip> -->
             <el-tooltip :content="$t('common.delete')" placement="top">
               <el-button size="small" type="danger" @click="handleDeleteAgent(agent)">
                 <el-icon><Delete /></el-icon>
@@ -125,12 +125,12 @@
                       <el-icon><Edit /></el-icon>
                     </el-button>
                   </el-tooltip>
-                  <el-tooltip :content="$t('agent.viewLogs')" placement="top">
+                  <el-tooltip :content="$t('agent.viewLogs')" placement="top" :hide-after="0">
                     <el-button size="small" type="info" @click="fetchAgentLogs(agent)">
                       <el-icon><Document /></el-icon>
                     </el-button>
                   </el-tooltip>
-                  <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)">
+                  <!-- <el-tooltip :content="$t('agent.run')" placement="top" v-if="!isAgentRunning(agent)" :hide-after="0">
                     <el-button size="small" type="success" @click="handleRunAgent(agent)">
                       <el-icon><VideoPlay /></el-icon>
                     </el-button>
@@ -139,7 +139,7 @@
                     <el-button size="small" type="danger" @click="handleStopAgent(agent)">
                       <el-icon><VideoPause /></el-icon>
                     </el-button>
-                  </el-tooltip>
+                  </el-tooltip> -->
                   <el-tooltip :content="$t('common.delete')" placement="top">
                     <el-button size="small" type="danger" @click="handleDeleteAgent(agent)">
                       <el-icon><Delete /></el-icon>
