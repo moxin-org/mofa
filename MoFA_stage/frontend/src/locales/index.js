@@ -6,7 +6,7 @@ export const messages = {
       dataflowOrchestration: 'Dataflow Orchestration',
       commandLine: 'Command Line',
       settings: 'Settings',
-      webSSH: 'Web SSH'
+      webSSH: 'Command Line'
     },
     common: {
       confirm: 'Confirm',
@@ -99,7 +99,6 @@ export const messages = {
       examplesPath: 'Examples Path',
       agentHubPathHelp: 'Enter the full directory path for storing atomic agents',
       examplesPathHelp: 'Enter the full directory path for storing example combinations',
-      // 保留旧的键值对以保持兼容性
       agentStorage: 'Agent Storage Location',
       examplesDir: 'examples directory (/python/examples)',
       agentHubDir: 'agent-hub directory (/python/agent-hub)',
@@ -112,7 +111,12 @@ export const messages = {
       lightTheme: 'Light',
       darkTheme: 'Dark',
       editorFontSize: 'Editor Font Size',
-      editorTabSize: 'Editor Tab Size'
+      editorTabSize: 'Editor Tab Size',
+      showOnlyTerminal: 'Use Old Command Line',
+      showOnlyWebSSH: 'Use New Command Line',
+      terminalDisplayMode: 'Terminal Mode',
+      terminalDisplayModeHelp: 'Select to use old command line or new command line',
+      sshSettings: 'Terminal Settings'
     },
     terminal: {
       environmentInfo: 'Environment Information',
@@ -143,7 +147,9 @@ export const messages = {
       connect: 'Connect',
       disconnect: 'Disconnect',
       settings: 'Settings',
-      autoConnect: 'Auto Connect'
+      autoConnect: 'Auto Connect',
+      autoConnectHelp: 'Auto connects when opening the terminal',
+      sshSettings: 'Terminal Settings'
     },
     agent: {
       list: 'Agent Hub',
@@ -280,7 +286,6 @@ export const messages = {
       agentHubPathHelp: '输入存储原子 Agent 的完整目录路径',
       examplesPathHelp: '输入存储示例组合的完整目录路径',
       
-      // 保留旧的键值对以保持兼容性
       agentStorage: 'Agent 存储位置',
       examplesDir: 'examples目录 (/python/examples)',
       agentHubDir: 'agent-hub目录 (/python/agent-hub)',
@@ -293,7 +298,12 @@ export const messages = {
       lightTheme: '亮色',
       darkTheme: '暗色',
       editorFontSize: '编辑器字体大小',
-      editorTabSize: '编辑器缩进大小'
+      editorTabSize: '编辑器缩进大小',
+      showOnlyTerminal: '使用旧命令行',
+      showOnlyWebSSH: '使用新命令行',
+      terminalDisplayMode: '终端模式',
+      terminalDisplayModeHelp: '选择使用旧命令行还是新命令行',
+      sshSettings: '终端设置'
     },
     terminal: {
       environmentInfo: '环境信息',
@@ -324,7 +334,9 @@ export const messages = {
       connect: '连接',
       disconnect: '断开连接',
       settings: '设置',
-      autoConnect: '自动连接'
+      autoConnect: '自动连接',
+      autoConnectHelp: '设置为自动连接',
+      sshSettings: '终端设置'
     },
     agent: {
       list: 'Agent 列表',

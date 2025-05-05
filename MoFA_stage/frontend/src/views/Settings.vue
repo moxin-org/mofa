@@ -136,14 +136,14 @@
         <el-form :model="settingsForm" label-position="top">
           <el-form-item :label="$t('settings.terminalDisplayMode') || '终端显示模式'">
             <el-select v-model="settingsForm.terminal_display_mode" style="width: 100%">
-              <el-option 
+              <!-- <el-option 
                 :label="$t('settings.showBothTerminals') || '显示两种终端'" 
-                value="both" />
+                value="both" /> -->
               <el-option 
-                :label="$t('settings.showOnlyTerminal') || '仅显示命令行'" 
+                :label="$t('settings.showOnlyTerminal') || '仅显示旧命令行'" 
                 value="terminal" />
               <el-option 
-                :label="$t('settings.showOnlyWebSSH') || '仅显示Web SSH'" 
+                :label="$t('settings.showOnlyWebSSH') || '仅显示新命令行'" 
                 value="webssh" />
             </el-select>
             <div class="form-help">
@@ -319,12 +319,12 @@ export default {
         const result = await settingsStore.saveSettings(settingsForm)
         if (result) {
           applyTheme(settingsForm.theme)
-          ElMessage.success('设置已保存')
+          ElMessage.success('Settings saved successfully')
         } else {
-          ElMessage.error(`保存设置失败: ${settingsStore.error}`)
+          ElMessage.error(`Failed to save settings: ${settingsStore.error}`)
         }
       } catch (error) {
-        ElMessage.error(`保存设置失败: ${error.message}`)
+        ElMessage.error(`Failed to save settings: ${error.message}`)
       } finally {
         isSaving.value = false
       }
@@ -337,35 +337,35 @@ export default {
         if (result) {
           Object.assign(settingsForm, settingsStore.settings)
           applyTheme(settingsStore.settings.theme)
-          ElMessage.success('设置已重置为默认值')
+          ElMessage.success('Settings reset to default successfully')
         } else {
-          ElMessage.error(`重置设置失败: ${settingsStore.error}`)
+          ElMessage.error(`Failed to reset settings: ${settingsStore.error}`)
         }
       } catch (error) {
-        ElMessage.error(`重置设置失败: ${error.message}`)
+        ElMessage.error(`Failed to reset settings: ${error.message}`)
       } finally {
         isResetting.value = false
       }
     }
     
     const selectMofaEnvPath = () => {
-      // 在实际环境中，这里可以集成文件选择对话框
-      ElMessage.info('需要集成服务器端文件选择')
+      // todo: 集成文件选择对话框
+      ElMessage.info('File Selection Dialog')
     }
     
     const selectMofaDir = () => {
-      // 在实际环境中，这里可以集成文件选择对话框
-      ElMessage.info('需要集成服务器端文件选择')
+      // todo: 集成文件选择对话框
+      ElMessage.info('File Selection Dialog')
     }
     
     const selectCustomAgentHubPath = () => {
-      // 在实际环境中，这里可以集成文件选择对话框
-      ElMessage.info('需要集成服务器端文件选择')
+      // todo: 集成文件选择对话框
+      ElMessage.info('File Selection Dialog')
     }
     
     const selectCustomExamplesPath = () => {
-      // 在实际环境中，这里可以集成文件选择对话框
-      ElMessage.info('需要集成服务器端文件选择')
+      // todo: 集成文件选择对话框
+      ElMessage.info('File Selection Dialog')
     }
 
     const handleLanguageChange = (value) => {

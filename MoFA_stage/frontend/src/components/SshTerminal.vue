@@ -4,29 +4,29 @@
       <h3>{{ title || 'SSH Terminal' }}</h3>
       <div class="terminal-controls">
         <el-button type="primary" size="small" @click="connectSSH" :disabled="isConnected">
-          <el-icon><Connection /></el-icon> 连接
+          <el-icon><Connection /></el-icon> Connect
         </el-button>
         <el-button type="danger" size="small" @click="disconnectSSH" :disabled="!isConnected">
-          <el-icon><Close /></el-icon> 断开
+          <el-icon><Close /></el-icon> Disconnect
         </el-button>
       </div>
     </div>
     
     <div class="terminal-config" v-if="!isConnected">
       <el-form :model="sshConfig" label-width="100px">
-        <el-form-item label="主机地址">
+        <el-form-item label="Host">
           <el-input v-model="sshConfig.host" placeholder="例如: localhost 或 127.0.0.1" />
         </el-form-item>
-        <el-form-item label="端口">
+        <el-form-item label="Port">
           <el-input v-model="sshConfig.port" placeholder="例如: 22" />
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item label="Username">
           <el-input v-model="sshConfig.username" placeholder="SSH 用户名" />
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="Password">
           <el-input v-model="sshConfig.password" type="password" placeholder="SSH 密码" />
         </el-form-item>
-        <el-form-item label="命令">
+        <el-form-item label="Command">
           <el-input v-model="sshConfig.command" type="textarea" :rows="3" placeholder="要执行的命令" />
         </el-form-item>
       </el-form>
@@ -34,9 +34,9 @@
     
     <div class="terminal-output" v-if="isConnected || terminalOutput.length > 0">
       <div class="output-header">
-        <span>命令输出</span>
+        <span>Command Output</span>
         <el-button type="primary" size="small" plain @click="clearOutput">
-          清除输出
+          Clear Output
         </el-button>
       </div>
       <pre class="output-content" ref="outputContent">{{ terminalOutput }}</pre>
@@ -89,31 +89,31 @@ export default {
     // 在实际应用中，这里应该使用 WebSocket 或其他方式与后端通信
     const connectSSH = async () => {
       if (!sshConfig.host || !sshConfig.port || !sshConfig.username || !sshConfig.password) {
-        ElMessage.warning('请填写完整的 SSH 连接信息')
+        ElMessage.warning('Please fill in the complete SSH connection information')
         return
       }
       
       if (!sshConfig.command.trim()) {
-        ElMessage.warning('请输入要执行的命令')
+        ElMessage.warning('Please enter the command to execute')
         return
       }
       
       try {
         isConnected.value = true
-        appendOutput(`正在连接到 ${sshConfig.host}:${sshConfig.port} 作为 ${sshConfig.username}...\n`)
+        appendOutput(`Connecting to ${sshConfig.host}:${sshConfig.port} as ${sshConfig.username}...\n`)
         
         // 模拟连接延迟
         await new Promise(resolve => setTimeout(resolve, 1000))
         
-        appendOutput('连接成功！\n')
-        appendOutput(`执行命令: ${sshConfig.command}\n`)
+        appendOutput('Connection successful!\n')
+        appendOutput(`Executing command: ${sshConfig.command}\n`)
         
         // 模拟命令执行
         await new Promise(resolve => setTimeout(resolve, 500))
         
         // 这里应该是实际的命令输出
         // 在实际应用中，这里应该从 WebSocket 或其他方式获取实时输出
-        appendOutput('命令执行中...\n')
+        appendOutput('Command execution in progress...\n')
         
         // 模拟命令输出
         const interval = setInterval(() => {
@@ -123,19 +123,19 @@ export default {
         // 模拟命令完成
         setTimeout(() => {
           clearInterval(interval)
-          appendOutput('\n命令执行完成！\n')
+          appendOutput('\nCommand execution completed!\n')
         }, 5000)
         
         emit('connected')
       } catch (error) {
-        appendOutput(`连接错误: ${error.message}\n`)
+        appendOutput(`Connection error: ${error.message}\n`)
         isConnected.value = false
         emit('error', error)
       }
     }
     
     const disconnectSSH = () => {
-      appendOutput('断开连接...\n')
+      appendOutput('Disconnecting...\n')
       isConnected.value = false
       emit('disconnected')
     }

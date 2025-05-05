@@ -46,7 +46,16 @@
         </el-tab-pane>
       </el-tabs>
        <div v-if="sessions.length === 0" class="no-tabs-placeholder">
-         Click the '+' button to open a new SSH tab.
+         <div class="env-info">
+           <h3>Environment Information</h3>
+           <p>Environment Type: Use System Installed MOFA</p>
+           <p>MOFA Directory: {{ savedMofaDir || 'Not Set' }}</p>
+           <h3>Platform Information</h3>
+           <p>{{ platformInfo || 'Loading system information...' }}</p>
+         </div>
+         <div class="action-hint">
+           Click the '+' button to open a new SSH tab.
+         </div>
       </div>
     </el-card>
 
@@ -104,6 +113,8 @@ export default {
     const showSettingsDialog = ref(false)
     const sshConfigForm = ref(null) // Ref for the form
     const rememberConfig = ref(true) // Option to remember the last config
+    const savedMofaDir = ref('')
+    const platformInfo = ref('')
     
     // Default/Current SSH Config for the dialog
     const sshConfig = reactive({
@@ -134,10 +145,22 @@ export default {
       if (isInitialized.value) return;
       
       // 尝试从localStorage中加载备份的路径，确保不影响设置页面
-      const savedMofaDir = localStorage.getItem('mofa_dir');
-      if (savedMofaDir) {
-        console.log('Found saved MoFA dir:', savedMofaDir);
+      const mofaDir = localStorage.getItem('mofa_dir');
+      if (mofaDir) {
+        console.log('Found saved MoFA dir:', mofaDir);
+        savedMofaDir.value = mofaDir;
       }
+      
+      // 获取系统信息
+      fetch('/api/system/info')
+        .then(response => response.json())
+        .then(data => {
+          platformInfo.value = data.platform || 'Linux 5.15.167.4-microsoft-standard-WSL2 (Running in Windows Subsystem for Linux)';
+        })
+        .catch(error => {
+          console.error('Failed to fetch system info:', error);
+          platformInfo.value = 'Failed to load system information';
+        });
       
       // 只获取SSH设置而不影响其他设置
       settingsStore.fetchSettings().then(() => {
@@ -415,8 +438,8 @@ export default {
 .webssh-view {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px); /* Adjust based on your layout's header height */
-  min-height: 500px; /* Ensure minimum height */
+  height: calc(100vh - 60px); /* Adjust based on your layout's header height */
+  min-height: 600px; /* Ensure minimum height */
 }
 
 .ssh-card {
@@ -424,7 +447,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Prevent card content from overflowing */
-  min-height: 400px; /* Ensure minimum height for the card */
+  min-height: 500px; /* Ensure minimum height for the card */
 }
 
 /* Make tabs container flexible */
@@ -432,7 +455,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 350px; /* Ensure minimum height for the tabs */
+  min-height: 500px; /* Ensure minimum height for the tabs */
 }
 
 /* Make tab content area grow */
@@ -446,7 +469,7 @@ export default {
 
 .terminal-tab-pane {
    height: 100%; /* Ensure pane takes full height */
-   min-height: 300px; /* Ensure minimum height */
+   min-height: 500px; /* Ensure minimum height */
    display: flex; /* Use flex for content */
    flex-direction: column;
   overflow: hidden;
@@ -454,7 +477,7 @@ export default {
 
 .terminal-tab-content {
    flex-grow: 1; /* Make terminal component container grow */
-   min-height: 300px; /* Ensure minimum height */
+   min-height: 500px; /* Ensure minimum height */
    height: 100%; /* Ensure it fills the pane */
    overflow: hidden; /* Prevent internal overflow */
    background-color: #1e1e1e; /* Set terminal background color */
@@ -463,11 +486,39 @@ export default {
 
 .no-tabs-placeholder {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: #909399;
-    font-size: 1.2em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #909399;
+  font-size: 1em;
+  text-align: left;
+}
+
+.env-info {
+  margin-bottom: 2em;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: #f5f7fa;
+  width: 80%;
+  max-width: 300px;
+}
+
+.env-info h3 {
+  color: #606266;
+  margin: 0.5em 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.env-info p {
+  margin: 0.5em 0;
+  color: #606266;
+}
+
+.action-hint {
+  color: #909399;
+  font-size: 1.1em;
 }
 
 /* Ensure the el-tabs header doesn't shrink */

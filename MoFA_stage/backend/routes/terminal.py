@@ -10,6 +10,9 @@ import uuid
 import shlex
 import threading
 import time
+import json
+import psutil
+from datetime import datetime
 from pathlib import Path
 
 # Add project root directory to Python path
@@ -21,7 +24,7 @@ from config import DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA
 terminal_bp = Blueprint('terminal', __name__, url_prefix='/api/terminal')
 
 # Store active terminal sessions
-# Format: {session_id: {process: subprocess.Popen, cwd: str, env: dict, use_system_mofa: bool, mofa_env_path: str, mofa_dir: str, running_process: subprocess.Popen}}
+# Format: {session_id: {process: subprocess.Popen, cwd: str, env: dict, use_system_mofa: bool, mofa_env_path: str, mofa_dir: str, running_process: subprocess.Popen, websocket: object}}
 active_sessions = {}
 
 # Session cleanup thread
@@ -48,6 +51,60 @@ def cleanup_inactive_sessions():
 # Start cleanup thread
 cleanup_thread = threading.Thread(target=cleanup_inactive_sessions, daemon=True)
 cleanup_thread.start()
+
+# Function to get system information
+def get_system_info():
+    """Get system information for display in terminal"""
+    try:
+        # Get basic system info
+        uptime = time.time() - psutil.boot_time()
+        uptime_str = f"{int(uptime // 86400)}d {int((uptime % 86400) // 3600)}h {int((uptime % 3600) // 60)}m"
+        
+        # Get load average
+        load_avg = psutil.getloadavg()
+        load_avg_str = f"{load_avg[0]:.2f}, {load_avg[1]:.2f}, {load_avg[2]:.2f}"
+        
+        # Get memory usage
+        memory = psutil.virtual_memory()
+        memory_used_percent = memory.percent
+        memory_str = f"{memory_used_percent}% ({memory.used // (1024**2)}MB / {memory.total // (1024**2)}MB)"
+        
+        return {
+            "uptime": uptime_str,
+            "loadAverage": load_avg_str,
+            "memoryUsage": memory_str,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+    except Exception as e:
+        print(f"Error getting system info: {e}")
+        return {
+            "uptime": "Error",
+            "loadAverage": "Error",
+            "memoryUsage": "Error",
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+# Function to periodically send system info to connected websockets
+def send_system_info():
+    while True:
+        time.sleep(5)  # Update every 5 seconds
+        system_info = get_system_info()
+        
+        # Send to all active sessions with websockets
+        for session_id, session_data in active_sessions.items():
+            if 'websocket' in session_data and session_data['websocket']:
+                try:
+                    message = json.dumps({
+                        "type": "system_info",
+                        "data": system_info
+                    })
+                    session_data['websocket'].send(message)
+                except Exception as e:
+                    print(f"Error sending system info to session {session_id}: {e}")
+
+# # Start system info thread
+# system_info_thread = threading.Thread(target=send_system_info, daemon=True)
+# system_info_thread.start()
 
 @terminal_bp.route('/platform', methods=['GET'])
 def get_platform_info():

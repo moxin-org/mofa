@@ -519,11 +519,11 @@ export default {
             toggleAutoRefresh()
           }
         } else {
-          ElMessage.warning(`获取进程输出失败: ${result.error}`)
+          ElMessage.warning(`Failed to get process output: ${result.error}`)
         }
       } catch (error) {
         console.error('Error fetching process output:', error)
-        ElMessage.error(`获取进程输出时出错: ${error.message || error}`)
+        ElMessage.error(`Failed to get process output: ${error.message || error}`)
       } finally {
         refreshingOutput.value = false
       }
@@ -646,7 +646,7 @@ export default {
     
     const confirmCopyAgent = async () => {
       if (!copyForm.value.target) {
-        ElMessage.warning('请输入新 Agent 名称')
+        ElMessage.warning('Please enter a new Agent name')
         return
       }
       
@@ -658,9 +658,9 @@ export default {
       
       if (result) {
         copyDialogVisible.value = false
-        ElMessage.success(`成功复制 Agent: ${copyForm.value.source} → ${copyForm.value.target}`)
+        ElMessage.success(`Agent copied successfully: ${copyForm.value.source} → ${copyForm.value.target}`)
       } else {
-        ElMessage.error(`复制 Agent 失败: ${error.value}`)
+        ElMessage.error(`Failed to copy Agent: ${error.value}`)
       }
     }
     
@@ -690,7 +690,7 @@ export default {
     const handleRunAgent = async (agentName) => {
       const result = await agentStore.runAgent(agentName)
       if (result.success) {
-        ElMessage.success(`Agent ${agentName} 已启动`)
+        ElMessage.success(`Agent ${agentName} started successfully`)
         
         // 检查是否是 example 类型的 Agent
         const isExample = agentStore.exampleAgents.includes(agentName)
@@ -708,16 +708,16 @@ export default {
           setTimeout(() => fetchAgentLogs(agentName), 500)
         }
       } else {
-        ElMessage.error(`启动 Agent 失败: ${result.error}`)
+        ElMessage.error(`Failed to start Agent: ${result.error}`)
       }
     }
     
     const handleStopAgent = async (agentName) => {
       const result = await agentStore.stopAgent(agentName)
       if (result.success) {
-        ElMessage.success(`Agent ${agentName} 已停止`)
+        ElMessage.success(`Agent ${agentName} stopped successfully`)
       } else {
-        ElMessage.error(`停止 Agent 失败: ${result.error}`)
+        ElMessage.error(`Failed to stop Agent: ${result.error}`)
       }
     }
     

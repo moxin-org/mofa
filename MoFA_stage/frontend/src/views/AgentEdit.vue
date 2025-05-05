@@ -292,7 +292,7 @@ export default {
         const files = await agentStore.fetchAgentFiles(props.agentName)
         generateFileTree(files)
       } catch (err) {
-        ElMessage.error(`加载 Agent 文件失败: ${err.message}`)
+        ElMessage.error(`Failed to load Agent files: ${err.message}`)
       }
     }
 
@@ -410,7 +410,7 @@ export default {
           previewMode.value = false
         }
       } catch (err) {
-        ElMessage.error(`加载文件内容失败: ${err.message}`)
+        ElMessage.error(`Failed to load file content: ${err.message}`)
       }
     }
 
@@ -427,12 +427,12 @@ export default {
         
         if (result) {
           originalContent.value = editorContent.value
-          ElMessage.success('文件已保存')
+          ElMessage.success('File saved successfully')
         } else {
-          ElMessage.error(`保存失败: ${error.value}`)
+          ElMessage.error(`Failed to save file: ${error.value}`)
         }
       } catch (err) {
-        ElMessage.error(`保存失败: ${err.message}`)
+        ElMessage.error(`Failed to save file: ${err.message}`)
       } finally {
         isSaving.value = false
       }
@@ -466,7 +466,7 @@ export default {
 
     const createNewFile = async () => {
       if (!newFileForm.value.name) {
-        ElMessage.warning('请输入文件名')
+        ElMessage.warning('Please enter a file name')
         return
       }
       
@@ -532,17 +532,17 @@ export default {
         )
         
         if (result) {
-          ElMessage.success('文件已创建')
+          ElMessage.success('File created successfully')
           newFileDialogVisible.value = false
           
           // 重新加载文件列表并打开新文件
           await loadAgentFiles()
           loadFileContent(filePath)
         } else {
-          ElMessage.error(`创建文件失败: ${error.value}`)
+          ElMessage.error(`Failed to create file: ${error.value}`)
         }
       } catch (err) {
-        ElMessage.error(`创建文件失败: ${err.message}`)
+        ElMessage.error(`Failed to create file: ${err.message}`)
       } finally {
         isCreatingFile.value = false
       }
@@ -551,18 +551,18 @@ export default {
     const runAgent = async () => {
       const result = await agentStore.runAgent(props.agentName)
       if (result.success) {
-        ElMessage.success(`Agent ${props.agentName} 已启动`)
+        ElMessage.success(`Agent ${props.agentName} started successfully`)
       } else {
-        ElMessage.error(`启动 Agent 失败: ${result.error}`)
+        ElMessage.error(`Failed to start Agent: ${result.error}`)
       }
     }
 
     const stopAgent = async () => {
       const result = await agentStore.stopAgent(props.agentName)
       if (result.success) {
-        ElMessage.success(`Agent ${props.agentName} 已停止`)
+        ElMessage.success(`Agent ${props.agentName} stopped successfully`)
       } else {
-        ElMessage.error(`停止 Agent 失败: ${result.error}`)
+        ElMessage.error(`Failed to stop Agent: ${result.error}`)
       }
     }
 

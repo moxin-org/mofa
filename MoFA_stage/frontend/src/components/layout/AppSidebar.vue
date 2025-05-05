@@ -27,7 +27,7 @@
         </el-menu-item>
         <el-menu-item index="/webssh" v-if="showWebSSH">
           <el-icon><Monitor /></el-icon>
-          <span>{{ $t('sidebar.webSSH') || 'Web SSH' }}</span>
+          <span>{{ $t('sidebar.webSSH') }}</span>
         </el-menu-item>
         <el-menu-item index="/settings">
           <el-icon><Setting /></el-icon>

@@ -129,7 +129,7 @@ export default {
     // 从 Hello World 模板创建 Agent
     const createHelloWorldAgent = async () => {
       if (!helloWorldForm.value.name) {
-        ElMessage.warning('请输入 Agent 名称')
+        ElMessage.warning('Please enter the Agent name')
         return
       }
       
@@ -146,14 +146,14 @@ export default {
         newAgentName.value = helloWorldForm.value.name
         creationSuccessDialog.value = true
       } else {
-        ElMessage.error(`创建 Agent 失败: ${agentStore.error}`)
+        ElMessage.error(`Failed to create Agent: ${agentStore.error}`)
       }
     }
     
     // 复制现有 Agent 创建新 Agent
     const createCopyAgent = async () => {
       if (!copyForm.value.source || !copyForm.value.target) {
-        ElMessage.warning('请选择源 Agent 并输入新 Agent 名称')
+        ElMessage.warning('Please select a source Agent and enter a new Agent name')
         return
       }
       
@@ -171,7 +171,7 @@ export default {
         newAgentName.value = copyForm.value.target
         creationSuccessDialog.value = true
       } else {
-        ElMessage.error(`复制 Agent 失败: ${agentStore.error}`)
+        ElMessage.error(`Failed to copy Agent: ${agentStore.error}`)
       }
     }
     

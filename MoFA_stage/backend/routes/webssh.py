@@ -8,6 +8,10 @@ import json
 import logging
 import paramiko
 import threading
+import uuid
+
+# Import active_sessions from terminal.py
+from routes.terminal import active_sessions
 
 # Add project root directory to Python path
 import sys
@@ -62,6 +66,7 @@ def ssh_interaction(ws, config):
     """Handles the SSH connection and data transfer"""
     ssh = None
     channel = None
+    session_id = str(uuid.uuid4())
     try:
         # 1. Check Config
         if not all([config.get('hostname'), config.get('username')]):
@@ -95,9 +100,29 @@ def ssh_interaction(ws, config):
         logging.info(f"SSH connection established to {username}@{hostname}")
         ws.send(json.dumps({"type": "status", "data": "SSH Connected."}))
         
+        # Store websocket in active_sessions for system info updates
+        active_sessions[session_id] = {
+            'process': None,  # No actual process for SSH sessions
+            'cwd': '/',
+            'env': {},
+            'use_system_mofa': False,
+            'mofa_env_path': '',
+            'mofa_dir': '',
+            'running_process': None,
+            'websocket': ws,
+            'ssh_client': ssh,
+            'ssh_channel': None,  # Will be set below
+            'hostname': hostname,
+            'username': username
+        }
+        
         # 3. Open SSH Shell Channel
         channel = ssh.invoke_shell(term='xterm-256color', width=80, height=24)
         channel.settimeout(0.0)  # Non-blocking
+        
+        # Store channel in active_sessions
+        if session_id in active_sessions:
+            active_sessions[session_id]['ssh_channel'] = channel
         
         # 4. Bridge WebSocket and SSH Channel
         while True:
@@ -165,6 +190,11 @@ def ssh_interaction(ws, config):
             channel.close()
         if ssh:
             ssh.close()
+            
+        # Remove session from active_sessions
+        if session_id in active_sessions:
+            del active_sessions[session_id]
+            logging.info(f"Removed WebSSH session {session_id} from active_sessions")
 
 @webssh_bp.route('/config', methods=['GET', 'POST'])
 def ssh_config():
