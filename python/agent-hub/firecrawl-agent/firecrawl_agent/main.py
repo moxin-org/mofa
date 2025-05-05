@@ -16,15 +16,17 @@ class FireCrawl:
             crawl_params = {
                 "maxDepth": os.getenv('FIRECRAWL_MAXDEPTH',3),
                 "timeLimit": 180,  # Time limit in seconds
-                "maxUrls": os.getenv('FIRECRAWL_MAXUrls',15)  # Maximum URLs to analyze
+                "maxUrls": os.getenv('FIRECRAWL_MAXURLS',15)  # Maximum URLs to analyze
             }
         self.crawl_params = crawl_params
 
     def on_activity(self, activity):
         print(f"[{activity['type']}] {activity['message']}")
 
-    def deep_research(self, query: str, ):
-        analysis_prompt = """
+    def deep_research(self, query: str, analysis_prompt:str=os.getenv('ANALYSIS_PROMPT',None)):
+        if analysis_prompt is None:
+
+            analysis_prompt = """
 Development History: The speaker's growth path in the industry, major accomplishments, and technological breakthroughs.
 
 Personal Story: The speaker's background, career transitions, and challenges faced along the way, as well as how they overcame them.
@@ -46,9 +48,9 @@ Professional Experience: The speakerâ€™s work history, including companies theyâ
 
 @run_agent
 def run(agent:MofaAgent):
+
     query = agent.receive_parameter('query')
     app = FireCrawl()
-    # Scrape a website:
     scrape_result = json.dumps(app.deep_research(query=query))
     agent.send_output(agent_output_name='firecrawl_agent_result',agent_result=scrape_result)
 def main():
