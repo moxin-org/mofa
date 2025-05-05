@@ -8,6 +8,9 @@ import pyarrow as pa
 from attrs import define, field
 from typing import Any, Dict, Union
 import logging
+
+from mcp.server import FastMCP
+
 from mofa.kernel.utils.util import create_agent_output, load_node_result
 from mofa.utils.files.read import read_yaml
 import yaml
@@ -16,7 +19,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 from mofa.utils.files.write import ensure_directory_exists
 from logging.handlers import RotatingFileHandler
-# from mcp.server.fastmcp import FastMCP
 
 
 @define
