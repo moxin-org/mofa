@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+
+from dotenv import load_dotenv
 from mem0 import Memory
 
 from typing import Any, Dict
@@ -69,6 +71,7 @@ def main():
     node = Node(
         args.name
     )  # provide the name to connect to the dataflow if dynamic node
+    load_dotenv('.env.secret')
 
     # assert_data = ast.literal_eval(data)
     for event in node:

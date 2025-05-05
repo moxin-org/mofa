@@ -15,6 +15,7 @@ packages = [{ include = "memory_record" }]
 [tool.poetry.dependencies]
 pyarrow = ">= 5.0.0"
 mem0ai = ">=0.1.35"
+flask = "*"
 [tool.poetry.scripts]
 memory-record = "memory_record.main:main"
 

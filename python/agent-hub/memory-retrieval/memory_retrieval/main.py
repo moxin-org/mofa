@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+
+from dotenv import load_dotenv
 from mem0 import Memory
 
 from typing import Any, Dict
@@ -62,6 +64,7 @@ def main():
         help="Tasks required for the memmory agent.",
         default="Paris Olympics",
     )
+    load_dotenv('.env.secret')
 
     args = parser.parse_args()
     task = os.getenv("TASK", args.task)
