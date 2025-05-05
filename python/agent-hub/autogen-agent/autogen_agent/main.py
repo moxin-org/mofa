@@ -1,7 +1,7 @@
 import json
 
 from autogen_agent import agent_config_dir_path
-from mofa.agent_build.base.base_agent import MofaAgent
+from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -22,18 +22,18 @@ async def autogen_agent(task: str) -> str:
     return result
 
     
+@run_agent
+def run(agent: MofaAgent):
+    os.environ['OPENAI_API_KEY'] = os.getenv('LLM_API_KEY')
+    result = asyncio.run(autogen_agent(agent.receive_parameter('query')))
 
+    agent.send_output(agent_output_name='autogen_result', agent_result=result.messages[1].content)
 def main():
+    # 创建MofaAgent实例
     agent = MofaAgent(agent_name='autogen-agent')
-    while True:
-        load_dotenv(agent_config_dir_path + '/.env')
-        os.environ['OPENAI_API_KEY'] = os.getenv('LLM_API_KEY')
-        result = asyncio.run(autogen_agent(agent.receive_parameter('query')))
+    # 运行代理
+    run(agent=agent)
 
-        agent.send_output(agent_output_name='autogen_result', agent_result=result.messages[1].content)
 if __name__ == "__main__":
     main()
-    # os.environ['OPENAI_API_KEY'] ='***REMOVED***'
-    # result = asyncio.run(autogen_group('你好'))
-    # print(result)
 
