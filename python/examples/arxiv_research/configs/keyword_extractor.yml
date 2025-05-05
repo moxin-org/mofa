@@ -10,7 +10,7 @@ LOG:
 
 MODEL:
   MODEL_API_KEY:  
-  MODEL_NAME: gpt-4o-mini
+  MODEL_NAME: gpt-4o
   MODEL_MAX_TOKENS: 2048
 #  MODEL_API_KEY: ollama
 #  MODEL_NAME: qwen:14b

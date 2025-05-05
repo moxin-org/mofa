@@ -10,8 +10,8 @@ AGENT:
 
 
 MODEL:
-  MODEL_API_KEY: ***REMOVED***mjabwqgfrweqwgdlrpyzbhyvxkaqfwdppdpsqxvciazkdoeh
-  MODEL_NAME: deepseek-ai/DeepSeek-V2.5
+  MODEL_API_KEY:
+  MODEL_NAME: Pro/deepseek-ai/DeepSeek-V3
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
 
 ENV:

@@ -13,7 +13,7 @@ from mofa.utils.files.read import read_yaml
 import pyarrow as pa
 RUNNER_CI = True if os.getenv("CI") == "true" else False
 
-class MemoryRecordAgent(BaseMofaAgent):    
+class MemoryRecordAgent(BaseMofaAgent):
     def load_config(self, config_path: str = None) -> Dict[str, Any]:
         if config_path is None:
             config_path = self.config_path
@@ -75,12 +75,12 @@ def main():
 
     # assert_data = ast.literal_eval(data)
     for event in node:
- 
+
         if event["type"] == "INPUT" and event['id'] in ['task','data']:
             task = event["value"][0].as_py()
         if event["type"] == "INPUT" and event['id'] in ['agent_result']:
             agent_result = load_node_result(event["value"][0].as_py())
-        if task is not None and agent_result is not None : 
+        if task is not None and agent_result is not None :
             memmory = MemoryRecordAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
                                 llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
             result = memmory.run(task=task,agent_result=agent_result)
@@ -90,11 +90,45 @@ def main():
             task, agent_result = None, None
         # event = node.next(timeout=200)
 if __name__ == "__main__":
-    # main()
-    mem0 = MemoryRecordAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
-                                llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
-    result = mem0.run(task='How to use the mem0-ai package in Python? ',agent_result= 'Mem0 remembers user preferences and traits and continuously updates over time, making it ideal for applications like customer support chatbots and AI assistants. Mem0 offers two powerful ways to leverage our technology: our managed platform and our open source solution.')
-    print(result)
-    all_result = mem0.llm_client.get_all(user_id='mofa')
-    mem0.llm_client.search('How to use the mem0-ai package in Python?',user_id='mofa')
-    print("all_result : ",all_result)
+    main()
+    # mem0 = MemoryRecordAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
+    #                             llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
+    # result = mem0.run(task='How to use the mem0-ai package in Python? ',agent_result= 'Mem0 remembers user preferences and traits and continuously updates over time, making it ideal for applications like customer support chatbots and AI assistants. Mem0 offers two powerful ways to leverage our technology: our managed platform and our open source solution.')
+    # print(result)
+    # all_result = mem0.llm_client.get_all(user_id='mofa')
+    # mem0.llm_client.search('How to use the mem0-ai package in Python?',user_id='mofa')
+    # print("all_result : ",all_result)
+
+# import json
+# import os
+#
+# from dotenv import load_dotenv
+# from mofa.agent_build.base.base_agent import run_agent, MofaAgent
+# from mem0 import Memory
+#
+# from mofa.utils.files.read import read_yaml
+#
+#
+# @run_agent
+# def run(agent:MofaAgent,memory:Memory,user_id:str=None):
+#     if user_id is None:
+#         user_id = os.getenv('MEMORY_ID','mofa-memory-user')
+#
+#     receive_data = agent.receive_parameters(['task','agent_result'])
+#     messages = [{'role': 'user', 'content': receive_data['task']}, {'role': 'assistant', 'content': receive_data['agent_result']}]
+#     memory.add(messages, user_id=user_id)
+#     agent.send_output('memory_record_result', agent_result=json.dumps('Add Memory Success'),)
+#
+# def main():
+#     agent = MofaAgent(agent_name='memory-retrieval-agent')
+#     load_dotenv('.env.secret')
+#     config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml'
+#     config_data = read_yaml(str(config_path))
+#     os.environ['OPENAI_API_KEY'] = os.getenv('LLM_API_KEY')
+#
+#     memory = Memory.from_config(config_data.get('agent').get('llm'))
+#     run(agent=agent,memory=memory)
+#
+#
+# if __name__ == "__main__":
+#     main()

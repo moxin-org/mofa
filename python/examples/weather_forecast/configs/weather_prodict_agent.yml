@@ -23,5 +23,5 @@ PROMPT: |
 
 
 MODEL:
-  MODEL_API_KEY:  
-  MODEL_NAME: gpt-4o-mini
+  MODEL_API_KEY: ***REMOVED***
+  MODEL_NAME: gpt-4o

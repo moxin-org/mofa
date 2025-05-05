@@ -24,8 +24,8 @@ tasks:
     human_input: false
 
 model:
-  model_api_key:   
-  model_name: gpt-4o-mini
+  model_api_key:  
+  model_name: gpt-4o
   model_max_tokens: 2048
   module_api_url: null
 
