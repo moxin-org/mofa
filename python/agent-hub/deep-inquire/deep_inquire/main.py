@@ -332,7 +332,7 @@ def run(agent: MofaAgent):
     for chunk in generator.generate_stream(user_query=user_query):
         results.append(json.dumps(chunk, indent=2))
         agent.send_output(agent_output_name='deep_inquire_result', agent_result=json.dumps(chunk, indent=2))
-
+        time.sleep(0.005)
 
 def main():
     agent = MofaAgent(agent_name='DeepInquire')
