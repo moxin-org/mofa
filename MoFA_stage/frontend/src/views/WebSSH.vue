@@ -1,0 +1,499 @@
+<template>
+  <div class="page-container webssh-view">
+    <div class="page-header">
+      <h1 class="page-title">{{ $t('sidebar.webSSH') || 'Web SSH' }}</h1>
+    </div>
+
+    <el-card class="ssh-card">
+      <el-tabs 
+        v-model="activeTabName" 
+        type="card" 
+        addable 
+        closable 
+        @tab-add="handleTabAdd" 
+        @tab-remove="handleTabRemove"
+        @tab-change="handleTabChange"
+        class="terminal-tabs"
+      >
+        <el-tab-pane
+          v-for="session in sessions"
+          :key="session.name" 
+          :label="session.title"
+          :name="session.name"
+          class="terminal-tab-pane"
+        >
+          <template #label>
+             <span>
+               <el-icon v-if="session.status === 'connecting'" class="is-loading"><Loading /></el-icon>
+               <el-icon v-else-if="session.status === 'connected'"><Monitor /></el-icon>
+               <el-icon v-else><QuestionFilled /></el-icon>
+               {{ session.title }}
+             </span>
+           </template>
+           <!-- Ensure terminal takes full height -->
+           <div class="terminal-tab-content">
+             <XtermTerminalTab 
+               v-show="activeTabName === session.name" 
+               :session-id="session.id" 
+               :ssh-config="session.config"
+               :ref="el => setSessionRef(session.id, el)" 
+               @status-change="(status) => handleStatusChange(session.id, status)"
+               @error="(msg) => handleSessionError(session.id, msg)"
+               @connected="() => handleStatusChange(session.id, 'connected')"
+               @disconnected="() => handleStatusChange(session.id, 'disconnected')"
+             />
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+       <div v-if="sessions.length === 0" class="no-tabs-placeholder">
+         Click the '+' button to open a new SSH tab.
+      </div>
+    </el-card>
+
+    <!-- SSH Settings Dialog -->
+    <el-dialog
+      v-model="showSettingsDialog"
+      :title="$t('ssh.newConnection') || 'New SSH Connection'"
+      width="500px"
+      @closed="resetSshConfig" 
+    >
+      <el-form :model="sshConfig" label-width="120px" ref="sshConfigForm">
+        <el-form-item :label="$t('ssh.hostname') || 'Hostname'" prop="hostname" :rules="[{ required: true, message: 'Hostname is required', trigger: 'blur' }]">
+          <el-input v-model="sshConfig.hostname" placeholder="127.0.0.1" />
+        </el-form-item>
+        <el-form-item :label="$t('ssh.port') || 'Port'" prop="port" :rules="[{ required: true, type: 'number', message: 'Port is required', trigger: 'blur' }]">
+          <el-input-number v-model="sshConfig.port" :min="1" :max="65535" />
+        </el-form-item>
+        <el-form-item :label="$t('ssh.username') || 'Username'" prop="username" :rules="[{ required: true, message: 'Username is required', trigger: 'blur' }]">
+          <el-input v-model="sshConfig.username" />
+        </el-form-item>
+        <el-form-item :label="$t('ssh.password') || 'Password'">
+          <el-input v-model="sshConfig.password" type="password" show-password />
+        </el-form-item>
+         <el-form-item :label="$t('ssh.remember') || 'Remember Config'">
+          <el-switch v-model="rememberConfig" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="showSettingsDialog = false">{{ $t('common.cancel') || 'Cancel' }}</el-button>
+          <el-button type="primary" @click="saveSettingsAndAddTab">{{ $t('ssh.connect') || 'Connect' }}</el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { ref, reactive, onMounted, onBeforeUnmount, nextTick, watch, shallowRef, onActivated, onDeactivated } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useSettingsStore } from '../store/settings' // Assuming settings store is used for something else, keep if needed
+import XtermTerminalTab from '../components/XtermTerminalTab.vue' // Import the new component
+import { Loading, Monitor, QuestionFilled } from '@element-plus/icons-vue' // Import icons
+
+export default {
+  name: 'WebSSH',
+  components: {
+    XtermTerminalTab, // Register the component
+    Loading,
+    Monitor,
+    QuestionFilled,
+  },
+  setup() {
+    const settingsStore = useSettingsStore()
+    const showSettingsDialog = ref(false)
+    const sshConfigForm = ref(null) // Ref for the form
+    const rememberConfig = ref(true) // Option to remember the last config
+    
+    // Default/Current SSH Config for the dialog
+    const sshConfig = reactive({
+      hostname: '',
+      port: 22,
+      username: '',
+      password: '',
+      // auto_connect: true // auto_connect is now handled by XtermTerminalTab component's prop
+    })
+
+    const sessions = ref([])
+    const activeTabName = ref('') // Use session.name for v-model
+    const nextTabId = ref(1)
+    const sessionRefs = shallowRef({}) // Use shallowRef for refs map
+    
+    // Flag to track if the component has been initialized
+    const isInitialized = ref(false);
+
+    // Function to store refs, compatible with Vue 3 script setup ref binding
+    const setSessionRef = (sessionId, el) => {
+      if (el) {
+        sessionRefs.value[sessionId] = el
+      }
+    }
+    
+    // Initialization function to load settings and create initial tab
+    const initializeComponent = () => {
+      if (isInitialized.value) return;
+      
+      // 尝试从localStorage中加载备份的路径，确保不影响设置页面
+      const savedMofaDir = localStorage.getItem('mofa_dir');
+      if (savedMofaDir) {
+        console.log('Found saved MoFA dir:', savedMofaDir);
+      }
+      
+      // 只获取SSH设置而不影响其他设置
+      settingsStore.fetchSettings().then(() => {
+        // Load settings from the store if available
+        if (settingsStore.settings && settingsStore.settings.ssh) {
+          // Copy SSH settings to local config
+          Object.assign(sshConfig, settingsStore.settings.ssh);
+          console.log('Loaded SSH settings from store:', 
+              {...sshConfig, password: sshConfig.password ? '******' : ''});
+        } else {
+          console.warn('No SSH settings found in store');
+        }
+        
+        // Attempt to load last used config from local storage as fallback
+        const savedConfig = localStorage.getItem('webssh_last_config');
+        if (savedConfig) {
+          try {
+            const parsed = JSON.parse(savedConfig);
+            // Only override non-empty fields from local storage
+            if (parsed.hostname) sshConfig.hostname = parsed.hostname;
+            if (parsed.port) sshConfig.port = parsed.port;
+            if (parsed.username) sshConfig.username = parsed.username;
+            // Password will be loaded from store, not localStorage
+            
+            console.log('Merged with localStorage config:', 
+                {...sshConfig, password: sshConfig.password ? '******' : ''});
+          } catch(e) {
+            console.error('Failed to parse saved SSH config', e);
+            localStorage.removeItem('webssh_last_config');
+          }
+        }
+        
+        // Automatically open a tab if config is valid and no sessions exist
+        if (sessions.value.length === 0 && sshConfig.hostname && sshConfig.username) {
+          addTab({...sshConfig});
+        }
+        
+        isInitialized.value = true;
+      }).catch(err => {
+        console.error('Failed to load settings:', err);
+        
+        // Try to use localStorage as fallback
+        const savedConfig = localStorage.getItem('webssh_last_config');
+        if (savedConfig) {
+          try {
+            const parsed = JSON.parse(savedConfig);
+            Object.assign(sshConfig, parsed);
+            
+            // Automatically open a tab if config is valid and no sessions exist
+            if (sessions.value.length === 0 && sshConfig.hostname && sshConfig.username) {
+              addTab({...sshConfig});
+            }
+          } catch(e) {
+            console.error('Failed to parse saved SSH config', e);
+          }
+        }
+        
+        isInitialized.value = true;
+      });
+    };
+    
+    // Load settings on mount
+    onMounted(() => {
+      initializeComponent();
+    });
+    
+    // Handle component activation (when switching back to this view)
+    onActivated(() => {
+      console.log('WebSSH activated, sessions:', sessions.value.length);
+      
+      // Initialize if not already done
+      if (!isInitialized.value) {
+        initializeComponent();
+      }
+      
+      // Resize all terminal tabs when the component is activated
+      nextTick(() => {
+        Object.values(sessionRefs.value).forEach(termRef => {
+          if (termRef && typeof termRef.resizeTerminal === 'function') {
+            setTimeout(() => {
+              termRef.resizeTerminal();
+            }, 100);
+          }
+        });
+      });
+    });
+    
+    // Handle component deactivation (when switching away from this view)
+    onDeactivated(() => {
+      console.log('WebSSH deactivated, sessions remain alive:', sessions.value.length);
+      // We don't disconnect any sessions here, allowing them to run in the background
+    });
+
+    onBeforeUnmount(() => {
+      // This should only happen when the entire app is being unmounted
+      // Clean up any remaining session refs on component unmount
+      console.log('WebSSH unmounting, cleaning up all sessions');
+      sessionRefs.value = {}
+      // Sessions are cleaned up by closing tabs, but good practice:
+      sessions.value.forEach(session => {
+           const termRef = sessionRefs.value[session.id];
+           if (termRef && typeof termRef.disconnect === 'function') {
+               termRef.disconnect();
+           }
+       });
+       sessions.value = [];
+    });
+
+    const resetSshConfig = () => {
+       // Keep remembered config if checkbox was checked
+       // Let's simplify: always keep the last loaded config, but clear password
+       /* if (!rememberConfig.value) {
+           sshConfig.hostname = '';
+           sshConfig.port = 22;
+           sshConfig.username = '';
+           sshConfig.password = '';
+       } */
+       // Always clear password when dialog closes/reopens
+       sshConfig.password = '';
+       // Reset form validation if needed
+       sshConfigForm.value?.clearValidate();
+    };
+
+    const addTab = (configToAdd) => {
+      const newId = nextTabId.value++;
+      const newName = `session-${newId}`;
+      const newTitle = `${configToAdd.username}@${configToAdd.hostname}`;
+      
+      const newSession = {
+        id: newId,
+        name: newName,
+        title: newTitle,
+        config: { ...configToAdd }, // Copy config
+        status: 'connecting', // Initial status
+        ref: null // Ref will be set by setSessionRef
+      };
+
+      sessions.value.push(newSession)
+      activeTabName.value = newName
+      
+      // Save config if remember checkbox is checked
+      if (rememberConfig.value) {
+          try {
+              localStorage.setItem('webssh_last_config', JSON.stringify(configToAdd));
+          } catch (e) {
+              console.error('Failed to save SSH config to localStorage', e);
+          }
+          }
+        }
+        
+    const handleTabAdd = () => {
+        // Instead of showing settings dialog, directly use current config
+        if (sshConfig.hostname && sshConfig.username) {
+            // Use current settings from store/config
+            addTab({...sshConfig});
+        } else {
+            // Show message that settings are incomplete
+            ElMessage.warning('SSH settings are incomplete. Please configure them in the Settings page.');
+            
+            // Optional: You could navigate to settings page
+            // router.push('/settings');
+        }
+    }
+
+    const handleTabRemove = (targetName) => {
+      const sessionIndex = sessions.value.findIndex(s => s.name === targetName)
+      if (sessionIndex === -1) return;
+
+      const session = sessions.value[sessionIndex]
+      const termRef = sessionRefs.value[session.id]
+
+      // Call disconnect on the terminal component instance
+      if (termRef && typeof termRef.disconnect === 'function') {
+        termRef.disconnect()
+      } else {
+          console.warn(`Could not find terminal ref for session ${session.id} to disconnect.`);
+    }
+
+      // Remove the session from the list
+      sessions.value.splice(sessionIndex, 1)
+
+      // Clean up the ref
+      delete sessionRefs.value[session.id]
+
+      // If the closed tab was the active one, activate the next/previous tab
+      if (activeTabName.value === targetName) {
+        const nextTab = sessions.value[sessionIndex] || sessions.value[sessionIndex - 1]
+        activeTabName.value = nextTab ? nextTab.name : ''
+      }
+    }
+    
+    const handleTabChange = (newTabName) => {
+        // When tab changes, try to resize the newly visible terminal
+        nextTick(() => {
+            const activeSession = sessions.value.find(s => s.name === newTabName);
+            if (activeSession) {
+                const termRef = sessionRefs.value[activeSession.id];
+                if (termRef && typeof termRef.resizeTerminal === 'function') {
+                    // Add a small delay to ensure transition/rendering completes
+                    // Use multiple resize calls with increasing delays to ensure it catches
+                    termRef.resizeTerminal();
+                    
+                    setTimeout(() => {
+                        termRef.resizeTerminal();
+                    }, 50);
+                    
+                    setTimeout(() => {
+                        termRef.resizeTerminal();
+                    }, 200);
+                    
+                    setTimeout(() => {
+                        termRef.resizeTerminal();
+                    }, 500);
+                } else {
+                    console.warn(`Terminal ref not ready for resize on tab change: ${newTabName}`);
+      }
+    }
+        });
+    };
+
+    const saveSettingsAndAddTab = async () => {
+       if (!sshConfigForm.value) return;
+       try {
+         await sshConfigForm.value.validate();
+         // Validation passed
+         const configToUse = { ...sshConfig };
+         addTab(configToUse);
+         showSettingsDialog.value = false;
+       } catch (validationError) {
+         // Validation failed
+         console.log('SSH Config validation failed:', validationError);
+         ElMessage.error('Please fill in all required fields.');
+      }
+    }
+
+    const handleStatusChange = (sessionId, status) => {
+      const session = sessions.value.find(s => s.id === sessionId)
+      if (session) {
+        session.status = status
+        // Optionally update title based on status
+        // if (status === 'connected') session.title = `${session.config.username}@${session.config.hostname}`;
+        // else if (status === 'connecting') session.title = `Connecting...`;
+        // else session.title = `Disconnected`; // Or keep original title
+      }
+    }
+
+    const handleSessionError = (sessionId, msg) => {
+      const session = sessions.value.find(s => s.id === sessionId)
+      ElMessage.error(`Error in session ${session ? session.title : sessionId}: ${msg}`)
+      // Optionally close the tab on error, or mark it visually
+      // handleTabRemove(session.name); 
+    }
+
+    return {
+      showSettingsDialog,
+      sshConfig,
+      sshConfigForm,
+      rememberConfig,
+      sessions,
+      activeTabName,
+      handleTabAdd,
+      handleTabRemove,
+      handleTabChange,
+      saveSettingsAndAddTab,
+      handleStatusChange,
+      handleSessionError,
+      setSessionRef, // Expose ref setter function
+      resetSshConfig,
+    }
+  }
+}
+</script>
+
+<style scoped>
+.webssh-view {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px); /* Adjust based on your layout's header height */
+  min-height: 500px; /* Ensure minimum height */
+}
+
+.ssh-card {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent card content from overflowing */
+  min-height: 400px; /* Ensure minimum height for the card */
+}
+
+/* Make tabs container flexible */
+.terminal-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 350px; /* Ensure minimum height for the tabs */
+}
+
+/* Make tab content area grow */
+:deep(.el-tabs__content) {
+  flex-grow: 1;
+  height: 100%; /* Use 100% instead of 0 for consistent height calculation */
+  padding: 0; /* Remove default padding if needed */
+  overflow: hidden; /* Prevent overflow */
+  min-height: 300px; /* Ensure minimum height */
+}
+
+.terminal-tab-pane {
+   height: 100%; /* Ensure pane takes full height */
+   min-height: 300px; /* Ensure minimum height */
+   display: flex; /* Use flex for content */
+   flex-direction: column;
+  overflow: hidden;
+}
+
+.terminal-tab-content {
+   flex-grow: 1; /* Make terminal component container grow */
+   min-height: 300px; /* Ensure minimum height */
+   height: 100%; /* Ensure it fills the pane */
+   overflow: hidden; /* Prevent internal overflow */
+   background-color: #1e1e1e; /* Set terminal background color */
+   border-radius: 0 0 4px 4px;
+}
+
+.no-tabs-placeholder {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #909399;
+    font-size: 1.2em;
+}
+
+/* Ensure the el-tabs header doesn't shrink */
+:deep(.el-tabs__header) {
+    flex-shrink: 0;
+}
+
+/* Style for label icons */
+.el-icon {
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.page-container {
+  padding: 20px;
+}
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-title {
+  margin: 0;
+}
+
+.dialog-footer {
+  text-align: right;
+}
+</style>

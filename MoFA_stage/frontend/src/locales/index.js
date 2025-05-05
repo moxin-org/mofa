@@ -5,7 +5,8 @@ export const messages = {
       agentsList: 'Agents List',
       dataflowOrchestration: 'Dataflow Orchestration',
       commandLine: 'Command Line',
-      settings: 'Settings'
+      settings: 'Settings',
+      webSSH: 'Web SSH'
     },
     common: {
       confirm: 'Confirm',
@@ -133,6 +134,17 @@ export const messages = {
       closeTab: 'Close Terminal',
       interrupted: 'Command interrupted'
     },
+    ssh: {
+      configuration: 'SSH Configuration',
+      hostname: 'Hostname',
+      port: 'Port',
+      username: 'Username',
+      password: 'Password',
+      connect: 'Connect',
+      disconnect: 'Disconnect',
+      settings: 'Settings',
+      autoConnect: 'Auto Connect'
+    },
     agent: {
       list: 'Agent Hub',
       create: 'Create Agent',
@@ -168,7 +180,8 @@ export const messages = {
       agentsList: 'Agents 列表',
       dataflowOrchestration: '数据流编排',
       commandLine: '命令行',
-      settings: '设置'
+      settings: '设置',
+      webSSH: 'Web SSH'
     },
     common: {
       confirm: '确认',
@@ -285,22 +298,33 @@ export const messages = {
     terminal: {
       environmentInfo: '环境信息',
       environmentType: '环境类型',
-      openTerminal: '打开命令行',
+      openTerminal: '打开终端',
       configurationRequired: '请先在设置中配置MoFA环境',
       notConfigured: '未配置',
       platformInfo: '平台信息',
-      openingTerminal: '正在打开命令行...',
-      windowsPrompt: '对于Windows用户，我们推荐使用WSL(Windows Subsystem for Linux)',
-      terminalOpenSuccess: '命令行已成功打开',
-      terminalOpenError: '打开命令行失败',
+      openingTerminal: '正在打开终端...',
+      windowsPrompt: '对于Windows用户，我们建议使用WSL（Windows Subsystem for Linux）',
+      terminalOpenSuccess: '终端成功打开',
+      terminalOpenError: '打开终端失败',
       enterCommand: '输入命令...',
-      executing: '正在执行...',
+      executing: '执行中...',
       clear: '清除',
       execute: '执行',
       sessionInitialized: '终端会话已初始化',
-      newTab: '新建终端',
+      newTab: '新终端',
       closeTab: '关闭终端',
       interrupted: '命令已中断'
+    },
+    ssh: {
+      configuration: 'SSH配置',
+      hostname: '主机名',
+      port: '端口',
+      username: '用户名',
+      password: '密码',
+      connect: '连接',
+      disconnect: '断开连接',
+      settings: '设置',
+      autoConnect: '自动连接'
     },
     agent: {
       list: 'Agent 列表',

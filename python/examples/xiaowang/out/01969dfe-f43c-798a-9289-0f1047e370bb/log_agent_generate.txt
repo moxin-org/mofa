@@ -1,0 +1,37 @@
+/home/yao/.local/lib/python3.12/site-packages/pydantic/_internal/_config.py:295: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.10/migration/
+  warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+/home/yao/.local/lib/python3.12/site-packages/paramiko/pkey.py:100: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "cipher": algorithms.TripleDES,
+/home/yao/.local/lib/python3.12/site-packages/paramiko/transport.py:258: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "class": algorithms.TripleDES,
+/home/yao/.local/lib/python3.12/site-packages/pydantic/_internal/_config.py:295: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.10/migration/
+  warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+/home/yao/.local/lib/python3.12/site-packages/litellm/litellm_core_utils/get_model_cost_map.py:24: DeprecationWarning: open_text is deprecated. Use files() instead. Refer to https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy for migration advice.
+  with importlib.resources.open_text(
+/home/yao/.local/lib/python3.12/site-packages/litellm/utils.py:169: DeprecationWarning: open_text is deprecated. Use files() instead. Refer to https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy for migration advice.
+  with resources.open_text(
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+RuntimeError: Dora Runtime raised an error.
+
+Caused by:
+   0: main task failed
+   1: failed to init an operator
+   2: failed to init python operator
+   3: Traceback (most recent call last):
+        File "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/xiaowang/scripts/agent_generate.py", line 7, in <module>
+          from mofa.run.run_agent import run_dspy_agent, run_crewai_agent, run_dspy_or_crewai_agent
+        File "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/mofa/run/run_agent.py", line 3, in <module>
+          import dspy
+        File "/home/yao/.local/lib/python3.12/site-packages/dspy/__init__.py", line 63, in <module>
+          import dspy.teleprompt
+        File "/home/yao/.local/lib/python3.12/site-packages/dspy/teleprompt/__init__.py", line 5, in <module>
+          from .finetune import *
+        File "/home/yao/.local/lib/python3.12/site-packages/dspy/teleprompt/finetune.py", line 28, in <module>
+          os.makedirs(training_data_directory)
+        File "<frozen os>", line 225, in makedirs
+
+      FileExistsError: [Errno 17] File exists: 'local_cache/compiler'
+
+Location:
+    binaries/runtime/src/operator/python.rs:29:9

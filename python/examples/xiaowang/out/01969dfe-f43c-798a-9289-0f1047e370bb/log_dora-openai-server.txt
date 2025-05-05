@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/yao/.local/bin/dora-openai-server", line 5, in <module>
+    from dora_openai_server.main import main
+  File "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/node-hub/dora-openai-server/dora_openai_server/main.py", line 56, in <module>
+    node = Node()
+           ^^^^^^
+RuntimeError: Could not initiate node from environment variable. For dynamic node, please add a node id in the initialization function.
+
+Caused by:
+   0: failed to init event stream
+   1: subscribe failed: Node xiaowang_terminal exited before initializing dora. For more information, run `dora logs 01969dfe-f43c-798a-9289-0f1047e370bb xiaowang_terminal`.
+
+Location:
+    apis/rust/node/src/event_stream/mod.rs:139:17
+[2m2025-05-05T01:11:34.424203Z[0m [33m WARN[0m [2mopentelemetry_system_metrics[0m[2m:[0m Could not get NVML, recording 0 for GPU memory usage

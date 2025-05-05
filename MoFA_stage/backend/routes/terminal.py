@@ -88,9 +88,21 @@ def get_platform_info():
         }
     })
 
-@terminal_bp.route('/session', methods=['POST'])
+@terminal_bp.route('/session', methods=['GET', 'POST'])
 def create_terminal_session():
     """Create a new terminal session with the configured MoFA environment"""
+    if request.method == 'GET':
+        # Return active sessions info
+        sessions_info = {}
+        for session_id, session in active_sessions.items():
+            sessions_info[session_id] = {
+                "cwd": session.get('cwd', ''),
+                "use_system_mofa": session.get('use_system_mofa', USE_SYSTEM_MOFA),
+                "mofa_dir": session.get('mofa_dir', DEFAULT_MOFA_DIR),
+                "active": session.get('process') and session.get('process').poll() is None
+            }
+        return jsonify({"success": True, "sessions": sessions_info})
+    
     if not request.is_json:
         return jsonify({"success": False, "message": "Request must be JSON"}), 400
     

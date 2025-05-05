@@ -760,108 +760,142 @@ class MofaCLI:
         2. agent目录下的out目录及其子目录
         3. MoFA目录下的logs子目录中与agent相关的日志
         4. 系统临时目录中可能的日志文件
+        5. 各种可能的log文件夹和子文件夹
         """
         try:
-            agent_path = os.path.join(self.agents_dir, agent_name)
-            if not os.path.exists(agent_path):
-                return None
+            # 首先检查agent是否存在于任何可能的目录中
+            agent_paths = []
+            
+            # 检查主要agent目录
+            primary_agent_path = os.path.join(self.agents_dir, agent_name)
+            if os.path.exists(primary_agent_path):
+                agent_paths.append(primary_agent_path)
+            
+            # 检查所有可能的agent目录
+            for possible_dir in self.possible_agent_dirs:
+                possible_path = os.path.join(possible_dir, agent_name)
+                if os.path.exists(possible_path) and possible_path not in agent_paths:
+                    agent_paths.append(possible_path)
+            
+            # 如果没有找到agent，尝试在examples目录中查找
+            if not agent_paths:
+                for example_dir in self.example_dirs:
+                    example_path = os.path.join(example_dir, agent_name)
+                    if os.path.exists(example_path):
+                        agent_paths.append(example_path)
+            
+            if not agent_paths:
+                return f"未找到名为 {agent_name} 的Agent。请检查名称是否正确。"
             
             # 可能的日志位置
-            log_locations = [
+            log_locations = []
+            
+            # 为每个找到的agent路径添加可能的日志位置
+            for agent_path in agent_paths:
                 # 1. agent目录下的logs子目录
-                os.path.join(agent_path, "logs"),
+                log_locations.append(os.path.join(agent_path, "logs"))
                 # 2. agent目录下直接的log文件
-                os.path.join(agent_path, f"{agent_name}.log"),
-                # 3. MoFA目录下的logs子目录
-                os.path.join(self.mofa_dir, "logs", f"{agent_name}.log"),
-                # 4. MoFA目录下的通用logs目录
-                os.path.join(self.mofa_dir, "logs")
-            ]
+                log_locations.append(os.path.join(agent_path, f"{agent_name}.log"))
+                # 3. agent目录下的log子目录
+                log_locations.append(os.path.join(agent_path, "log"))
+                # 4. agent目录下的output子目录
+                log_locations.append(os.path.join(agent_path, "output"))
+            
+            # 5. MoFA目录下的logs子目录
+            log_locations.append(os.path.join(self.mofa_dir, "logs", f"{agent_name}.log"))
+            # 6. MoFA目录下的通用logs目录
+            log_locations.append(os.path.join(self.mofa_dir, "logs"))
+            # 7. MoFA目录下的log子目录
+            log_locations.append(os.path.join(self.mofa_dir, "log"))
             
             logs_content = []
             
-            # 检查agent目录下的out目录
-            out_dir = os.path.join(agent_path, "out")
-            if os.path.exists(out_dir) and os.path.isdir(out_dir):
-                # 检查dora-daemon.txt文件
-                daemon_log = os.path.join(out_dir, "dora-daemon.txt")
-                if os.path.exists(daemon_log) and os.path.isfile(daemon_log):
-                    try:
-                        with open(daemon_log, "r") as f:
-                            # 只读取最后200行，避免文件过大
-                            lines = f.readlines()
-                            content = "".join(lines[-200:] if len(lines) > 200 else lines)
-                            if content:
-                                logs_content.append(f"=== Dora Daemon 日志 ===\n{content}\n")
-                    except Exception as e:
-                        logs_content.append(f"无法读取Dora Daemon日志: {str(e)}")
+            # 检查所有agent路径下的out目录
+            for agent_path in agent_paths:
+                out_dir = os.path.join(agent_path, "out")
+                if os.path.exists(out_dir) and os.path.isdir(out_dir):
+                    # 检查dora-daemon.txt文件
+                    daemon_log = os.path.join(out_dir, "dora-daemon.txt")
+                    if os.path.exists(daemon_log) and os.path.isfile(daemon_log):
+                        try:
+                            with open(daemon_log, "r") as f:
+                                # 只读取最后200行，避免文件过大
+                                lines = f.readlines()
+                                content = "".join(lines[-200:] if len(lines) > 200 else lines)
+                                if content:
+                                    logs_content.append(f"=== Dora Daemon 日志 ({os.path.basename(agent_path)}) ===\n{content}\n")
+                        except Exception as e:
+                            logs_content.append(f"无法读取Dora Daemon日志: {str(e)}")
+                    
+                    # 检查dora-coordinator.txt文件
+                    coordinator_log = os.path.join(out_dir, "dora-coordinator.txt")
+                    if os.path.exists(coordinator_log) and os.path.isfile(coordinator_log):
+                        try:
+                            with open(coordinator_log, "r") as f:
+                                # 只读取最后200行，避免文件过大
+                                lines = f.readlines()
+                                content = "".join(lines[-200:] if len(lines) > 200 else lines)
+                                if content:
+                                    logs_content.append(f"=== Dora Coordinator 日志 ({os.path.basename(agent_path)}) ===\n{content}\n")
+                        except Exception as e:
+                            logs_content.append(f"无法读取Dora Coordinator日志: {str(e)}")
                 
-                # 检查dora-coordinator.txt文件
-                coordinator_log = os.path.join(out_dir, "dora-coordinator.txt")
-                if os.path.exists(coordinator_log) and os.path.isfile(coordinator_log):
-                    try:
-                        with open(coordinator_log, "r") as f:
-                            # 只读取最后200行，避免文件过大
-                            lines = f.readlines()
-                            content = "".join(lines[-200:] if len(lines) > 200 else lines)
-                            if content:
-                                logs_content.append(f"=== Dora Coordinator 日志 ===\n{content}\n")
-                    except Exception as e:
-                        logs_content.append(f"无法读取Dora Coordinator日志: {str(e)}")
+                    # 检查out目录下的其他日志文件
+                    for file in os.listdir(out_dir):
+                        file_path = os.path.join(out_dir, file)
+                        # 只处理文件，不处理目录
+                        if os.path.isfile(file_path) and file != "dora-daemon.txt" and file != "dora-coordinator.txt":
+                            # 检查是否是日志文件（有文本扩展名或包含"log"或"日志"字样）
+                            if file.endswith(".txt") or file.endswith(".log") or "log" in file.lower() or "日志" in file:
+                                try:
+                                    with open(file_path, "r") as f:
+                                        # 只读取最后100行，避免文件过大
+                                        lines = f.readlines()
+                                        content = "".join(lines[-100:] if len(lines) > 100 else lines)
+                                        if content:
+                                            logs_content.append(f"=== {file} ({os.path.basename(agent_path)}/out) ===\n{content}\n")
+                                except Exception as e:
+                                    logs_content.append(f"无法读取日志文件 {file}: {str(e)}")
                 
-                # 检查out目录下的其他日志文件
-                for file in os.listdir(out_dir):
-                    file_path = os.path.join(out_dir, file)
-                    # 只处理文件，不处理目录
-                    if os.path.isfile(file_path) and file != "dora-daemon.txt" and file != "dora-coordinator.txt":
-                        # 检查是否是日志文件（有文本扩展名或包含“log”或“日志”字样）
-                        if file.endswith(".txt") or file.endswith(".log") or "log" in file.lower() or "日志" in file:
+                    # 查找运行实例目录（UUID格式的目录）
+                    instance_dirs = []
+                    for item in os.listdir(out_dir):
+                        item_path = os.path.join(out_dir, item)
+                        # 检查是否是目录且看起来像UUID（包含连字符且长度合适）
+                        if os.path.isdir(item_path) and "-" in item and len(item) > 30:
+                            instance_dirs.append(item_path)
+                    
+                    # 按修改时间排序，最新的排在前面
+                    instance_dirs.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                    
+                    # 处理所有实例目录
+                    for instance_dir in instance_dirs:
+                        # 查找agent日志文件
+                        agent_log_pattern = f"log_{agent_name}*.txt"
+                        agent_logs = []
+                        
+                        # 使用glob模式查找匹配的日志文件
+                        for root, _, files in os.walk(instance_dir):
+                            for file in files:
+                                if file.startswith(f"log_{agent_name}") or file.startswith("log_") and "agent" in file.lower():
+                                    agent_logs.append(os.path.join(root, file))
+                                # 添加更多日志文件模式
+                                elif file.endswith(".txt") or file.endswith(".log") or "log" in file.lower() or "日志" in file:
+                                    agent_logs.append(os.path.join(root, file))
+                        
+                        # 处理找到的日志文件
+                        for log_file in agent_logs:
                             try:
-                                with open(file_path, "r") as f:
+                                with open(log_file, "r") as f:
                                     # 只读取最后100行，避免文件过大
                                     lines = f.readlines()
                                     content = "".join(lines[-100:] if len(lines) > 100 else lines)
                                     if content:
-                                        logs_content.append(f"=== {file} ===\n{content}\n")
+                                        instance_name = os.path.basename(instance_dir)
+                                        file_name = os.path.basename(log_file)
+                                        logs_content.append(f"=== 运行实例 {instance_name} - {file_name} ({os.path.basename(agent_path)}) ===\n{content}\n")
                             except Exception as e:
-                                logs_content.append(f"无法读取日志文件 {file}: {str(e)}")
-                
-                # 查找运行实例目录（UUID格式的目录）
-                instance_dirs = []
-                for item in os.listdir(out_dir):
-                    item_path = os.path.join(out_dir, item)
-                    # 检查是否是目录且看起来像UUID（包含连字符且长度合适）
-                    if os.path.isdir(item_path) and "-" in item and len(item) > 30:
-                        instance_dirs.append(item_path)
-                
-                # 按修改时间排序，最新的排在前面
-                instance_dirs.sort(key=lambda x: os.path.getmtime(x), reverse=True)
-                
-                # 处理所有实例目录
-                for instance_dir in instance_dirs:
-                    # 查找agent日志文件
-                    agent_log_pattern = f"log_{agent_name}*.txt"
-                    agent_logs = []
-                    
-                    # 使用glob模式查找匹配的日志文件
-                    for root, _, files in os.walk(instance_dir):
-                        for file in files:
-                            if file.startswith(f"log_{agent_name}") or file.startswith("log_") and "agent" in file.lower():
-                                agent_logs.append(os.path.join(root, file))
-                    
-                    # 处理找到的日志文件
-                    for log_file in agent_logs:
-                        try:
-                            with open(log_file, "r") as f:
-                                # 只读取最后100行，避免文件过大
-                                lines = f.readlines()
-                                content = "".join(lines[-100:] if len(lines) > 100 else lines)
-                                if content:
-                                    instance_name = os.path.basename(instance_dir)
-                                    file_name = os.path.basename(log_file)
-                                    logs_content.append(f"=== 运行实例 {instance_name} - {file_name} ===\n{content}\n")
-                        except Exception as e:
-                            logs_content.append(f"无法读取实例日志 {log_file}: {str(e)}")
+                                logs_content.append(f"无法读取实例日志 {log_file}: {str(e)}")
             
             # 遍历所有可能的日志位置
             for location in log_locations:
@@ -870,30 +904,62 @@ class MofaCLI:
                         # 如果是目录，查找与agent相关的所有日志文件
                         log_files = []
                         for file in os.listdir(location):
-                            if file.endswith(".log") and (agent_name in file or "agent" in file.lower()):
+                            # 扩展匹配条件，包括更多可能的日志文件
+                            if (file.endswith(".log") or file.endswith(".txt") or "log" in file.lower() or "日志" in file) and \
+                               (agent_name in file or "agent" in file.lower() or "mofa" in file.lower()):
                                 log_files.append(os.path.join(location, file))
                         
                         # 按修改时间排序，最新的日志排在前面
                         log_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
                         
                         # 读取最新的几个日志文件
-                        for log_file in log_files[:3]:  # 最多读取3个最新的日志文件
+                        for log_file in log_files[:5]:  # 增加到最多读取5个最新的日志文件
                             try:
                                 with open(log_file, "r") as f:
-                                    content = f.read()
+                                    # 只读取最后200行，避免文件过大
+                                    lines = f.readlines()
+                                    content = "".join(lines[-200:] if len(lines) > 200 else lines)
                                     if content:
-                                        logs_content.append(f"=== {os.path.basename(log_file)} ===\n{content}\n")
+                                        logs_content.append(f"=== {os.path.basename(log_file)} ({os.path.basename(os.path.dirname(log_file))}) ===\n{content}\n")
                             except Exception as e:
                                 logs_content.append(f"无法读取日志文件 {log_file}: {str(e)}")
+                        
+                        # 递归查找子目录中的日志文件
+                        for root, dirs, files in os.walk(location):
+                            if root != location:  # 跳过已处理的顶级目录
+                                log_files = []
+                                for file in files:
+                                    if (file.endswith(".log") or file.endswith(".txt") or "log" in file.lower() or "日志" in file) and \
+                                       (agent_name in file or "agent" in file.lower() or "mofa" in file.lower()):
+                                        log_files.append(os.path.join(root, file))
+                                
+                                # 按修改时间排序，最新的日志排在前面
+                                log_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                                
+                                # 读取最新的几个日志文件
+                                for log_file in log_files[:3]:  # 最多读取3个最新的日志文件
+                                    try:
+                                        with open(log_file, "r") as f:
+                                            # 只读取最后100行，避免文件过大
+                                            lines = f.readlines()
+                                            content = "".join(lines[-100:] if len(lines) > 100 else lines)
+                                            if content:
+                                                rel_path = os.path.relpath(log_file, location)
+                                                logs_content.append(f"=== {rel_path} ===\n{content}\n")
+                                    except Exception as e:
+                                        logs_content.append(f"无法读取日志文件 {log_file}: {str(e)}")
                     else:
                         # 如果是文件，直接读取
                         try:
                             with open(location, "r") as f:
-                                content = f.read()
+                                # 只读取最后200行，避免文件过大
+                                lines = f.readlines()
+                                content = "".join(lines[-200:] if len(lines) > 200 else lines)
                                 if content:
                                     logs_content.append(f"=== {os.path.basename(location)} ===\n{content}")
                         except Exception as e:
-                            logs_content.append(f"无法读取日志文件 {location}: {str(e)}")
+                            # 不记录错误，因为很多路径可能不存在
+                            pass
             
             # 尝试读取所有正在运行的进程，替代使用self.runningAgents
             if not logs_content:

@@ -1,0 +1,24 @@
+2025-05-05T01:10:43.649215Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-05-05T01:10:43.667584Z  INFO zenoh::net::runtime: Using ZID: e2b17765e68e70cbdd427303b2c067b6
+2025-05-05T01:10:43.697089Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::215:5dff:fe62:7834]:5456
+2025-05-05T01:10:43.698086Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.255.255.254:5456
+2025-05-05T01:10:43.698211Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/172.19.55.162:5456
+2025-05-05T01:10:43.699854Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-05-05T01:10:53.758695Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_DLC
+2025-05-05T01:10:53.763695Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_generate
+2025-05-05T01:10:53.765630Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_reflection
+2025-05-05T01:10:53.839077Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # xiaowang_terminal
+2025-05-05T01:11:46.522177Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-05-05T01:11:46.524548Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-05-05T01:15:28.449995Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: dora_daemon: received ctrlc signal -> stopping all dataflows
+2025-05-05T01:15:28.489565Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: feafdea8-65bc-467f-a13f-98b6232fa375 }}: zenoh::api::session: close session zid=e2b17765e68e70cbdd427303b2c067b6
+2025-05-05T01:20:26.368513Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-05-05T01:20:26.369687Z  INFO zenoh::net::runtime: Using ZID: 856f52c80c208212308090d5d46c637e
+2025-05-05T01:20:26.371057Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::215:5dff:fe62:7834]:5456
+2025-05-05T01:20:26.371236Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.255.255.254:5456
+2025-05-05T01:20:26.371376Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/172.19.55.162:5456
+2025-05-05T01:20:26.371641Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-05-05T01:20:34.560087Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_DLC
+2025-05-05T01:20:34.564639Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_generate
+2025-05-05T01:20:34.567572Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # agent_reflection
+2025-05-05T01:20:34.688080Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 872addb8-1ae6-4a61-8743-27682c796819 }}: dora_daemon::spawn: spawning: python -uc import dora; dora.start_runtime() # xiaowang_terminal

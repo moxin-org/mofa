@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+RuntimeError: Dora Runtime raised an error.
+
+Caused by:
+   0: main task failed
+   1: failed to init an operator
+   2: failed to init python operator
+   3: Traceback (most recent call last):
+        File "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples/xiaowang/scripts/agent_DLC.py", line 4, in <module>
+          from mofa.kernel.utils.util import load_agent_config, load_dora_inputs_and_task, create_agent_output
+        File "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/mofa/kernel/utils/util.py", line 5, in <module>
+          from crewai_tools import tool
+        File "/home/yao/.local/lib/python3.12/site-packages/crewai_tools/__init__.py", line 1, in <module>
+          from .tools import (
+        File "/home/yao/.local/lib/python3.12/site-packages/crewai_tools/tools/__init__.py", line 2, in <module>
+          from .code_docs_search_tool.code_docs_search_tool import CodeDocsSearchTool
+        File "/home/yao/.local/lib/python3.12/site-packages/crewai_tools/tools/code_docs_search_tool/code_docs_search_tool.py", line 3, in <module>
+          from embedchain.models.data_type import DataType
+        File "/home/yao/.local/lib/python3.12/site-packages/embedchain/__init__.py", line 10, in <module>
+          Client.setup()
+        File "/home/yao/.local/lib/python3.12/site-packages/embedchain/client.py", line 48, in setup
+          data = json.load(f)
+                 ^^^^^^^^^^^^
+        File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+          return loads(fp.read(),
+                 ^^^^^^^^^^^^^^^^
+        File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+          return _default_decoder.decode(s)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+          obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+          raise JSONDecodeError("Expecting value", s, err.value) from None
+
+      JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+Location:
+    binaries/runtime/src/operator/python.rs:29:9

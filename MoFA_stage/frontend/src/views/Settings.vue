@@ -98,11 +98,59 @@
       <el-card class="settings-card">
         <template #header>
           <div class="card-header">
+            <h3>{{ $t('settings.sshSettings') || 'SSH Settings' }}</h3>
+          </div>
+        </template>
+
+        <el-form :model="settingsForm.ssh" label-position="top">
+          <el-form-item :label="$t('ssh.hostname') || 'Hostname'">
+            <el-input v-model="settingsForm.ssh.hostname" placeholder="127.0.0.1" />
+          </el-form-item>
+
+          <el-form-item :label="$t('ssh.port') || 'Port'">
+            <el-input-number v-model="settingsForm.ssh.port" :min="1" :max="65535" style="width: 100%" />
+          </el-form-item>
+
+          <el-form-item :label="$t('ssh.username') || 'Username'">
+            <el-input v-model="settingsForm.ssh.username" />
+          </el-form-item>
+
+          <el-form-item :label="$t('ssh.password') || 'Password'">
+            <el-input v-model="settingsForm.ssh.password" type="password" show-password />
+          </el-form-item>
+
+          <el-form-item :label="$t('ssh.autoConnect') || 'Auto Connect'">
+            <el-switch v-model="settingsForm.ssh.auto_connect" />
+            <div class="form-help">{{ $t('ssh.autoConnectHelp') || 'Automatically connect to SSH when opening the SSH terminal' }}</div>
+          </el-form-item>
+        </el-form>
+      </el-card>
+
+      <el-card class="settings-card">
+        <template #header>
+          <div class="card-header">
             <h3>{{ $t('settings.editorSettings') }}</h3>
           </div>
         </template>
 
         <el-form :model="settingsForm" label-position="top">
+          <el-form-item :label="$t('settings.terminalDisplayMode') || '终端显示模式'">
+            <el-select v-model="settingsForm.terminal_display_mode" style="width: 100%">
+              <el-option 
+                :label="$t('settings.showBothTerminals') || '显示两种终端'" 
+                value="both" />
+              <el-option 
+                :label="$t('settings.showOnlyTerminal') || '仅显示命令行'" 
+                value="terminal" />
+              <el-option 
+                :label="$t('settings.showOnlyWebSSH') || '仅显示Web SSH'" 
+                value="webssh" />
+            </el-select>
+            <div class="form-help">
+              {{ $t('settings.terminalDisplayModeHelp') || '选择在侧边栏显示哪种终端。修改后需要刷新页面生效。' }}
+            </div>
+          </el-form-item>
+
           <el-form-item :label="$t('settings.language')">
             <el-select v-model="settingsForm.language" style="width: 100%" @change="handleLanguageChange">
               <el-option label="中文" value="zh" />
@@ -167,7 +215,15 @@ export default {
       theme: 'light',
       editor_font_size: 14,
       editor_tab_size: 4,
-      language: localStorage.getItem('language') || 'zh'
+      language: localStorage.getItem('language') || 'zh',
+      terminal_display_mode: 'both',
+      ssh: {
+        hostname: '127.0.0.1',
+        port: 22,
+        username: '',
+        password: '',
+        auto_connect: true
+      }
     })
     
     const isLoading = computed(() => settingsStore.isLoading)
@@ -177,13 +233,89 @@ export default {
     const loadSettings = async () => {
       const settings = await settingsStore.fetchSettings()
       if (settings) {
+        // 使用更安全的方式合并设置，确保不会覆盖现有值
+        // 首先保留一些默认值
+        const currentPaths = {
+          mofa_dir: settingsForm.mofa_dir,
+          agent_hub_path: settingsForm.agent_hub_path,
+          examples_path: settingsForm.examples_path,
+          custom_agent_hub_path: settingsForm.custom_agent_hub_path,
+          custom_examples_path: settingsForm.custom_examples_path
+        };
+        
+        // 合并设置
         Object.assign(settingsForm, settings)
+        
+        // 如果后端返回的路径为空，但本地有值，则保留本地值
+        if (!settingsForm.mofa_dir && currentPaths.mofa_dir) {
+          settingsForm.mofa_dir = currentPaths.mofa_dir;
+        }
+        
+        if (!settingsForm.agent_hub_path && currentPaths.agent_hub_path) {
+          settingsForm.agent_hub_path = currentPaths.agent_hub_path;
+        }
+        
+        if (!settingsForm.examples_path && currentPaths.examples_path) {
+          settingsForm.examples_path = currentPaths.examples_path;
+        }
+        
+        if (!settingsForm.custom_agent_hub_path && currentPaths.custom_agent_hub_path) {
+          settingsForm.custom_agent_hub_path = currentPaths.custom_agent_hub_path;
+        }
+        
+        if (!settingsForm.custom_examples_path && currentPaths.custom_examples_path) {
+          settingsForm.custom_examples_path = currentPaths.custom_examples_path;
+        }
+        
+        // 确保路径选项有默认值
+        if (settingsForm.use_default_agent_hub_path === undefined) {
+          settingsForm.use_default_agent_hub_path = true;
+        }
+        
+        if (settingsForm.use_default_examples_path === undefined) {
+          settingsForm.use_default_examples_path = true;
+        }
+        
+        // 确保ssh对象存在
+        if (!settingsForm.ssh) {
+          settingsForm.ssh = {
+            hostname: '127.0.0.1',
+            port: 22,
+            username: '',
+            password: '',
+            auto_connect: true
+          }
+        }
       }
     }
     
     const saveSettings = async () => {
       isSaving.value = true
       try {
+        // 在保存前确保路径不会丢失
+        if (!settingsForm.mofa_dir) {
+          settingsForm.mofa_dir = localStorage.getItem('mofa_dir') || '';
+        } else {
+          // 在localStorage中备份路径
+          localStorage.setItem('mofa_dir', settingsForm.mofa_dir);
+        }
+        
+        // 备份所有路径字段
+        localStorage.setItem('agent_hub_path', settingsForm.agent_hub_path || '');
+        localStorage.setItem('examples_path', settingsForm.examples_path || '');
+        localStorage.setItem('custom_agent_hub_path', settingsForm.custom_agent_hub_path || '');
+        localStorage.setItem('custom_examples_path', settingsForm.custom_examples_path || '');
+        
+        // 确保路径不为空
+        // 如果使用默认路径是true，但路径为空，尝试设置一个合理默认值
+        if (settingsForm.use_default_agent_hub_path && !settingsForm.agent_hub_path) {
+          settingsForm.agent_hub_path = `${settingsForm.mofa_dir}/agent-hub`;
+        }
+        
+        if (settingsForm.use_default_examples_path && !settingsForm.examples_path) {
+          settingsForm.examples_path = `${settingsForm.mofa_dir}/examples`;
+        }
+        
         const result = await settingsStore.saveSettings(settingsForm)
         if (result) {
           applyTheme(settingsForm.theme)
@@ -255,6 +387,43 @@ export default {
     })
 
     onMounted(() => {
+      // 尝试从localStorage中加载备份的路径
+      const savedMofaDir = localStorage.getItem('mofa_dir');
+      if (savedMofaDir) {
+        settingsForm.mofa_dir = savedMofaDir;
+      } else {
+        // 设置一个默认路径，根据当前环境
+        const isWindows = navigator.platform.indexOf('Win') > -1;
+        if (isWindows) {
+          settingsForm.mofa_dir = 'C:\\Users\\Username\\path\\to\\mofa';
+        } else {
+          // 假设是Linux/Mac
+          settingsForm.mofa_dir = '/mnt/c/Users/Yao/Desktop/code/mofa/mofa';
+        }
+      }
+      
+      // 加载Agent Hub和Examples相关备份路径
+      const savedAgentHubPath = localStorage.getItem('agent_hub_path');
+      if (savedAgentHubPath) {
+        settingsForm.agent_hub_path = savedAgentHubPath;
+      }
+      
+      const savedExamplesPath = localStorage.getItem('examples_path');
+      if (savedExamplesPath) {
+        settingsForm.examples_path = savedExamplesPath;
+      }
+      
+      const savedCustomAgentHubPath = localStorage.getItem('custom_agent_hub_path');
+      if (savedCustomAgentHubPath) {
+        settingsForm.custom_agent_hub_path = savedCustomAgentHubPath;
+      }
+      
+      const savedCustomExamplesPath = localStorage.getItem('custom_examples_path');
+      if (savedCustomExamplesPath) {
+        settingsForm.custom_examples_path = savedCustomExamplesPath;
+      }
+      
+      // 加载其他设置
       loadSettings()
       // Apply theme on initial load
       applyTheme(settingsForm.theme)

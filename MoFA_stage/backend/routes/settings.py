@@ -5,6 +5,7 @@ from flask import Blueprint, request, jsonify
 import os
 import sys
 import json
+import fcntl  # 用于文件锁
 
 # 添加项目根目录到Python路径
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -33,29 +34,49 @@ DEFAULT_SETTINGS = {
     "custom_examples_path": CUSTOM_EXAMPLES_PATH,  # 自定义examples路径
     "theme": "light",
     "editor_font_size": 14,
-    "editor_tab_size": 4
+    "editor_tab_size": 4,
+    # SSH连接设置
+    "ssh": {
+        "hostname": "127.0.0.1",
+        "port": 22,
+        "username": "",
+        "password": "",
+        "auto_connect": True  # 是否自动连接
+    },
+    "terminal_display_mode": "both"  # 终端显示模式: both, terminal, webssh
 }
 
 def get_settings():
-    """获取设置信息"""
+    """获取设置信息，使用文件锁防止并发访问问题"""
     if not os.path.exists(SETTINGS_FILE):
         # 如果设置文件不存在，创建默认设置
         with open(SETTINGS_FILE, 'w') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)  # 独占锁
             json.dump(DEFAULT_SETTINGS, f, indent=2)
+            fcntl.flock(f, fcntl.LOCK_UN)  # 释放锁
         return DEFAULT_SETTINGS
     
     try:
         with open(SETTINGS_FILE, 'r') as f:
-            return json.load(f)
+            fcntl.flock(f, fcntl.LOCK_SH)  # 共享锁
+            settings = json.load(f)
+            fcntl.flock(f, fcntl.LOCK_UN)  # 释放锁
+            return settings
     except Exception as e:
         print(f"Error reading settings file: {e}")
         return DEFAULT_SETTINGS
 
 def save_settings(settings):
-    """保存设置信息"""
+    """保存设置信息，使用文件锁防止并发写入冲突"""
     try:
+        # 确保目录存在
+        os.makedirs(os.path.dirname(SETTINGS_FILE), exist_ok=True)
+        
         with open(SETTINGS_FILE, 'w') as f:
+            fcntl.flock(f, fcntl.LOCK_EX)  # 独占锁
             json.dump(settings, f, indent=2)
+            fcntl.flock(f, fcntl.LOCK_UN)  # 释放锁
+        print(f"Settings saved successfully to {SETTINGS_FILE}")
         return True
     except Exception as e:
         print(f"Error saving settings file: {e}")

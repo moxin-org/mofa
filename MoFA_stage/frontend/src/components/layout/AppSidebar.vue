@@ -21,9 +21,13 @@
           <span>{{ $t('sidebar.dataflowOrchestration') }}</span>
         </el-menu-item>
         -->
-        <el-menu-item index="/terminal">
+        <el-menu-item index="/terminal" v-if="showTerminal">
           <el-icon><Monitor /></el-icon>
           <span>{{ $t('sidebar.commandLine') }}</span>
+        </el-menu-item>
+        <el-menu-item index="/webssh" v-if="showWebSSH">
+          <el-icon><Monitor /></el-icon>
+          <span>{{ $t('sidebar.webSSH') || 'Web SSH' }}</span>
         </el-menu-item>
         <el-menu-item index="/settings">
           <el-icon><Setting /></el-icon>
@@ -32,13 +36,13 @@
       </el-menu>
     </div>
     <div class="sidebar-footer">
-      <span>MoFA_Stage v0.1.1</span>
+      <span>MoFA_Stage v0.1.3</span>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSettingsStore } from '../../store/settings'
 import { useI18n } from 'vue-i18n'
@@ -70,9 +74,29 @@ export default {
       }
     })
     
+    const showTerminal = computed(() => {
+      const mode = settingsStore.settings.terminal_display_mode || 'both'
+      return mode === 'both' || mode === 'terminal'
+    })
+    
+    const showWebSSH = computed(() => {
+      const mode = settingsStore.settings.terminal_display_mode || 'both'
+      return mode === 'both' || mode === 'webssh'
+    })
+    
+    // Watch for terminal display mode changes
+    watch(
+      () => settingsStore.settings.terminal_display_mode,
+      (newMode) => {
+        console.log('Terminal display mode changed:', newMode);
+      }
+    );
+    
     return {
       activeRoute,
-      computedTheme
+      computedTheme,
+      showTerminal,
+      showWebSSH
     }
   }
 }
