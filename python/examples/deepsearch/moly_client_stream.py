@@ -16,5 +16,5 @@ if __name__ == "__main__":
         ], stream=True
     )
     for chunk in response:
-        print(chunk.choices[0].delta.id)
-        # print("****************")
+        print(chunk.choices[0])
+
