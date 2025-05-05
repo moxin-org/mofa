@@ -94,4 +94,4 @@ if __name__ == '__main__':
     webssh_thread.start()
     
     # 启动主应用
-    app.run(host='0.0.0.0', port=args.port, debug=True)
+    app.run(host='0.0.0.0', port=args.port, debug=True, use_reloader=False)
