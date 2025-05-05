@@ -4,13 +4,13 @@ agent:
     provider: openai
     config:
       model: "gpt-4o"  # 替换为你的模型名称
-      max_tokens: 1500
+      max_tokens: 3200
 
   vector_store:
     provider: chroma
     config:
-      collection_name: "mem0"
-      path: "./db"
+      collection_name: "mofa-memory"
+      path: "db"
 
   embedder:
     provider: openai

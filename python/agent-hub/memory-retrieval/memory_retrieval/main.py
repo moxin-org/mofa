@@ -75,7 +75,7 @@ def main():
 
     # assert_data = ast.literal_eval(data)
     for event in node:
- 
+
         if event["type"] == "INPUT" and event['id'] in ['task','data']:
             task = event["value"][0].as_py()
             memmory = MemoryRetrievalAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
@@ -86,7 +86,36 @@ def main():
         # event = node.next(timeout=200)
 if __name__ == "__main__":
     main()
-    # mem0 = MemoryRetrievalAgent(config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml',
-    #                             llm_config_path=os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/.env.secret')
-    # result = mem0.run(task='How to use the mem0-ai package in Python? ')
-    # print(result)
+# import json
+# import os
+#
+# from dotenv import load_dotenv
+# from mofa.agent_build.base.base_agent import run_agent, MofaAgent
+# from mem0 import Memory
+#
+# from mofa.utils.files.read import read_yaml
+#
+#
+# @run_agent
+# def run(agent:MofaAgent,memory:Memory,user_id:str=None):
+#     if user_id is None:
+#         user_id = os.getenv('MEMORY_ID','mofa-memory-user')
+#
+#     query = agent.receive_parameter('task')
+#     relevant_memories = memory.search(query=query, user_id=user_id, limit=3)
+#
+#     memories_str = "\n".join(f"- {entry['memory']}" for entry in relevant_memories["results"])
+#     agent.send_output('memory_retrieval_result', agent_result=json.dumps(memories_str))
+#
+# def main():
+#     agent = MofaAgent(agent_name='memory-retrieval-agent')
+#     load_dotenv('.env.secret')
+#     config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), ) + '/configs/config.yml'
+#     config_data = read_yaml(str(config_path))
+#     os.environ['OPENAI_API_KEY'] = os.getenv('LLM_API_KEY')
+#     memory = Memory.from_config(config_data.get('agent').get('llm'))
+#     run(agent=agent,memory=memory)
+#
+#
+# if __name__ == "__main__":
+#     main()
