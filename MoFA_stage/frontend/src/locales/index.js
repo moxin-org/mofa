@@ -6,7 +6,8 @@ export const messages = {
       dataflowOrchestration: 'Dataflow Orchestration',
       commandLine: 'Command Line',
       settings: 'Settings',
-      webSSH: 'Command Line'
+      webSSH: 'Command Line',
+      ttyd: 'Command Line'
     },
     common: {
       confirm: 'Confirm',
@@ -112,11 +113,14 @@ export const messages = {
       darkTheme: 'Dark',
       editorFontSize: 'Editor Font Size',
       editorTabSize: 'Editor Tab Size',
-      showOnlyTerminal: 'Use Old Command Line',
-      showOnlyWebSSH: 'Use New Command Line',
+      showOnlyTerminal: 'Use Deprecated Terminal',
+      showOnlyWebSSH: 'Use SSH Terminal',
       terminalDisplayMode: 'Terminal Mode',
-      terminalDisplayModeHelp: 'Select to use old command line or new command line',
-      sshSettings: 'Terminal Settings'
+      terminalDisplayModeHelp: 'Select command line mode (Refresh to take effect)',
+      sshSettings: 'Terminal Settings',
+      showOnlyTtyd: 'Use TTYD Terminal',
+      ttydPort: 'Terminal Port',
+      ttydPortHelp: 'Port for the terminal service (default: 7681)'
     },
     terminal: {
       environmentInfo: 'Environment Information',
@@ -300,10 +304,13 @@ export const messages = {
       editorFontSize: '编辑器字体大小',
       editorTabSize: '编辑器缩进大小',
       showOnlyTerminal: '使用旧命令行',
-      showOnlyWebSSH: '使用新命令行',
+      showOnlyWebSSH: '使用SSH命令行',
       terminalDisplayMode: '终端模式',
-      terminalDisplayModeHelp: '选择使用旧命令行还是新命令行',
-      sshSettings: '终端设置'
+      terminalDisplayModeHelp: '选择命令行模式(刷新页面生效)',
+      sshSettings: '终端设置',
+      showOnlyTtyd: '使用TTYD终端',
+      ttydPort: '终端端口',
+      ttydPortHelp: '终端服务端口 (默认: 7681)'
     },
     terminal: {
       environmentInfo: '环境信息',

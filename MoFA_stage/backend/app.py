@@ -15,6 +15,8 @@ from routes.settings import settings_bp
 from routes.dataflows import dataflows_bp
 from routes.terminal import terminal_bp
 from routes.webssh import webssh_bp, init_websocket
+from routes.ttyd import ttyd_bp
+from utils.ttyd_manager import start_ttyd, get_ttyd_status, is_ttyd_installed
 
 def create_app():
     """创建 Flask 应用"""
@@ -32,9 +34,26 @@ def create_app():
     app.register_blueprint(dataflows_bp)
     app.register_blueprint(terminal_bp)
     app.register_blueprint(webssh_bp)
+    app.register_blueprint(ttyd_bp, url_prefix='/api/ttyd')
     
     # 初始化WebSocket
     init_websocket(app)
+    
+    # 检查并启动ttyd服务
+    try:
+        # Check if ttyd is installed
+        if not is_ttyd_installed():
+            app.logger.warning("ttyd is not installed. It will be installed automatically when needed.")
+        
+        # Check the current status
+        status = get_ttyd_status()
+        if status['status'] == 'stopped':
+            app.logger.info("Starting ttyd service...")
+            start_ttyd()
+        else:
+            app.logger.info(f"ttyd service is already running on PID {status['pid']}")
+    except Exception as e:
+        app.logger.error(f"Error initializing ttyd service: {e}")
     
     # 主页路由
     @app.route('/')
@@ -74,6 +93,7 @@ if __name__ == '__main__':
     webssh_app.register_blueprint(terminal_bp)
     webssh_app.register_blueprint(agents_bp)
     webssh_app.register_blueprint(webssh_bp)
+    webssh_app.register_blueprint(ttyd_bp, url_prefix='/api/ttyd')
     init_websocket(webssh_app)
     
     # 添加错误处理

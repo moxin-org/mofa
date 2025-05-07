@@ -29,6 +29,10 @@
           <el-icon><Monitor /></el-icon>
           <span>{{ $t('sidebar.webSSH') }}</span>
         </el-menu-item>
+        <el-menu-item index="/ttyd" v-if="showTtyd">
+          <el-icon><Monitor /></el-icon>
+          <span>{{ $t('sidebar.ttyd') || 'ttyd Terminal' }}</span>
+        </el-menu-item>
         <el-menu-item index="/settings">
           <el-icon><Setting /></el-icon>
           <span>{{ $t('sidebar.settings') }}</span>
@@ -84,6 +88,11 @@ export default {
       return mode === 'both' || mode === 'webssh'
     })
     
+    const showTtyd = computed(() => {
+      const mode = settingsStore.settings.terminal_display_mode || 'both'
+      return mode === 'both' || mode === 'ttyd'
+    })
+    
     // Watch for terminal display mode changes
     watch(
       () => settingsStore.settings.terminal_display_mode,
@@ -96,7 +105,8 @@ export default {
       activeRoute,
       computedTheme,
       showTerminal,
-      showWebSSH
+      showWebSSH,
+      showTtyd
     }
   }
 }

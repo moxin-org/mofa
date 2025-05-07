@@ -143,17 +143,27 @@
                 :label="$t('settings.showOnlyTerminal') || '仅显示旧命令行'" 
                 value="terminal" />
               <el-option 
-                :label="$t('settings.showOnlyWebSSH') || '仅显示新命令行'" 
+                :label="$t('settings.showOnlyWebSSH') || '仅显示SSH命令行'" 
                 value="webssh" />
+              <el-option 
+                :label="$t('settings.showOnlyTtyd') || '仅显示ttyd命令行'" 
+                value="ttyd" />
             </el-select>
             <div class="form-help">
               {{ $t('settings.terminalDisplayModeHelp') || '选择在侧边栏显示哪种终端。修改后需要刷新页面生效。' }}
             </div>
           </el-form-item>
 
+          <el-form-item :label="$t('settings.ttydPort') || 'ttyd 端口'" v-if="settingsForm.terminal_display_mode === 'ttyd'">
+            <el-input-number v-model="settingsForm.ttyd_port" :min="1024" :max="65535" style="width: 100%" />
+            <div class="form-help">
+              {{ $t('settings.ttydPortHelp') || 'ttyd服务将运行在此端口上。默认为7681。修改后需重启服务生效。' }}
+            </div>
+          </el-form-item>
+
           <el-form-item :label="$t('settings.language')">
             <el-select v-model="settingsForm.language" style="width: 100%" @change="handleLanguageChange">
-              <el-option label="中文" value="zh" />
+              <el-option label="简体中文" value="zh" />
               <el-option label="English" value="en" />
             </el-select>
           </el-form-item>
@@ -217,6 +227,7 @@ export default {
       editor_tab_size: 4,
       language: localStorage.getItem('language') || 'zh',
       terminal_display_mode: 'both',
+      ttyd_port: 7681,
       ssh: {
         hostname: '127.0.0.1',
         port: 22,

@@ -34,19 +34,24 @@ def cleanup_inactive_sessions():
         sessions_to_remove = []
         
         for session_id, session_data in active_sessions.items():
-            # Check if process is still alive
-            if session_data['process'].poll() is not None:
+            # Check if process exists and is still alive
+            if 'process' in session_data and session_data['process'] is not None:
+                if session_data['process'].poll() is not None:
+                    sessions_to_remove.append(session_id)
+            else:
+                # If process is None or doesn't exist, mark for removal
                 sessions_to_remove.append(session_id)
         
         # Remove dead sessions
         for session_id in sessions_to_remove:
             try:
-                if active_sessions[session_id]['process']:
+                if session_id in active_sessions and 'process' in active_sessions[session_id] and active_sessions[session_id]['process']:
                     active_sessions[session_id]['process'].terminate()
             except:
                 pass
-            del active_sessions[session_id]
-            print(f"Cleaned up inactive session: {session_id}")
+            if session_id in active_sessions:
+                del active_sessions[session_id]
+                print(f"Cleaned up inactive session: {session_id}")
 
 # Start cleanup thread
 cleanup_thread = threading.Thread(target=cleanup_inactive_sessions, daemon=True)
@@ -408,6 +413,9 @@ def interrupt_command():
                 "message": "No running command to interrupt"
             })
     except Exception as e:
+        # Ensure running_process is cleared even if an exception occurs
+        if 'running_process' in session:
+            session['running_process'] = None
         return jsonify({
             "success": False,
             "message": f"Failed to interrupt command: {str(e)}"
@@ -430,11 +438,11 @@ def close_session():
     
     try:
         # Terminate any running process
-        if 'running_process' in active_sessions[session_id] and active_sessions[session_id]['running_process']:
+        if 'running_process' in active_sessions[session_id] and active_sessions[session_id]['running_process'] is not None:
             active_sessions[session_id]['running_process'].terminate()
         
         # Terminate the shell process
-        if active_sessions[session_id]['process']:
+        if 'process' in active_sessions[session_id] and active_sessions[session_id]['process'] is not None:
             active_sessions[session_id]['process'].terminate()
         
         # Remove the session

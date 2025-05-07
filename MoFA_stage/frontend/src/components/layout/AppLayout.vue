@@ -52,5 +52,8 @@ export default {
   background-color: var(--background-color);
   overflow-y: auto;
   height: calc(100vh - 60px);
+  position: relative;
+  transition: none;
+  contain: layout size;
 }
 </style>

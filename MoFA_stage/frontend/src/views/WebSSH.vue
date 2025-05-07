@@ -11,7 +11,7 @@
         <div class="examples-search">
           <el-input
             v-model="searchQuery"
-            placeholder="搜索Dataflow..."
+            placeholder="Search Dataflows..."
             clearable
             @input="filterExamples"
           >
@@ -285,12 +285,14 @@ export default {
       
       // Initialize if not already done
       if (!isInitialized.value) {
+        console.log('WebSSH initializing for the first time');
         initializeComponent();
       }
       
       // Resize all terminal tabs when the component is activated
       nextTick(() => {
-        Object.values(sessionRefs.value).forEach(termRef => {
+        console.log('Resizing all terminal sessions');
+        Object.values(sessionRefs).forEach(termRef => {
           if (termRef && typeof termRef.resizeTerminal === 'function') {
             setTimeout(() => {
               termRef.resizeTerminal();
@@ -302,8 +304,8 @@ export default {
     
     // Handle component deactivation (when switching away from this view)
     onDeactivated(() => {
-      console.log('WebSSH deactivated, sessions remain alive:', sessions.value.length);
-      // We don't disconnect any sessions here, allowing them to run in the background
+      console.log('WebSSH deactivated, sessions remaining active:', sessions.value.length);
+      // We keep all sessions running in the background
     });
 
     onBeforeUnmount(() => {
@@ -460,6 +462,12 @@ export default {
     }
 
     const handleSessionError = (sessionId, msg) => {
+      // Check if terminal_display_mode is ttyd, if so, don't show error messages
+      if (settingsStore.settings?.terminal_display_mode === 'ttyd') {
+        console.log(`Suppressing error in ttyd mode: session ${sessionId}: ${msg}`)
+        return
+      }
+      
       const session = sessions.value.find(s => s.id === sessionId)
       ElMessage.error(`Error in session ${session ? session.title : sessionId}: ${msg}`)
       // Optionally close the tab on error, or mark it visually
@@ -604,11 +612,15 @@ return {
   min-height: 600px; /* Ensure minimum height */
   overflow: hidden; /* Prevent overflow at the container level */
   max-width: 100%; /* Prevent horizontal overflow */
+  contain: layout style; /* 提高渲染性能 */
+  will-change: opacity; /* 告诉浏览器这个元素可能会产生变化，帮助优化渲染 */
+  transition: none !important; /* 禁用任何过渡效果 */
 }
 
 .page-header {
   margin-bottom: 10px; /* Reduce header margin to save space */
   flex-shrink: 0; /* Prevent header from shrinking */
+  transition: none !important; /* 禁用过渡效果 */
 }
 
 .webssh-layout {
@@ -619,6 +631,8 @@ return {
   overflow: hidden; /* Prevent overflow in the layout */
   width: 100%; /* Ensure it takes full width */
   position: relative; /* For absolute positioning if needed */
+  contain: layout; /* 提高渲染性能 */
+  transition: none !important; /* 禁用过渡效果 */
 }
 
 .ssh-card {
@@ -628,6 +642,8 @@ return {
   overflow: hidden; /* Prevent card content from overflowing */
   min-height: 500px; /* Ensure minimum height for the card */
   width: 0; /* Allow it to grow but start with 0 width */
+  contain: layout; /* 提高渲染性能 */
+  transition: none !important; /* 禁用过渡效果 */
 }
 
 .examples-sidebar {
@@ -762,6 +778,8 @@ return {
   left: 0;
   right: 0;
   bottom: 0;
+  contain: strict; /* 最严格的性能优化 */
+  transition: none !important; /* 禁用过渡效果 */
 }
 
 /* Ensure XTerm content can be scrolled */
