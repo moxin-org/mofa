@@ -489,11 +489,11 @@ export default {
       // 复制命令到剪贴板
       navigator.clipboard.writeText(fullCommand)
         .then(() => {
-          ElMessage.success(`已复制完整命令到剪贴板`)
+          ElMessage.success(`Command Copied to clipboard`)
         })
         .catch(err => {
           console.error('Failed to copy text: ', err)
-          ElMessage.error('复制到剪贴板失败')
+          ElMessage.error('Copy Failed')
         })
     }
     

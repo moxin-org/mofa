@@ -5,7 +5,7 @@
       <div class="search-container">
         <el-input
           v-model="searchQuery"
-          placeholder="搜索Agent..."
+          placeholder="Search for Agents/Dataflows..."
           clearable
           @input="handleSearch"
         >
