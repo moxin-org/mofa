@@ -53,7 +53,7 @@
           class="terminal-tab-pane"
         >
           <template #label>
-             <span>
+             <span class="tab-label">
                <el-icon v-if="session.status === 'connecting'" class="is-loading"><Loading /></el-icon>
                <el-icon v-else-if="session.status === 'connected'"><Monitor /></el-icon>
                <el-icon v-else><QuestionFilled /></el-icon>
@@ -602,6 +602,13 @@ return {
   flex-direction: column;
   height: calc(100vh - 60px); /* Adjust based on your layout's header height */
   min-height: 600px; /* Ensure minimum height */
+  overflow: hidden; /* Prevent overflow at the container level */
+  max-width: 100%; /* Prevent horizontal overflow */
+}
+
+.page-header {
+  margin-bottom: 10px; /* Reduce header margin to save space */
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .webssh-layout {
@@ -609,18 +616,25 @@ return {
   flex-grow: 1;
   min-height: 500px;
   gap: 15px;
+  overflow: hidden; /* Prevent overflow in the layout */
+  width: 100%; /* Ensure it takes full width */
+  position: relative; /* For absolute positioning if needed */
 }
 
 .ssh-card {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Prevent card content from overflowing */
   min-height: 500px; /* Ensure minimum height for the card */
+  width: 0; /* Allow it to grow but start with 0 width */
 }
 
 .examples-sidebar {
   width: 250px;
+  min-width: 200px; /* Minimum width */
+  max-width: 250px; /* Maximum width */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
   background-color: #f5f7fa;
   border-radius: 4px;
   border: 1px solid #e4e7ed;
@@ -630,13 +644,14 @@ return {
 }
 
 .examples-header {
-  padding: 15px;
+  padding: 10px; /* Reduce padding */
   background-color: #f0f2f5;
   border-bottom: 1px solid #e4e7ed;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .run-button {
@@ -644,7 +659,8 @@ return {
 }
 
 .examples-search {
-  margin: 10px 15px;
+  margin: 10px;
+  flex-shrink: 0; /* Prevent search from shrinking */
 }
 
 .examples-list {
@@ -675,32 +691,100 @@ return {
   flex-direction: column;
   height: 100%;
   min-height: 500px; /* Ensure minimum height for the tabs */
+  overflow: hidden; /* Add overflow hidden to prevent content from exceeding */
+  width: 100%; /* Ensure full width */
+}
+
+/* Tabs header styling */
+:deep(.el-tabs__header) {
+  flex-shrink: 0; /* Prevent header from shrinking */
+  margin-bottom: 0; /* Remove bottom margin */
+  width: 100%; /* Full width */
+  overflow-x: auto; /* Allow horizontal scrolling for many tabs */
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Allow horizontal scrolling in tab bar */
+:deep(.el-tabs__nav-wrap) {
+  overflow-x: auto !important;
+  margin-bottom: 0 !important; /* Remove bottom margin */
+}
+
+/* Hide the bottom shadow/line that appears with scroll */
+:deep(.el-tabs__nav-wrap::after) {
+  display: none !important;
+}
+
+/* Ensure tabs don't wrap */
+:deep(.el-tabs__nav) {
+  white-space: nowrap !important;
+  display: flex !important;
+  flex-wrap: nowrap !important; /* Prevent tab wrapping */
+}
+
+/* Tab label styling */
+.tab-label {
+  font-size: 0.9em; /* Reduce font size slightly */
+  max-width: 180px; /* Limit tab width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Make tab content area grow */
 :deep(.el-tabs__content) {
-  flex-grow: 1;
+  flex: 1;
   height: 100%; /* Use 100% instead of 0 for consistent height calculation */
   padding: 0; /* Remove default padding if needed */
   overflow: hidden; /* Prevent overflow */
   min-height: 300px; /* Ensure minimum height */
+  position: relative; /* Add position relative for absolute positioning child content */
 }
 
 .terminal-tab-pane {
-   height: 100%; /* Ensure pane takes full height */
-   min-height: 500px; /* Ensure minimum height */
-   display: flex; /* Use flex for content */
-   flex-direction: column;
+  height: 100%; /* Ensure pane takes full height */
+  min-height: 500px; /* Ensure minimum height */
+  display: flex; /* Use flex for content */
+  flex-direction: column;
   overflow: hidden;
+  position: relative; /* Position relative for absolute child positioning */
 }
 
 .terminal-tab-content {
-   flex-grow: 1; /* Make terminal component container grow */
-   min-height: 500px; /* Ensure minimum height */
-   height: 100%; /* Ensure it fills the pane */
-   overflow: hidden; /* Prevent internal overflow */
-   background-color: #1e1e1e; /* Set terminal background color */
-   border-radius: 0 0 4px 4px;
+  flex-grow: 1; /* Make terminal component container grow */
+  min-height: 500px; /* Ensure minimum height */
+  height: 100%; /* Ensure it fills the pane */
+  overflow: auto; /* Change from hidden to auto to allow scrolling */
+  background-color: #1e1e1e; /* Set terminal background color */
+  border-radius: 0 0 4px 4px;
+  position: absolute; /* Position absolutely within parent */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Ensure XTerm content can be scrolled */
+:deep(.xterm-viewport) {
+  overflow-y: auto !important;
+}
+
+/* Add some styling for scrollbars */
+:deep(.xterm-viewport::-webkit-scrollbar),
+:deep(.el-tabs__nav-wrap::-webkit-scrollbar) {
+  width: 6px;
+  height: 6px;
+}
+
+:deep(.xterm-viewport::-webkit-scrollbar-track),
+:deep(.el-tabs__nav-wrap::-webkit-scrollbar-track) {
+  background: #1e1e1e;
+}
+
+:deep(.xterm-viewport::-webkit-scrollbar-thumb),
+:deep(.el-tabs__nav-wrap::-webkit-scrollbar-thumb) {
+  background-color: #555;
+  border-radius: 4px;
 }
 
 .no-tabs-placeholder {
@@ -740,30 +824,38 @@ return {
   font-size: 1.1em;
 }
 
-/* Ensure the el-tabs header doesn't shrink */
-:deep(.el-tabs__header) {
-    flex-shrink: 0;
-}
-
 /* Style for label icons */
 .el-icon {
-    vertical-align: middle;
-    margin-right: 4px;
+  vertical-align: middle;
+  margin-right: 4px;
 }
 
 .page-container {
-  padding: 20px;
-}
-
-.page-header {
-  margin-bottom: 20px;
+  padding: 10px 20px; /* Reduce top/bottom padding */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .page-title {
   margin: 0;
+  font-size: 1.5em; /* Slightly smaller title */
 }
 
 .dialog-footer {
   text-align: right;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .webssh-layout {
+    flex-direction: column;
+  }
+  
+  .examples-sidebar {
+    width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 200px;
+  }
 }
 </style>
