@@ -53,6 +53,12 @@
             <div class="form-help">{{ $t('settings.mofaDirHelp') }}</div>
           </el-form-item>
 
+          <!-- 相对路径设置 -->
+          <el-form-item :label="$t('settings.useRelativePaths')">
+            <el-switch v-model="settingsForm.use_relative_paths" />
+            <div class="form-help">{{ $t('settings.useRelativePathsHelp') }}</div>
+          </el-form-item>
+
           <!-- Agent Hub 设置 -->
           <el-form-item :label="$t('settings.agentHubStorage')">
             <el-radio-group v-model="settingsForm.use_default_agent_hub_path">
@@ -139,14 +145,14 @@
               <!-- <el-option 
                 :label="$t('settings.showBothTerminals') || '显示两种终端'" 
                 value="both" /> -->
-              <el-option 
+              <!-- <el-option 
                 :label="$t('settings.showOnlyTerminal') || '仅显示旧命令行'" 
-                value="terminal" />
+                value="terminal" /> -->
               <el-option 
-                :label="$t('settings.showOnlyWebSSH') || '仅显示SSH命令行'" 
+                :label="$t('settings.showOnlyWebSSH')" 
                 value="webssh" />
               <el-option 
-                :label="$t('settings.showOnlyTtyd') || '仅显示ttyd命令行'" 
+                :label="$t('settings.showOnlyTtyd')" 
                 value="ttyd" />
             </el-select>
             <div class="form-help">

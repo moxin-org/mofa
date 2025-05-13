@@ -22,6 +22,7 @@ export const useSettingsStore = defineStore('settings', {
         use_system_mofa: true,
         use_default_agent_hub_path: true,
         use_default_examples_path: true,
+        use_relative_paths: true,
         agent_hub_path: defaultPaths.agent_hub_path,
         examples_path: defaultPaths.examples_path, 
         custom_agent_hub_path: defaultPaths.custom_agent_hub_path,
@@ -103,6 +104,11 @@ export const useSettingsStore = defineStore('settings', {
           
           if (this.settings.use_default_examples_path === undefined) {
             this.settings.use_default_examples_path = true;
+          }
+          
+          // 确保use_relative_paths字段存在
+          if (this.settings.use_relative_paths === undefined) {
+            this.settings.use_relative_paths = true;
           }
           
           // 确保终端显示模式有默认值

@@ -96,6 +96,8 @@ export const messages = {
       examplesStorage: 'Examples Storage',
       useDefaultPath: 'Use default path',
       useCustomPath: 'Use custom path',
+      useRelativePaths: 'Use Relative Paths',
+      useRelativePathsHelp: 'Use relative paths for default directories (recommended)',
       agentHubPath: 'Agent Hub Path',
       examplesPath: 'Examples Path',
       agentHubPathHelp: 'Enter the full directory path for storing atomic agents',
@@ -191,7 +193,8 @@ export const messages = {
       dataflowOrchestration: '数据流编排',
       commandLine: '命令行',
       settings: '设置',
-      webSSH: 'Web SSH'
+      webSSH: '命令行',
+      ttyd: '命令行'
     },
     common: {
       confirm: '确认',
@@ -285,11 +288,12 @@ export const messages = {
       examplesStorage: 'Examples 存储',
       useDefaultPath: '使用默认路径',
       useCustomPath: '使用自定义路径',
+      useRelativePaths: '使用相对路径',
+      useRelativePathsHelp: '为默认目录使用相对路径（推荐）',
       agentHubPath: 'Agent Hub 路径',
       examplesPath: 'Examples 路径',
       agentHubPathHelp: '输入存储原子 Agent 的完整目录路径',
       examplesPathHelp: '输入存储示例组合的完整目录路径',
-      
       agentStorage: 'Agent 存储位置',
       examplesDir: 'examples目录 (/python/examples)',
       agentHubDir: 'agent-hub目录 (/python/agent-hub)',
@@ -346,7 +350,7 @@ export const messages = {
       sshSettings: '终端设置'
     },
     agent: {
-      list: 'Agent 列表',
+      list: 'Agent Hub',
       create: '创建 Agent',
       edit: '编辑 Agent',
       delete: '删除 Agent',
@@ -357,8 +361,12 @@ export const messages = {
       noAgentsFound: '没有找到 Agent',
       noExamplesFound: '没有找到数据流示例',
       running: '运行中',
+      logs: '日志',
+      noLogs: '暂无日志',
       noDescription: '无描述信息',
       viewLogs: '查看日志',
+      processOutput: '进程输出',
+      noOutput: '暂无输出',
       run: '运行',
       stop: '停止',
       copyAgent: '复制 Agent',

@@ -11,15 +11,15 @@
         <el-button-group>
           <el-button type="primary" @click="saveCurrentFile" :disabled="!hasChanges" :loading="isSaving">
             <el-icon><Document /></el-icon>
-            保存
+            Save
           </el-button>
           <el-button v-if="!isAgentRunning" type="success" @click="runAgent">
             <el-icon><VideoPlay /></el-icon>
-            运行
+            Run
           </el-button>
           <el-button v-else type="danger" @click="stopAgent">
             <el-icon><VideoPause /></el-icon>
-            停止
+            Stop
           </el-button>
         </el-button-group>
       </div>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="sidebar-footer">
-          <el-button size="small" @click="addNewFile" icon="Plus">新建文件</el-button>
+          <el-button size="small" @click="addNewFile" icon="Plus">Create New File</el-button>
         </div>
       </div>
 
@@ -103,66 +103,29 @@
         </div>
 
         <div v-else class="empty-editor">
-          <el-empty description="请从左侧选择文件或创建新文件">
-            <el-button @click="addNewFile" type="primary">新建文件</el-button>
+          <el-empty description="Please select a file or create a new file">
+            <el-button @click="addNewFile" type="primary">Create New File</el-button>
           </el-empty>
         </div>
       </div>
     </div>
 
     <!-- 新建文件对话框 -->
-    <el-dialog v-model="newFileDialogVisible" title="新建文件" width="30%">
+    <el-dialog v-model="newFileDialogVisible" title="Create New File" width="30%">
       <el-form :model="newFileForm" label-width="80px">
-        <el-form-item label="文件名" required>
-          <el-input v-model="newFileForm.name" placeholder="例如: helper">
-            <template #append>
-              <el-select 
-                v-model="newFileForm.ext" 
-                style="width: 100px;"
-                filterable
-                @change="handleExtensionChange"
-                placeholder="选择类型"
-              >
-                <el-option label=".py" value="py" />
-                <el-option label=".md" value="md" />
-                <el-option label=".yml" value="yml" />
-                <el-option label=".yaml" value="yaml" />
-                <el-option label=".json" value="json" />
-                <el-option label=".js" value="js" />
-                <el-option label=".ts" value="ts" />
-                <el-option label=".html" value="html" />
-                <el-option label=".css" value="css" />
-                <el-option label=".env" value="env" />
-                <el-option label=".txt" value="txt" />
-                <el-option label=".sh" value="sh" />
-                <el-option label=".toml" value="toml" />
-                <el-option label="自定义..." value="custom" />
-              </el-select>
-            </template>
+        <el-form-item label="File Name" required>
+          <el-input v-model="newFileForm.fullName" placeholder="Example: helper.py">
           </el-input>
         </el-form-item>
-        
-        <!-- 自定义扩展名输入框 -->
-        <el-form-item label="扩展名" v-if="newFileForm.ext === 'custom'">
-          <el-input 
-            v-model="newFileForm.customExt" 
-            placeholder="输入文件扩展名（不包含点）"
-            clearable
-          >
-            <template #prepend>
-              <span>.</span>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="目录">
-          <el-input v-model="newFileForm.path" placeholder="留空表示根目录" />
+        <el-form-item label="Directory">
+          <el-input v-model="newFileForm.path" placeholder="Leave blank for root directory" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="newFileDialogVisible = false">取消</el-button>
+          <el-button @click="newFileDialogVisible = false">Cancel</el-button>
           <el-button type="primary" @click="createNewFile" :loading="isCreatingFile">
-            创建
+            Create
           </el-button>
         </span>
       </template>
@@ -219,9 +182,7 @@ export default {
     // 新建文件相关
     const newFileDialogVisible = ref(false)
     const newFileForm = ref({
-      name: '',
-      ext: 'py',
-      customExt: '',
+      fullName: '',
       path: ''
     })
     const isCreatingFile = ref(false)
@@ -447,53 +408,44 @@ export default {
       return data.label.toLowerCase().includes(value.toLowerCase())
     }
 
-    const handleExtensionChange = (value) => {
-      // 当用户选择自定义选项时，确保自定义扩展名字段被清空
-      if (value === 'custom') {
-        newFileForm.value.customExt = ''
-      }
-    }
-    
     const addNewFile = () => {
       newFileForm.value = {
-        name: '',
-        ext: 'py',
-        customExt: '',
+        fullName: '',
         path: ''
       }
       newFileDialogVisible.value = true
     }
 
     const createNewFile = async () => {
-      if (!newFileForm.value.name) {
+      if (!newFileForm.value.fullName.trim()) {
         ElMessage.warning('Please enter a file name')
         return
       }
       
       isCreatingFile.value = true
       try {
-        // 确定实际使用的扩展名
-        const actualExt = newFileForm.value.ext === 'custom' 
-          ? (newFileForm.value.customExt || 'txt') // 如果用户没有输入自定义扩展名，默认使用txt
-          : newFileForm.value.ext
-          
         const filePath = newFileForm.value.path 
-          ? `${newFileForm.value.path}/${newFileForm.value.name}.${actualExt}`
-          : `${newFileForm.value.name}.${actualExt}`
+          ? `${newFileForm.value.path}/${newFileForm.value.fullName}`
+          : newFileForm.value.fullName
+        
+        // Extract file extension for default content
+        const fileNameParts = newFileForm.value.fullName.split('.')
+        const ext = fileNameParts.length > 1 ? fileNameParts.pop().toLowerCase() : ''
+        const fileName = fileNameParts.join('.')
         
         // 创建默认内容
         let defaultContent = ''
           
-        switch (actualExt) {
+        switch (ext) {
           case 'py':
-            defaultContent = `# ${newFileForm.value.name}.py\n# Created in MoFA_Stage\n\ndef main():\n    print("Hello from ${newFileForm.value.name}")\n\nif __name__ == "__main__":\n    main()\n`
+            defaultContent = `# ${fileName}.py\n# Created in MoFA_Stage\n\ndef main():\n    print("Hello from ${fileName}")\n\nif __name__ == "__main__":\n    main()\n`
             break
           case 'md':
-            defaultContent = `# ${newFileForm.value.name}\n\n## Overview\n\nThis is a new file created in MoFA_Stage.\n`
+            defaultContent = `# ${fileName}\n\n## Overview\n\nThis is a new file created in MoFA_Stage.\n`
             break
           case 'yml':
           case 'yaml':
-            defaultContent = `# ${newFileForm.value.name}.${newFileForm.value.ext}\n# Configuration file\n\nname: ${props.agentName}\n`
+            defaultContent = `# ${fileName}.${ext}\n# Configuration file\n\nname: ${props.agentName}\n`
             break
           case 'env':
             defaultContent = `# Environment variables for ${props.agentName}\n\nDEBUG=True\n`
@@ -502,26 +454,26 @@ export default {
             defaultContent = `{\n  "name": "${props.agentName}",\n  "description": "A MoFA agent",\n  "version": "1.0.0",\n  "created": "${new Date().toISOString()}"\n}\n`
             break
           case 'js':
-            defaultContent = `// ${newFileForm.value.name}.js\n// Created in MoFA_Stage\n\nfunction main() {\n  console.log("Hello from ${newFileForm.value.name}");\n}\n\nmain();\n`
+            defaultContent = `// ${fileName}.js\n// Created in MoFA_Stage\n\nfunction main() {\n  console.log("Hello from ${fileName}");\n}\n\nmain();\n`
             break
           case 'ts':
-            defaultContent = `// ${newFileForm.value.name}.ts\n// Created in MoFA_Stage\n\nfunction main(): void {\n  console.log("Hello from ${newFileForm.value.name}");\n}\n\nmain();\n`
+            defaultContent = `// ${fileName}.ts\n// Created in MoFA_Stage\n\nfunction main(): void {\n  console.log("Hello from ${fileName}");\n}\n\nmain();\n`
             break
           case 'html':
-            defaultContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${newFileForm.value.name}</title>\n</head>\n<body>\n  <h1>Hello from ${props.agentName}</h1>\n</body>\n</html>\n`
+            defaultContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>${fileName}</title>\n</head>\n<body>\n  <h1>Hello from ${props.agentName}</h1>\n</body>\n</html>\n`
             break
           case 'css':
-            defaultContent = `/* ${newFileForm.value.name}.css */\n/* Created in MoFA_Stage */\n\nbody {\n  font-family: Arial, sans-serif;\n  margin: 0;\n  padding: 20px;\n}\n`
+            defaultContent = `/* ${fileName}.css */\n/* Created in MoFA_Stage */\n\nbody {\n  font-family: Arial, sans-serif;\n  margin: 0;\n  padding: 20px;\n}\n`
             break
           case 'sh':
-            defaultContent = `#!/bin/bash\n# ${newFileForm.value.name}.sh\n# Created in MoFA_Stage\n\necho "Hello from ${props.agentName}"\n`
+            defaultContent = `#!/bin/bash\n# ${fileName}.sh\n# Created in MoFA_Stage\n\necho "Hello from ${props.agentName}"\n`
             break
           case 'toml':
-            defaultContent = `# ${newFileForm.value.name}.toml\n# Created in MoFA_Stage\n\n[package]\nname = "${props.agentName}"\nversion = "0.1.0"\n`
+            defaultContent = `# ${fileName}.toml\n# Created in MoFA_Stage\n\n[package]\nname = "${props.agentName}"\nversion = "0.1.0"\n`
             break
           default:
-            // 对于自定义扩展名，提供一个通用的默认内容
-            defaultContent = `# ${newFileForm.value.name}.${newFileForm.value.ext}\n# Created in MoFA_Stage for ${props.agentName}\n\n`
+            // 对于未知扩展名或无扩展名，提供一个通用的默认内容
+            defaultContent = `# ${newFileForm.value.fullName}\n# Created in MoFA_Stage for ${props.agentName}\n\n`
             break
         }
         
@@ -598,7 +550,6 @@ export default {
       saveCurrentFile,
       togglePreviewMode,
       filterNode,
-      handleExtensionChange,
       addNewFile,
       createNewFile,
       runAgent,

@@ -5,3 +5,4 @@ toml==0.10.2
 python-dotenv==1.0.0
 paramiko==3.3.1
 flask-sock==0.6.0
+webssh==1.6.2

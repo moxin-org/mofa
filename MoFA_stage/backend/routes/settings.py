@@ -15,7 +15,9 @@ from utils.file_ops import read_file, write_file
 from utils.ttyd_manager import restart_ttyd
 from config import (DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA, 
                    DEFAULT_AGENT_HUB_PATH, DEFAULT_EXAMPLES_PATH,
-                   CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH)
+                   CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH,
+                   MOFA_STAGE_DIR, REL_MOFA_DIR, 
+                   REL_DEFAULT_AGENT_HUB_PATH, REL_DEFAULT_EXAMPLES_PATH)
 
 # Configure logging
 logger = logging.getLogger('settings_routes')
@@ -37,6 +39,7 @@ DEFAULT_SETTINGS = {
     "examples_path": DEFAULT_EXAMPLES_PATH,  # 默认examples路径
     "custom_agent_hub_path": CUSTOM_AGENT_HUB_PATH,  # 自定义agent-hub路径
     "custom_examples_path": CUSTOM_EXAMPLES_PATH,  # 自定义examples路径
+    "use_relative_paths": True,  # 是否使用相对路径
     "theme": "light",
     "editor_font_size": 14,
     "editor_tab_size": 4,
@@ -51,6 +54,12 @@ DEFAULT_SETTINGS = {
     "terminal_display_mode": "both",  # 终端显示模式: both, terminal, webssh
     "ttyd_port": 8080  # 默认ttyd端口
 }
+
+def get_absolute_path(relative_path):
+    """将相对路径转换为绝对路径"""
+    if os.path.isabs(relative_path):
+        return relative_path
+    return os.path.normpath(os.path.join(MOFA_STAGE_DIR, relative_path))
 
 def get_settings():
     """获取设置信息，使用文件锁防止并发访问问题"""
@@ -67,6 +76,22 @@ def get_settings():
             fcntl.flock(f, fcntl.LOCK_SH)  # 共享锁
             settings = json.load(f)
             fcntl.flock(f, fcntl.LOCK_UN)  # 释放锁
+            
+            # 确保设置中包含新增的字段
+            for key, value in DEFAULT_SETTINGS.items():
+                if key not in settings:
+                    settings[key] = value
+            
+            # 处理路径设置
+            if settings.get("use_relative_paths", True):
+                # 如果使用默认路径和相对路径
+                if settings.get("use_default_agent_hub_path", True):
+                    settings["agent_hub_path"] = get_absolute_path(REL_DEFAULT_AGENT_HUB_PATH)
+                if settings.get("use_default_examples_path", True):
+                    settings["examples_path"] = get_absolute_path(REL_DEFAULT_EXAMPLES_PATH)
+                if not settings.get("mofa_dir") or settings.get("mofa_dir") == DEFAULT_MOFA_DIR:
+                    settings["mofa_dir"] = get_absolute_path(REL_MOFA_DIR)
+            
             return settings
     except Exception as e:
         print(f"Error reading settings file: {e}")
@@ -141,6 +166,16 @@ def api_save_settings():
             logger.warning(f"Could not read current settings: {e}")
             # If settings file doesn't exist, considering it a new file
             pass
+        
+        # 处理路径设置
+        if new_settings.get("use_relative_paths", True):
+            # 如果使用默认路径和相对路径
+            if new_settings.get("use_default_agent_hub_path", True):
+                new_settings["agent_hub_path"] = get_absolute_path(REL_DEFAULT_AGENT_HUB_PATH)
+            if new_settings.get("use_default_examples_path", True):
+                new_settings["examples_path"] = get_absolute_path(REL_DEFAULT_EXAMPLES_PATH)
+            if not new_settings.get("mofa_dir") or new_settings.get("mofa_dir") == DEFAULT_MOFA_DIR:
+                new_settings["mofa_dir"] = get_absolute_path(REL_MOFA_DIR)
         
         # Save the settings to the file
         if not save_settings_to_file(new_settings):
