@@ -115,14 +115,18 @@ class EuterpeWorkflow:
         # Track results for each keyframe
         results = {}
         music_path = None
-        
-        # Generate music if prompt is provided
+          # Generate music if prompt is provided
         if self.request.music_prompt:
             try:
                 logger.info(f"Generating music with prompt: {self.request.music_prompt[:50]}...")
+                # Get music duration from music_params if available, otherwise use default
+                duration = None
+                if hasattr(self.request, 'music_params') and self.request.music_params:
+                    duration = getattr(self.request.music_params, 'duration', None)
+                
                 music_path = await self.music_generator.generate(
                     prompt=self.request.music_prompt,
-                    duration=self.request.video_duration,
+                    duration=duration,  # This will default to the generator's config if None
                     filename=f"{self.request.output_filename}_music"
                 )
                 logger.info(f"Music generated at: {music_path}")
