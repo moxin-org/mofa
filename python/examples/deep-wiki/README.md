@@ -12,7 +12,7 @@ DeepWiki 是一个智能文档生成系统，专门用于自动分析 GitHub 上
 - **功能**：克隆指定的 GitHub 仓库，获取项目的源代码和结构。
 - **实现**：
   - 使用 GitHub API 或 Git 命令行工具，自动从 GitHub 下载项目代码。
-  - 解析 GitHub 仓库的结构，获取 README 文件、依赖文件（如 `requirements.txt` 或 `package.json`）、配置文件等信息。
+  - 使用获取当前项目所有的目录结构的tool来解析 GitHub 仓库的结构，获取 README 文件、依赖文件（如 `requirements.txt` 或 `package.json`）、配置文件等信息。
 
 ### 2. **文档解析与生成（Planning）**
 
@@ -84,7 +84,7 @@ DeepWiki 是一个智能文档生成系统，专门用于自动分析 GitHub 上
 
 ## 📈 架构图示意（Mermaid 图）
 
-以下是更新后的系统架构图，采用 mermaid 图表示，强调 `Planning`、`File Reading`、`LLM Logic Analysis` 和 `Query Agent` 形成一个循环过程，不断根据反馈进行评估和解析。
+`Planning`、`File Reading`、`LLM Logic Analysis` 和 `Query Agent` 形成一个循环过程，不断根据反馈进行评估和解析。
 
 ```mermaid
 graph TD
