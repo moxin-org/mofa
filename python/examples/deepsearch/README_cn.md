@@ -105,7 +105,7 @@ cd python/examples/deepsearch
 ### 步骤二：构建 Dataflow 节点
 
 ```bash
-dora build deepsearch-dataflow.yml
+dora up  && dora build deepsearch-dataflow.yml
 ```
 
 - 自动安装所有节点依赖
