@@ -135,7 +135,7 @@ dora start deepsearch-dataflow.yml
 Ensure your Dataflow is running. In a new terminal, run:
 
 ```bash
-python moly_client_stream.py
+cd python/examples/deepsearch && python3 moly_client_stream.py
 ```
 
 * You can modify the `user_input` variable inside `moly_client_stream.py` to test any research topic.

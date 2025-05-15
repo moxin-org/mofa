@@ -128,7 +128,7 @@ dora start deepsearch-dataflow.yml
 确保 Dataflow 已启动，在新终端执行：
 
 ```bash
-python moly_client_stream.py
+cd python/examples/deepsearch && python3 moly_client_stream.py
 ```
 
 - 可在 `moly_client_stream.py` 文件中修改 `user_input` 变量，输入任意研究主题

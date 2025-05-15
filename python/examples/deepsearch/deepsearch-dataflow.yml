@@ -13,7 +13,7 @@ nodes:
     build: pip install -e ../../agent-hub/deep-search
     path: deep-search
     outputs:
-      - deep_inquire_result
+      - deep_search_result
     inputs:
       user_query: dora-openai-server/v3/chat/completions
 
