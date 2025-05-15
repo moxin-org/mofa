@@ -112,7 +112,7 @@ cd python/examples/deepsearch
 ### Step 2: Build the Dataflow Nodes
 
 ```bash
-dora build deepsearch-dataflow.yml
+dora up && dora build deepsearch-dataflow.yml
 ```
 
 * Installs all node dependencies automatically
