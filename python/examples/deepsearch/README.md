@@ -4,26 +4,23 @@
 ## Table of Contents
 
 * [DeepSearch Dataflow Deployment and Feature Guide](#deepsearch-dataflow-deployment-and-feature-guide)
-
   * [Table of Contents](#table-of-contents)
   * [1. Project Overview and Core Features](#1-project-overview-and-core-features)
-
-    * [DeepSearch Intelligent Research Agent System](#deepsearch-intelligent-research-agent-system)
+  * [DeepSearch Agent](#deepsearch-intelligent-research-agent-system)
   * [2. Environment Preparation and MoFA Framework Installation](#2-environment-preparation-and-mofa-framework-installation)
   * [3. Environment Variable Configuration (API Keys)](#3-environment-variable-configuration-api-keys)
-
     * [Step 1: Copy the `.env.example` File](#step-1-copy-the-envexample-file)
     * [Step 2: Fill in Your Keys](#step-2-fill-in-your-keys)
   * [4. `openai-server-stream` Node Description](#4-openai-server-stream-node-description)
   * [5. Building and Starting the DeepSearch Dataflow](#5-building-and-starting-the-deepsearch-dataflow)
-
+  
     * [Step 1: Enter the Example Directory](#step-1-enter-the-example-directory)
     * [Step 2: Build the Dataflow Nodes](#step-2-build-the-dataflow-nodes)
     * [Step 3: Start the Dataflow](#step-3-start-the-dataflow)
   * [6. Interactive Testing and Sample Output](#6-interactive-testing-and-sample-output)
-
+  
     * [Launching the Python Test Client](#launching-the-python-test-client)
-
+  
       * [Sample Output](#sample-output)
   * [7. FAQs and Cross-Platform Compatibility](#7-faqs-and-cross-platform-compatibility)
 
@@ -34,12 +31,12 @@
 
 ## 1. Project Overview and Core Features
 
-### DeepSearch Intelligent Research Agent System
+### DeepSearch Agent System
 
-DeepSearch is an end-to-end streaming research agent built on the [MoFA](../../README.md) intelligent-agent development framework. Its key highlights include:
+DeepSearch is an end-to-end streaming agent built on the [MoFA](../../README.md) framework. Its key highlights include:
 
 * **Multi-Stage Reasoning with Chunked Streaming Output**: For each user query, the system automatically performs “Retrieval → Article Processing → Multi-Stage Reasoning → Content Generation → Comprehensive Report,” outputting each stage in real time as chunks, which can be displayed incrementally on the front end.
-* **Intelligent Web Retrieval with Credibility Assessment**: Integrates the SERPER API to fetch high-quality web resources, de-duplicate, rank, extract context, and evaluate credibility.
+* **Web Retrieval with Credibility Assessment**: Integrates the SERPER API to fetch high-quality web resources, de-duplicate, rank, extract context, and evaluate credibility.
 * **Multi-Round Content Generation and Synthesis**: Uses multiple rounds of LLM calls—first thinking, then summarizing, then generating content—to finally synthesize a complete report.
 * **Extensible Streaming Dataflow Architecture**: All nodes can be independently extended and reused, supporting enterprise-level knowledge retrieval, intelligence analysis, and other scenarios.
 
