@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "euterpe-agent"
+version = "0.1.0"
+description = "MoFA agent to generate videos using euterpe-creator"
+authors = [
+    {name = "MoFA Team", email = "example@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "euterpe-creator>=0.1.0",
+    "mofa",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/mofa"
+
+[tool.setuptools.packages.find]
+include = ["euterpe_agent*"]
