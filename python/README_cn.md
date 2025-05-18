@@ -34,7 +34,7 @@ pip install uv
 - 本地python环境要纯净，不要多个python版本，否则容易导致Dora-rs运行环境和Mofa安装环境的冲突。
 - 如果你的环境使用的是Anaconda / Miniconda，务必将Mofa安装到`Base`环境下，以保证Dora运行环境和Mofa环境的一致。
 - 要求python环境 >= 3.10。
-
+- 我们目前已在 WSL（Ubuntu 22.04）和 macOS 上进行了测试。Windows 目前不支持。
 ### 2.1.2 Rust 环境
 ```bash
 # 安装 Rust

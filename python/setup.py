@@ -15,7 +15,7 @@ requirements = [pkg.replace('\n', '') for pkg in all_pkgs if "#" not in pkg]
 test_requirements = []
 
 setup(
-    name='mofa-ai',
+    name='mofa',
     author='Cheng Chen, ZongHuan Wu',
     author_email='chenzi00103@gmail.net, zonghuan.wu@gmail.com',
     description='MoFA is a software framework for building AI agents through a composition-based approach.',
@@ -43,3 +43,10 @@ setup(
     zip_safe=False,
     dependency_links=[]
 )
+
+
+
+
+
+
+
