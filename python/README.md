@@ -35,7 +35,7 @@ pip install uv
 - Ensure that the Python environment is clean, with no multiple Python versions, to avoid conflicts between the Dora-rs runtime and MoFA installation.
 - If you are using Anaconda / Miniconda, make sure to install MoFA in the `Base` environment to maintain consistency between the Dora runtime and MoFA environment.
 - Python version >= 3.10 is required.
-
+- We have currently tested on WSL (Ubuntu 22.04) and macOS. Windows is not supported at this time
 ### 2.1.2 Rust Environment
 
 ```bash

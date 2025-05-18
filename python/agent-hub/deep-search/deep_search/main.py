@@ -169,13 +169,23 @@ class ResearchGenerator:
         if stage_name is None:
             stage_name = stage_description
         for sub_stage_id, chunk in enumerate(self.llm_client.generate_response(messages)):
-            yield {
+            if sub_stage_id == 0:
+                data = {
                 "type": "thinking",
                 "content": chunk,
                 "articles": [a.dict() for a in selected_articles],
                 "metadata": {"stage": stage_name},
                 'id': f"{stage_id}-{sub_stage_id}"  # 当前阶段的 ID 和子步骤 ID
             }
+            else:
+                data = {
+                    "type": "thinking",
+                    "content": chunk,
+                    "articles": [],
+                    "metadata": {"stage": stage_name},
+                    'id': f"{stage_id}-{sub_stage_id}"  # 当前阶段的 ID 和子步骤 ID
+                }
+            yield data
 
     def _think_summary(self, data: str, stage_id: int = 6):
         summary_prompt = (
@@ -217,14 +227,23 @@ class ResearchGenerator:
         if type_content is None:
             type_content = 'content'
         for sub_stage_id, chunk in enumerate(self.llm_client.generate_response(messages)):
-            yield {
+            if sub_stage_id == 0:
+                data = {
                 "type": type_content,
                 "content": chunk,
                 "articles": [a.dict() for a in related_articles],
                 "metadata": {"stage": stage},
                 'id': f"{stage_id}-{sub_stage_id}",  # 当前阶段的 ID 和子步骤 ID
-
             }
+            else:
+                data = {
+                "type": type_content,
+                "content": chunk,
+                "articles": [],
+                "metadata": {"stage": stage},
+                'id': f"{stage_id}-{sub_stage_id}",  # 当前阶段的 ID 和子步骤 ID
+            }
+            yield data
         if type_content == 'completion':
             yield {
                 "type": type_content,
@@ -331,7 +350,7 @@ def run(agent: MofaAgent):
     results = []
     for chunk in generator.generate_stream(user_query=user_query):
         results.append(json.dumps(chunk, indent=2))
-        agent.send_output(agent_output_name='deep_inquire_result', agent_result=json.dumps(chunk, indent=2))
+        agent.send_output(agent_output_name='deep_search_result', agent_result=json.dumps(chunk, indent=2))
         time.sleep(0.005)
 
 def main():
