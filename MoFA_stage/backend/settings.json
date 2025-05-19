@@ -1,6 +1,6 @@
 {
   "mofa_env_path": "",
-  "mofa_dir": "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/MoFA_stage",
+  "mofa_dir": "",
   "theme": "light",
   "editor_font_size": 14,
   "editor_tab_size": 4,
@@ -8,10 +8,10 @@
   "use_default_agent_hub_path": true,
   "use_default_examples_path": true,
   "use_relative_paths": true,
-  "agent_hub_path": "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/agent-hub",
-  "examples_path": "/mnt/c/Users/Yao/Desktop/code/mofa/mofa/python/examples",
-  "custom_agent_hub_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/agent-hub",
-  "custom_examples_path": "/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa/python/examples",
+  "agent_hub_path": "",
+  "examples_path": "",
+  "custom_agent_hub_path": "",
+  "custom_examples_path": "",
   "language": "en",
   "ssh": {
     "auto_connect": true,
