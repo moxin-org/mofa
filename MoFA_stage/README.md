@@ -1,113 +1,112 @@
 # MoFA_Stage
 
-MoFA_Stage 是为 MoFA (Modular Framework for Agents) 框架打造的一个可视化管理平台。通过简单直观的 Web 界面，你可以创建、编辑和运行 Agent，无需直接操作命令行。
+English | [中文](README_cn.md)
 
-## 主要功能
+MoFA_Stage is a visual management platform built for the MoFA (Modular Framework for Agents) framework. Through a simple and intuitive web interface, you can create, edit, and run Agents without directly operating the command line.
 
-- **Agent 管理**
-  - 浏览和搜索现有 Agent
-  - 基于模板创建新 Agent，或复制已有 Agent
-  - 修改 Agent 代码和配置
-  - 启动/停止 Agent 运行
-  - 删除不再需要的 Agent
+## Main Features
 
+- **Agent Management**
+  - Browse and search existing Agents
+  - Create new Agents based on templates, or duplicate existing Agents
+  - Modify Agent code and configuration
+  - Start/stop Agent execution
+  - Delete unwanted Agents
 
-- **终端集成**
-  - Web SSH 访问（无需额外SSH客户端）
-  - ttyd 终端直接集成到页面
-  - 便捷的命令行环境
+- **Terminal Integration**
+  - Web SSH access (no additional SSH client required)
+  - ttyd terminal directly integrated into the page
+  - Convenient command-line environment
 
-- **编辑器功能**
-  - 基于 Monaco 的代码编辑（VS Code同款编辑器引擎）
-  - 代码高亮和自动完成
-  - Markdown 即时预览
-  - 项目文件导航
+- **Editor Features**
+  - Monaco-based code editing (same editor engine as VS Code)
+  - Code highlighting and auto-completion
+  - Markdown instant preview
+  - Project file navigation
 
-## 技术栈
+## Technology Stack
 
-**后端**
+**Backend**
 - Python + Flask
-- WebSocket 支持
-- SSH 终端集成
+- WebSocket support
+- SSH terminal integration
 - RESTful API
 
-**前端**
+**Frontend**
 - Vue 3 
-- Element Plus 组件库
-- Monaco 编辑器
-- XTerm.js 终端模拟
-- 多语言支持
-- Pinia 状态管理
+- Element Plus component library
+- Monaco editor
+- XTerm.js terminal emulation
+- Multi-language support
+- Pinia state management
 
-**第三方依赖**
-- ttyd 终端服务（可选）
+**Third-party Dependencies**
+- ttyd terminal service (optional)
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Environment Requirements
 
-- Python 3.8 或更高
-- Node.js 14 或更高
-- 已安装 MoFA 框架
+- Python 3.8 or higher
+- Node.js 14 or higher
+- MoFA framework installed
 
-### 安装和运行脚本
+### Installation and Run Scripts
 
-项目提供了两个脚本：
+The project provides two scripts:
 
-- **install.sh**: 一键安装所有依赖
+- **install.sh**: One-click installation of all dependencies
   ```bash
   chmod +x install.sh
   ./install.sh
   ```
-  自动安装后端/前端依赖，并根据需要安装 ttyd、构建前端。
+  Automatically installs backend/frontend dependencies, and installs ttyd and builds the frontend as needed.
 
-- **run.sh**: 一键启动服务
+- **run.sh**: One-click service startup
   ```bash
   chmod +x run.sh
   ./run.sh
   ```
 
+### Development Mode
 
-### 开发模式
-
-1. 启动后端
+1. Start the backend
 ```bash
 cd backend
 python app.py
 ```
 
-2. 启动前端（开发模式）
+2. Start the frontend (development mode)
 ```bash
 cd frontend
 npm run dev
 ```
 
-访问 http://localhost:3000 。
+Access http://localhost:3000.
 
-### 生产部署
+### Production Deployment
 
-
-1. 构建前端
+1. Build the frontend
 ```bash
 cd frontend
-npm run build  # 生成在 dist 目录
+npm run build  # Generates in the dist directory
 ```
 
-2. 部署方式（二选一）
+2. Deployment methods (choose one)
 
-**使用 Nginx**
+**Using Nginx**
 
 ```nginx
 server {
     listen 80;
     
-    # 静态文件
+    # Static files
     location / {
         root /path/to/mofa_stage/frontend/dist;
         try_files $uri $uri/ /index.html;
     }
     
-    # API 转发
+    # API forwarding
     location /api {
         proxy_pass http://localhost:5002;
         proxy_set_header Host $host;
@@ -124,69 +123,69 @@ server {
 }
 ```
 
-**简易部署**
+**Simple Deployment**
 
-使用 Python 自带的 HTTP 服务器：
+Using Python's built-in HTTP server:
 ```bash
 cd frontend/dist
 python -m http.server 3000
 ```
 
-启动后端：
+Start the backend:
 ```bash
 cd backend
 python app.py
 ```
 
-## 常见问题
+## Common Issues
 
-### 端口占用
+### Port Occupation
 
-如果遇到端口占用问题，可以用这条命令释放端口：
+If you encounter port occupation issues, you can use this command to release ports:
 
 ```bash
 for port in 3000 5001 5002 7681; do
     pid=$(lsof -t -i:$port)
     if [ -n "$pid" ]; then
         kill -9 $pid
-        echo "释放了端口 $port"
+        echo "Released port $port"
     fi
 done
 ```
 
-### 端口说明
+### Port Description
 
-- 3000: 前端服务
-- 5001: WebSSH 服务
-- 5002: 主后端 API
-- 7681: ttyd 终端
+- 3000: Frontend service
+- 5001: WebSSH service
+- 5002: Main backend API
+- 7681: ttyd terminal
 
-### ttyd 安装失败
+### ttyd Installation Failure
 
-如果 ttyd 自动安装失败，可以参考 [ttyd GitHub 页面](https://github.com/tsl0922/ttyd) 手动安装。
+If ttyd automatic installation fails, you can refer to the [ttyd GitHub page](https://github.com/tsl0922/ttyd) for manual installation.
 
-## 目录结构
+## Directory Structure
 
-核心目录和文件：
+Core directories and files:
 
 ```
 MoFA_Stage/
-├── backend/                # Flask 后端
-│   ├── app.py              # 主应用入口
-│   ├── routes/             # API 路由
+├── backend/                # Flask backend
+│   ├── app.py              # Main application entry
+│   ├── routes/             # API routes
 │   │   ├── agents.py       # Agent API
-│   │   ├── dataflows.py    # 数据流 API
-│   │   ├── webssh.py       # SSH API等
-│   ├── utils/              # 工具函数
-│   │   ├── mofa_cli.py     # mofa 命令行封装
-│   │   ├── dataflow_engine.py # 数据流引擎
-│   └── models/             # 数据模型
-├── frontend/               # Vue3 前端
+│   │   ├── dataflows.py    # Dataflow API
+│   │   ├── webssh.py       # SSH API, etc.
+│   ├── utils/              # Utility functions
+│   │   ├── mofa_cli.py     # mofa command line wrapper
+│   │   ├── dataflow_engine.py # Dataflow engine
+│   └── models/             # Data models
+├── frontend/               # Vue3 frontend
 │   ├── src/
-│       ├── views/          # 页面视图
-│       ├── components/     # 组件
-│       ├── api/            # API 调用
-├── install.sh              # 安装脚本
-├── run.sh                  # 服务启动脚本
+│       ├── views/          # Page views
+│       ├── components/     # Components
+│       ├── api/            # API calls
+├── install.sh              # Installation script
+├── run.sh                  # Service startup script
 └── README.md               
 ```
