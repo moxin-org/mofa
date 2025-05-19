@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "kling-agent"
+version = "0.0.1"
+authors = [
+    "Zonghuan Wu"
+]
+description = "A user new agent template"
+license = "MIT License"
+homepage = "https://github.com/moxin-org/mofa"
+documentation = "https://github.com/moxin-org/mofa/blob/main/README.md"
+readme = "README.md"
+packages = [{ include = "agent" }]  # 修正为实际的包目录
+
+[tool.poetry.dependencies]
+pyarrow = ">= 5.0.0"
+loguru = "*"  # 根据之前的代码，添加 loguru 依赖
+
+[tool.poetry.scripts]
+kling-agent = "agent.main:main"  # 修正为实际的模块路径
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
