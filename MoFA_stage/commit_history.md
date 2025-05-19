@@ -17,9 +17,5 @@ dcd1a0a - BH3GEI, 2025-05-02 14:53:20 : minor bug fix
 9065400 - BH3GEI, 2025-05-02 10:06:36 : Add multilingual adaptation
 6485890 - BH3GEI, 2025-05-01 23:22:40 : Fix multiple errors in log viewing and code editing interfaces
 ad20491 - BH3GEI, 2025-05-01 17:59:47 : feat: Add MoFA Stage frontend management interface
-a085fef - ChenZi, 2025-04-21 08:59:21 : 1. update Dockerfile_x86 install mofa 2. update .gitignore
-f5bbe28 - ChenZi, 2025-04-17 10:41:23 : 1.Modified the core code of deep-inquire—now all stages and sub-stages support streaming responses.
-cc13e4c - ChenZi, 2025-04-16 17:36:26 : 1. update deep-inquire
-2e36825 - chenzi, 2025-04-15 10:36:23 : update README.md and README_cn.md
 ```
 
