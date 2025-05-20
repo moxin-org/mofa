@@ -11,8 +11,8 @@ DEBUG = True
 SECRET_KEY = 'mofa-stage-secret-key'
 
 # MoFA 配置
-DEFAULT_MOFA_ENV = '/mnt/c/Users/ufop/Desktop/code/mofa_third_stage/mofa_venv'
-DEFAULT_MOFA_DIR = '/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa'
+DEFAULT_MOFA_ENV = ''
+DEFAULT_MOFA_DIR = ''
 # 默认使用系统MOFA
 USE_SYSTEM_MOFA = True
 # 原子化Agent存储位置（agent-hub）
