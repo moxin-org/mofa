@@ -1,0 +1,39 @@
+site:
+  name: MoFA.AI
+  site: 'https://mofa.ai'
+  base: '/'
+  trailingSlash: false
+
+  googleSiteVerificationId: null
+
+# Default SEO metadata
+metadata:
+  title:
+    default: MoFA.AI
+    template: '%s — MoFA.AI'
+  description: "MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition."
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: MoFA.AI
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: '@moxin_ai'
+    site: '@moxin_ai'
+    cardType: summary_large_image
+
+# 支持多语言
+i18n:
+  language: en
+  textDirection: ltr
+  supportedLanguages: ['en', 'zh']
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null

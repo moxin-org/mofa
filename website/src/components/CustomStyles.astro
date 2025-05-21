@@ -1,0 +1,54 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource/noto-sans-sc';
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --mondrian-red: rgb(220, 36, 31);
+    --mondrian-blue: rgb(0, 57, 166);
+    --mondrian-yellow: rgb(254, 213, 0);
+    --mondrian-black: rgb(0, 0, 0);
+    --mondrian-white: rgb(255, 255, 255);
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: var(--mondrian-black);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: var(--mondrian-white);
+
+    --aw-color-bg-page-dark: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-yellow);
+      color: var(--mondrian-black);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-blue);
+      color: var(--mondrian-white);
+    }
+  }
+</style>
