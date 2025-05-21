@@ -113,3 +113,6 @@ poetry.lock
 /.iml/
 demo/
 local_cache/
+
+# Node.js
+node_modules/
