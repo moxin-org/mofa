@@ -1,7 +1,7 @@
 site:
   name: MoFA.AI
   site: 'https://mofa.ai'
-  base: '/'
+  base: '/mofa/'
   trailingSlash: false
 
   googleSiteVerificationId: null
