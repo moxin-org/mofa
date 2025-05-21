@@ -24,6 +24,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
   outDir: '../docs',
+  trailingSlash: 'always',
 
   integrations: [
     tailwind({
