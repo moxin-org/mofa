@@ -1,6 +1,6 @@
 site:
   name: MoFA.AI
-  site: 'https://mofa.ai'
+  site: 'https://moxin-org.github.io'
   base: '/mofa/'
   trailingSlash: false
 
