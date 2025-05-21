@@ -144,6 +144,14 @@ export const messages = {
       closeTab: 'Close Terminal',
       interrupted: 'Command interrupted'
     },
+    ttyd: {
+      restart: 'Restart Service',
+      tabName: 'Tab Name',
+      workingDir: 'Working Directory',
+      command: 'Custom Command',
+      commandHelp: 'Leave empty to use the default shell',
+      newTab: 'New Terminal Tab'
+    },
     ssh: {
       configuration: 'SSH Configuration',
       hostname: 'Hostname',
@@ -335,6 +343,14 @@ export const messages = {
       newTab: '新终端',
       closeTab: '关闭终端',
       interrupted: '命令已中断'
+    },
+    ttyd: {
+      restart: '重启服务',
+      tabName: '标签名称',
+      workingDir: '工作目录',
+      command: '自定义命令',
+      commandHelp: '留空以使用默认shell',
+      newTab: '新建终端标签'
     },
     ssh: {
       configuration: 'SSH配置',
