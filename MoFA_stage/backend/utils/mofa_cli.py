@@ -18,7 +18,8 @@ class MofaCLI:
         from config import (
             DEFAULT_MOFA_ENV, DEFAULT_MOFA_DIR, USE_SYSTEM_MOFA,
             DEFAULT_AGENT_HUB_PATH, DEFAULT_EXAMPLES_PATH,
-            CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH
+            CUSTOM_AGENT_HUB_PATH, CUSTOM_EXAMPLES_PATH,
+            AGENT_HUB_PATH, EXAMPLES_PATH
         )
         
         self.settings = settings or {}
@@ -29,7 +30,8 @@ class MofaCLI:
         # 设置原子化Agent（agent-hub）存储路径
         use_default_agent_hub = self.settings.get('use_default_agent_hub_path', True)
         if use_default_agent_hub:
-            self.agent_hub_dir = self.settings.get('agent_hub_path', DEFAULT_AGENT_HUB_PATH)
+            # 如果使用默认路径，应该是mofa_dir/python/agent-hub
+            self.agent_hub_dir = os.path.join(self.mofa_dir, AGENT_HUB_PATH)
         else:
             custom_agent_hub = self.settings.get('custom_agent_hub_path', '')
             self.agent_hub_dir = custom_agent_hub if custom_agent_hub else DEFAULT_AGENT_HUB_PATH
@@ -37,7 +39,8 @@ class MofaCLI:
         # 设置示例组合（examples）存储路径
         use_default_examples = self.settings.get('use_default_examples_path', True)
         if use_default_examples:
-            self.examples_dir = self.settings.get('examples_path', DEFAULT_EXAMPLES_PATH)
+            # 如果使用默认路径，应该是mofa_dir/python/examples
+            self.examples_dir = os.path.join(self.mofa_dir, EXAMPLES_PATH)
         else:
             custom_examples = self.settings.get('custom_examples_path', '')
             self.examples_dir = custom_examples if custom_examples else DEFAULT_EXAMPLES_PATH
@@ -48,6 +51,12 @@ class MofaCLI:
             agent_hub_parent = os.path.dirname(self.agent_hub_dir)
             examples_parent = os.path.dirname(self.examples_dir)
             
+            # 尝试创建父目录（如果是默认路径的情况）
+            if use_default_agent_hub or use_default_examples:
+                python_dir = os.path.join(self.mofa_dir, 'python')
+                if not os.path.exists(python_dir):
+                    os.makedirs(python_dir, exist_ok=True)
+                
             if os.path.exists(agent_hub_parent):
                 os.makedirs(self.agent_hub_dir, exist_ok=True)
             else:
