@@ -61,6 +61,42 @@ def get_absolute_path(relative_path):
         return relative_path
     return os.path.normpath(os.path.join(MOFA_STAGE_DIR, relative_path))
 
+def detect_mofa_root():
+    """自动检测MOFA项目根目录
+    通过从当前目录向上查找特征文件/目录来确定MOFA根目录
+    """
+    # 首先尝试使用REL_MOFA_DIR计算
+    mofa_dir = get_absolute_path(REL_MOFA_DIR)
+    
+    # 检查这个目录是否有效：查找python/agent-hub和python/examples目录
+    if os.path.exists(os.path.join(mofa_dir, 'python')) and \
+       (os.path.exists(os.path.join(mofa_dir, 'python/agent-hub')) or \
+        os.path.exists(os.path.join(mofa_dir, 'python/examples'))):
+        logger.info(f"检测到MOFA根目录: {mofa_dir}")
+        return mofa_dir
+    
+    # 如果计算出的目录无效，尝试寻找真实的根目录
+    # 从当前目录开始，向上查找
+    current_dir = os.path.abspath(MOFA_STAGE_DIR)
+    
+    # 最多向上查找3级目录
+    for _ in range(4):
+        parent_dir = os.path.dirname(current_dir)
+        
+        # 检查是否存在python/agent-hub和python/examples目录
+        python_dir = os.path.join(parent_dir, 'python')
+        if os.path.exists(python_dir) and \
+           (os.path.exists(os.path.join(python_dir, 'agent-hub')) or \
+            os.path.exists(os.path.join(python_dir, 'examples'))):
+            logger.info(f"自动检测到MOFA根目录: {parent_dir}")
+            return parent_dir
+        
+        current_dir = parent_dir
+    
+    # 如果找不到，返回默认值
+    logger.warning(f"无法自动检测MOFA根目录，使用默认值: {DEFAULT_MOFA_DIR}")
+    return DEFAULT_MOFA_DIR
+
 def get_settings():
     """获取设置信息，使用文件锁防止并发访问问题"""
     if not os.path.exists(SETTINGS_FILE):
@@ -82,15 +118,41 @@ def get_settings():
                 if key not in settings:
                     settings[key] = value
             
+            # 确保mofa_dir是有效的
+            if not settings.get("mofa_dir") or not os.path.exists(settings.get("mofa_dir")):
+                settings["mofa_dir"] = detect_mofa_root()
+            
             # 处理路径设置
             if settings.get("use_relative_paths", True):
                 # 如果使用默认路径和相对路径
                 if settings.get("use_default_agent_hub_path", True):
                     settings["agent_hub_path"] = get_absolute_path(REL_DEFAULT_AGENT_HUB_PATH)
+                else:
+                    # 使用自定义路径
+                    settings["agent_hub_path"] = settings.get("custom_agent_hub_path", CUSTOM_AGENT_HUB_PATH)
+                    
                 if settings.get("use_default_examples_path", True):
                     settings["examples_path"] = get_absolute_path(REL_DEFAULT_EXAMPLES_PATH)
-                if not settings.get("mofa_dir") or settings.get("mofa_dir") == DEFAULT_MOFA_DIR:
-                    settings["mofa_dir"] = get_absolute_path(REL_MOFA_DIR)
+                else:
+                    # 使用自定义路径
+                    settings["examples_path"] = settings.get("custom_examples_path", CUSTOM_EXAMPLES_PATH)
+                    
+                # 仅在用户未指定mofa_dir时使用计算的相对路径
+                if settings.get("mofa_dir") == DEFAULT_MOFA_DIR:
+                    settings["mofa_dir"] = detect_mofa_root()
+            else:
+                # 如果不使用相对路径，但使用默认路径
+                if settings.get("use_default_agent_hub_path", True):
+                    settings["agent_hub_path"] = os.path.join(settings.get("mofa_dir", DEFAULT_MOFA_DIR), AGENT_HUB_PATH)
+                else:
+                    # 使用自定义路径
+                    settings["agent_hub_path"] = settings.get("custom_agent_hub_path", CUSTOM_AGENT_HUB_PATH)
+                    
+                if settings.get("use_default_examples_path", True):
+                    settings["examples_path"] = os.path.join(settings.get("mofa_dir", DEFAULT_MOFA_DIR), EXAMPLES_PATH)
+                else:
+                    # 使用自定义路径
+                    settings["examples_path"] = settings.get("custom_examples_path", CUSTOM_EXAMPLES_PATH)
             
             return settings
     except Exception as e:
@@ -153,6 +215,10 @@ def api_save_settings():
         # Get the settings from the request body
         new_settings = request.json
         
+        # 确保mofa_dir是有效的
+        if not new_settings.get("mofa_dir") or not os.path.exists(new_settings.get("mofa_dir")):
+            new_settings["mofa_dir"] = detect_mofa_root()
+        
         # Check if ttyd_port was changed
         ttyd_port_changed = False
         try:
@@ -172,10 +238,32 @@ def api_save_settings():
             # 如果使用默认路径和相对路径
             if new_settings.get("use_default_agent_hub_path", True):
                 new_settings["agent_hub_path"] = get_absolute_path(REL_DEFAULT_AGENT_HUB_PATH)
+            else:
+                # 使用自定义路径
+                new_settings["agent_hub_path"] = new_settings.get("custom_agent_hub_path", CUSTOM_AGENT_HUB_PATH)
+                
             if new_settings.get("use_default_examples_path", True):
                 new_settings["examples_path"] = get_absolute_path(REL_DEFAULT_EXAMPLES_PATH)
+            else:
+                # 使用自定义路径
+                new_settings["examples_path"] = new_settings.get("custom_examples_path", CUSTOM_EXAMPLES_PATH)
+                
+            # 仅在用户未指定mofa_dir时使用计算的相对路径
             if not new_settings.get("mofa_dir") or new_settings.get("mofa_dir") == DEFAULT_MOFA_DIR:
-                new_settings["mofa_dir"] = get_absolute_path(REL_MOFA_DIR)
+                new_settings["mofa_dir"] = detect_mofa_root()
+        else:
+            # 如果不使用相对路径，但使用默认路径
+            if new_settings.get("use_default_agent_hub_path", True):
+                new_settings["agent_hub_path"] = os.path.join(new_settings.get("mofa_dir", DEFAULT_MOFA_DIR), AGENT_HUB_PATH)
+            else:
+                # 使用自定义路径
+                new_settings["agent_hub_path"] = new_settings.get("custom_agent_hub_path", CUSTOM_AGENT_HUB_PATH)
+                
+            if new_settings.get("use_default_examples_path", True):
+                new_settings["examples_path"] = os.path.join(new_settings.get("mofa_dir", DEFAULT_MOFA_DIR), EXAMPLES_PATH)
+            else:
+                # 使用自定义路径
+                new_settings["examples_path"] = new_settings.get("custom_examples_path", CUSTOM_EXAMPLES_PATH)
         
         # Save the settings to the file
         if not save_settings_to_file(new_settings):
