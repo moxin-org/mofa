@@ -1,0 +1,352 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { Image } from 'astro:assets';
+import mondrianImage from '~/assets/images/mondrian.jpg';
+import { translations } from '~/i18n/translations';
+import { getCollection } from 'astro:content';
+import { getI18N, type Language } from '~/utils/i18nConfig';
+
+// Get I18N configuration based on current URL
+const I18N = getI18N(Astro.url);
+const currentLang = I18N.language;
+
+// Output debug information
+console.log("Index page using language:", currentLang);
+console.log("URL search params:", Object.fromEntries(Astro.url.searchParams.entries()));
+
+// Create a server-side translation function using the current language
+function serverT(key: string): string {
+  const langKey = currentLang as keyof typeof translations;
+  
+  // Try to get translation for current language
+  if (translations[langKey] && translations[langKey][key]) {
+    return translations[langKey][key];
+  }
+  
+  // Fall back to English
+  if (langKey !== 'en' && translations.en && translations.en[key]) {
+    return translations.en[key];
+  }
+  
+  // If no translation is found, return the key
+  return key;
+}
+
+// Get home content from collection
+const allSiteContent = await getCollection('site');
+// Find merged home content file
+const homeContent = allSiteContent.find(entry => entry.id === 'home');
+
+console.log("Found home content:", homeContent ? homeContent.id : "none");
+
+// If no content is found, use default values
+let content;
+if (homeContent) {
+  // Use merged file, select content based on current language
+  content = {
+    title: homeContent.data.metadata?.[currentLang]?.title || 'MoFA.AI',
+    description: homeContent.data.metadata?.[currentLang]?.description || '',
+    hero: homeContent.data.hero?.[currentLang],
+    core: homeContent.data.core?.[currentLang],
+    features: homeContent.data.features?.[currentLang],
+    design: homeContent.data.design?.[currentLang],
+    patterns: homeContent.data.patterns?.[currentLang],
+    quickstart: homeContent.data.quickstart?.[currentLang],
+    faq: homeContent.data.faq?.[currentLang],
+    cta: homeContent.data.cta?.[currentLang],
+    nav: homeContent.data.nav?.[currentLang],
+    footer: homeContent.data.footer?.[currentLang]
+  };
+} else {
+  content = {
+    title: 'MoFA.AI - Modular Framework for Agent',
+    description: 'MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition.'
+  };
+}
+
+const metadata = {
+  title: content.title,
+  description: content.description,
+  ignoreTitleTemplate: true,
+};
+
+// Pass current language to layout component
+const layoutProps = {
+  metadata,
+  currentLang,
+  i18n: I18N
+};
+---
+
+<Layout {...layoutProps}>
+  <!-- Set current language -->
+  <script is:inline define:vars={{ currentLang }}>
+    // Set language on client-side
+    document.documentElement.lang = currentLang;
+    localStorage.setItem('language', currentLang);
+    console.log("Client-side language set to:", currentLang);
+  </script>
+
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={content.hero?.actions || [
+      {
+        variant: 'primary',
+        text: serverT('hero.cta.getStarted'),
+        href: 'https://github.com/moxin-org/mofa/blob/main/README.md',
+        target: '_blank',
+        icon: 'tabler:rocket',
+      },
+      { text: serverT('hero.cta.learnMore'), href: '#features' },
+    ]}
+    image={{ src: mondrianImage, alt: 'MoFA.AI Hero Image', width: 600, height: 450 }}
+  >
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">{content.hero?.title || serverT('hero.title')}</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        {content.hero?.subtitle || serverT('hero.subtitle')}
+      </span>
+    </Fragment>
+  </Hero>
+
+  <!-- Note Widget ******************* -->
+
+  <Note 
+    title={content.core?.title || serverT('core.title')} 
+    description={content.core?.values || serverT('core.values')} 
+  />
+
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline={content.features?.tagline || serverT('features.tagline')}
+    title={content.features?.title || serverT('features.title')}
+    subtitle={content.features?.subtitle || serverT('features.subtitle')}
+    items={content.features?.items || [
+      {
+        title: serverT('features.modularity.title'),
+        description: serverT('features.modularity.description'),
+        icon: 'tabler:components',
+      },
+      {
+        title: serverT('features.clarity.title'),
+        description: serverT('features.clarity.description'),
+        icon: 'tabler:bulb',
+      },
+      {
+        title: serverT('features.composability.title'),
+        description: serverT('features.composability.description'),
+        icon: 'tabler:puzzle',
+      },
+      {
+        title: serverT('features.simplicity.title'),
+        description: serverT('features.simplicity.description'),
+        icon: 'tabler:wand',
+      },
+      {
+        title: serverT('features.performance.title'),
+        description: serverT('features.performance.description'),
+        icon: 'tabler:rocket',
+      },
+      {
+        title: serverT('features.diversity.title'),
+        description: serverT('features.diversity.description'),
+        icon: 'tabler:color-swatch',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    tagline={content.design?.tagline || serverT('design.tagline')}
+    title={content.design?.title || serverT('design.title')}
+    items={content.design?.items || [
+      {
+        title: serverT('design.aios.title'),
+        description: serverT('design.aios.description'),
+      },
+      {
+        title: serverT('design.tools.title'),
+        description: serverT('design.tools.description'),
+      },
+      {
+        title: serverT('design.shell.title'),
+        description: serverT('design.shell.description'),
+      },
+    ]}
+    image={{
+      src: mondrianImage,
+      alt: 'MoFA Architecture',
+      width: 600,
+      height: 450
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        {content.design?.content?.title || serverT('design.content.title')}
+      </h3>
+      {content.design?.content?.description || serverT('design.content.description')}
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title={content.patterns?.title || serverT('patterns.title')}
+    subtitle={content.patterns?.subtitle || serverT('patterns.subtitle')}
+    tagline={content.patterns?.tagline || serverT('patterns.tagline')}
+    items={content.patterns?.items || [
+      {
+        title: serverT('patterns.llm.title'),
+        description: serverT('patterns.llm.description'),
+        icon: 'tabler:brain',
+      },
+      {
+        title: serverT('patterns.prompt.title'),
+        description: serverT('patterns.prompt.description'),
+        icon: 'tabler:message-circle',
+      },
+      {
+        title: serverT('patterns.reflection.title'),
+        description: serverT('patterns.reflection.description'),
+        icon: 'tabler:refresh',
+      },
+      {
+        title: serverT('patterns.actor.title'),
+        description: serverT('patterns.actor.description'),
+        icon: 'tabler:tool',
+      },
+      {
+        title: serverT('patterns.react.title'),
+        description: serverT('patterns.react.description'),
+        icon: 'tabler:arrows-exchange',
+      },
+      {
+        title: serverT('patterns.multiagent.title'),
+        description: serverT('patterns.multiagent.description'),
+        icon: 'tabler:users',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- Steps Widget ****************** -->
+
+  <Steps
+    title={content.quickstart?.title || serverT('quickstart.title')}
+    items={content.quickstart?.steps || [
+      {
+        title: serverT('quickstart.step1.title'),
+        description: serverT('quickstart.step1.description'),
+        icon: 'tabler:package',
+      },
+      {
+        title: serverT('quickstart.step2.title'),
+        description: serverT('quickstart.step2.description'),
+        icon: 'tabler:template',
+      },
+      {
+        title: serverT('quickstart.step3.title'),
+        description: serverT('quickstart.step3.description'),
+        icon: 'tabler:settings',
+      },
+      {
+        title: serverT('quickstart.step4.title'),
+        description: serverT('quickstart.step4.description'),
+        icon: 'tabler:puzzle',
+      },
+      {
+        title: serverT('quickstart.complete'),
+        icon: 'tabler:check',
+      },
+    ]}
+    image={{
+      src: mondrianImage,
+      alt: 'MoFA Steps',
+      width: 600,
+      height: 450
+    }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title={content.faq?.title || serverT('faq.title')}
+    subtitle={content.faq?.subtitle || serverT('faq.subtitle')}
+    tagline={content.faq?.tagline || serverT('faq.tagline')}
+    classes={{ container: 'max-w-6xl' }}
+    items={content.faq?.items || [
+      {
+        title: serverT('faq.difference.title'),
+        description: serverT('faq.difference.description'),
+      },
+      {
+        title: serverT('faq.knowledge.title'),
+        description: serverT('faq.knowledge.description'),
+      },
+      {
+        title: serverT('faq.models.title'),
+        description: serverT('faq.models.description'),
+      },
+      {
+        title: serverT('faq.contribute.title'),
+        description: serverT('faq.contribute.description'),
+      },
+      {
+        title: serverT('faq.applications.title'),
+        description: serverT('faq.applications.description'),
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={content.cta?.actions || [
+      {
+        variant: 'primary',
+        text: serverT('cta.getStarted'),
+        href: 'https://github.com/moxin-org/mofa/blob/main/README.md',
+        icon: 'tabler:rocket',
+      },
+      {
+        text: serverT('cta.github'),
+        href: 'https://github.com/moxin-org/mofa',
+        target: '_blank',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      {content.cta?.title || serverT('cta.title')}
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      {content.cta?.subtitle || serverT('cta.subtitle')}
+    </Fragment>
+  </CallToAction>
+</Layout>

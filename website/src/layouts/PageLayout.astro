@@ -1,0 +1,44 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import Announcement from '~/components/widgets/Announcement.astro';
+
+import { getHeaderData, getFooterData } from '~/navigation';
+import { getI18N, type Language } from '~/utils/i18nConfig';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+  currentLang?: Language;
+  i18n?: any;
+}
+
+const { metadata, currentLang, i18n } = Astro.props;
+
+// Use the provided i18n config or create a new one based on the current URL
+const I18N = i18n || getI18N(Astro.url);
+const lang = currentLang || I18N.language;
+
+// Get navigation data based on current language
+const headerDataWithLang = getHeaderData(lang);
+const footerDataWithLang = getFooterData(lang);
+
+console.log("PageLayout using language:", lang);
+---
+
+<Layout metadata={metadata} currentLang={lang} i18n={I18N}>
+  <slot name="announcement">
+    <Announcement />
+  </slot>
+  <slot name="header">
+    <Header {...headerDataWithLang} isSticky showToggleTheme position="right" />
+  </slot>
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerDataWithLang} />
+  </slot>
+</Layout>

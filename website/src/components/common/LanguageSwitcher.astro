@@ -1,0 +1,105 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getCurrentLanguage, LANGUAGES, type Language } from '~/utils/i18nConfig';
+
+// Get current language
+const currentLang = getCurrentLanguage(Astro.url);
+
+// Define language display names
+const languageNames: Record<Language, string> = {
+  en: 'English',
+  zh: '中文'
+};
+
+// Define language toggle display (what shows in the button)
+const toggleText: Record<Language, string> = {
+  en: '中文',
+  zh: 'EN'
+};
+---
+
+<div class="language-switcher relative">
+  <button
+    id="language-switcher-button"
+    type="button"
+    class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+    aria-label="Switch Language"
+    data-current-lang={currentLang}
+  >
+    <Icon
+      name="tabler:language"
+      class="w-5 h-5"
+    />
+    <span id="language-text" class="ml-1 rtl:mr-1 rtl:ml-0 font-semibold">{toggleText[currentLang]}</span>
+  </button>
+
+  <!-- Language dropdown menu (hidden by default) -->
+  <div id="language-dropdown" class="hidden absolute right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50">
+    {LANGUAGES.map(lang => (
+      <a 
+        href={`?lang=${lang}`}
+        class:list={[
+          "block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap",
+          { "bg-gray-100 dark:bg-gray-700": lang === currentLang }
+        ]}
+        data-lang={lang}
+      >
+        {languageNames[lang]}
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Function to handle language switching
+  function setupLanguageSwitcher() {
+    const button = document.getElementById('language-switcher-button');
+    const dropdown = document.getElementById('language-dropdown');
+    
+    if (!button || !dropdown) return;
+    
+    // Toggle dropdown visibility when button is clicked
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('hidden');
+    });
+    
+    // Hide dropdown when clicking elsewhere
+    document.addEventListener('click', () => {
+      dropdown.classList.add('hidden');
+    });
+    
+    // Prevent dropdown from closing when clicking inside it
+    dropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    
+    // Add click handlers to language options
+    dropdown.querySelectorAll('a[data-lang]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const lang = link.getAttribute('data-lang');
+        if (!lang) return;
+        
+        // Save language preference to localStorage
+        localStorage.setItem('language', lang);
+        
+        // Build new URL with language parameter
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        
+        // Navigate to the new URL
+        window.location.href = url.toString();
+      });
+    });
+  }
+  
+  // Initialize language switcher when DOM is loaded
+  document.addEventListener('DOMContentLoaded', setupLanguageSwitcher);
+  
+  // Also initialize when the document is already loaded (for Astro view transitions)
+  if (document.readyState === 'complete') {
+    setupLanguageSwitcher();
+  }
+</script> 

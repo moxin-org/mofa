@@ -1,0 +1,457 @@
+<!DOCTYPE html><html lang="en" dir="ltr" class="2xl:text-[20px]"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="sitemap" href="/sitemap-index.xml"><link rel="shortcut icon" href="/_astro/favicon.CGiRCjPI.ico"><link rel="icon" type="image/svg+xml" href="/_astro/favicon.vp_fBu0c.svg"><link rel="mask-icon" href="/_astro/favicon.vp_fBu0c.svg" color="#8D46E7"><link rel="apple-touch-icon" sizes="180x180" href="/_astro/apple-touch-icon.DHIlG7dp.png"><style>
+  :root {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --mondrian-red: rgb(220, 36, 31);
+    --mondrian-blue: rgb(0, 57, 166);
+    --mondrian-yellow: rgb(254, 213, 0);
+    --mondrian-black: rgb(0, 0, 0);
+    --mondrian-white: rgb(255, 255, 255);
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: var(--mondrian-black);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: var(--mondrian-white);
+
+    --aw-color-bg-page-dark: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-yellow);
+      color: var(--mondrian-black);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-blue);
+      color: var(--mondrian-white);
+    }
+  }
+</style><script>(function(){const defaultTheme = "system";
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    const matches = document.querySelectorAll('[data-aw-toggle-color-scheme] > input');
+
+    if (matches && matches.length) {
+      matches.forEach((elem) => {
+        elem.checked = theme !== 'dark';
+      });
+    }
+  }
+
+  if ((defaultTheme && defaultTheme.endsWith(':only')) || (!localStorage.theme && defaultTheme !== 'system')) {
+    applyTheme(defaultTheme.replace(':only', ''));
+  } else if (
+    localStorage.theme === 'dark' ||
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    applyTheme('dark');
+  } else {
+    applyTheme('light');
+  }
+})();</script><title>Mobile App Homepage — MoFA.AI</title>
+<meta name="description" content="MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://mofa.ai/homes/mobile-app">
+<meta property="og:title" content="Mobile App Homepage">
+<meta property="og:description" content="MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition.">
+<meta property="og:url" content="https://mofa.ai/homes/mobile-app">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://mofa.ai/_astro/default.CZ816Hke_2bosb5.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="MoFA.AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@moxin_ai">
+<meta name="twitter:creator" content="@moxin_ai"><!-- Comment the line below to disable View Transitions --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="swap"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.BZs-2RF_.js"></script><!-- Language initialization script --><script>(function(){const lang = "en";
+const languages = ["en","zh"];
+
+      (function() {
+        // Store the current language in localStorage
+        localStorage.setItem('language', lang);
+        
+        // Function to get URL parameters
+        function getUrlParam(name) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(name);
+        }
+        
+        // Check if we need to redirect based on language settings
+        function checkLanguageRedirect() {
+          // If URL already has a lang parameter, respect it
+          const urlLang = getUrlParam('lang');
+          if (urlLang && languages.includes(urlLang)) {
+            return;
+          }
+          
+          // If localStorage has a language that's different from the current one,
+          // and there's no lang parameter in the URL, redirect
+          const storedLang = localStorage.getItem('language');
+          if (storedLang && storedLang !== lang && languages.includes(storedLang)) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', storedLang);
+            window.location.href = url.toString();
+          }
+        }
+        
+        // Run the check
+        checkLanguageRedirect();
+      })();
+    })();</script><link rel="stylesheet" href="/_astro/click-through.CGvI5d62.css"></head> <body class="antialiased text-default bg-page tracking-tight">    <header class="sticky top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out" data-aw-sticky-header="true" id="header"> <div class="absolute inset-0"></div> <div class="relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between max-w-7xl"> <div class="flex justify-between"> <a class="flex items-center" href="/"> <div class="flex items-center"> <img src="/_astro/mofa-logo.CW2mf22t_1TKOTH.webp" alt="MoFA Logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8"> <span class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"> MoFA.AI </span> </div> </a> <div class="flex items-center md:hidden"> <button type="button" class="flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group" aria-label="Toggle Menu" data-aw-toggle-menu> <span class="sr-only">Toggle Menu</span>  <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:rotate-45 group-[.expanded]:translate-y-2.5"></span> <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:opacity-0"></span> <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:-rotate-45 group-[.expanded]:-translate-y-2.5"></span>  </button> </div> </div> <nav class="items-center w-full md:w-auto hidden md:flex md:mx-5 text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:justify-self-center" aria-label="Main navigation"> <ul class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"> <li class> <a class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap" href="#"> Services </a> </li><li class> <a class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap" href="#"> Features </a> </li><li class> <a class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap" href="#"> About </a> </li> </ul> </nav> <div class="ml-auto rtl:ml-0 rtl:mr-auto hidden md:self-center md:flex items-center md:mb-0 fixed w-full md:w-auto md:static justify-end left-0 rtl:left-auto rtl:right-0 bottom-0 p-3 md:p-0 md:justify-self-end"> <div class="items-center flex justify-between w-full md:w-auto"> <div class="flex"> <button type="button" class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme><svg width="1em" height="1em" class="w-6 h-6 md:w-5 md:h-5 md:inline-block" data-icon="tabler:sun">   <symbol id="ai:tabler:sun" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m0 11.4l.7.7m-12.1-.7l-.7.7"/></symbol><use href="#ai:tabler:sun"></use>  </svg></button> <div class="language-switcher relative"> <button id="language-switcher-button" type="button" class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Switch Language" data-current-lang="en"> <svg width="1em" height="1em" class="w-5 h-5" data-icon="tabler:language">   <symbol id="ai:tabler:language" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 5h7M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c0 2.144 2.952 3.908 6.7 4m.3 7l4-9l4 9m-.9-2h-6.2"/></g></symbol><use href="#ai:tabler:language"></use>  </svg> <span id="language-text" class="ml-1 rtl:mr-1 rtl:ml-0 font-semibold">中文</span> </button> <!-- Language dropdown menu (hidden by default) --> <div id="language-dropdown" class="hidden absolute right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50"> <a href="?lang=en" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap bg-gray-100 dark:bg-gray-700" data-lang="en"> English </a><a href="?lang=zh" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap" data-lang="zh"> 中文 </a> </div> </div> <script type="module">function d(){const a=document.getElementById("language-switcher-button"),e=document.getElementById("language-dropdown");!a||!e||(a.addEventListener("click",t=>{t.stopPropagation(),e.classList.toggle("hidden")}),document.addEventListener("click",()=>{e.classList.add("hidden")}),e.addEventListener("click",t=>{t.stopPropagation()}),e.querySelectorAll("a[data-lang]").forEach(t=>{t.addEventListener("click",c=>{c.preventDefault();const n=t.getAttribute("data-lang");if(!n)return;localStorage.setItem("language",n);const o=new URL(window.location.href);o.searchParams.set("lang",n),window.location.href=o.toString()})}))}document.addEventListener("DOMContentLoaded",d);document.readyState==="complete"&&d();</script> </div> <span class="ml-4 rtl:ml-0 rtl:mr-4"> <a class="btn-secondary ml-2 py-2.5 px-5.5 md:px-6 font-semibold shadow-none text-sm w-auto" href="#download">Download</a> </span> </div> </div> </div> </header>  <main>     <section class="relative md:-mt-[76px] not-prose"> <div class="absolute inset-0 pointer-events-none" aria-hidden="true">    </div> <div class="relative max-w-7xl mx-auto px-4 sm:px-6"> <div class="pt-0 md:pt-[76px] pointer-events-none"></div> <div class="py-12 md:py-20 lg:py-0 lg:flex lg:items-center lg:h-screen lg:gap-8"> <div class="basis-1/2 text-center lg:text-left pb-10 md:pb-16 mx-auto"> <p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter">Mobile App Web Demo</p> <h1 class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <span class="text-accent dark:text-white">AstroWind App</span>: <br> professional websites <span class="hidden xl:inline">made easy</span> </h1> <div class="max-w-3xl mx-auto lg:max-w-none"> <p class="text-xl text-muted mb-6 dark:text-slate-300 intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <span class="hidden sm:inline">
+Unlock boundless creativity at your fingertips: your gateway to innovative design.
+</span>
+Download now and embark on a journey to elevate your projects like never before.
+</p> <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 lg:justify-start lg:m-0 lg:max-w-7xl intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <div class="flex max-w-sm gap-4"> <a class="cursor-pointer hover:text-primary" href="https://github.com/onwidget/astrowind"> <img src="/_astro/app-store.t3tG4Jz3.png" crossorigin="anonymous" referrerpolicy="no-referrer" width="200" height="59" srcset="/_astro/app-store.t3tG4Jz3_1LXLgY.webp 200w, /_astro/app-store.t3tG4Jz3_Z1uhf1F.webp 400w" sizes="(min-width: 200px) 200px, 100vw" style="object-fit: cover; object-position: center; max-width: 200px; max-height: 59px; aspect-ratio: 3.389830508474576; width: 100%;" alt="App Store Image" loading="lazy" decoding="async"> </a> <a class="cursor-pointer hover:text-primary" href="https://github.com/onwidget/astrowind"> <img src="/_astro/google-play.ISTMcpLO.png" crossorigin="anonymous" referrerpolicy="no-referrer" width="200" height="59" srcset="/_astro/google-play.ISTMcpLO_1CKpdk.webp 200w, /_astro/google-play.ISTMcpLO_NRqQY.webp 400w" sizes="(min-width: 200px) 200px, 100vw" style="object-fit: cover; object-position: center; max-width: 200px; max-height: 59px; aspect-ratio: 3.389830508474576; width: 100%;" alt="Google Play Image" loading="lazy" decoding="async"> </a> </div> </div> </div>  </div> <div class="basis-1/2"> <div class="relative m-auto max-w-5xl intersect-once intercept-no-queue motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <img src="https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="600" height="600" srcset="https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80 400w, https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=600&q=80 600w, https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=768&h=768&q=80 768w, https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1024&h=1024&q=80 1024w, https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=1200&q=80 1200w" sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px" style="object-fit: cover; object-position: center; max-width: 600px; max-height: 600px; aspect-ratio: 1; width: 100%;" class="mx-auto rounded-md w-full" loading="eager" alt="AstroWind Hero Image" decoding="async"> </div> </div> </div> </div> </section>  <section class="relative not-prose scroll-mt-[72px]" id="features"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative mx-auto max-w-7xl px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase">Step-by-step guide</p><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">How to use our app?</h2><p class="mt-4 text-muted text-xl">Tired of spending hours crafting documents from scratch? Our app offers an innovative solution. With a wide array of professionally designed templates, you can now create stunning documents in minutes. Explore our templates now and experience the difference.</p></div> <div aria-hidden="true" class="aspect-w-16 aspect-h-7"> <div class="w-full h-80 object-cover rounded-xl mx-auto bg-gray-500 shadow-lg"> <img src="https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" height="320" srcset="https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=320&q=80 400w, https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=768&h=320&q=80 768w" style="object-fit: cover; object-position: center; width: 100%; height: 320px;" class="w-full h-80 object-cover rounded-xl mx-auto bg-gray-500 shadow-lg" alt="Colorful Image" loading="lazy" decoding="async"> </div> </div> <div class="grid mx-auto gap-8 md:gap-y-12 sm:grid-cols-2 mt-12"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-full sm:max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 text-primary w-6 h-6" data-icon="tabler:square-number-1">   <symbol id="ai:tabler:square-number-1" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="m10 10l2-2v8"/></g></symbol><use href="#ai:tabler:square-number-1"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-semibold">Download and install the app</h3><p class="text-muted mt-0.5">Begin your journey by downloading our user-friendly app from your device's app store or our official website.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-full sm:max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 text-primary w-6 h-6" data-icon="tabler:square-number-2">   <symbol id="ai:tabler:square-number-2" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h3"/></g></symbol><use href="#ai:tabler:square-number-2"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-semibold">Sign up</h3><p class="text-muted mt-0.5">Create your account by providing the necessary information, enabling you to access our full range of features.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-full sm:max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 text-primary w-6 h-6" data-icon="tabler:square-number-3">   <symbol id="ai:tabler:square-number-3" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1"/></g></symbol><use href="#ai:tabler:square-number-3"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-semibold">Browse templates</h3><p class="text-muted mt-0.5">Explore our diverse collection of website templates, categorized for easy navigation.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-full sm:max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 text-primary w-6 h-6" data-icon="tabler:square-number-4">   <symbol id="ai:tabler:square-number-4" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 8v3a1 1 0 0 0 1 1h3m0-4v8"/></g></symbol><use href="#ai:tabler:square-number-4"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-semibold">Preview and select a template</h3><p class="text-muted mt-0.5">Visualize the potential of each template through previews, then choose the one that aligns best with your project's needs.</p></div></div></div></div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-7xl mx-auto">   <div class="mx-auto max-w-7xl p-4 md:px-8"> <div class="md:flex md:flex-row-reverse md:gap-16"> <div class="md:basis-1/2 self-center"> <div class="mb-12 text-lg dark:text-slate-400"> <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Main Features</h3> </div>  <div class="grid mx-auto gap-8 gap-y-4 md:gap-y-8"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:wand">   <symbol id="ai:tabler:wand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 21L21 6l-3-3L3 18zm9-15l3 3M9 3a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2m10 10a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"/></symbol><use href="#ai:tabler:wand"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">User-friendly interface</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">An intuitive and easy-to-navigate interface that allows users to quickly browse and find the templates they need.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:settings">   <symbol id="ai:tabler:settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37c1 .608 2.296.07 2.572-1.065"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/></g></symbol><use href="#ai:tabler:settings"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Personalization options</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Include basic customization tools that let users modify text, colors, images, and other elements within the templates.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:template">   <symbol id="ai:tabler:template" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm0 8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-1h6m-6 4h6m-6 4h6"/></symbol><use href="#ai:tabler:template"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Ready-to-use components</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Enhance your designs with ready-to-use elements like graphics, icons, and layouts, saving you time and boosting visual appeal.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:carousel-horizontal">   <symbol id="ai:tabler:carousel-horizontal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1zm15 11h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1M2 17h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2"/></symbol><use href="#ai:tabler:carousel-horizontal"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Preview Mode</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Provide a preview of each template, allowing users to see how it looks before making a purchase.</p></div></div></div></div> </div> <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2"> <div class="relative m-auto max-w-4xl"> <img src="https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="500" height="500" srcset="https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80 400w, https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=768&h=768&q=80 768w" sizes="(max-width: 768px) 100vw, 432px" style="object-fit: cover; object-position: center; width: 100%; height: auto; aspect-ratio: 1;" class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg" alt="Colorful Image" loading="lazy" decoding="async"> </div> </div> </div> </div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-7xl mx-auto pt-0 md:pt-0 lg:pt-0">   <div class="mx-auto max-w-7xl p-4 md:px-8"> <div class="md:flex  md:gap-16"> <div class="md:basis-1/2 self-center"> <div class="mb-12 text-lg dark:text-slate-400"> <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Other features</h3> </div>  <div class="grid mx-auto gap-8 gap-y-4 md:gap-y-8"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:wifi-off">   <symbol id="ai:tabler:wifi-off" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01m-2.838-2.828a4 4 0 0 1 5.656 0m-8.485-2.829a7.96 7.96 0 0 1 3.864-2.14m4.163.155a8 8 0 0 1 3.287 2M3.515 9.515A12 12 0 0 1 7.059 7.06m3.101-.92a12 12 0 0 1 10.325 3.374M3 3l18 18"/></symbol><use href="#ai:tabler:wifi-off"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Offline Access</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Offer the option for users to download purchased templates for offline use.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:file-download">   <symbol id="ai:tabler:file-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2m-5-4v-6"/><path d="M9.5 14.5L12 17l2.5-2.5"/></g></symbol><use href="#ai:tabler:file-download"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Secure Cloud Storage</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Provide cloud storage for purchased templates, ensuring users can access and back up their templates from anywhere securely.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:refresh">   <symbol id="ai:tabler:refresh" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4m-4 4a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></symbol><use href="#ai:tabler:refresh"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Regular Updates</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Continuously add new templates and features to keep the app fresh and engaging for users.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:heart">   <symbol id="ai:tabler:heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"/></symbol><use href="#ai:tabler:heart"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Wishlist</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Allow users to create a wishlist of templates they're interested in, making it easier for them to revisit and potentially purchase later.</p></div></div></div></div> </div> <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2"> <div class="relative m-auto max-w-4xl"> <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="500" height="500" srcset="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80 400w, https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=768&h=768&q=80 768w" sizes="(max-width: 768px) 100vw, 432px" style="object-fit: cover; object-position: center; width: 100%; height: auto; aspect-ratio: 1;" class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg" alt="Vintage Image" loading="lazy" decoding="async"> </div> </div> </div> </div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-6xl mx-auto">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Statistics of our app</h2></div> <div class="flex flex-wrap justify-center -m-4 text-center"> <div class="p-4 md:w-1/4 sm:w-1/2 w-full min-w-[220px] text-center md:border-r md:last:border-none dark:md:border-slate-500 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade intersect-quarter"> <div class="flex items-center justify-center mx-auto mb-4 text-primary"> <svg width="1em" height="1em" class="w-10 h-10" data-icon="tabler:download">   <symbol id="ai:tabler:download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5l5-5m-5-7v12"/></symbol><use href="#ai:tabler:download"></use>  </svg> </div> <div class="font-heading text-primary text-[2.6rem] font-bold dark:text-white lg:text-5xl xl:text-6xl"> 20K </div>  </div><div class="p-4 md:w-1/4 sm:w-1/2 w-full min-w-[220px] text-center md:border-r md:last:border-none dark:md:border-slate-500 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade intersect-quarter"> <div class="flex items-center justify-center mx-auto mb-4 text-primary"> <svg width="1em" height="1em" class="w-10 h-10" data-icon="tabler:users">   <symbol id="ai:tabler:users" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0-8 0M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2m1-17.87a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"/></symbol><use href="#ai:tabler:users"></use>  </svg> </div> <div class="font-heading text-primary text-[2.6rem] font-bold dark:text-white lg:text-5xl xl:text-6xl"> 18.5K </div>  </div><div class="p-4 md:w-1/4 sm:w-1/2 w-full min-w-[220px] text-center md:border-r md:last:border-none dark:md:border-slate-500 intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade intersect-quarter"> <div class="flex items-center justify-center mx-auto mb-4 text-primary"> <svg width="1em" height="1em" class="w-10 h-10" data-icon="tabler:user-star">   <symbol id="ai:tabler:user-star" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0-8 0M6 21v-2a4 4 0 0 1 4-4h.5m7.3 5.817l-2.172 1.138a.392.392 0 0 1-.568-.41l.415-2.411l-1.757-1.707a.389.389 0 0 1 .217-.665l2.428-.352l1.086-2.193a.392.392 0 0 1 .702 0l1.086 2.193l2.428.352a.39.39 0 0 1 .217.665l-1.757 1.707l.414 2.41a.39.39 0 0 1-.567.411z"/></symbol><use href="#ai:tabler:user-star"></use>  </svg> </div> <div class="font-heading text-primary text-[2.6rem] font-bold dark:text-white lg:text-5xl xl:text-6xl"> 4.7 </div>  </div> </div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-6xl mx-auto">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">What our users say?</h2></div> <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"> <div class="flex h-auto intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <div class="flex flex-col p-4 md:p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600">  <blockquote class="flex-auto"> <p class="text-muted">" It&#39;s made exploring and downloading website templates a breeze. The interface is intuitive, and I had no trouble finding the perfect template for my project. It&#39;s an app that truly empowers users. "</p> </blockquote> <hr class="border-slate-200 dark:border-slate-600 my-4"> <div class="flex items-center"> <div class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600"> <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="40" height="40" srcset="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&h=40&q=80 40w, https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=80&h=80&q=80 80w" sizes="40px" style="object-fit: cover; object-position: top left; width: 40px; height: 40px;" class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600 min-w-full min-h-full" alt="Cary Kennedy Image" loading="lazy" decoding="async"> </div> <div class="grow ml-3 rtl:ml-0 rtl:mr-3"> <p class="text-base font-semibold">Cary Kennedy</p> <p class="text-xs text-muted">Film director</p> </div> </div> </div> </div><div class="flex h-auto intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <div class="flex flex-col p-4 md:p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600">  <blockquote class="flex-auto"> <p class="text-muted">" The app&#39;s seamless download process and intuitive layout have made selecting templates an enjoyable experience. Being able to preview and experiment with different designs before committing has saved me time and ensured I get the perfect look for my website. "</p> </blockquote> <hr class="border-slate-200 dark:border-slate-600 my-4"> <div class="flex items-center"> <div class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600"> <img src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="40" height="40" srcset="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&h=40&q=80 40w, https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=80&h=80&q=80 80w" sizes="40px" style="object-fit: cover; object-position: top left; width: 40px; height: 40px;" class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600 min-w-full min-h-full" alt="Josh Wilkinson Image" loading="lazy" decoding="async"> </div> <div class="grow ml-3 rtl:ml-0 rtl:mr-3"> <p class="text-base font-semibold">Josh Wilkinson</p> <p class="text-xs text-muted">Product Manager</p> </div> </div> </div> </div><div class="flex h-auto intersect-once motion-safe:md:intersect:animate-fade motion-safe:md:opacity-0 intersect-quarter"> <div class="flex flex-col p-4 md:p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600">  <blockquote class="flex-auto"> <p class="text-muted">" I was able to download and use a professional website template within minutes. The step-by-step process and user-friendly interface made it easy for me to create a website that looks as if it was designed by a pro. "</p> </blockquote> <hr class="border-slate-200 dark:border-slate-600 my-4"> <div class="flex items-center"> <div class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600"> <img src="https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" crossorigin="anonymous" referrerpolicy="no-referrer" width="40" height="40" srcset="https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=40&h=40&q=80 40w, https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=80&h=80&q=80 80w" sizes="40px" style="object-fit: cover; object-position: top left; width: 40px; height: 40px;" class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600 min-w-full min-h-full" alt="Sidney Hansen Image" loading="lazy" decoding="async"> </div> <div class="grow ml-3 rtl:ml-0 rtl:mr-3"> <p class="text-base font-semibold">Sidney Hansen</p> <p class="text-xs text-muted">Decorator</p> </div> </div> </div> </div> </div> <div class="flex justify-center mx-auto w-fit mt-8 md:mt-12 font-medium"> <a class="btn-secondary" target="_blank" rel="noopener noreferrer" href="https://github.com/onwidget/astrowind">Read more testimonials<svg width="1em" height="1em" class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" data-icon="tabler:chevron-right">   <symbol id="ai:tabler:chevron-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 6l6 6l-6 6"/></symbol><use href="#ai:tabler:chevron-right"></use>  </svg></a> </div> </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-7xl mx-auto">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Still have some doubts?</h2></div> <div class="grid mx-auto gap-8 sm:grid-cols-2 gap-y-8 md:gap-y-12"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">What does this app do?</h3><p class="mt-3 text-muted">This app provides a platform for you to easily browse, purchase, download, and use a wide range of website templates for your projects.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">How can this app solve my problem?</h3><p class="mt-3 text-muted">This app streamlines the process of finding and implementing professional website designs, saving you time and effort in creating visually appealing and functional websites.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">Is it available for my device?</h3><p class="mt-3 text-muted">Our app is designed for compatibility across various devices and platforms, ensuring accessibility whether you're using a smartphone, tablet, or computer.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">What makes this app different from others?</h3><p class="mt-3 text-muted">Our app stands out for its user-friendly interface, extensive template collection, and seamless integration of the purchasing and downloading process, making it highly efficient.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">Are there any costs involved?</h3><p class="mt-3 text-muted">While the app itself may be free to download, there may be costs associated with purchasing specific templates based on your preferences and project requirements.</p></div></div></div></div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]" id="download"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-6xl mx-auto">  <div class="max-w-3xl mx-auto text-center p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600"> <div class="md:mx-auto text-center mb-0 md:mb-0"><h2 class="leading-tighter text-heading text-4xl md:text-4xl font-bold tracking-tighter mb-4 font-heading">Download our app now!</h2><p class="mt-4 text-xl text-muted dark:text-slate-400">Access a variety of stunning templates, simplify your creative process, and elevate your online presence.</p></div> <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 mt-6"> <div class="flex max-w-sm gap-4"> <a class="cursor-pointer hover:text-primary" href="https://github.com/onwidget/astrowind"> <img src="/_astro/app-store.t3tG4Jz3.png" crossorigin="anonymous" referrerpolicy="no-referrer" width="200" height="59" srcset="/_astro/app-store.t3tG4Jz3_1LXLgY.webp 200w, /_astro/app-store.t3tG4Jz3_Z1uhf1F.webp 400w" sizes="(min-width: 200px) 200px, 100vw" style="object-fit: cover; object-position: center; max-width: 200px; max-height: 59px; aspect-ratio: 3.389830508474576; width: 100%;" alt="App Store Image" loading="lazy" decoding="async"> </a> <a class="cursor-pointer hover:text-primary" href="https://github.com/onwidget/astrowind"> <img src="/_astro/google-play.ISTMcpLO.png" crossorigin="anonymous" referrerpolicy="no-referrer" width="200" height="59" srcset="/_astro/google-play.ISTMcpLO_1CKpdk.webp 200w, /_astro/google-play.ISTMcpLO_NRqQY.webp 400w" sizes="(min-width: 200px) 200px, 100vw" style="object-fit: cover; object-position: center; max-width: 200px; max-height: 59px; aspect-ratio: 3.389830508474576; width: 100%;" alt="Google Play Image" loading="lazy" decoding="async"> </a> </div> </div> </div>  </div> </section>  </main>  <footer class="relative border-t border-gray-200 dark:border-slate-800 not-prose"> <div class="dark:bg-dark absolute inset-0 pointer-events-none" aria-hidden="true"></div> <div class="relative max-w-7xl mx-auto px-4 sm:px-6 dark:text-slate-300 intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12"> <div class="col-span-12 lg:col-span-4"> <div class="mb-2"> <a class="inline-block font-bold text-xl" href="/">MoFA.AI</a> </div> <div class="text-sm text-muted flex gap-1"> <a class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa">Terms</a>  · <a class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa">Privacy Policy</a>  </div> </div> <div class="col-span-6 md:col-span-3 lg:col-span-2"> <div class="dark:text-gray-300 font-medium mb-2">Documentation</div> <ul class="text-sm"> <li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Quick Start </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Core Concepts </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Tutorials </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> API Reference </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Installation & CLI </a> </li> </ul> </div> </div> <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4"> <li> <a class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="GitHub" href="https://github.com/moxin-org/mofa"> <svg width="1em" height="1em" class="w-5 h-5" data-icon="tabler:brand-github">   <symbol id="ai:tabler:brand-github" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21"/></symbol><use href="#ai:tabler:brand-github"></use>  </svg>  </a> </li> </ul> <div class="text-sm mr-4 dark:text-muted"> 
+      <div class="flex items-center">
+        <img class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right rounded-sm" src="/mofa-logo.png" alt="MoFA logo" loading="lazy"></img>
+        <span>© 2025 MoFA.AI · All rights reserved</span>
+      </div>
+     </div> </div> </div> </footer>   <script>(function(){const defaultTheme = "system";
+const defaultLanguage = "en";
+
+  if (window.basic_script) {
+    return;
+  }
+
+  window.basic_script = true;
+
+  // Handle language switching
+  function initLanguage() {
+    console.log("Initializing language, default is:", defaultLanguage);
+    
+    // Check URL parameters for language
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+    console.log("URL language parameter:", langParam);
+    
+    // Define supported languages
+    const supportedLanguages = ['en', 'zh'];
+    
+    // If lang parameter exists in URL and is supported, use it
+    if (langParam && supportedLanguages.includes(langParam)) {
+      localStorage.setItem('language', langParam);
+      document.documentElement.setAttribute('lang', langParam);
+      console.log('Language set from URL:', langParam);
+      
+      // Force reload content based on language
+      document.dispatchEvent(new CustomEvent('language-changed', { detail: { language: langParam } }));
+    }
+    // Otherwise use localStorage or default
+    else {
+      const storedLang = localStorage.getItem('language');
+      console.log("Stored language:", storedLang);
+      
+      if (storedLang && supportedLanguages.includes(storedLang)) {
+        document.documentElement.setAttribute('lang', storedLang);
+        console.log('Language set from localStorage:', storedLang);
+        
+        // If URL doesn't have language parameter but we have a stored preference,
+        // update the URL to include the language parameter
+        if (!langParam && window.history && window.history.replaceState) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', storedLang);
+          window.history.replaceState({}, '', url.toString());
+          console.log('Updated URL with stored language preference');
+        }
+        
+        // Force reload content based on language
+        document.dispatchEvent(new CustomEvent('language-changed', { detail: { language: storedLang } }));
+      } else {
+        // Use default language from config
+        document.documentElement.setAttribute('lang', defaultLanguage);
+        localStorage.setItem('language', defaultLanguage);
+        console.log('Language set to default:', defaultLanguage);
+        
+        // Update URL with default language
+        if (!langParam && window.history && window.history.replaceState) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', defaultLanguage);
+          window.history.replaceState({}, '', url.toString());
+          console.log('Updated URL with default language');
+        }
+      }
+    }
+  }
+  
+  // Initialize language on load
+  initLanguage();
+  
+  // 监听页面加载事件，确保在页面重新加载时也能初始化语言
+  window.addEventListener('DOMContentLoaded', initLanguage);
+  
+  // 重新加载页面后也要初始化语言
+  document.addEventListener('astro:after-swap', initLanguage);
+  
+  // 监听语言变化事件
+  document.addEventListener('language-changed', function(e) {
+    console.log("Language changed event received:", e.detail.language);
+  });
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  const initTheme = function () {
+    if ((defaultTheme && defaultTheme.endsWith(':only')) || (!localStorage.theme && defaultTheme !== 'system')) {
+      applyTheme(defaultTheme.replace(':only', ''));
+    } else if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  };
+  initTheme();
+
+  function attachEvent(selector, event, fn) {
+    const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
+    if (matches && matches.length) {
+      matches.forEach((elem) => {
+        elem.addEventListener(event, (e) => fn(e, elem), false);
+      });
+    }
+  }
+
+  const onLoad = function () {
+    let lastKnownScrollPosition = window.scrollY;
+    let ticking = true;
+
+    attachEvent('#header nav', 'click', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
+    });
+
+    attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
+      elem.classList.toggle('expanded');
+      document.body.classList.toggle('overflow-hidden');
+      document.getElementById('header')?.classList.toggle('h-screen');
+      document.getElementById('header')?.classList.toggle('expanded');
+      document.getElementById('header')?.classList.toggle('bg-page');
+      document.querySelector('#header nav')?.classList.toggle('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.toggle('hidden');
+    });
+
+    attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+      if (defaultTheme.endsWith(':only')) {
+        return;
+      }
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    attachEvent('[data-aw-social-share]', 'click', function (_, elem) {
+      const network = elem.getAttribute('data-aw-social-share');
+      const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+      const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+
+      let href;
+      switch (network) {
+        case 'facebook':
+          href = `https://www.facebook.com/sharer.php?u=${url}`;
+          break;
+        case 'twitter':
+          href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+          break;
+        case 'linkedin':
+          href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
+          break;
+        case 'whatsapp':
+          href = `https://wa.me/?text=${text}%20${url}`;
+          break;
+        case 'mail':
+          href = `mailto:?subject=%22${text}%22&body=${text}%20${url}`;
+          break;
+
+        default:
+          return;
+      }
+
+      const newlink = document.createElement('a');
+      newlink.target = '_blank';
+      newlink.href = href;
+      newlink.click();
+    });
+
+    const screenSize = window.matchMedia('(max-width: 767px)');
+    screenSize.addEventListener('change', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
+    });
+
+    function applyHeaderStylesOnScroll() {
+      const header = document.querySelector('#header[data-aw-sticky-header]');
+      if (!header) return;
+      if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
+        header.classList.add('scroll');
+      } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
+        header.classList.remove('scroll');
+      }
+      ticking = false;
+    }
+    applyHeaderStylesOnScroll();
+
+    attachEvent([document], 'scroll', function () {
+      lastKnownScrollPosition = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          applyHeaderStylesOnScroll();
+        });
+        ticking = true;
+      }
+    });
+  };
+  const onPageShow = function () {
+    document.documentElement.classList.add('motion-safe:scroll-smooth');
+    const elem = document.querySelector('[data-aw-toggle-menu]');
+    if (elem) {
+      elem.classList.remove('expanded');
+    }
+    document.body.classList.remove('overflow-hidden');
+    document.getElementById('header')?.classList.remove('h-screen');
+    document.getElementById('header')?.classList.remove('expanded');
+    document.querySelector('#header nav')?.classList.add('hidden');
+  };
+
+  window.onload = onLoad;
+  window.onpageshow = onPageShow;
+
+  document.addEventListener('astro:after-swap', () => {
+    initTheme();
+    onLoad();
+    onPageShow();
+  });
+})();</script> <script>
+  /* Inspired by: https://github.com/heidkaemper/tailwindcss-intersect */
+  const Observer = {
+    observer: null,
+    delayBetweenAnimations: 100,
+    animationCounter: 0,
+
+    start() {
+      const selectors = [
+        '[class*=" intersect:"]',
+        '[class*=":intersect:"]',
+        '[class^="intersect:"]',
+        '[class="intersect"]',
+        '[class*=" intersect "]',
+        '[class^="intersect "]',
+        '[class$=" intersect"]',
+      ];
+
+      const elements = Array.from(document.querySelectorAll(selectors.join(',')));
+
+      const getThreshold = (element) => {
+        if (element.classList.contains('intersect-full')) return 0.99;
+        if (element.classList.contains('intersect-half')) return 0.5;
+        if (element.classList.contains('intersect-quarter')) return 0.25;
+        return 0;
+      };
+
+      elements.forEach((el) => {
+        el.setAttribute('no-intersect', '');
+        el._intersectionThreshold = getThreshold(el);
+      });
+
+      const callback = (entries) => {
+        entries.forEach((entry) => {
+          requestAnimationFrame(() => {
+            const target = entry.target;
+            const intersectionRatio = entry.intersectionRatio;
+            const threshold = target._intersectionThreshold;
+
+            if (target.classList.contains('intersect-no-queue')) {
+              if (entry.isIntersecting) {
+                target.removeAttribute('no-intersect');
+                if (target.classList.contains('intersect-once')) {
+                  this.observer.unobserve(target);
+                }
+              } else {
+                target.setAttribute('no-intersect', '');
+              }
+              return;
+            }
+
+            if (intersectionRatio >= threshold) {
+              if (!target.hasAttribute('data-animated')) {
+                target.removeAttribute('no-intersect');
+                target.setAttribute('data-animated', 'true');
+
+                const delay = this.animationCounter * this.delayBetweenAnimations;
+                this.animationCounter++;
+
+                target.style.transitionDelay = `${delay}ms`;
+                target.style.animationDelay = `${delay}ms`;
+
+                if (target.classList.contains('intersect-once')) {
+                  this.observer.unobserve(target);
+                }
+              }
+            } else {
+              target.setAttribute('no-intersect', '');
+              target.removeAttribute('data-animated');
+              target.style.transitionDelay = '';
+              target.style.animationDelay = '';
+
+              this.animationCounter = 0;
+            }
+          });
+        });
+      };
+
+      this.observer = new IntersectionObserver(callback.bind(this), { threshold: [0, 0.25, 0.5, 0.99] });
+
+      elements.forEach((el) => {
+        this.observer.observe(el);
+      });
+    },
+  };
+
+  Observer.start();
+
+  document.addEventListener('astro:after-swap', () => {
+    Observer.start();
+  });
+</script> </body></html>

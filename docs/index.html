@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="en" dir="ltr" class="2xl:text-[20px]"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="sitemap" href="/sitemap-index.xml"><link rel="shortcut icon" href="/_astro/favicon.CGiRCjPI.ico"><link rel="icon" type="image/svg+xml" href="/_astro/favicon.vp_fBu0c.svg"><link rel="mask-icon" href="/_astro/favicon.vp_fBu0c.svg" color="#8D46E7"><link rel="apple-touch-icon" sizes="180x180" href="/_astro/apple-touch-icon.DHIlG7dp.png"><style>
+  :root {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --mondrian-red: rgb(220, 36, 31);
+    --mondrian-blue: rgb(0, 57, 166);
+    --mondrian-yellow: rgb(254, 213, 0);
+    --mondrian-black: rgb(0, 0, 0);
+    --mondrian-white: rgb(255, 255, 255);
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: var(--mondrian-black);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: var(--mondrian-white);
+
+    --aw-color-bg-page-dark: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-yellow);
+      color: var(--mondrian-black);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Noto Sans SC', 'Inter Variable', sans-serif;
+    --aw-font-serif: 'Noto Sans SC', 'Inter Variable', serif;
+    --aw-font-heading: 'Noto Sans SC', 'Inter Variable', sans-serif;
+
+    --aw-color-primary: var(--mondrian-red);
+    --aw-color-secondary: var(--mondrian-blue);
+    --aw-color-accent: var(--mondrian-yellow);
+
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(16 16 24);
+
+    ::selection {
+      background-color: var(--mondrian-blue);
+      color: var(--mondrian-white);
+    }
+  }
+</style><script>(function(){const defaultTheme = "system";
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    const matches = document.querySelectorAll('[data-aw-toggle-color-scheme] > input');
+
+    if (matches && matches.length) {
+      matches.forEach((elem) => {
+        elem.checked = theme !== 'dark';
+      });
+    }
+  }
+
+  if ((defaultTheme && defaultTheme.endsWith(':only')) || (!localStorage.theme && defaultTheme !== 'system')) {
+    applyTheme(defaultTheme.replace(':only', ''));
+  } else if (
+    localStorage.theme === 'dark' ||
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    applyTheme('dark');
+  } else {
+    applyTheme('light');
+  }
+})();</script><title>MoFA.AI - Modular Framework for Agent</title>
+<meta name="description" content="MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://mofa.ai">
+<meta property="og:title" content="MoFA.AI - Modular Framework for Agent">
+<meta property="og:description" content="MoFA: Modular Framework for Agent - A modular framework for building AI agents through composition.">
+<meta property="og:url" content="https://mofa.ai">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://mofa.ai/_astro/default.CZ816Hke_2bosb5.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="MoFA.AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@moxin_ai">
+<meta name="twitter:creator" content="@moxin_ai"><!-- Comment the line below to disable View Transitions --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="swap"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.BZs-2RF_.js"></script><!-- Language initialization script --><script>(function(){const lang = "en";
+const languages = ["en","zh"];
+
+      (function() {
+        // Store the current language in localStorage
+        localStorage.setItem('language', lang);
+        
+        // Function to get URL parameters
+        function getUrlParam(name) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(name);
+        }
+        
+        // Check if we need to redirect based on language settings
+        function checkLanguageRedirect() {
+          // If URL already has a lang parameter, respect it
+          const urlLang = getUrlParam('lang');
+          if (urlLang && languages.includes(urlLang)) {
+            return;
+          }
+          
+          // If localStorage has a language that's different from the current one,
+          // and there's no lang parameter in the URL, redirect
+          const storedLang = localStorage.getItem('language');
+          if (storedLang && storedLang !== lang && languages.includes(storedLang)) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', storedLang);
+            window.location.href = url.toString();
+          }
+        }
+        
+        // Run the check
+        checkLanguageRedirect();
+      })();
+    })();</script><link rel="stylesheet" href="/_astro/click-through.CGvI5d62.css"></head> <body class="antialiased text-default bg-page tracking-tight">   <div class="dark text-muted text-sm bg-black dark:bg-transparent dark:border-b dark:border-slate-800 dark:text-slate-400 hidden md:flex gap-1 overflow-hidden px-3 py-2 relative text-ellipsis whitespace-nowrap"> <span class="dark:bg-slate-700 bg-white/40 dark:text-slate-300 font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block">NEW</span> <a href="https://astro.build/blog/astro-570/" class="text-muted hover:underline dark:text-slate-400 font-medium">Astro v5.7 is now available! »</a> <a target="_blank" rel="noopener" class="ltr:ml-auto rtl:mr-auto w-[5.6rem] h-[1.25rem] ml-auto bg-contain inline-block bg-[url(https://img.shields.io/github/stars/onwidget/astrowind.svg?style=social&label=Stars&maxAge=86400)]" title="If you like AstroWind, give us a star." href="https://github.com/onwidget/astrowind"></a> </div>   <header class="sticky top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out" data-aw-sticky-header="true" id="header"> <div class="absolute inset-0"></div> <div class="relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between max-w-7xl"> <div class="mr-auto rtl:mr-0 rtl:ml-auto flex justify-between"> <a class="flex items-center" href="/"> <div class="flex items-center"> <img src="/_astro/mofa-logo.CW2mf22t_1TKOTH.webp" alt="MoFA Logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8"> <span class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"> MoFA.AI </span> </div> </a> <div class="flex items-center md:hidden"> <button type="button" class="flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group" aria-label="Toggle Menu" data-aw-toggle-menu> <span class="sr-only">Toggle Menu</span>  <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:rotate-45 group-[.expanded]:translate-y-2.5"></span> <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:opacity-0"></span> <span aria-hidden="true" class="h-0.5 w-6 my-1 rounded-full bg-black dark:bg-white transition ease transform duration-200 opacity-80 group-[.expanded]:-rotate-45 group-[.expanded]:-translate-y-2.5"></span>  </button> </div> </div> <nav class="items-center w-full md:w-auto hidden md:flex md:mx-5 text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:justify-self-center" aria-label="Main navigation"> <ul class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"> <li class> <a class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap" href="https://github.com/moxin-org/mofa/blob/main/README.md" target="_blank"> Documentation </a> </li> </ul> </nav> <div class="hidden md:self-center md:flex items-center md:mb-0 fixed w-full md:w-auto md:static justify-end left-0 rtl:left-auto rtl:right-0 bottom-0 p-3 md:p-0 md:justify-self-end"> <div class="items-center flex justify-between w-full md:w-auto"> <div class="flex"> <button type="button" class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Toggle between Dark and Light mode" data-aw-toggle-color-scheme><svg width="1em" height="1em" class="w-6 h-6 md:w-5 md:h-5 md:inline-block" data-icon="tabler:sun">   <symbol id="ai:tabler:sun" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m0 11.4l.7.7m-12.1-.7l-.7.7"/></symbol><use href="#ai:tabler:sun"></use>  </svg></button> <div class="language-switcher relative"> <button id="language-switcher-button" type="button" class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="Switch Language" data-current-lang="en"> <svg width="1em" height="1em" class="w-5 h-5" data-icon="tabler:language">   <symbol id="ai:tabler:language" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 5h7M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c0 2.144 2.952 3.908 6.7 4m.3 7l4-9l4 9m-.9-2h-6.2"/></g></symbol><use href="#ai:tabler:language"></use>  </svg> <span id="language-text" class="ml-1 rtl:mr-1 rtl:ml-0 font-semibold">中文</span> </button> <!-- Language dropdown menu (hidden by default) --> <div id="language-dropdown" class="hidden absolute right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50"> <a href="?lang=en" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap bg-gray-100 dark:bg-gray-700" data-lang="en"> English </a><a href="?lang=zh" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap" data-lang="zh"> 中文 </a> </div> </div> <script type="module">function d(){const a=document.getElementById("language-switcher-button"),e=document.getElementById("language-dropdown");!a||!e||(a.addEventListener("click",t=>{t.stopPropagation(),e.classList.toggle("hidden")}),document.addEventListener("click",()=>{e.classList.add("hidden")}),e.addEventListener("click",t=>{t.stopPropagation()}),e.querySelectorAll("a[data-lang]").forEach(t=>{t.addEventListener("click",c=>{c.preventDefault();const n=t.getAttribute("data-lang");if(!n)return;localStorage.setItem("language",n);const o=new URL(window.location.href);o.searchParams.set("lang",n),window.location.href=o.toString()})}))}document.addEventListener("DOMContentLoaded",d);document.readyState==="complete"&&d();</script> </div> <span class="ml-4 rtl:ml-0 rtl:mr-4"> <a class="btn-secondary ml-2 py-2.5 px-5.5 md:px-6 font-semibold shadow-none text-sm w-auto" target="_blank" rel="noopener noreferrer" href="https://github.com/moxin-org/mofa">GitHub<svg width="1em" height="1em" class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" data-icon="tabler:brand-github">   <symbol id="ai:tabler:brand-github" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21"/></symbol><use href="#ai:tabler:brand-github"></use>  </svg></a> </span> </div> </div> </div> </header>  <main>   <script>(function(){const currentLang = "en";
+
+    // Set language on client-side
+    document.documentElement.lang = currentLang;
+    localStorage.setItem('language', currentLang);
+    console.log("Client-side language set to:", currentLang);
+  })();</script>  <section class="relative md:-mt-[76px] not-prose"> <div class="absolute inset-0 pointer-events-none" aria-hidden="true">    </div> <div class="relative max-w-7xl mx-auto px-4 sm:px-6"> <div class="pt-0 md:pt-[76px] pointer-events-none"></div> <div class="py-12 md:py-20"> <div class="text-center pb-10 md:pb-16 max-w-5xl mx-auto">  <h1 class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <span class="text-accent dark:text-white">MoFA: Modular Framework for Agent</span> </h1> <div class="max-w-3xl mx-auto"> <p class="text-xl text-muted mb-6 dark:text-slate-300 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <span class="hidden sm:inline"> MoFA is a software framework for building AI agents through composition. With MoFA, AI agents can be built using templates and combined in layers to form more powerful super-agents. </span> </p> <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <div class="flex w-full sm:w-auto"> <a class="btn-primary w-full sm:mb-0" target="_blank" rel="noopener noreferrer" href="https://github.com/moxin-org/mofa/blob/main/README.md">Get Started<svg width="1em" height="1em" viewBox="0 0 24 24" class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" data-icon="tabler:rocket">   <use href="#ai:tabler:rocket"></use>  </svg></a> </div><div class="flex w-full sm:w-auto"> <a class="btn-secondary w-full sm:mb-0" href="#features">Learn More</a> </div> </div> </div>  </div> <div class="intersect-once intercept-no-queue intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <div class="relative m-auto max-w-5xl"> <img src="/_astro/mondrian.DdOhId68.jpg" crossorigin="anonymous" referrerpolicy="no-referrer" width="600" height="450" srcset="/_astro/mondrian.DdOhId68_oOAAi.webp 400w, /_astro/mondrian.DdOhId68_Z29GMgX.webp 600w, /_astro/mondrian.DdOhId68_ISkYc.webp 768w, /_astro/mondrian.DdOhId68_Sl4un.webp 1024w, /_astro/mondrian.DdOhId68_1D3W5O.webp 1200w" sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px" style="object-fit: cover; object-position: center; max-width: 600px; max-height: 450px; aspect-ratio: 1.3333333333333333; width: 100%;" class="mx-auto rounded-md w-full" loading="eager" alt="MoFA.AI Hero Image" decoding="async"> </div> </div> </div> </div> </section>  <section class="bg-blue-50 dark:bg-slate-800 not-prose"> <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 text-md text-center font-medium"> <svg width="1em" height="1em" class="w-5 h-5 inline-block align-text-bottom font-bold" data-icon="tabler:info-square">   <symbol id="ai:tabler:info-square" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 9h.01M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M11 12h1v4h1"/></g></symbol><use href="#ai:tabler:info-square"></use>  </svg> <span class="font-bold">Core Philosophy:</span> Modularity, Clarity, Composability, Simplicity </div> </section>  <section class="relative not-prose scroll-mt-[72px]" id="features"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-5xl">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase">Features</p><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">MoFA Advantages</h2><p class="mt-4 text-muted text-xl">MoFA offers a new way to build AI agents, creating more powerful and flexible intelligent applications through modularization and composition.</p></div> <div class="grid mx-auto gap-8 md:gap-y-12 sm:grid-cols-2"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:components">   <symbol id="ai:tabler:components" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 12l3 3l3-3l-3-3zm12 0l3 3l3-3l-3-3zM9 6l3 3l3-3l-3-3zm0 12l3 3l3-3l-3-3z"/></symbol><use href="#ai:tabler:components"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">Modularity</h3><p class="mt-3 text-muted">Modular agent templates and agent services; simple configuration and clear interfaces between modules.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:bulb">   <symbol id="ai:tabler:bulb" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7l-.7.7M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0-1 3a2 2 0 0 1-4 0a3.5 3.5 0 0 0-1-3m.7 1h4.6"/></symbol><use href="#ai:tabler:bulb"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">Clarity</h3><p class="mt-3 text-muted">"Lego-like" logic for assembling complex systems.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:puzzle">   <symbol id="ai:tabler:puzzle" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h3a1 1 0 0 0 1-1V5a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-1a2 2 0 0 0-4 0v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a2 2 0 0 0 0-4H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"/></symbol><use href="#ai:tabler:puzzle"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">Composability</h3><p class="mt-3 text-muted">Agent applications gain more powerful capabilities and extended functionality through agent composition.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:wand">   <symbol id="ai:tabler:wand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 21L21 6l-3-3L3 18zm9-15l3 3M9 3a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2m10 10a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"/></symbol><use href="#ai:tabler:wand"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">Simplicity</h3><p class="mt-3 text-muted">Building complex agents becomes a zero-code process.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:rocket">   <symbol id="ai:tabler:rocket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3-5a9 9 0 0 0 6-8a3 3 0 0 0-3-3a9 9 0 0 0-8 6a6 6 0 0 0-5 3"/><path d="M7 14a6 6 0 0 0-3 6a6 6 0 0 0 6-3m4-8a1 1 0 1 0 2 0a1 1 0 1 0-2 0"/></g></symbol><use href="#ai:tabler:rocket"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">High Performance</h3><p class="mt-3 text-muted">Agents run in the high-performance, low-latency distributed AI and robotics compute environment DORA-RS, outperforming Python-based environments.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-md"><div class="flex justify-center"><svg width="1em" height="1em" class="text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0" data-icon="tabler:color-swatch">   <symbol id="ai:tabler:color-swatch" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M19 3h-4a2 2 0 0 0-2 2v12a4 4 0 0 0 8 0V5a2 2 0 0 0-2-2"/><path d="m13 7.35l-2-2a2 2 0 0 0-2.828 0L5.344 8.178a2 2 0 0 0 0 2.828l9 9"/><path d="M7.3 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h12m0-4v.01"/></g></symbol><use href="#ai:tabler:color-swatch"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold md:text-[1.3rem]">Diversity</h3><p class="mt-3 text-muted">MoFA's agent compositions organically combine various capabilities to create more powerful, more comprehensive composite agents.</p></div></div></div></div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">   <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>   </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-7xl mx-auto">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-xl sm:mx-auto lg:max-w-2xl"><p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase">Towards AIOS</p><h2 class="leading-tighter text-heading text-4xl md:text-5xl font-bold tracking-tighter mb-4 font-heading">Design Inspired by Unix Philosophy</h2></div> <div class="mx-auto max-w-7xl p-4 md:px-8"> <div class="md:flex md:flex-row-reverse md:gap-16"> <div class="md:basis-1/2 self-center"> <div class="mb-12 text-lg dark:text-slate-400"> <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2"> Built on Modern Foundations </h3> Gain a competitive edge by combining cutting-edge AI technology with classic software design principles</div>  <div class="grid mx-auto gap-8 gap-y-4 md:gap-y-8"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:check">   <use href="#ai:tabler:check"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">AIOS Core</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">MoFA provides services such as task planning, memory, action, and Retrieval Augmented Generation (RAG).</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:check">   <use href="#ai:tabler:check"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Practical Tools and Applications</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Provides common and basic functionality through agent templates.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1" data-icon="tabler:check">   <use href="#ai:tabler:check"></use>  </svg></div><div class="mt-0.5"><h3 class="text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2">Shell</h3><p class="mt-3 text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2">Environment for running agents and automating their processes.</p></div></div></div></div> </div> <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2"> <div class="relative m-auto max-w-4xl"> <img src="/_astro/mondrian.DdOhId68.jpg" crossorigin="anonymous" referrerpolicy="no-referrer" width="600" height="450" srcset="/_astro/mondrian.DdOhId68_oOAAi.webp 400w, /_astro/mondrian.DdOhId68_ISkYc.webp 768w" sizes="(max-width: 768px) 100vw, 432px" style="object-fit: cover; object-position: center; width: 100%; height: auto; aspect-ratio: 1.3333333333333333;" class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg" alt="MoFA Architecture" loading="lazy" decoding="async"> </div> </div> </div> </div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">   <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>   </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-7xl mx-auto">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase">Design Patterns</p><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Nested Design Patterns for AI Agents</h2><p class="mt-4 text-muted text-xl">AI agents are intelligent software applications. Similar to design patterns in object-oriented programming, AI agents have various design patterns, including but not limited to:</p></div> <div class="grid sm:gap-y-8 lg:grid-cols-3 sm:grid-cols-2 gap-4 md:gap-6"><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:brain">   <symbol id="ai:tabler:brain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M15.5 13a3.5 3.5 0 0 0-3.5 3.5v1a3.5 3.5 0 0 0 7 0v-1.8M8.5 13a3.5 3.5 0 0 1 3.5 3.5v1a3.5 3.5 0 0 1-7 0v-1.8"/><path d="M17.5 16a3.5 3.5 0 0 0 0-7H17"/><path d="M19 9.3V6.5a3.5 3.5 0 0 0-7 0M6.5 16a3.5 3.5 0 0 1 0-7H7"/><path d="M5 9.3V6.5a3.5 3.5 0 0 1 7 0v10"/></g></symbol><use href="#ai:tabler:brain"></use>  </svg><div class="text-xl font-bold">LLM Reasoning</div><p class="text-muted mt-2">Using Large Language Models (LLMs) for reasoning is the simplest design pattern.</p></div><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:message-circle">   <symbol id="ai:tabler:message-circle" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 20l1.3-3.9C1.976 12.663 2.874 8.228 6.4 5.726c3.526-2.501 8.59-2.296 11.845.48c3.255 2.777 3.695 7.266 1.029 10.501S11.659 20.922 7.7 19z"/></symbol><use href="#ai:tabler:message-circle"></use>  </svg><div class="text-xl font-bold">Custom Prompts</div><p class="text-muted mt-2">Customizing system prompts for agents.</p></div><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:refresh">   <symbol id="ai:tabler:refresh" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4m-4 4a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></symbol><use href="#ai:tabler:refresh"></use>  </svg><div class="text-xl font-bold">Reflection Pattern</div><p class="text-muted mt-2">Agents capable of self-examination and improvement.</p></div><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:tool">   <symbol id="ai:tabler:tool" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8z"/></symbol><use href="#ai:tabler:tool"></use>  </svg><div class="text-xl font-bold">Actor Pattern</div><p class="text-muted mt-2">Agents capable of using external tools and resources, such as generating code or searching the web.</p></div><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:arrows-exchange">   <symbol id="ai:tabler:arrows-exchange" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10h14l-4-4m0 8H3l4 4"/></symbol><use href="#ai:tabler:arrows-exchange"></use>  </svg><div class="text-xl font-bold">ReAct Pattern</div><p class="text-muted mt-2">Combining reflection and tool use to improve output quality.</p></div><div class="relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur border border-[#ffffff29] bg-white dark:bg-slate-900 p-6"><svg width="1em" height="1em" class="w-12 h-12 mb-6 text-primary" data-icon="tabler:users">   <symbol id="ai:tabler:users" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0-8 0M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2m1-17.87a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"/></symbol><use href="#ai:tabler:users"></use>  </svg><div class="text-xl font-bold">Multi-Agent Collaboration</div><p class="text-muted mt-2">Agents assume specialized roles and collaborate to complete complex tasks.</p></div></div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-5xl">  <div class="flex flex-col gap-8 md:gap-12 md:flex-row"> <div class="md:py-4 md:self-center md:basis-1/2"> <div class="mb-8 md:mx-auto md:mb-12 text-left rtl:text-right"><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl lg:text-4xl">Quick Start Using MoFA to Build Your AI Agent</h2></div> <div class><div class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4"><div><div class="flex items-center justify-center"><svg width="1em" height="1em" class="w-10 h-10 p-2 rounded-full border-2 text-primary dark:text-slate-200 border-primary dark:border-blue-700" data-icon="tabler:package">   <symbol id="ai:tabler:package" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 3l8 4.5v9L12 21l-8-4.5v-9zm0 9l8-4.5M12 12v9m0-9L4 7.5m12-2.25l-8 4.5"/></symbol><use href="#ai:tabler:package"></use>  </svg></div></div><div class="w-px h-full bg-black/10 dark:bg-slate-400/50"></div></div><div class="pt-1 pb-8"><p class="text-xl font-bold">Step 1: <span class="font-medium">Installation</span></p><p class="text-muted mt-2">Clone the MoFA repository from GitHub and follow the installation guide to set up your environment.</p></div></div><div class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4"><div><div class="flex items-center justify-center"><svg width="1em" height="1em" class="w-10 h-10 p-2 rounded-full border-2 text-primary dark:text-slate-200 border-primary dark:border-blue-700" data-icon="tabler:template">   <symbol id="ai:tabler:template" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm0 8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10-1h6m-6 4h6m-6 4h6"/></symbol><use href="#ai:tabler:template"></use>  </svg></div></div><div class="w-px h-full bg-black/10 dark:bg-slate-400/50"></div></div><div class="pt-1 pb-8"><p class="text-xl font-bold">Step 2: <span class="font-medium">Choose a Template</span></p><p class="text-muted mt-2">Select the base template that best fits your needs from MoFA's agent templates.</p></div></div><div class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4"><div><div class="flex items-center justify-center"><svg width="1em" height="1em" class="w-10 h-10 p-2 rounded-full border-2 text-primary dark:text-slate-200 border-primary dark:border-blue-700" data-icon="tabler:settings">   <symbol id="ai:tabler:settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37c1 .608 2.296.07 2.572-1.065"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/></g></symbol><use href="#ai:tabler:settings"></use>  </svg></div></div><div class="w-px h-full bg-black/10 dark:bg-slate-400/50"></div></div><div class="pt-1 pb-8"><p class="text-xl font-bold">Step 3: <span class="font-medium">Configure Your Agent</span></p><p class="text-muted mt-2">Customize your agent's capabilities, behaviors, and interaction style according to your needs.</p></div></div><div class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4"><div><div class="flex items-center justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="w-10 h-10 p-2 rounded-full border-2 text-primary dark:text-slate-200 border-primary dark:border-blue-700" data-icon="tabler:puzzle">   <use href="#ai:tabler:puzzle"></use>  </svg></div></div><div class="w-px h-full bg-black/10 dark:bg-slate-400/50"></div></div><div class="pt-1 pb-8"><p class="text-xl font-bold">Step 4: <span class="font-medium">Compose Agents</span></p><p class="text-muted mt-2">Combine multiple agents together to create more powerful super-agents.</p></div></div><div class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4"><div><div class="flex items-center justify-center"><svg width="1em" height="1em" class="w-10 h-10 p-2 rounded-full border-2 text-primary dark:text-slate-200 border-primary dark:border-blue-700" data-icon="tabler:check">   <symbol id="ai:tabler:check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12l5 5L20 7"/></symbol><use href="#ai:tabler:check"></use>  </svg></div></div></div><div class="pt-1 "><p class="text-xl font-bold">Complete!</p></div></div></div> </div> <div class="relative md:basis-1/2"> <img src="/_astro/mondrian.DdOhId68.jpg" crossorigin="anonymous" referrerpolicy="no-referrer" width="432" height="768" srcset="/_astro/mondrian.DdOhId68_oOAAi.webp 400w, /_astro/mondrian.DdOhId68_ISkYc.webp 768w" sizes="(max-width: 768px) 100vw, 432px" style="object-fit: cover; object-position: center; max-width: 100%; max-height: 100%;" class="inset-0 object-cover object-top w-full rounded-md shadow-lg md:absolute md:h-full bg-gray-400 dark:bg-slate-700" alt="MoFA Steps" loading="lazy" decoding="async"> </div> </div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade mx-auto max-w-6xl">  <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"><p class="text-base text-secondary dark:text-blue-200 font-bold tracking-wide uppercase">FAQ</p><h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Frequently Asked Questions</h2><p class="mt-4 text-muted text-xl">Have questions about MoFA? Here are answers to some common questions.</p></div> <div class="grid mx-auto gap-8 sm:grid-cols-2 gap-y-8 md:gap-y-12"><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <symbol id="ai:tabler:chevron-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 6l6 6l-6 6"/></symbol><use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">How is MoFA different from other agent frameworks?</h3><p class="mt-3 text-muted">MoFA's uniqueness lies in its modular and compositional approach. It allows developers to build AI agents like Lego blocks without needing to understand complex underlying technologies. Additionally, MoFA is based on the high-performance DORA-RS framework, offering better performance than traditional Python frameworks.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">How much programming knowledge do I need to use MoFA?</h3><p class="mt-3 text-muted">MoFA is designed to lower the barrier to building AI agents. While basic programming knowledge is helpful, MoFA's template system and compositional approach make it possible for users with limited programming experience to create powerful agents.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">What types of AI models does MoFA support?</h3><p class="mt-3 text-muted">MoFA is designed to be model-agnostic, supporting various Large Language Models (LLMs) and other AI models. It can be used with popular models like the GPT series, Claude, Llama, etc., and can be easily extended to support new models.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">How can I contribute to the MoFA project?</h3><p class="mt-3 text-muted">MoFA is an open-source project, and community contributions are welcome. You can submit issues and pull requests through GitHub or join our Discord community to participate in discussions. We especially welcome new agent templates, core functionality improvements, and documentation contributions.</p></div></div></div><div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"><div class="flex flex-row max-w-none"><div class="flex justify-center"><svg width="1em" height="1em" viewBox="0 0 24 24" class="mr-2 rtl:mr-0 rtl:ml-2 flex-shrink-0 mt-1 w-6 h-6 text-primary" data-icon="tabler:chevron-right">   <use href="#ai:tabler:chevron-right"></use>  </svg></div><div class="mt-0.5"><h3 class="text-xl font-bold">What types of applications is MoFA suitable for?</h3><p class="mt-3 text-muted">MoFA is suitable for a wide range of applications, including but not limited to: customer service automation, content creation and management, data analysis, personal assistants, educational tools, game AI, etc. Any application requiring intelligent interaction and decision-making can benefit from MoFA.</p></div></div></div></div>  </div> </section>  <section class="relative not-prose scroll-mt-[72px]"> <div class="absolute inset-0 pointer-events-none -z-[1]" aria-hidden="true">  <div class="absolute inset-0">  </div>  </div> <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade max-w-6xl mx-auto">  <div class="max-w-3xl mx-auto text-center p-6 rounded-md shadow-xl dark:shadow-none dark:border dark:border-slate-600"> <div class="md:mx-auto text-center mb-0 md:mb-0"><h2 class="leading-tighter text-heading text-4xl md:text-4xl font-bold tracking-tighter mb-4 font-heading">Ready to build the next generation of AI agents?</h2><p class="mt-4 text-xl text-muted dark:text-slate-400">Join the MoFA community and start your journey in modular agent building.</p></div> <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 mt-6"> <div class="flex w-full sm:w-auto"> <a class="btn-primary w-full sm:mb-0" href="https://github.com/moxin-org/mofa/blob/main/README.md">Get Started<svg width="1em" height="1em" viewBox="0 0 24 24" class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" data-icon="tabler:rocket">   <use href="#ai:tabler:rocket"></use>  </svg></a> </div><div class="flex w-full sm:w-auto"> <a class="btn-secondary w-full sm:mb-0" target="_blank" rel="noopener noreferrer" href="https://github.com/moxin-org/mofa">GitHub</a> </div> </div> </div>  </div> </section>  </main>  <footer class="relative border-t border-gray-200 dark:border-slate-800 not-prose"> <div class="dark:bg-dark absolute inset-0 pointer-events-none" aria-hidden="true"></div> <div class="relative max-w-7xl mx-auto px-4 sm:px-6 dark:text-slate-300 intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"> <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12"> <div class="col-span-12 lg:col-span-4"> <div class="mb-2"> <a class="inline-block font-bold text-xl" href="/">MoFA.AI</a> </div> <div class="text-sm text-muted flex gap-1"> <a class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa">Terms</a>  · <a class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa">Privacy Policy</a>  </div> </div> <div class="col-span-6 md:col-span-3 lg:col-span-2"> <div class="dark:text-gray-300 font-medium mb-2">Documentation</div> <ul class="text-sm"> <li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Quick Start </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Core Concepts </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Tutorials </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> API Reference </a> </li><li class="mb-2"> <a class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out" href="https://github.com/moxin-org/mofa/blob/main/README.md"> Installation & CLI </a> </li> </ul> </div> </div> <div class="md:flex md:items-center md:justify-between py-6 md:py-8"> <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4"> <li> <a class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center" aria-label="GitHub" href="https://github.com/moxin-org/mofa"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="w-5 h-5" data-icon="tabler:brand-github">   <use href="#ai:tabler:brand-github"></use>  </svg>  </a> </li> </ul> <div class="text-sm mr-4 dark:text-muted"> 
+      <div class="flex items-center">
+        <img class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right rounded-sm" src="/mofa-logo.png" alt="MoFA logo" loading="lazy"></img>
+        <span>© 2025 MoFA.AI · All rights reserved</span>
+      </div>
+     </div> </div> </div> </footer>   <script>(function(){const defaultTheme = "system";
+const defaultLanguage = "en";
+
+  if (window.basic_script) {
+    return;
+  }
+
+  window.basic_script = true;
+
+  // Handle language switching
+  function initLanguage() {
+    console.log("Initializing language, default is:", defaultLanguage);
+    
+    // Check URL parameters for language
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+    console.log("URL language parameter:", langParam);
+    
+    // Define supported languages
+    const supportedLanguages = ['en', 'zh'];
+    
+    // If lang parameter exists in URL and is supported, use it
+    if (langParam && supportedLanguages.includes(langParam)) {
+      localStorage.setItem('language', langParam);
+      document.documentElement.setAttribute('lang', langParam);
+      console.log('Language set from URL:', langParam);
+      
+      // Force reload content based on language
+      document.dispatchEvent(new CustomEvent('language-changed', { detail: { language: langParam } }));
+    }
+    // Otherwise use localStorage or default
+    else {
+      const storedLang = localStorage.getItem('language');
+      console.log("Stored language:", storedLang);
+      
+      if (storedLang && supportedLanguages.includes(storedLang)) {
+        document.documentElement.setAttribute('lang', storedLang);
+        console.log('Language set from localStorage:', storedLang);
+        
+        // If URL doesn't have language parameter but we have a stored preference,
+        // update the URL to include the language parameter
+        if (!langParam && window.history && window.history.replaceState) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', storedLang);
+          window.history.replaceState({}, '', url.toString());
+          console.log('Updated URL with stored language preference');
+        }
+        
+        // Force reload content based on language
+        document.dispatchEvent(new CustomEvent('language-changed', { detail: { language: storedLang } }));
+      } else {
+        // Use default language from config
+        document.documentElement.setAttribute('lang', defaultLanguage);
+        localStorage.setItem('language', defaultLanguage);
+        console.log('Language set to default:', defaultLanguage);
+        
+        // Update URL with default language
+        if (!langParam && window.history && window.history.replaceState) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', defaultLanguage);
+          window.history.replaceState({}, '', url.toString());
+          console.log('Updated URL with default language');
+        }
+      }
+    }
+  }
+  
+  // Initialize language on load
+  initLanguage();
+  
+  // 监听页面加载事件，确保在页面重新加载时也能初始化语言
+  window.addEventListener('DOMContentLoaded', initLanguage);
+  
+  // 重新加载页面后也要初始化语言
+  document.addEventListener('astro:after-swap', initLanguage);
+  
+  // 监听语言变化事件
+  document.addEventListener('language-changed', function(e) {
+    console.log("Language changed event received:", e.detail.language);
+  });
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  const initTheme = function () {
+    if ((defaultTheme && defaultTheme.endsWith(':only')) || (!localStorage.theme && defaultTheme !== 'system')) {
+      applyTheme(defaultTheme.replace(':only', ''));
+    } else if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  };
+  initTheme();
+
+  function attachEvent(selector, event, fn) {
+    const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
+    if (matches && matches.length) {
+      matches.forEach((elem) => {
+        elem.addEventListener(event, (e) => fn(e, elem), false);
+      });
+    }
+  }
+
+  const onLoad = function () {
+    let lastKnownScrollPosition = window.scrollY;
+    let ticking = true;
+
+    attachEvent('#header nav', 'click', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
+    });
+
+    attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
+      elem.classList.toggle('expanded');
+      document.body.classList.toggle('overflow-hidden');
+      document.getElementById('header')?.classList.toggle('h-screen');
+      document.getElementById('header')?.classList.toggle('expanded');
+      document.getElementById('header')?.classList.toggle('bg-page');
+      document.querySelector('#header nav')?.classList.toggle('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.toggle('hidden');
+    });
+
+    attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+      if (defaultTheme.endsWith(':only')) {
+        return;
+      }
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    attachEvent('[data-aw-social-share]', 'click', function (_, elem) {
+      const network = elem.getAttribute('data-aw-social-share');
+      const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+      const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+
+      let href;
+      switch (network) {
+        case 'facebook':
+          href = `https://www.facebook.com/sharer.php?u=${url}`;
+          break;
+        case 'twitter':
+          href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+          break;
+        case 'linkedin':
+          href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
+          break;
+        case 'whatsapp':
+          href = `https://wa.me/?text=${text}%20${url}`;
+          break;
+        case 'mail':
+          href = `mailto:?subject=%22${text}%22&body=${text}%20${url}`;
+          break;
+
+        default:
+          return;
+      }
+
+      const newlink = document.createElement('a');
+      newlink.target = '_blank';
+      newlink.href = href;
+      newlink.click();
+    });
+
+    const screenSize = window.matchMedia('(max-width: 767px)');
+    screenSize.addEventListener('change', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
+    });
+
+    function applyHeaderStylesOnScroll() {
+      const header = document.querySelector('#header[data-aw-sticky-header]');
+      if (!header) return;
+      if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
+        header.classList.add('scroll');
+      } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
+        header.classList.remove('scroll');
+      }
+      ticking = false;
+    }
+    applyHeaderStylesOnScroll();
+
+    attachEvent([document], 'scroll', function () {
+      lastKnownScrollPosition = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          applyHeaderStylesOnScroll();
+        });
+        ticking = true;
+      }
+    });
+  };
+  const onPageShow = function () {
+    document.documentElement.classList.add('motion-safe:scroll-smooth');
+    const elem = document.querySelector('[data-aw-toggle-menu]');
+    if (elem) {
+      elem.classList.remove('expanded');
+    }
+    document.body.classList.remove('overflow-hidden');
+    document.getElementById('header')?.classList.remove('h-screen');
+    document.getElementById('header')?.classList.remove('expanded');
+    document.querySelector('#header nav')?.classList.add('hidden');
+  };
+
+  window.onload = onLoad;
+  window.onpageshow = onPageShow;
+
+  document.addEventListener('astro:after-swap', () => {
+    initTheme();
+    onLoad();
+    onPageShow();
+  });
+})();</script> <script>
+  /* Inspired by: https://github.com/heidkaemper/tailwindcss-intersect */
+  const Observer = {
+    observer: null,
+    delayBetweenAnimations: 100,
+    animationCounter: 0,
+
+    start() {
+      const selectors = [
+        '[class*=" intersect:"]',
+        '[class*=":intersect:"]',
+        '[class^="intersect:"]',
+        '[class="intersect"]',
+        '[class*=" intersect "]',
+        '[class^="intersect "]',
+        '[class$=" intersect"]',
+      ];
+
+      const elements = Array.from(document.querySelectorAll(selectors.join(',')));
+
+      const getThreshold = (element) => {
+        if (element.classList.contains('intersect-full')) return 0.99;
+        if (element.classList.contains('intersect-half')) return 0.5;
+        if (element.classList.contains('intersect-quarter')) return 0.25;
+        return 0;
+      };
+
+      elements.forEach((el) => {
+        el.setAttribute('no-intersect', '');
+        el._intersectionThreshold = getThreshold(el);
+      });
+
+      const callback = (entries) => {
+        entries.forEach((entry) => {
+          requestAnimationFrame(() => {
+            const target = entry.target;
+            const intersectionRatio = entry.intersectionRatio;
+            const threshold = target._intersectionThreshold;
+
+            if (target.classList.contains('intersect-no-queue')) {
+              if (entry.isIntersecting) {
+                target.removeAttribute('no-intersect');
+                if (target.classList.contains('intersect-once')) {
+                  this.observer.unobserve(target);
+                }
+              } else {
+                target.setAttribute('no-intersect', '');
+              }
+              return;
+            }
+
+            if (intersectionRatio >= threshold) {
+              if (!target.hasAttribute('data-animated')) {
+                target.removeAttribute('no-intersect');
+                target.setAttribute('data-animated', 'true');
+
+                const delay = this.animationCounter * this.delayBetweenAnimations;
+                this.animationCounter++;
+
+                target.style.transitionDelay = `${delay}ms`;
+                target.style.animationDelay = `${delay}ms`;
+
+                if (target.classList.contains('intersect-once')) {
+                  this.observer.unobserve(target);
+                }
+              }
+            } else {
+              target.setAttribute('no-intersect', '');
+              target.removeAttribute('data-animated');
+              target.style.transitionDelay = '';
+              target.style.animationDelay = '';
+
+              this.animationCounter = 0;
+            }
+          });
+        });
+      };
+
+      this.observer = new IntersectionObserver(callback.bind(this), { threshold: [0, 0.25, 0.5, 0.99] });
+
+      elements.forEach((el) => {
+        this.observer.observe(el);
+      });
+    },
+  };
+
+  Observer.start();
+
+  document.addEventListener('astro:after-swap', () => {
+    Observer.start();
+  });
+</script> </body></html>

@@ -1,0 +1,29 @@
+---
+import Hero from '~/components/widgets/Hero.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'About MoFA.AI',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="About MoFA.AI"
+    image={{
+      src: '~/assets/images/default.png',
+      alt: 'MoFA.AI Image',
+    }}
+  >
+    <Fragment slot="title">
+      Modular Framework for <br />
+      <span class="text-accent dark:text-white">AI Agents</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      MoFA is a modular framework for building AI agents through composition. It provides a flexible and extensible architecture for creating and deploying AI agents for various applications.
+    </Fragment>
+  </Hero>
+</Layout>
