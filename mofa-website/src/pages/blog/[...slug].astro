@@ -1,3 +1,4 @@
+---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const { base } = import.meta.env;
+---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <div class="container mx-auto px-4 py-16">
@@ -94,4 +96,4 @@ const { base } = import.meta.env;
       </footer>
     </div>
   </div>
-</BaseLayout> 
+</BaseLayout>
