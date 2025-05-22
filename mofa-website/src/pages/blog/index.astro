@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const { base } = import.meta.env;
+---
+
+<BaseLayout title="博客" description="MoFA 的最新动态和技术分享">
+  <div class="container mx-auto px-4 py-16">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold mb-4">
+        <span class="gradient-text">MoFA</span> 博客
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        分享 AI 开发的最新动态、技术洞察和实践经验
+      </p>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div class="max-w-4xl mx-auto">
+      {sortedPosts.map((post) => (
+        <article class="card mb-8 group hover:border-mondrian-red transition-all duration-200">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div class="flex-1">
+              <div class="flex items-center mb-2">
+                <time class="text-sm text-gray-500 mr-4">
+                  {post.data.date.toLocaleDateString('zh-CN')}
+                </time>
+                {post.data.tags && (
+                  <div class="flex gap-2">
+                    {post.data.tags.map((tag) => (
+                      <span class="text-xs bg-mondrian-yellow text-gray-900 px-2 py-1 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              <h2 class="text-2xl font-semibold mb-2 group-hover:text-mondrian-red transition-colors">
+                <a href={`${base}/blog/${post.slug}`}>
+                  {post.data.title}
+                </a>
+              </h2>
+              
+              <p class="text-gray-600 mb-4">
+                {post.data.description}
+              </p>
+              
+              <div class="flex items-center text-sm text-gray-500">
+                <span>作者：{post.data.author}</span>
+              </div>
+            </div>
+            
+            <div class="md:ml-6 mt-4 md:mt-0">
+              <a 
+                href={`${base}/blog/${post.slug}`}
+                class="inline-flex items-center text-mondrian-blue hover:text-mondrian-red transition-colors"
+              >
+                阅读全文
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty state -->
+    {sortedPosts.length === 0 && (
+      <div class="text-center py-16">
+        <div class="mondrian-grid grid-cols-3 grid-rows-3 w-24 h-24 mx-auto mb-6 opacity-50">
+          <div class="mondrian-block bg-mondrian-red"></div>
+          <div class="mondrian-block bg-mondrian-white"></div>
+          <div class="mondrian-block bg-mondrian-blue"></div>
+          <div class="mondrian-block bg-mondrian-yellow"></div>
+          <div class="mondrian-block bg-mondrian-white"></div>
+          <div class="mondrian-block bg-mondrian-red"></div>
+          <div class="mondrian-block bg-mondrian-white"></div>
+          <div class="mondrian-block bg-mondrian-blue"></div>
+          <div class="mondrian-block bg-mondrian-yellow"></div>
+        </div>
+        <h2 class="text-2xl font-semibold text-gray-700 mb-2">敬请期待</h2>
+        <p class="text-gray-600">我们正在准备更多精彩内容</p>
+      </div>
+    )}
+  </div>
+</BaseLayout> 

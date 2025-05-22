@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="description" content="探索 MoFA 的各种应用场景和实现方式"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="undefined/favicon.svg"><meta name="generator" content="Astro v3.6.5"><title>示例项目 | MoFA</title><link rel="stylesheet" href="/mofa/_astro/_slug_.c35bd949.css" /></head> <body> <header class="sticky top-0 z-50 bg-white border-b-4 border-mondrian-black shadow-sm"> <nav class="container mx-auto px-4 py-4"> <div class="flex items-center justify-between"> <!-- Logo with Mondrian-style blocks --> <a href="undefined/" class="flex items-center space-x-2 group"> <div class="mondrian-grid grid-cols-2 grid-rows-2 w-10 h-10"> <div class="mondrian-block bg-mondrian-red group-hover:animate-pulse-slow"></div> <div class="mondrian-block bg-mondrian-white"></div> <div class="mondrian-block bg-mondrian-blue group-hover:animate-pulse-slow"></div> <div class="mondrian-block bg-mondrian-yellow group-hover:animate-pulse-slow"></div> </div> <span class="text-2xl font-bold text-mondrian-black">MoFA</span> </a> <!-- Navigation Menu --> <div class="hidden md:flex items-center space-x-8"> <a href="undefined/docs" class="nav-link"> 文档 </a><a href="undefined/examples" class="nav-link"> 示例 </a><a href="undefined/blog" class="nav-link"> 博客 </a><a href="undefined/community" class="nav-link"> 社区 </a><a href="undefined/about" class="nav-link"> 关于 </a> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-primary text-sm"> <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg>
+GitHub
+</a> </div> <!-- Mobile menu button --> <button class="md:hidden p-2 rounded-md hover:bg-mondrian-gray"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> </nav> </header> <main class="flex-grow">  <div class="container mx-auto px-4 py-16"> <!-- Header --> <div class="text-center mb-16"> <h1 class="text-5xl font-bold mb-4">
+示例项目展示
+</h1> <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+从简单到复杂，探索 <span class="gradient-text">MoFA</span> 的无限可能
+</p> </div> <!-- Examples Grid --> <div class="max-w-7xl mx-auto"> <div class="mb-12 group" id="hello-world"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-red text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 入门 </span> <span class="text-sm text-gray-500 mr-3">
+难度: ★☆☆☆☆ </span> <span class="text-sm text-gray-500">
+预计时间: 5分钟 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> Hello World </h2> <p class="text-lg text-gray-600"> 最简单的入门示例，创建第一个 AI 代理 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/hello-world" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100">from mofa import Agent, Pipeline
+from mofa.messages import HumanMessage
+
+# 创建代理
+agent = Agent(
+    name=&quot;hello-agent&quot;,
+    system_prompt=&quot;你是一个友好的助手&quot;
+)
+
+# 创建管道并运行
+pipeline = Pipeline().add(agent)
+response = pipeline.run(
+    HumanMessage(&quot;你好！&quot;)
+)
+
+print(response.content)</code></pre> </div> </div> </div> </div><div class="mb-12 group" id="rag-qa"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-blue text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 中级 </span> <span class="text-sm text-gray-500 mr-3">
+难度: ★★★☆☆ </span> <span class="text-sm text-gray-500">
+预计时间: 30分钟 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> RAG 问答系统 </h2> <p class="text-lg text-gray-600"> 基于检索增强生成的智能问答系统 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/rag-qa" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100">from mofa import Agent, Pipeline
+from mofa.agents import RAGAgent
+from mofa.knowledge import VectorStore
+
+# 创建知识库
+knowledge = VectorStore()
+knowledge.add_documents([
+    &quot;MoFA 是一个模块化的 AI 代理框架&quot;,
+    &quot;它支持组合式开发模式&quot;
+])
+
+# 创建 RAG 代理
+rag_agent = RAGAgent(
+    name=&quot;rag-qa&quot;,
+    knowledge_base=knowledge
+)
+
+# 运行查询
+pipeline = Pipeline().add(rag_agent)
+response = pipeline.run(&quot;什么是 MoFA？&quot;)</code></pre> </div> </div> </div> </div><div class="mb-12 group" id="arxiv-analyzer"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-yellow text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 高级 </span> <span class="text-sm text-gray-500 mr-3">
+难度: ★★★★☆ </span> <span class="text-sm text-gray-500">
+预计时间: 60分钟 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> Arxiv 论文分析 </h2> <p class="text-lg text-gray-600"> 自动分析和总结学术论文的 AI 代理 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/arxiv-analyzer" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100">from mofa import Agent, Pipeline
+from mofa.agents import PaperAnalyzer
+from mofa.tools import ArxivTool
+
+# 创建论文分析代理
+analyzer = PaperAnalyzer(
+    name=&quot;arxiv-analyzer&quot;,
+    tools=[ArxivTool()]
+)
+
+# 分析论文
+pipeline = Pipeline().add(analyzer)
+result = pipeline.run(
+    &quot;分析论文 arxiv:2301.00001&quot;
+)
+
+print(result.summary)</code></pre> </div> </div> </div> </div><div class="mb-12 group" id="reflection-agent"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-red text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 高级 </span> <span class="text-sm text-gray-500 mr-3">
+难度: ★★★★☆ </span> <span class="text-sm text-gray-500">
+预计时间: 45分钟 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> 反思代理 </h2> <p class="text-lg text-gray-600"> 具有自我反思能力的智能代理系统 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/reflection-agent" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100">from mofa import Agent, Pipeline
+from mofa.patterns import ReflectionPattern
+
+# 创建反思代理
+agent = Agent(
+    name=&quot;reflection-agent&quot;,
+    pattern=ReflectionPattern(
+        max_iterations=3
+    )
+)
+
+pipeline = Pipeline().add(agent)
+response = pipeline.run(
+    &quot;写一个Python排序算法并优化它&quot;
+)</code></pre> </div> </div> </div> </div><div class="mb-12 group" id="multi-agent"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-blue text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 专家 </span> <span class="text-sm text-gray-500 mr-3">
+难度: ★★★★★ </span> <span class="text-sm text-gray-500">
+预计时间: 90分钟 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> 多代理协作 </h2> <p class="text-lg text-gray-600"> 多个 AI 代理协同工作完成复杂任务 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/multi-agent" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100">from mofa import Agent, Pipeline
+from mofa.patterns import CollaborationPattern
+
+# 创建多个专门代理
+researcher = Agent(name=&quot;researcher&quot;)
+writer = Agent(name=&quot;writer&quot;) 
+reviewer = Agent(name=&quot;reviewer&quot;)
+
+# 设置协作模式
+pipeline = Pipeline(
+    pattern=CollaborationPattern()
+)
+pipeline.add(researcher)
+pipeline.add(writer)
+pipeline.add(reviewer)
+
+result = pipeline.run(
+    &quot;研究并写一篇关于 AI 发展的文章&quot;
+)</code></pre> </div> </div> </div> </div><div class="mb-12 group" id="community-examples"> <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200"> <!-- Header --> <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6"> <div class="flex-1"> <div class="flex items-center mb-3"> <span class="bg-mondrian-yellow text-white text-sm px-3 py-1 rounded-md font-medium mr-3"> 社区 </span>  <span class="text-sm text-gray-500">
+预计时间: 变化 </span> </div> <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors"> 社区案例 </h2> <p class="text-lg text-gray-600"> 来自社区的精彩应用案例集合 </p> </div> <div class="mt-4 lg:mt-0 lg:ml-6"> <a href="https://github.com/moxin-org/mofa-examples/tree/main/community-examples" target="_blank" rel="noopener noreferrer" class="btn-primary">
+查看完整代码
+<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> </a> </div> </div> <!-- Code Example --> <div class="relative group/code"> <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div> <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black"> <pre class="text-sm overflow-x-auto"><code class="text-gray-100"># 社区贡献的各种创意案例
+# 包括但不限于：
+# - 智能客服系统
+# - 代码生成助手
+# - 数据分析工具
+# - 创意写作助手
+# - 游戏 NPC 系统
+
+# 查看完整案例请访问：
+# https://github.com/moxin-org/mofa-examples</code></pre> </div> </div> </div> </div> </div> <!-- Call to Action --> <div class="text-center mt-16"> <div class="bg-gray-50 rounded-lg p-8"> <h2 class="text-2xl font-bold mb-4">想要贡献你的示例？</h2> <p class="text-gray-600 mb-6">我们欢迎社区贡献更多有趣的应用案例</p> <div class="flex flex-col sm:flex-row gap-4 justify-center"> <a href="https://github.com/moxin-org/mofa-examples" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+查看示例仓库
+</a> <a href="undefined/community/contributing" class="btn-outline">
+贡献指南
+</a> </div> </div> </div> </div>  </main> <footer class="bg-mondrian-black text-white mt-16"> <div class="container mx-auto px-4 py-12"> <!-- Footer Grid with Mondrian-inspired layout --> <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8"> <!-- Company Info --> <div class="md:col-span-1"> <div class="flex items-center space-x-2 mb-4"> <div class="mondrian-grid grid-cols-2 grid-rows-2 w-8 h-8"> <div class="mondrian-block bg-mondrian-red"></div> <div class="mondrian-block bg-mondrian-white"></div> <div class="mondrian-block bg-mondrian-blue"></div> <div class="mondrian-block bg-mondrian-yellow"></div> </div> <span class="text-xl font-bold">MoFA</span> </div> <p class="text-gray-400 text-sm">
+让普通开发者成为全栈 AI 工程师
+</p> <p class="text-gray-400 text-sm mt-2">
+Make Ordinary Developers Full-stack AI Engineers
+</p> </div> <!-- Footer Links --> <div> <h4 class="font-semibold mb-4 text-mondrian-yellow">产品</h4> <ul class="space-y-2"> <li> <a href="undefined/docs" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 文档 </a> </li><li> <a href="undefined/examples" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 示例 </a> </li><li> <a href="undefined/docs/api" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> API 参考 </a> </li><li> <a href="undefined/docs/quick-start" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 快速开始 </a> </li> </ul> </div><div> <h4 class="font-semibold mb-4 text-mondrian-yellow">社区</h4> <ul class="space-y-2"> <li> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> GitHub </a> </li><li> <a href="https://discord.gg/mofatesttesttesttesttsets" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> Discord </a> </li><li> <a href="undefined/community/contributing" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 贡献指南 </a> </li><li> <a href="undefined/blog" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 博客 </a> </li> </ul> </div><div> <h4 class="font-semibold mb-4 text-mondrian-yellow">公司</h4> <ul class="space-y-2"> <li> <a href="undefined/about" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 关于我们 </a> </li><li> <a href="https://moxin.io" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> Moxin </a> </li><li> <a href="undefined/about#careers" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 招聘 </a> </li><li> <a href="undefined/about#contact" class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> 联系我们 </a> </li> </ul> </div> </div> <!-- Bottom Bar --> <div class="border-t border-gray-800 pt-8"> <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"> <p class="text-gray-400 text-sm">
+&copy; 2025 MoFA. All rights reserved. | Powered by <a href="https://moxin.io" target="_blank" rel="noopener noreferrer" class="hover:text-mondrian-yellow transition-colors">Moxin</a> </p> <div class="flex space-x-6"> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"> <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg> </a> <a href="https://discord.gg/mofa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"> <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"> <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path> </svg> </a> </div> </div> </div> </div> </footer> </body></html>

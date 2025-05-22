@@ -1,0 +1,89 @@
+---
+const steps = [
+  {
+    step: '1',
+    title: '安装 MoFA',
+    code: 'pip install mofa',
+    description: '使用 pip 快速安装 MoFA 框架'
+  },
+  {
+    step: '2',
+    title: '创建你的第一个代理',
+    code: `from mofa import Agent, Pipeline
+
+# 创建一个简单的问答代理
+agent = Agent("qna-agent")
+pipeline = Pipeline()
+pipeline.add(agent)`,
+    description: '几行代码即可创建 AI 代理'
+  },
+  {
+    step: '3',
+    title: '运行并体验',
+    code: `# 运行代理
+result = pipeline.run("什么是 MoFA？")
+print(result)`,
+    description: '立即开始与你的 AI 代理对话'
+  }
+];
+
+const { base } = import.meta.env;
+---
+
+<section class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">
+        <span class="text-mondrian-red">5分钟</span>快速上手
+      </h2>
+      <p class="text-xl text-gray-600">
+        三步开启你的 AI 开发之旅
+      </p>
+    </div>
+
+    <!-- Steps with Mondrian-style progression -->
+    <div class="max-w-4xl mx-auto">
+      {steps.map((item, index) => (
+        <div class="mb-12 relative">
+          <!-- Step indicator with Mondrian style -->
+          <div class="flex items-center mb-6">
+            <div class="mondrian-grid grid-cols-2 grid-rows-2 w-12 h-12 mr-4">
+              <div class={`mondrian-block ${index === 0 ? 'bg-mondrian-red' : 'bg-white'}`}></div>
+              <div class={`mondrian-block ${index === 1 ? 'bg-mondrian-blue' : 'bg-white'}`}></div>
+              <div class={`mondrian-block ${index === 2 ? 'bg-mondrian-yellow' : 'bg-white'}`}></div>
+              <div class="mondrian-block bg-mondrian-black flex items-center justify-center">
+                <span class="text-white font-bold text-lg">{item.step}</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-semibold">{item.title}</h3>
+          </div>
+
+          <!-- Code block with Mondrian border -->
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover:opacity-30 transition duration-300"></div>
+            <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black">
+              <pre class="text-sm overflow-x-auto"><code class="text-gray-100">{item.code}</code></pre>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-gray-600">{item.description}</p>
+
+          <!-- Connector line -->
+          {index < steps.length - 1 && (
+            <div class="absolute left-6 top-16 bottom-0 w-0.5 bg-mondrian-gray"></div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <a href={`${base}/docs/quick-start`} class="btn-secondary">
+        查看详细文档
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section> 

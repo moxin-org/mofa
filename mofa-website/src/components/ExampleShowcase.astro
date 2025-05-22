@@ -1,0 +1,91 @@
+---
+const examples = [
+  {
+    title: 'Hello World',
+    description: '最简单的入门示例，创建第一个 AI 代理',
+    tag: '入门',
+    color: 'bg-mondrian-red'
+  },
+  {
+    title: 'RAG 问答系统',
+    description: '基于检索增强生成的智能问答系统',
+    tag: '中级',
+    color: 'bg-mondrian-blue'
+  },
+  {
+    title: 'Arxiv 论文分析',
+    description: '自动分析和总结学术论文的 AI 代理',
+    tag: '高级',
+    color: 'bg-mondrian-yellow'
+  },
+  {
+    title: '反思代理',
+    description: '具有自我反思能力的智能代理系统',
+    tag: '高级',
+    color: 'bg-mondrian-red'
+  },
+  {
+    title: '多代理协作',
+    description: '多个 AI 代理协同工作完成复杂任务',
+    tag: '专家',
+    color: 'bg-mondrian-blue'
+  },
+  {
+    title: '社区案例',
+    description: '来自社区的精彩应用案例集合',
+    tag: '社区',
+    color: 'bg-mondrian-yellow'
+  }
+];
+
+const { base } = import.meta.env;
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">
+        示例项目展示
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        从简单到复杂，探索 MoFA 的无限可能
+      </p>
+    </div>
+
+    <!-- Mondrian-style example grid -->
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {examples.map((example) => (
+        <a href={`${base}/examples#${example.title.toLowerCase().replace(/\s+/g, '-')}`} class="block group">
+          <div class="card h-full border-2 border-mondrian-black hover:border-4 transition-all duration-200">
+            <!-- Tag with Mondrian style -->
+            <div class="flex justify-between items-start mb-4">
+              <span class={`${example.color} text-white text-sm px-3 py-1 rounded-md font-medium`}>
+                {example.tag}
+              </span>
+              <svg class="w-5 h-5 text-gray-400 group-hover:text-mondrian-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            
+            <h3 class="text-xl font-semibold mb-2 text-gray-900 group-hover:text-mondrian-red transition-colors">
+              {example.title}
+            </h3>
+            <p class="text-gray-600">
+              {example.description}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <a href={`${base}/examples`} class="btn-outline">
+        查看所有示例
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section> 

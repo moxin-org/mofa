@@ -1,0 +1,200 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoFA - 让普通开发者成为全栈 AI 工程师</title>
+	</head>
+	<body>
+  <!-- 简化版导航 -->
+  <header style="position: sticky; top: 0; background: white; border-bottom: 4px solid var(--mondrian-black); box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 50;">
+    <nav class="container" style="padding: 16px; display: flex; align-items: center; justify-content: space-between;">
+      <a href="/" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+        <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 40px; height: 40px; border-radius: 8px;" />
+        <span style="font-size: 1.5rem; font-weight: 700; color: var(--mondrian-black);">MoFA</span>
+      </a>
+      
+      <div style="display: flex; align-items: center; gap: 32px;">
+        <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" class="nav-link" target="_blank" rel="noopener noreferrer">文档</a>
+        <a href="https://demo.mofa.ai" class="nav-link" target="_blank" rel="noopener noreferrer">示例</a>
+        <a href="http://blog.mofa.ai/" class="nav-link" target="_blank" rel="noopener noreferrer">博客</a>
+        <a href="https://github.com/moxin-org/mofa" class="btn-primary" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 主要内容 -->
+  <main>
+    <!-- Hero 区域 -->
+    <section class="py-20" style="position: relative; overflow: hidden;">
+      <!-- 蒙德里安背景 -->
+      <div style="position: absolute; inset: 0; opacity: 0.1;">
+        <div class="mondrian-grid" style="grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); height: 100%;">
+          <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-red); grid-column: span 3; grid-row: span 2;"></div>
+          <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-yellow); grid-column: span 2; grid-row: span 3; animation-delay: 0.5s;"></div>
+          <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-blue); grid-column: span 4; grid-row: span 2; animation-delay: 1s;"></div>
+          <div class="mondrian-block" style="background-color: var(--mondrian-white); grid-column: span 3; grid-row: span 3;"></div>
+        </div>
+      </div>
+
+      <div class="container" style="position: relative; z-index: 10;">
+        <div class="max-w-4xl mx-auto text-center">
+          <!-- Logo -->
+          <div style="display: flex; justify-content: center; margin-bottom: 32px;">
+            <div class="mondrian-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: 96px; height: 96px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto;"></div>
+              <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto; grid-column: span 2;"></div>
+              <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-yellow); min-height: auto; grid-row: span 2; animation-delay: 0.5s;"></div>
+              <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-blue); min-height: auto; animation-delay: 1s;"></div>
+              <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto;"></div>
+              <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto; animation-delay: 1.5s;"></div>
+            </div>
+          </div>
+
+          <!-- 主标题 -->
+          <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 24px;">
+            <span class="gradient-text">MoFA</span>
+          </h1>
+          
+          <!-- 副标题 -->
+          <p class="text-2xl font-medium mb-4" style="color: var(--mondrian-black);">
+            让普通开发者成为全栈 AI 工程师
+          </p>
+          <p class="text-xl mb-8 text-gray-600">
+            Make Ordinary Developers Full-stack AI Engineers
+          </p>
+
+          <!-- 描述 -->
+          <p class="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
+            通过可组合的 AI 代理框架，让每个开发者都能轻松构建、调试和部署复杂的 AI 应用
+          </p>
+
+          <!-- CTA 按钮 -->
+          <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; margin-bottom: 64px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+              <a href="https://github.com/moxin-org/mofa/blob/main/python/README.md#2-quick-start-guide" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px;">
+                🚀 快速开始
+              </a>
+              <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;">
+                📖 查看源码
+              </a>
+            </div>
+          </div>
+
+          <!-- 快速统计 -->
+          <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div class="text-center">
+              <div class="text-3xl font-bold" style="color: var(--mondrian-red);">5分钟</div>
+              <div class="text-sm text-gray-600">快速上手</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold" style="color: var(--mondrian-blue);">100+</div>
+              <div class="text-sm text-gray-600">内置代理</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold" style="color: var(--mondrian-yellow);">∞</div>
+              <div class="text-sm text-gray-600">组合可能</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心优势 -->
+    <section class="py-20" style="background-color: #f9fafb;">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-4">
+            为什么选择 <span class="gradient-text">MoFA</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            让 AI 开发变得简单、高效、有趣
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'">
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-red); color: white; flex-shrink: 0;">
+                🧩
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">模块化组合</h3>
+                <p class="text-gray-600">像搭积木一样组合 AI 代理，通过简单的配置实现复杂的业务逻辑</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'">
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-blue); color: white; flex-shrink: 0;">
+                ⚡
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">简单易用</h3>
+                <p class="text-gray-600">无需深厚的 AI 背景，普通开发者也能快速上手构建 AI 应用</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'">
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-yellow); color: var(--mondrian-black); flex-shrink: 0;">
+                🚀
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">功能强大</h3>
+                <p class="text-gray-600">内置丰富的预设代理，覆盖常见 AI 应用场景，即插即用</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'">
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-black); color: white; flex-shrink: 0;">
+                🔧
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">可扩展性</h3>
+                <p class="text-gray-600">支持自定义代理开发，轻松扩展框架能力，满足特定需求</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 简化版页脚 -->
+  <footer style="background-color: var(--mondrian-black); color: white; margin-top: 64px;">
+    <div class="container py-12">
+      <div class="text-center">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;">
+          <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 32px; height: 32px; border-radius: 6px;" />
+          <span style="font-size: 1.25rem; font-weight: 700;">MoFA</span>
+        </div>
+        <p style="color: #9ca3af; margin-bottom: 8px;">
+          让普通开发者成为全栈 AI 工程师
+        </p>
+        <p style="color: #9ca3af; margin-bottom: 24px;">
+          Make Ordinary Developers Full-stack AI Engineers
+        </p>
+        <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 16px;">
+          <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">GitHub</a>
+          <a href="https://discord.gg/mofatesttesttesttse" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">Discord</a>
+          <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">文档</a>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem;">
+          &copy; 2024 MoFA. All rights reserved. | Made with ❤️ by MoFA Team
+        </p>
+      </div>
+    </div>
+  </footer>
+	</body>
+</html>

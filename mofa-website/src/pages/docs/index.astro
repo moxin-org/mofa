@@ -1,0 +1,64 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+const { base } = import.meta.env;
+---
+
+<DocsLayout title="文档" description="MoFA 框架的完整文档">
+  <h1>MoFA 文档</h1>
+  
+  <p style="font-size: 1.125rem; color: #6b7280; margin-bottom: 2rem;">
+    欢迎查阅 MoFA (Modular Framework for AI Agents) 的官方文档。在这里你可以找到关于如何使用 MoFA 构建 AI 应用的所有信息。
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 3rem;">
+    <div class="card">
+      <h2 style="color: var(--mondrian-red); margin-bottom: 1rem;">🚀 快速开始</h2>
+      <p style="color: #6b7280; margin-bottom: 1rem;">5分钟内创建你的第一个 AI 代理</p>
+      <a href={`${base}/docs/quick-start`} class="btn-primary" style="display: inline-flex;">
+        开始学习
+      </a>
+    </div>
+
+    <div class="card">
+      <h2 style="color: var(--mondrian-blue); margin-bottom: 1rem;">📚 核心概念</h2>
+      <p style="color: #6b7280; margin-bottom: 1rem;">了解 MoFA 的核心设计理念和架构</p>
+      <a href={`${base}/docs/concepts/agent`} class="btn-secondary" style="display: inline-flex;">
+        深入了解
+      </a>
+    </div>
+
+    <div class="card">
+      <h2 style="color: var(--mondrian-yellow); margin-bottom: 1rem;">🔧 API 参考</h2>
+      <p style="color: #6b7280; margin-bottom: 1rem;">完整的 API 文档和使用示例</p>
+      <a href={`${base}/docs/api`} class="btn-outline" style="display: inline-flex;">
+        查看 API
+      </a>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem; padding: 2rem; background-color: #f3f4f6; border-radius: 8px;">
+    <h2 style="margin-bottom: 1rem;">📖 推荐阅读顺序</h2>
+    <ol style="list-style: decimal; margin-left: 2rem; line-height: 2;">
+      <li><a href={`${base}/docs/quick-start`} style="color: var(--mondrian-blue);">快速开始</a> - 安装和创建第一个代理</li>
+      <li><a href={`${base}/docs/concepts/agent`} style="color: var(--mondrian-blue);">代理概念</a> - 理解 Agent 的工作原理</li>
+      <li><a href={`${base}/docs/concepts/pipeline`} style="color: var(--mondrian-blue);">管道系统</a> - 学习如何组合多个代理</li>
+      <li><a href={`${base}/docs/patterns`} style="color: var(--mondrian-blue);">设计模式</a> - 探索不同的代理设计模式</li>
+      <li><a href={`${base}/docs/advanced`} style="color: var(--mondrian-blue);">高级主题</a> - 深入了解高级功能</li>
+    </ol>
+  </div>
+
+  <div style="margin-top: 3rem; text-align: center; padding: 2rem; border: 2px solid var(--mondrian-black); border-radius: 8px;">
+    <h3 style="margin-bottom: 1rem;">需要帮助？</h3>
+    <p style="color: #6b7280; margin-bottom: 1.5rem;">
+      如果你在使用过程中遇到任何问题，欢迎通过以下方式寻求帮助：
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="https://github.com/moxin-org/mofa/issues" target="_blank" rel="noopener noreferrer" class="btn-outline">
+        GitHub Issues
+      </a>
+      <a href="https://discord.gg/mofatesttesttest" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        Discord 社区
+      </a>
+    </div>
+  </div>
+</DocsLayout> 
