@@ -1,0 +1,87 @@
+---
+const features = [
+  {
+    title: '模块化组合',
+    description: '像搭积木一样组合 AI 代理，通过简单的配置实现复杂的业务逻辑',
+    icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+    color: 'bg-mondrian-red'
+  },
+  {
+    title: '简单易用',
+    description: '无需深厚的 AI 背景，普通开发者也能快速上手构建 AI 应用',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    color: 'bg-mondrian-blue'
+  },
+  {
+    title: '功能强大',
+    description: '内置丰富的预设代理，覆盖常见 AI 应用场景，即插即用',
+    icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z',
+    color: 'bg-mondrian-yellow'
+  },
+  {
+    title: '可扩展性',
+    description: '支持自定义代理开发，轻松扩展框架能力，满足特定需求',
+    icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+    color: 'bg-mondrian-black'
+  }
+];
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">
+        为什么选择 <span class="gradient-text">MoFA</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        让 AI 开发变得简单、高效、有趣
+      </p>
+    </div>
+
+    <!-- Mondrian-inspired feature grid -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {features.map((feature, index) => (
+        <div class="group relative">
+          <!-- Mondrian-style card -->
+          <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200 h-full">
+            <div class="flex items-start space-x-4">
+              <!-- Icon with Mondrian block background -->
+              <div class={`p-3 rounded-lg ${feature.color} text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-200`}>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon} />
+                </svg>
+              </div>
+              
+              <!-- Content -->
+              <div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900">{feature.title}</h3>
+                <p class="text-gray-600">{feature.description}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decorative Mondrian elements -->
+          <div class="absolute -top-2 -right-2 w-4 h-4 bg-mondrian-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute -bottom-2 -left-2 w-4 h-4 bg-mondrian-red opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Additional highlight -->
+    <div class="mt-16 text-center">
+      <div class="inline-flex items-center space-x-2 text-gray-600">
+        <div class="mondrian-grid grid-cols-3 w-6 h-6">
+          <div class="mondrian-block bg-mondrian-red"></div>
+          <div class="mondrian-block bg-mondrian-blue"></div>
+          <div class="mondrian-block bg-mondrian-yellow"></div>
+        </div>
+        <span class="text-lg">让每个人都能成为 AI 工程师</span>
+        <div class="mondrian-grid grid-cols-3 w-6 h-6">
+          <div class="mondrian-block bg-mondrian-yellow"></div>
+          <div class="mondrian-block bg-mondrian-black"></div>
+          <div class="mondrian-block bg-mondrian-red"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

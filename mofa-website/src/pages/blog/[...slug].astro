@@ -1,0 +1,97 @@
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { base } = import.meta.env;
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <div class="container mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to blog -->
+      <div class="mb-8">
+        <a 
+          href={`${base}/blog`}
+          class="inline-flex items-center text-mondrian-blue hover:text-mondrian-red transition-colors"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          返回博客
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex items-center mb-4">
+          <time class="text-gray-500 mr-4">
+            {post.data.date.toLocaleDateString('zh-CN')}
+          </time>
+          {post.data.tags && (
+            <div class="flex gap-2">
+              {post.data.tags.map((tag) => (
+                <span class="text-sm bg-mondrian-yellow text-gray-900 px-3 py-1 rounded-md">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          {post.data.title}
+        </h1>
+        
+        <p class="text-xl text-gray-600 mb-6">
+          {post.data.description}
+        </p>
+        
+        <div class="flex items-center text-gray-500">
+          <span>作者：{post.data.author}</span>
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <article class="prose prose-lg max-w-none">
+        <Content />
+      </article>
+
+      <!-- Footer with navigation -->
+      <footer class="mt-16 pt-8 border-t border-mondrian-gray">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div class="text-center sm:text-left">
+            <p class="text-gray-600 mb-2">喜欢这篇文章？</p>
+            <div class="flex space-x-4">
+              <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">
+                GitHub 上关注我们
+              </a>
+              <a href="https://discord.gg/mofatesttesttest" target="_blank" rel="noopener noreferrer" class="btn-secondary text-sm">
+                加入讨论
+              </a>
+            </div>
+          </div>
+          
+          <div class="text-center sm:text-right">
+            <p class="text-gray-600 mb-2">发现问题？</p>
+            <a 
+              href={`https://github.com/moxin-org/mofa-website/edit/main/src/content/blog/${post.slug}.md`}
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-mondrian-blue hover:text-mondrian-red transition-colors text-sm"
+            >
+              在 GitHub 上编辑此页面
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</BaseLayout> 

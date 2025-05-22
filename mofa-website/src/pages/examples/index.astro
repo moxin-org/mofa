@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const examples = [
+  {
+    id: 'hello-world',
+    title: 'Hello World',
+    description: '最简单的入门示例，创建第一个 AI 代理',
+    category: '入门',
+    difficulty: 1,
+    time: '5分钟',
+    code: `from mofa import Agent, Pipeline
+from mofa.messages import HumanMessage
+
+# 创建代理
+agent = Agent(
+    name="hello-agent",
+    system_prompt="你是一个友好的助手"
+)
+
+# 创建管道并运行
+pipeline = Pipeline().add(agent)
+response = pipeline.run(
+    HumanMessage("你好！")
+)
+
+print(response.content)`,
+    color: 'bg-mondrian-red'
+  },
+  {
+    id: 'rag-qa',
+    title: 'RAG 问答系统',
+    description: '基于检索增强生成的智能问答系统',
+    category: '中级',
+    difficulty: 3,
+    time: '30分钟',
+    code: `from mofa import Agent, Pipeline
+from mofa.agents import RAGAgent
+from mofa.knowledge import VectorStore
+
+# 创建知识库
+knowledge = VectorStore()
+knowledge.add_documents([
+    "MoFA 是一个模块化的 AI 代理框架",
+    "它支持组合式开发模式"
+])
+
+# 创建 RAG 代理
+rag_agent = RAGAgent(
+    name="rag-qa",
+    knowledge_base=knowledge
+)
+
+# 运行查询
+pipeline = Pipeline().add(rag_agent)
+response = pipeline.run("什么是 MoFA？")`,
+    color: 'bg-mondrian-blue'
+  },
+  {
+    id: 'arxiv-analyzer',
+    title: 'Arxiv 论文分析',
+    description: '自动分析和总结学术论文的 AI 代理',
+    category: '高级',
+    difficulty: 4,
+    time: '60分钟',
+    code: `from mofa import Agent, Pipeline
+from mofa.agents import PaperAnalyzer
+from mofa.tools import ArxivTool
+
+# 创建论文分析代理
+analyzer = PaperAnalyzer(
+    name="arxiv-analyzer",
+    tools=[ArxivTool()]
+)
+
+# 分析论文
+pipeline = Pipeline().add(analyzer)
+result = pipeline.run(
+    "分析论文 arxiv:2301.00001"
+)
+
+print(result.summary)`,
+    color: 'bg-mondrian-yellow'
+  },
+  {
+    id: 'reflection-agent',
+    title: '反思代理',
+    description: '具有自我反思能力的智能代理系统',
+    category: '高级',
+    difficulty: 4,
+    time: '45分钟',
+    code: `from mofa import Agent, Pipeline
+from mofa.patterns import ReflectionPattern
+
+# 创建反思代理
+agent = Agent(
+    name="reflection-agent",
+    pattern=ReflectionPattern(
+        max_iterations=3
+    )
+)
+
+pipeline = Pipeline().add(agent)
+response = pipeline.run(
+    "写一个Python排序算法并优化它"
+)`,
+    color: 'bg-mondrian-red'
+  },
+  {
+    id: 'multi-agent',
+    title: '多代理协作',
+    description: '多个 AI 代理协同工作完成复杂任务',
+    category: '专家',
+    difficulty: 5,
+    time: '90分钟',
+    code: `from mofa import Agent, Pipeline
+from mofa.patterns import CollaborationPattern
+
+# 创建多个专门代理
+researcher = Agent(name="researcher")
+writer = Agent(name="writer") 
+reviewer = Agent(name="reviewer")
+
+# 设置协作模式
+pipeline = Pipeline(
+    pattern=CollaborationPattern()
+)
+pipeline.add(researcher)
+pipeline.add(writer)
+pipeline.add(reviewer)
+
+result = pipeline.run(
+    "研究并写一篇关于 AI 发展的文章"
+)`,
+    color: 'bg-mondrian-blue'
+  },
+  {
+    id: 'community-examples',
+    title: '社区案例',
+    description: '来自社区的精彩应用案例集合',
+    category: '社区',
+    difficulty: 0,
+    time: '变化',
+    code: `# 社区贡献的各种创意案例
+# 包括但不限于：
+# - 智能客服系统
+# - 代码生成助手
+# - 数据分析工具
+# - 创意写作助手
+# - 游戏 NPC 系统
+
+# 查看完整案例请访问：
+# https://github.com/moxin-org/mofa-examples`,
+    color: 'bg-mondrian-yellow'
+  }
+];
+
+const { base } = import.meta.env;
+
+function getDifficultyStars(difficulty: number) {
+  return '★'.repeat(difficulty) + '☆'.repeat(5 - difficulty);
+}
+---
+
+<BaseLayout title="示例项目" description="探索 MoFA 的各种应用场景和实现方式">
+  <div class="container mx-auto px-4 py-16">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold mb-4">
+        示例项目展示
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        从简单到复杂，探索 <span class="gradient-text">MoFA</span> 的无限可能
+      </p>
+    </div>
+
+    <!-- Examples Grid -->
+    <div class="max-w-7xl mx-auto">
+      {examples.map((example) => (
+        <div class="mb-12 group" id={example.id}>
+          <div class="card border-2 border-mondrian-black hover:border-4 transition-all duration-200">
+            <!-- Header -->
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
+              <div class="flex-1">
+                <div class="flex items-center mb-3">
+                  <span class={`${example.color} text-white text-sm px-3 py-1 rounded-md font-medium mr-3`}>
+                    {example.category}
+                  </span>
+                  {example.difficulty > 0 && (
+                    <span class="text-sm text-gray-500 mr-3">
+                      难度: {getDifficultyStars(example.difficulty)}
+                    </span>
+                  )}
+                  <span class="text-sm text-gray-500">
+                    预计时间: {example.time}
+                  </span>
+                </div>
+                
+                <h2 class="text-3xl font-bold mb-3 group-hover:text-mondrian-red transition-colors">
+                  {example.title}
+                </h2>
+                
+                <p class="text-lg text-gray-600">
+                  {example.description}
+                </p>
+              </div>
+              
+              <div class="mt-4 lg:mt-0 lg:ml-6">
+                <a 
+                  href={`https://github.com/moxin-org/mofa-examples/tree/main/${example.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary"
+                >
+                  查看完整代码
+                  <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="relative group/code">
+              <div class="absolute -inset-1 bg-gradient-to-r from-mondrian-red via-mondrian-blue to-mondrian-yellow opacity-20 blur group-hover/code:opacity-30 transition duration-300"></div>
+              <div class="relative bg-gray-900 rounded-lg p-6 border-2 border-mondrian-black">
+                <pre class="text-sm overflow-x-auto"><code class="text-gray-100">{example.code}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-16">
+      <div class="bg-gray-50 rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-4">想要贡献你的示例？</h2>
+        <p class="text-gray-600 mb-6">我们欢迎社区贡献更多有趣的应用案例</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://github.com/moxin-org/mofa-examples" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            查看示例仓库
+          </a>
+          <a href={`${base}/community/contributing`} class="btn-outline">
+            贡献指南
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 
