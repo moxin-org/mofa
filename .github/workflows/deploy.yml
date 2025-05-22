@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BUILD_PATH: "."
+  BUILD_PATH: "mofa-website"
 
 jobs:
   build:
