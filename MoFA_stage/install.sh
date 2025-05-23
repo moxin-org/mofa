@@ -22,11 +22,12 @@ current_lang=$LANG_ZH
 ZH_TITLE="==== MoFA_Stage 安装脚本 ===="
 ZH_INTRO="这个脚本会帮你安装所有依赖"
 ZH_SYSTEM_TYPE="系统类型:"
+ZH_PERMISSION_CHECK="检查脚本权限..."
+ZH_PERMISSION_DENIED="脚本没有执行权限!"
+ZH_PERMISSION_FIX="请运行以下命令赋予权限:"
 ZH_BACKEND_INSTALL="正在安装后端依赖..."
 ZH_BACKEND_DIR_NOT_FOUND="找不到backend目录!"
 ZH_PYTHON_VERSION="Python版本:"
-ZH_CREATE_VENV="要创建虚拟环境吗? (y/n)"
-ZH_CREATING_VENV="创建虚拟环境..."
 ZH_PIP_INSTALL="pip安装依赖..."
 ZH_BACKEND_DEPS_SUCCESS="后端依赖安装完成"
 ZH_BACKEND_DEPS_FAIL="后端依赖安装失败"
@@ -44,7 +45,7 @@ ZH_BUILD_SUCCESS="前端构建成功!"
 ZH_BUILD_FAIL="构建失败"
 ZH_CHECK_TTYD="检查ttyd..."
 ZH_TTYD_INSTALLED="ttyd已安装，版本:"
-ZH_INSTALL_TTYD="是否安装ttyd(y/n)"
+ZH_INSTALL_TTYD="是否安装ttyd (Y/n, 默认: Y):"
 ZH_SKIP_TTYD="跳过ttyd安装。提示: 终端功能可能会有问题"
 ZH_DEBIAN_SYSTEM="Debian/Ubuntu系统，用apt安装..."
 ZH_REDHAT_SYSTEM="RedHat/CentOS/Fedora系统，用yum安装..."
@@ -57,8 +58,8 @@ ZH_VISIT="访问:"
 ZH_UNSUPPORTED_SYSTEM="不支持的系统"
 ZH_TTYD_SUCCESS="ttyd安装完成!"
 ZH_TTYD_FAIL="ttyd装失败，请手动安装"
-ZH_BUILD_PROD="npm run devh或者构建生产环境"
-ZH_BUILD_PROD_CONFIRM="要构建生产版本吗? (y/n)"
+ZH_BUILD_PROD="npm run dev或者构建生产环境"
+ZH_BUILD_PROD_CONFIRM="要构建生产版本吗? (y/N, 默认: N):"
 ZH_COMPLETE="==== 完成！ ===="
 ZH_START_BACKEND="启动后端: cd backend && python app.py"
 ZH_FRONTEND_DEPLOY="前端部署方式:"
@@ -69,17 +70,21 @@ ZH_FRONTEND_DEV="前端开发模式: cd frontend && npm run dev"
 ZH_FUTURE_BUILD="以后要构建生产版本: cd frontend && npm run build"
 ZH_ACCESS_URL="访问地址: http://localhost:3000"
 ZH_HAVE_FUN="祝您使用愉快!"
-ZH_SWITCH_LANG="切换语言 (1: 中文, 2: 英文):"
+ZH_RUN_SERVICES="是否现在启动服务? (Y/n, 默认: Y):"
+ZH_RUN_PERMISSION_DENIED="run.sh脚本没有执行权限!"
+ZH_RUN_PERMISSION_FIX="请运行以下命令赋予run.sh权限:"
+ZH_STARTING_SERVICES="正在启动服务..."
 
 # 英文
 EN_TITLE="==== MoFA_Stage Installation Script ===="
 EN_INTRO="This script will help you install all dependencies"
 EN_SYSTEM_TYPE="System type:"
+EN_PERMISSION_CHECK="Checking script permissions..."
+EN_PERMISSION_DENIED="Script does not have execute permission!"
+EN_PERMISSION_FIX="Please run the following command to grant permissions:"
 EN_BACKEND_INSTALL="Installing backend dependencies..."
 EN_BACKEND_DIR_NOT_FOUND="Backend directory not found!"
 EN_PYTHON_VERSION="Python version:"
-EN_CREATE_VENV="Create virtual environment? (y/n)"
-EN_CREATING_VENV="Creating virtual environment..."
 EN_PIP_INSTALL="Installing pip dependencies..."
 EN_BACKEND_DEPS_SUCCESS="Backend dependencies installed successfully"
 EN_BACKEND_DEPS_FAIL="Backend dependencies installation failed"
@@ -97,7 +102,7 @@ EN_BUILD_SUCCESS="Frontend built successfully!"
 EN_BUILD_FAIL="Build failed"
 EN_CHECK_TTYD="Checking ttyd..."
 EN_TTYD_INSTALLED="ttyd is installed, version:"
-EN_INSTALL_TTYD="Install ttyd? (y/n)"
+EN_INSTALL_TTYD="Install ttyd? (Y/n, default: Y):"
 EN_SKIP_TTYD="Skipping ttyd installation. Note: Terminal functions may have issues"
 EN_DEBIAN_SYSTEM="Debian/Ubuntu system, using apt to install..."
 EN_REDHAT_SYSTEM="RedHat/CentOS/Fedora system, using yum to install..."
@@ -110,8 +115,8 @@ EN_VISIT="Visit:"
 EN_UNSUPPORTED_SYSTEM="Unsupported system"
 EN_TTYD_SUCCESS="ttyd installed successfully!"
 EN_TTYD_FAIL="ttyd installation failed, please install manually"
-EN_BUILD_PROD="npm run devh or build production environment"
-EN_BUILD_PROD_CONFIRM="Build production version? (y/n)"
+EN_BUILD_PROD="npm run dev or build production environment"
+EN_BUILD_PROD_CONFIRM="Build production version? (y/N, default: N):"
 EN_COMPLETE="==== Complete! ===="
 EN_START_BACKEND="Start backend: cd backend && python app.py"
 EN_FRONTEND_DEPLOY="Frontend deployment methods:"
@@ -122,29 +127,17 @@ EN_FRONTEND_DEV="Frontend development mode: cd frontend && npm run dev"
 EN_FUTURE_BUILD="For future production builds: cd frontend && npm run build"
 EN_ACCESS_URL="Access URL: http://localhost:3000"
 EN_HAVE_FUN="Have fun!"
-EN_SWITCH_LANG="Switch language (1: Chinese, 2: English):"
+EN_RUN_SERVICES="Start services now? (Y/n, default: Y):"
+EN_RUN_PERMISSION_DENIED="run.sh script does not have execute permission!"
+EN_RUN_PERMISSION_FIX="Please run the following command to grant run.sh permissions:"
+EN_STARTING_SERVICES="Starting services..."
 
 # 显示语言选择函数
 select_language() {
     echo -e "${YELLOW}请选择语言 / Please select language:${NC}"
     echo "1. 中文"
     echo "2. English"
-    read -p "选择/Select (1/2): " lang_choice
-    
-    if [ "$lang_choice" = "2" ]; then
-        current_lang=$LANG_EN
-    else
-        current_lang=$LANG_ZH
-    fi
-}
-
-# 语言切换函数
-switch_language() {
-    if [ $current_lang -eq $LANG_ZH ]; then
-        read -p "$(echo -e ${YELLOW}$ZH_SWITCH_LANG${NC}) " lang_choice
-    else
-        read -p "$(echo -e ${YELLOW}$EN_SWITCH_LANG${NC}) " lang_choice
-    fi
+    read -p "选择/Select (1/2, default: 1): " lang_choice
     
     if [ "$lang_choice" = "2" ]; then
         current_lang=$LANG_EN
@@ -178,8 +171,21 @@ print_color_msg() {
     fi
 }
 
+# 权限检查函数
+check_permissions() {
+    print_color_msg "$YELLOW" "$ZH_PERMISSION_CHECK" "$EN_PERMISSION_CHECK"
+    
+    if [ ! -x "$0" ]; then
+        print_color_msg "$RED" "$ZH_PERMISSION_DENIED" "$EN_PERMISSION_DENIED"
+        print_color_msg "$YELLOW" "$ZH_PERMISSION_FIX" "$EN_PERMISSION_FIX"
+        echo "chmod +x $(basename "$0")"
+        exit 1
+    fi
+}
+
 # 启动脚本
 select_language
+check_permissions
 
 # 显示标题
 if [ $current_lang -eq $LANG_ZH ]; then
@@ -205,22 +211,6 @@ install_backend() {
     # Python版本检查
     py_ver=$(python3 --version 2>&1 | cut -d ' ' -f 2)
     print_color_msg "$YELLOW" "$ZH_PYTHON_VERSION $py_ver" "$EN_PYTHON_VERSION $py_ver"
-    
-    # 虚拟环境 - 可选但推荐
-    print_color_msg "$YELLOW" "$ZH_CREATE_VENV" "$EN_CREATE_VENV"
-    read REPLY
-    if [ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]; then
-        print_color_msg "$GREEN" "$ZH_CREATING_VENV" "$EN_CREATING_VENV"
-        python3 -m venv venv
-        
-        # 根据系统激活虚拟环境
-        if [ "$sys" = "Linux" ] || [ "$sys" = "Darwin" ]; then
-            source venv/bin/activate
-        else
-            # Windows
-            venv\\Scripts\\activate
-        fi
-    fi
     
     # 装依赖
     print_color_msg "$GREEN" "$ZH_PIP_INSTALL" "$EN_PIP_INSTALL"
@@ -306,8 +296,9 @@ install_ttyd() {
     fi
     
     print_color_msg "$YELLOW" "$ZH_INSTALL_TTYD" "$EN_INSTALL_TTYD"
-    read REPLY
-    if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
+    read -r REPLY
+    # 默认为Y，只有明确输入n或N时才跳过
+    if [ "$REPLY" = "n" ] || [ "$REPLY" = "N" ]; then
         print_color_msg "$YELLOW" "$ZH_SKIP_TTYD" "$EN_SKIP_TTYD"
         return 0
     fi
@@ -382,31 +373,20 @@ install_ttyd() {
 
 # 主流程
 main() {
-    # 询问切换语言
-    switch_language
-    
     # 后端
     install_backend
-    
-    # 询问切换语言
-    switch_language
     
     # 前端
     install_frontend
     
-    # 询问切换语言
-    switch_language
-    
     # ttyd - 可选
     install_ttyd
-    
-    # 询问切换语言
-    switch_language
    
     echo
     print_msg "$ZH_BUILD_PROD" "$EN_BUILD_PROD"
     print_color_msg "$YELLOW" "$ZH_BUILD_PROD_CONFIRM" "$EN_BUILD_PROD_CONFIRM"
-    read REPLY
+    read -r REPLY
+    # 默认为N，只有明确输入y或Y时才构建生产版本
     if [ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]; then
         build_frontend
         
@@ -424,6 +404,30 @@ main() {
     
     print_color_msg "$GREEN" "$ZH_ACCESS_URL" "$EN_ACCESS_URL"
     print_msg "$ZH_HAVE_FUN" "$EN_HAVE_FUN"
+    
+    # 询问是否启动服务
+    echo
+    print_color_msg "$YELLOW" "$ZH_RUN_SERVICES" "$EN_RUN_SERVICES"
+    read -r RUN_REPLY
+    # 默认为Y，只有明确输入n或N时才跳过
+    if [ "$RUN_REPLY" != "n" ] && [ "$RUN_REPLY" != "N" ]; then
+        # 检查run.sh权限
+        if [ -f "run.sh" ]; then
+            if [ ! -x "run.sh" ]; then
+                print_color_msg "$RED" "$ZH_RUN_PERMISSION_DENIED" "$EN_RUN_PERMISSION_DENIED"
+                print_color_msg "$YELLOW" "$ZH_RUN_PERMISSION_FIX" "$EN_RUN_PERMISSION_FIX"
+                echo "chmod +x run.sh"
+                exit 1
+            fi
+            
+            print_color_msg "$GREEN" "$ZH_STARTING_SERVICES" "$EN_STARTING_SERVICES"
+            # 将语言选择传递给run.sh
+            export MOFA_LANG=$current_lang
+            exec ./run.sh
+        else
+            print_color_msg "$RED" "run.sh 脚本不存在!" "run.sh script not found!"
+        fi
+    fi
 }
 
 # 执行
