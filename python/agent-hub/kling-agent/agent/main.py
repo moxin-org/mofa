@@ -23,9 +23,11 @@ def generate_keyframes_images(keyframes_file: str, reference_image: str, output_
         raise FileNotFoundError(f"工作目录不存在：{project_root}")
     os.chdir(project_root)
     
-    # 从环境变量获取Kling API配置
-    accesskey_api = os.getenv("ACCESSKEY_API", "0c45bb6e69b348f2ad0dcc6b3c2b58fe")
-    accesskey_secret = os.getenv("ACCESSKEY_SECRET", "c8e2d652427f4edd9c84dbb1938b8e81")
+    # 从环境变量获取Kling API配置（移除硬编码默认值）
+    accesskey_api = os.getenv("ACCESSKEY_API")
+    accesskey_secret = os.getenv("ACCESSKEY_SECRET")
+    if not accesskey_api or not accesskey_secret:
+        raise Exception("环境变量 ACCESSKEY_API 或 ACCESSKEY_SECRET 未设置")
     kling_api_base_url = os.getenv("KLING_API_BASE_URL", "https://api.klingai.com")
     kling_token_expiration = int(os.getenv("KLING_TOKEN_EXPIRATION", "1800"))
     kling_api_timeout = int(os.getenv("KLING_API_TIMEOUT", "60"))
