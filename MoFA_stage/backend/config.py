@@ -11,8 +11,8 @@ DEBUG = True
 SECRET_KEY = 'mofa-stage-secret-key'
 
 # MoFA 配置
-DEFAULT_MOFA_ENV = '/mnt/c/Users/ufop/Desktop/code/mofa_third_stage/mofa_venv'
-DEFAULT_MOFA_DIR = '/mnt/c/Users/ufop/Desktop/code/mofa_second_stage/mofa'
+DEFAULT_MOFA_ENV = ''
+DEFAULT_MOFA_DIR = ''
 # 默认使用系统MOFA
 USE_SYSTEM_MOFA = True
 # 原子化Agent存储位置（agent-hub）
@@ -21,7 +21,7 @@ AGENT_HUB_PATH = 'python/agent-hub'  # 官方推荐的agent-hub目录
 EXAMPLES_PATH = 'python/examples'  # 示例目录
 
 # 相对路径设置（相对于MoFA_stage目录）
-REL_MOFA_DIR = '../'  # MoFA目录相对于MoFA_stage的位置
+REL_MOFA_DIR = '../../'  # MoFA目录相对于backend目录的位置（backend -> MoFA_stage -> MOFA根目录）
 DEFAULT_AGENT_HUB_PATH = os.path.join(DEFAULT_MOFA_DIR, AGENT_HUB_PATH)
 DEFAULT_EXAMPLES_PATH = os.path.join(DEFAULT_MOFA_DIR, EXAMPLES_PATH)
 
