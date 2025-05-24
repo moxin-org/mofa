@@ -4,14 +4,12 @@ import json
 import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
-from dotenv import load_dotenv, set_key  # 需要安装 python-dotenv
+from dotenv import load_dotenv, set_key
+import sys
+sys.path.append('/root/mofa-euterpe')
 
-# Import from euterpe-creator package
-from euterpe import (
-    generate_video,
-    VideoGenerationRequest,
-    EuterpeConfig,
-)
+# 导入 generate_video, VideoGenerationRequest, EuterpeConfig
+from euterpe import generate_video, VideoGenerationRequest, EuterpeConfig
 
 @run_agent
 def run(agent: MofaAgent):
