@@ -132,7 +132,6 @@ class ChatRequest:
         self.stream = stream
 
 
-# --- 简化版文章处理器 ---
 class ArticleProcessor:
     """
     简化版文章处理器：

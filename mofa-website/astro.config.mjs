@@ -7,6 +7,19 @@ export default defineConfig({
   base: '/mofa',
   outDir: '../docs',
   build: {
-    inlineStylesheets: 'always'  // 强制内联CSS
+    inlineStylesheets: 'always',  // 强制内联CSS
+    format: 'directory'           // 确保正确的目录结构
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,     // 避免代码分割
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]'
+        }
+      }
+    }
   }
 });
