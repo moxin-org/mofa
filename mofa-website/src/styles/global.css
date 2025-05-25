@@ -5,12 +5,12 @@
 
 /* CSS 变量 */
 :root {
-  --mondrian-red: #E31E24;
-  --mondrian-blue: #0C5DA5;
-  --mondrian-yellow: #FFD500;
-  --mondrian-black: #000000;
+  --mondrian-red: #6366F1;        /* 现代紫色，体现AI智能 */
+  --mondrian-blue: #0EA5E9;       /* 清新蓝色，体现技术可靠性 */
+  --mondrian-yellow: #F59E0B;     /* 温暖橙色，体现创新活力 */
+  --mondrian-black: #1F2937;      /* 深灰黑，更现代 */
   --mondrian-white: #FFFFFF;
-  --mondrian-gray: #E5E5E5;
+  --mondrian-gray: #E5E7EB;       /* 稍微调整灰色调 */
 }
 
 /* 全局重置 */
@@ -23,6 +23,9 @@
 html {
   scroll-behavior: smooth;
   font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -32,6 +35,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 /* 代码块样式 */
@@ -50,40 +55,56 @@ code {
 
 /* 选中文本颜色 */
 ::selection {
-  background-color: var(--mondrian-yellow);
-  color: var(--mondrian-black);
+  background-color: var(--mondrian-red);
+  color: white;
 }
 
 /* 蒙德里安风格组件 */
 .mondrian-grid {
   display: grid;
-  gap: 1px;
+  gap: 2px;
   background-color: var(--mondrian-black);
-  padding: 1px;
+  padding: 2px;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(31, 41, 55, 0.2);
 }
 
 .mondrian-block {
   position: relative;
   overflow: hidden;
   min-height: 100px;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.mondrian-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .mondrian-block:hover::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
   opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 /* 渐变文字 */
 .gradient-text {
-  background: linear-gradient(45deg, var(--mondrian-red), var(--mondrian-blue), var(--mondrian-yellow));
+  background: linear-gradient(120deg, var(--mondrian-red), var(--mondrian-blue), var(--mondrian-yellow));
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   font-weight: bold;
+  animation: gradient-flow 4s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* 按钮样式 */
@@ -102,8 +123,9 @@ code {
 }
 
 .btn-primary:hover {
-  background-color: #c51821;
+  background-color: #4F46E5;
   transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
 .btn-secondary {
@@ -121,8 +143,9 @@ code {
 }
 
 .btn-secondary:hover {
-  background-color: #0a4d8a;
+  background-color: #0284C7;
   transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
 }
 
 .btn-outline {
@@ -295,4 +318,392 @@ code {
 
 .mondrian-animate {
   animation: mondrian-pulse 4s ease-in-out infinite;
+}
+
+/* AI 科技感特效 - 为不同颜色的块添加类 */
+.mondrian-block.ai-purple {
+  background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+  position: relative;
+}
+
+.mondrian-block.ai-blue {
+  background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+  position: relative;
+}
+
+.mondrian-block.ai-orange {
+  background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
+  position: relative;
+}
+
+/* 为AI块添加数据流动效果 */
+@keyframes data-flow {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+.mondrian-block::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  animation: data-flow 3s ease-in-out infinite;
+  animation-delay: calc(var(--flow-delay, 0) * 1s);
+}
+
+/* 语言切换按钮样式 */
+#lang-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+#lang-toggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#lang-toggle:hover::before {
+  opacity: 1;
+}
+
+#lang-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Agent & Flow 样式 */
+.agent-box {
+  padding: 6px 12px;
+  background: var(--mondrian-gray);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--mondrian-black);
+}
+
+.arrow {
+  color: var(--mondrian-red);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 交互式流程可视化 */
+.interactive-agent {
+  transition: all 0.3s ease !important;
+}
+
+.interactive-agent.active {
+  transform: scale(1.05) !important;
+  opacity: 1 !important;
+  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4) !important;
+  z-index: 10;
+  position: relative;
+}
+
+.interactive-agent.completed {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.interactive-agent.pending {
+  opacity: 0.4 !important;
+  transform: scale(0.9) !important;
+}
+
+/* 流程连接线动画 */
+.flow-path {
+  stroke: var(--mondrian-red);
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 10, 5;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.flow-path.active {
+  opacity: 1;
+  animation: dash-flow 2s linear infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -15;
+  }
+}
+
+/* 脉动效果 */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+  }
+}
+
+.interactive-agent.processing {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* 响应式调整 */
+/* Demo carousel样式 */
+.demo-tab {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.demo-tab.active {
+  background: var(--mondrian-red);
+  color: white;
+}
+
+.demo-tab:not(.active) {
+  color: var(--mondrian-black);
+}
+
+.demo-tab:hover:not(.active) {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.demo-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.demo-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.demo-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.demo-tab:hover::before {
+  opacity: 1;
+}
+
+.demo-content {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 蒙德里安图标样式 */
+.mondrian-icon {
+  transition: all 0.3s ease;
+}
+
+.interactive-agent:hover .mondrian-icon {
+  transform: scale(1.1);
+}
+
+.interactive-agent.active .mondrian-icon {
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* 增强流程路径动画 */
+.flow-path {
+  stroke: var(--mondrian-gray);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 8, 4;
+  stroke-dashoffset: 0;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+}
+
+.flow-path.active {
+  stroke: var(--mondrian-red);
+  stroke-width: 3;
+  opacity: 1;
+  animation: path-dash 1.5s linear infinite;
+}
+
+@keyframes path-dash {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -24; }
+}
+
+@media (max-width: 768px) {
+  .flow-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  
+  .flow-step[data-step="1"] { grid-column: 1; grid-row: 1; }
+  .flow-step[data-step="2"] { grid-column: 2; grid-row: 1; }
+  .flow-step[data-step="3"] { grid-column: 1; grid-row: 2; }
+  .flow-step[data-step="4"] { grid-column: 2; grid-row: 2; }
+  .flow-step[data-step="5"] { grid-column: 1; grid-row: 3; }
+  .flow-step[data-step="6"] { grid-column: 2; grid-row: 3; }
+  .flow-step[data-step="7"] { grid-column: 1; grid-row: 4; }
+  .flow-step[data-step="8"] { grid-column: 2; grid-row: 4; }
+  
+  .agent-card {
+    padding: 12px !important;
+  }
+  
+  .agent-card h4 {
+    font-size: 0.875rem !important;
+  }
+  
+  .agent-card p {
+    font-size: 0.65rem !important;
+  }
+
+  .demo-tab {
+    padding: 6px 8px !important;
+    min-width: 60px !important;
+  }
+  
+  .demo-emoji {
+    font-size: 1.25rem !important;
+  }
+  
+  .demo-name {
+    font-size: 0.65rem !important;
+  }
+
+  .demo-tabs-container {
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  .demo-tabs-container::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .carousel-arrow {
+    display: none !important;
+  }
+}
+
+/* 确保页面底部没有白条 */
+footer {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+
+
+/* 小型蒙德里安分隔线 */
+.mini-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 0;
+  background: var(--mondrian-white);
+}
+
+.mini-line {
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.red-line {
+  background: linear-gradient(90deg, var(--mondrian-red), #8B5CF6);
+}
+
+.blue-line {
+  background: linear-gradient(90deg, var(--mondrian-blue), #06B6D4);
+}
+
+.yellow-line {
+  background: linear-gradient(90deg, var(--mondrian-yellow), #FBBF24);
+}
+
+.mini-line:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .mondrian-separator {
+    grid-template-columns: 1fr 3px 1fr 3px 1fr;
+    height: 60px;
+  }
+  
+  .separator-block:nth-child(5),
+  .separator-block:nth-child(6),
+  .separator-block:nth-child(7) {
+    display: none;
+  }
+  
+  .separator-line:nth-child(4),
+  .separator-line:nth-child(6) {
+    display: none;
+  }
+
+  .mini-line {
+    width: 80px;
+    height: 3px;
+  }
+
+  .mini-divider {
+    padding: 15px 0;
+    gap: 6px;
+  }
 } 
