@@ -1,31 +1,511 @@
-<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MoFA - 让普通开发者成为全栈 AI 工程师</title><style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";@import"https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap";@import"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap";:root{--mondrian-red: #E31E24;--mondrian-blue: #0C5DA5;--mondrian-yellow: #FFD500;--mondrian-black: #000000;--mondrian-white: #FFFFFF;--mondrian-gray: #E5E5E5}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;font-family:Inter,Noto Sans SC,system-ui,sans-serif}body{line-height:1.6;color:#333;background-color:var(--mondrian-white);min-height:100vh;display:flex;flex-direction:column}pre{border-radius:8px;padding:16px;margin:16px 0;overflow-x:auto;background-color:#f3f4f6}code{font-family:JetBrains Mono,monospace;font-size:.875rem}::selection{background-color:var(--mondrian-yellow);color:var(--mondrian-black)}.mondrian-grid{display:grid;gap:1px;background-color:var(--mondrian-black);padding:1px}.mondrian-block{position:relative;overflow:hidden;min-height:100px}.mondrian-block:hover:before{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.1) 50%,transparent 70%);opacity:1;transition:opacity .3s ease}.gradient-text{background:linear-gradient(45deg,var(--mondrian-red),var(--mondrian-blue),var(--mondrian-yellow));background-clip:text;-webkit-background-clip:text;color:transparent;font-weight:700}.btn-primary{display:inline-flex;align-items:center;padding:12px 24px;background-color:var(--mondrian-red);color:#fff;text-decoration:none;border-radius:6px;font-weight:500;transition:all .2s ease;border:none;cursor:pointer}.btn-primary:hover{background-color:#c51821;transform:scale(1.05)}.btn-secondary{display:inline-flex;align-items:center;padding:12px 24px;background-color:var(--mondrian-blue);color:#fff;text-decoration:none;border-radius:6px;font-weight:500;transition:all .2s ease;border:none;cursor:pointer}.btn-secondary:hover{background-color:#0a4d8a;transform:scale(1.05)}.btn-outline{display:inline-flex;align-items:center;padding:12px 24px;background-color:transparent;color:var(--mondrian-black);text-decoration:none;border:2px solid var(--mondrian-black);border-radius:6px;font-weight:500;transition:all .2s ease;cursor:pointer}.btn-outline:hover{background-color:var(--mondrian-black);color:#fff}.card{background:white;border-radius:8px;padding:24px;box-shadow:0 1px 3px #0000001a;border:1px solid var(--mondrian-gray);transition:box-shadow .3s ease}.card:hover{box-shadow:0 4px 12px #00000026}.container{max-width:1200px;margin:0 auto;padding:0 16px}.nav-link{color:#666;text-decoration:none;font-weight:500;transition:color .2s ease}.nav-link:hover{color:var(--mondrian-red)}.nav-link-active{color:var(--mondrian-red);font-weight:600}.grid{display:grid}.grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}.grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}@media (min-width: 768px){.md\\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\\:grid-cols-4{grid-template-columns:repeat(4,1fr)}}.gap-4{gap:16px}.gap-6{gap:24px}.gap-8{gap:32px}.p-4{padding:16px}.p-6{padding:24px}.py-8{padding-top:32px;padding-bottom:32px}.py-12{padding-top:48px;padding-bottom:48px}.py-16{padding-top:64px;padding-bottom:64px}.py-20{padding-top:80px;padding-bottom:80px}.mb-4{margin-bottom:16px}.mb-6{margin-bottom:24px}.mb-8{margin-bottom:32px}.mb-12{margin-bottom:48px}.mb-16{margin-bottom:64px}.text-center{text-align:center}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.font-bold{font-weight:700}.font-semibold{font-weight:600}.font-medium{font-weight:500}.text-gray-600{color:#6b7280}.text-gray-700{color:#374151}.text-gray-800{color:#1f2937}.text-gray-900{color:#111827}@keyframes grid-float{0%,to{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes pulse-slow{0%,to{opacity:1}50%{opacity:.5}}.animate-grid-float{animation:grid-float 20s ease-in-out infinite}.animate-pulse-slow{animation:pulse-slow 4s cubic-bezier(.4,0,.6,1) infinite}.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.space-x-2>*+*{margin-left:8px}.space-x-4>*+*{margin-left:16px}.space-x-6>*+*{margin-left:24px}.space-x-8>*+*{margin-left:32px}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.mx-auto{margin-left:auto;margin-right:auto}.hidden{display:none}@media (min-width: 768px){.md\\:flex{display:flex}.md\\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\\:text-5xl{font-size:3rem;line-height:1}.md\\:text-7xl{font-size:4.5rem;line-height:1}}@media (min-width: 640px){.sm\\:flex-row{flex-direction:row}.sm\\:space-y-0>*+*{margin-top:0}}@keyframes mondrian-pulse{0%,to{opacity:1}50%{opacity:.8}}.mondrian-animate{animation:mondrian-pulse 4s ease-in-out infinite}
-</style></head> <body> <!-- 简化版导航 --> <header style="position: sticky; top: 0; background: white; border-bottom: 4px solid var(--mondrian-black); box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 50;"> <nav class="container" style="padding: 16px; display: flex; align-items: center; justify-content: space-between;"> <a href="/" style="display: flex; align-items: center; gap: 8px; text-decoration: none;"> <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 40px; height: 40px; border-radius: 8px;"> <span style="font-size: 1.5rem; font-weight: 700; color: var(--mondrian-black);">MoFA</span> </a> <div style="display: flex; align-items: center; gap: 32px;"> <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" class="nav-link" target="_blank" rel="noopener noreferrer">文档</a> <a href="https://demo.mofa.ai" class="nav-link" target="_blank" rel="noopener noreferrer">示例</a> <a href="http://blog.mofa.ai/" class="nav-link" target="_blank" rel="noopener noreferrer">博客</a> <a href="https://github.com/moxin-org/mofa" class="btn-primary" target="_blank" rel="noopener noreferrer">
+<!DOCTYPE html><html lang="en" id="html-root"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title id="page-title">MoFA - Make Ordinary Developers Full-stack AI Engineers</title><!-- Favicon --><link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/167464495"><link rel="shortcut icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/167464495"><link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/167464495"><link rel="icon" type="image/png" sizes="32x32" href="https://avatars.githubusercontent.com/u/167464495"><link rel="icon" type="image/png" sizes="16x16" href="https://avatars.githubusercontent.com/u/167464495"><style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";@import"https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap";@import"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap";:root{--mondrian-red: #6366F1;--mondrian-blue: #0EA5E9;--mondrian-yellow: #F59E0B;--mondrian-black: #1F2937;--mondrian-white: #FFFFFF;--mondrian-gray: #E5E7EB}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;font-family:Inter,Noto Sans SC,system-ui,sans-serif;height:100%;margin:0;padding:0}body{line-height:1.6;color:#333;background-color:var(--mondrian-white);min-height:100vh;display:flex;flex-direction:column;margin:0;padding:0}pre{border-radius:8px;padding:16px;margin:16px 0;overflow-x:auto;background-color:#f3f4f6}code{font-family:JetBrains Mono,monospace;font-size:.875rem}::selection{background-color:var(--mondrian-red);color:#fff}.mondrian-grid{display:grid;gap:2px;background-color:var(--mondrian-black);padding:2px;border-radius:6px;box-shadow:0 4px 15px #1f293733}.mondrian-block{position:relative;overflow:hidden;min-height:100px;transition:all .3s ease;border-radius:2px}.mondrian-block:hover{transform:translateY(-2px);box-shadow:0 8px 25px #00000026}.mondrian-block:hover:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);opacity:1;transition:opacity .3s ease}.gradient-text{background:linear-gradient(120deg,var(--mondrian-red),var(--mondrian-blue),var(--mondrian-yellow));background-size:200% 200%;background-clip:text;-webkit-background-clip:text;color:transparent;font-weight:700;animation:gradient-flow 4s ease-in-out infinite}@keyframes gradient-flow{0%,to{background-position:0% 50%}50%{background-position:100% 50%}}.btn-primary{display:inline-flex;align-items:center;padding:12px 24px;background-color:var(--mondrian-red);color:#fff;text-decoration:none;border-radius:6px;font-weight:500;transition:all .2s ease;border:none;cursor:pointer}.btn-primary:hover{background-color:#4f46e5;transform:scale(1.05);box-shadow:0 10px 25px #6366f14d}.btn-secondary{display:inline-flex;align-items:center;padding:12px 24px;background-color:var(--mondrian-blue);color:#fff;text-decoration:none;border-radius:6px;font-weight:500;transition:all .2s ease;border:none;cursor:pointer}.btn-secondary:hover{background-color:#0284c7;transform:scale(1.05);box-shadow:0 10px 25px #0ea5e94d}.btn-outline{display:inline-flex;align-items:center;padding:12px 24px;background-color:transparent;color:var(--mondrian-black);text-decoration:none;border:2px solid var(--mondrian-black);border-radius:6px;font-weight:500;transition:all .2s ease;cursor:pointer}.btn-outline:hover{background-color:var(--mondrian-black);color:#fff}.card{background:white;border-radius:8px;padding:24px;box-shadow:0 1px 3px #0000001a;border:1px solid var(--mondrian-gray);transition:box-shadow .3s ease}.card:hover{box-shadow:0 4px 12px #00000026}.container{max-width:1200px;margin:0 auto;padding:0 16px}.nav-link{color:#666;text-decoration:none;font-weight:500;transition:color .2s ease}.nav-link:hover{color:var(--mondrian-red)}.nav-link-active{color:var(--mondrian-red);font-weight:600}.grid{display:grid}.grid-cols-1{grid-template-columns:repeat(1,1fr)}.grid-cols-2{grid-template-columns:repeat(2,1fr)}.grid-cols-3{grid-template-columns:repeat(3,1fr)}.grid-cols-4{grid-template-columns:repeat(4,1fr)}@media (min-width: 768px){.md\\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.md\\:grid-cols-3{grid-template-columns:repeat(3,1fr)}.md\\:grid-cols-4{grid-template-columns:repeat(4,1fr)}}.gap-4{gap:16px}.gap-6{gap:24px}.gap-8{gap:32px}.p-4{padding:16px}.p-6{padding:24px}.py-8{padding-top:32px;padding-bottom:32px}.py-12{padding-top:48px;padding-bottom:48px}.py-16{padding-top:64px;padding-bottom:64px}.py-20{padding-top:80px;padding-bottom:80px}.mb-4{margin-bottom:16px}.mb-6{margin-bottom:24px}.mb-8{margin-bottom:32px}.mb-12{margin-bottom:48px}.mb-16{margin-bottom:64px}.text-center{text-align:center}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.font-bold{font-weight:700}.font-semibold{font-weight:600}.font-medium{font-weight:500}.text-gray-600{color:#6b7280}.text-gray-700{color:#374151}.text-gray-800{color:#1f2937}.text-gray-900{color:#111827}@keyframes grid-float{0%,to{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes pulse-slow{0%,to{opacity:1}50%{opacity:.5}}.animate-grid-float{animation:grid-float 20s ease-in-out infinite}.animate-pulse-slow{animation:pulse-slow 4s cubic-bezier(.4,0,.6,1) infinite}.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.space-x-2>*+*{margin-left:8px}.space-x-4>*+*{margin-left:16px}.space-x-6>*+*{margin-left:24px}.space-x-8>*+*{margin-left:32px}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.mx-auto{margin-left:auto;margin-right:auto}.hidden{display:none}@media (min-width: 768px){.md\\:flex{display:flex}.md\\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\\:text-5xl{font-size:3rem;line-height:1}.md\\:text-7xl{font-size:4.5rem;line-height:1}}@media (min-width: 640px){.sm\\:flex-row{flex-direction:row}.sm\\:space-y-0>*+*{margin-top:0}}@keyframes mondrian-pulse{0%,to{opacity:1}50%{opacity:.8}}.mondrian-animate{animation:mondrian-pulse 4s ease-in-out infinite}.mondrian-block.ai-purple{background:linear-gradient(135deg,var(--mondrian-red),#8B5CF6);position:relative}.mondrian-block.ai-blue{background:linear-gradient(135deg,var(--mondrian-blue),#06B6D4);position:relative}.mondrian-block.ai-orange{background:linear-gradient(135deg,var(--mondrian-yellow),#FBBF24);position:relative}@keyframes data-flow{0%{transform:translate(-100%);opacity:0}50%{opacity:1}to{transform:translate(100%);opacity:0}}.mondrian-block:after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:data-flow 3s ease-in-out infinite;animation-delay:calc(var(--flow-delay, 0) * 1s)}#lang-toggle{position:relative;overflow:hidden}#lang-toggle:before{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent,rgba(99,102,241,.1),transparent);opacity:0;transition:opacity .3s ease}#lang-toggle:hover:before{opacity:1}#lang-toggle:active{transform:scale(.95)}.agent-box{padding:6px 12px;background:var(--mondrian-gray);border-radius:6px;font-size:.875rem;font-weight:500;color:var(--mondrian-black)}.arrow{color:var(--mondrian-red);font-weight:700;font-size:1.2rem}.interactive-agent{transition:all .3s ease!important}.interactive-agent.active{transform:scale(1.05)!important;opacity:1!important;box-shadow:0 15px 35px #6366f166!important;z-index:10;position:relative}.interactive-agent.completed{opacity:1!important;transform:scale(1)!important}.interactive-agent.pending{opacity:.4!important;transform:scale(.9)!important}.flow-path{stroke:var(--mondrian-red);stroke-width:3;fill:none;stroke-dasharray:10,5;stroke-dashoffset:0;opacity:0;transition:opacity .5s ease}.flow-path.active{opacity:1;animation:dash-flow 2s linear infinite}@keyframes dash-flow{to{stroke-dashoffset:-15}}@keyframes pulse-glow{0%,to{box-shadow:0 0 20px #6366f14d}50%{box-shadow:0 0 30px #6366f199}}.interactive-agent.processing{animation:pulse-glow 1.5s ease-in-out infinite}.demo-tab{position:relative;overflow:hidden;background:transparent;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px}.demo-tab.active{background:var(--mondrian-red);color:#fff}.demo-tab:not(.active){color:var(--mondrian-black)}.demo-tab:hover:not(.active){background:rgba(99,102,241,.1)}.demo-emoji{font-size:1.5rem;line-height:1}.demo-name{font-size:.75rem;font-weight:500;text-align:center;line-height:1.2}.demo-tab:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);opacity:0;transition:opacity .3s ease}.demo-tab:hover:before{opacity:1}.demo-content{animation:fade-in .5s ease-in-out}@keyframes fade-in{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.mondrian-icon{transition:all .3s ease}.interactive-agent:hover .mondrian-icon{transform:scale(1.1)}.interactive-agent.active .mondrian-icon{animation:icon-pulse 2s ease-in-out infinite}@keyframes icon-pulse{0%,to{transform:scale(1)}50%{transform:scale(1.15)}}.flow-path{stroke:var(--mondrian-gray);stroke-width:2;fill:none;stroke-dasharray:8,4;stroke-dashoffset:0;opacity:.3;transition:all .5s ease}.flow-path.active{stroke:var(--mondrian-red);stroke-width:3;opacity:1;animation:path-dash 1.5s linear infinite}@keyframes path-dash{0%{stroke-dashoffset:0}to{stroke-dashoffset:-24}}@media (max-width: 768px){.flow-container{grid-template-columns:repeat(2,1fr)!important;gap:16px!important}.flow-step[data-step="1"]{grid-column:1;grid-row:1}.flow-step[data-step="2"]{grid-column:2;grid-row:1}.flow-step[data-step="3"]{grid-column:1;grid-row:2}.flow-step[data-step="4"]{grid-column:2;grid-row:2}.flow-step[data-step="5"]{grid-column:1;grid-row:3}.flow-step[data-step="6"]{grid-column:2;grid-row:3}.flow-step[data-step="7"]{grid-column:1;grid-row:4}.flow-step[data-step="8"]{grid-column:2;grid-row:4}.agent-card{padding:12px!important}.agent-card h4{font-size:.875rem!important}.agent-card p{font-size:.65rem!important}.demo-tab{padding:6px 8px!important;min-width:60px!important}.demo-emoji{font-size:1.25rem!important}.demo-name{font-size:.65rem!important}.demo-tabs-container{overflow-x:auto!important;scrollbar-width:none!important;-ms-overflow-style:none!important}.demo-tabs-container::-webkit-scrollbar{display:none!important}.carousel-arrow{display:none!important}}footer{margin-top:0;margin-bottom:0!important;padding-bottom:0!important}html,body{overflow-x:hidden}.mini-divider{display:flex;justify-content:center;align-items:center;gap:8px;padding:20px 0;background:var(--mondrian-white)}.mini-line{width:120px;height:4px;border-radius:2px;transition:all .3s ease;position:relative;overflow:hidden}.mini-line:before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:shimmer 2s ease-in-out infinite}.red-line{background:linear-gradient(90deg,var(--mondrian-red),#8B5CF6)}.blue-line{background:linear-gradient(90deg,var(--mondrian-blue),#06B6D4)}.yellow-line{background:linear-gradient(90deg,var(--mondrian-yellow),#FBBF24)}.mini-line:hover{transform:scale(1.05);box-shadow:0 4px 15px #0003}@keyframes shimmer{0%{left:-100%}to{left:100%}}@media (max-width: 768px){.mondrian-separator{grid-template-columns:1fr 3px 1fr 3px 1fr;height:60px}.separator-block:nth-child(5),.separator-block:nth-child(6),.separator-block:nth-child(7){display:none}.separator-line:nth-child(4),.separator-line:nth-child(6){display:none}.mini-line{width:80px;height:3px}.mini-divider{padding:15px 0;gap:6px}}
+</style><script type="module" src="/mofa/_astro/hoisted.8ed90d6b.js"></script></head> <body> <!-- 简化版导航 --> <header style="position: sticky; top: 0; background: white; border-bottom: 4px solid var(--mondrian-black); box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 50;"> <nav class="container" style="padding: 16px; display: flex; align-items: center; justify-content: space-between;"> <a href="/" style="display: flex; align-items: center; gap: 8px; text-decoration: none;"> <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 40px; height: 40px; border-radius: 8px;"> <span style="font-size: 1.5rem; font-weight: 700; color: var(--mondrian-black);">MoFA</span> </a> <div style="display: flex; align-items: center; gap: 32px;"> <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" class="nav-link" target="_blank" rel="noopener noreferrer" data-en="Docs" data-zh="文档">Docs</a> <a href="https://demo.mofa.ai" class="nav-link" target="_blank" rel="noopener noreferrer" data-en="Examples" data-zh="示例">Examples</a> <a href="http://blog.mofa.ai/" class="nav-link" target="_blank" rel="noopener noreferrer" data-en="Blog" data-zh="博客">Blog</a> <!-- 语言切换按钮 --> <div style="display: flex; align-items: center; gap: 8px;"> <button id="lang-toggle" style="
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            background: transparent;
+            border: 2px solid var(--mondrian-gray);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--mondrian-black);
+          " onmouseover="this.style.borderColor='var(--mondrian-red)'" onmouseout="this.style.borderColor='var(--mondrian-gray)'"> <span id="current-lang">🇺🇸 EN</span> <span style="font-size: 0.75rem; opacity: 0.6;">▼</span> </button> </div> <a href="https://github.com/moxin-org/mofa" class="btn-primary" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px;"> <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink: 0;"> <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"></path> </svg>
 GitHub
-</a> </div> </nav> </header> <!-- 主要内容 --> <main> <!-- Hero 区域 --> <section class="py-20" style="position: relative; overflow: hidden;"> <!-- 蒙德里安背景 --> <div style="position: absolute; inset: 0; opacity: 0.1;"> <div class="mondrian-grid" style="grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); height: 100%;"> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-red); grid-column: span 3; grid-row: span 2;"></div> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-yellow); grid-column: span 2; grid-row: span 3; animation-delay: 0.5s;"></div> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-blue); grid-column: span 4; grid-row: span 2; animation-delay: 1s;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); grid-column: span 3; grid-row: span 3;"></div> </div> </div> <div class="container" style="position: relative; z-index: 10;"> <div class="max-w-4xl mx-auto text-center"> <!-- Logo --> <div style="display: flex; justify-content: center; margin-bottom: 32px;"> <div class="mondrian-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: 96px; height: 96px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto; grid-column: span 2;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-yellow); min-height: auto; grid-row: span 2; animation-delay: 0.5s;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-blue); min-height: auto; animation-delay: 1s;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto; animation-delay: 1.5s;"></div> </div> </div> <!-- 主标题 --> <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 24px;"> <span class="gradient-text">MoFA</span> </h1> <!-- 副标题 --> <p class="text-2xl font-medium mb-4" style="color: var(--mondrian-black);">
-让普通开发者成为全栈 AI 工程师
-</p> <p class="text-xl mb-8 text-gray-600">
+</a> </div> </nav> </header> <!-- 主要内容 --> <main style="flex: 1;"> <!-- Hero 区域 --> <section class="py-20" style="position: relative; overflow: hidden;"> <!-- 蒙德里安背景 --> <div style="position: absolute; inset: 0; opacity: 0.1;"> <div class="mondrian-grid" style="grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); height: 100%;"> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-red); grid-column: span 3; grid-row: span 2;"></div> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-yellow); grid-column: span 2; grid-row: span 3; animation-delay: 0.5s;"></div> <div class="mondrian-block animate-grid-float" style="background-color: var(--mondrian-blue); grid-column: span 4; grid-row: span 2; animation-delay: 1s;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); grid-column: span 3; grid-row: span 3;"></div> </div> </div> <div class="container" style="position: relative; z-index: 10;"> <div class="max-w-4xl mx-auto text-center"> <!-- Logo --> <div style="display: flex; justify-content: center; margin-bottom: 32px;"> <div class="mondrian-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: 96px; height: 96px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto; grid-column: span 2;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-yellow); min-height: auto; grid-row: span 2; animation-delay: 0.5s;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-blue); min-height: auto; animation-delay: 1s;"></div> <div class="mondrian-block" style="background-color: var(--mondrian-white); min-height: auto;"></div> <div class="mondrian-block animate-pulse-slow" style="background-color: var(--mondrian-red); min-height: auto; animation-delay: 1.5s;"></div> </div> </div> <!-- 主标题 --> <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 24px;"> <span class="gradient-text">MoFA</span> </h1> <!-- 副标题 --> <p class="text-2xl font-medium mb-4" style="color: var(--mondrian-black);" data-en="Make Ordinary Developers Full-stack AI Engineers" data-zh="让普通开发者成为全栈 AI 工程师">
 Make Ordinary Developers Full-stack AI Engineers
-</p> <!-- 描述 --> <p class="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-通过可组合的 AI 代理框架，让每个开发者都能轻松构建、调试和部署复杂的 AI 应用
-</p> <!-- CTA 按钮 --> <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; margin-bottom: 64px;"> <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;"> <a href="https://github.com/moxin-org/mofa/blob/main/python/README.md#2-quick-start-guide" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px;">
-🚀 快速开始
-</a> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;">
-📖 查看源码
-</a> </div> </div> <!-- 快速统计 --> <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto"> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-red);">5分钟</div> <div class="text-sm text-gray-600">快速上手</div> </div> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-blue);">100+</div> <div class="text-sm text-gray-600">内置代理</div> </div> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-yellow);">∞</div> <div class="text-sm text-gray-600">组合可能</div> </div> </div> </div> </div> </section> <!-- 核心优势 --> <section class="py-20" style="background-color: #f9fafb;"> <div class="container"> <div class="text-center mb-16"> <h2 class="text-4xl font-bold mb-4">
-为什么选择 <span class="gradient-text">MoFA</span> </h2> <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-让 AI 开发变得简单、高效、有趣
+</p> <p class="text-xl mb-8 text-gray-600" data-en="Modular Framework for AI Agents" data-zh="模块化 AI 代理框架">
+Modular Framework for AI Agents
+</p> <!-- 描述 --> <p class="text-xl text-gray-700 mb-12 max-w-2xl mx-auto" data-en="A composable AI agent framework that enables every developer to easily build, debug, and deploy complex AI applications" data-zh="通过可组合的 AI 代理框架，让每个开发者都能轻松构建、调试和部署复杂的 AI 应用">
+A composable AI agent framework that enables every developer to easily build, debug, and deploy complex AI applications
+</p> <!-- CTA 按钮 --> <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; margin-bottom: 64px;"> <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;"> <a href="https://github.com/moxin-org/mofa/blob/main/python/README.md#2-quick-start-guide" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px;" data-en="🚀 Quick Start" data-zh="🚀 快速开始">
+🚀 Quick Start
+</a> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;" data-en="📖 View Source" data-zh="📖 查看源码">
+📖 View Source
+</a> </div> </div> <!-- 快速统计 --> <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto"> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-red);" data-en="5 min" data-zh="5分钟">5 min</div> <div class="text-sm text-gray-600" data-en="Quick Setup" data-zh="快速上手">Quick Setup</div> </div> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-blue);">100+</div> <div class="text-sm text-gray-600" data-en="Built-in Agents" data-zh="内置代理">Built-in Agents</div> </div> <div class="text-center"> <div class="text-3xl font-bold" style="color: var(--mondrian-yellow);">∞</div> <div class="text-sm text-gray-600" data-en="Combinations" data-zh="组合可能">Combinations</div> </div> </div> </div> </div> </section> <!-- 小型分隔线 --> <div class="mini-divider"> <div class="mini-line red-line"></div> <div class="mini-line blue-line"></div> <div class="mini-line yellow-line"></div> </div> <!-- 核心优势 --> <section class="py-20" style="background-color: #f9fafb;"> <div class="container"> <div class="text-center mb-16"> <h2 class="text-4xl font-bold mb-4" data-en="Why Choose <span class='gradient-text'>MoFA</span>" data-zh="为什么选择 <span class='gradient-text'>MoFA</span>">
+Why Choose <span class="gradient-text">MoFA</span> </h2> <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-en="Making AI development simple, efficient, and enjoyable" data-zh="让 AI 开发变得简单、高效、有趣">
+Making AI development simple, efficient, and enjoyable
 </p> </div> <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-red); color: white; flex-shrink: 0;">
 🧩
-</div> <div> <h3 class="text-xl font-semibold mb-2">模块化组合</h3> <p class="text-gray-600">像搭积木一样组合 AI 代理，通过简单的配置实现复杂的业务逻辑</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-blue); color: white; flex-shrink: 0;">
+</div> <div> <h3 class="text-xl font-semibold mb-2" data-en="Modular Composition" data-zh="模块化组合">Modular Composition</h3> <p class="text-gray-600" data-en="Combine AI agents like building blocks, implementing complex business logic through simple configurations" data-zh="像搭积木一样组合 AI 代理，通过简单的配置实现复杂的业务逻辑">
+Combine AI agents like building blocks, implementing complex business logic through simple configurations
+</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-blue); color: white; flex-shrink: 0;">
 ⚡
-</div> <div> <h3 class="text-xl font-semibold mb-2">简单易用</h3> <p class="text-gray-600">无需深厚的 AI 背景，普通开发者也能快速上手构建 AI 应用</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-yellow); color: var(--mondrian-black); flex-shrink: 0;">
+</div> <div> <h3 class="text-xl font-semibold mb-2" data-en="Easy to Use" data-zh="简单易用">Easy to Use</h3> <p class="text-gray-600" data-en="No deep AI background required - ordinary developers can quickly get started building AI applications" data-zh="无需深厚的 AI 背景，普通开发者也能快速上手构建 AI 应用">
+No deep AI background required - ordinary developers can quickly get started building AI applications
+</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-yellow); color: var(--mondrian-black); flex-shrink: 0;">
 🚀
-</div> <div> <h3 class="text-xl font-semibold mb-2">功能强大</h3> <p class="text-gray-600">内置丰富的预设代理，覆盖常见 AI 应用场景，即插即用</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-black); color: white; flex-shrink: 0;">
+</div> <div> <h3 class="text-xl font-semibold mb-2" data-en="Powerful Features" data-zh="功能强大">Powerful Features</h3> <p class="text-gray-600" data-en="Rich built-in preset agents covering common AI application scenarios, ready to use out of the box" data-zh="内置丰富的预设代理，覆盖常见 AI 应用场景，即插即用">
+Rich built-in preset agents covering common AI application scenarios, ready to use out of the box
+</p> </div> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: border-width 0.2s ease;" onmouseover="this.style.borderWidth='4px'" onmouseout="this.style.borderWidth='2px'"> <div style="display: flex; align-items: flex-start; gap: 16px;"> <div style="padding: 12px; border-radius: 8px; background-color: var(--mondrian-black); color: white; flex-shrink: 0;">
 🔧
-</div> <div> <h3 class="text-xl font-semibold mb-2">可扩展性</h3> <p class="text-gray-600">支持自定义代理开发，轻松扩展框架能力，满足特定需求</p> </div> </div> </div> </div> </div> </section> </main> <!-- 简化版页脚 --> <footer style="background-color: var(--mondrian-black); color: white; margin-top: 64px;"> <div class="container py-12"> <div class="text-center"> <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;"> <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 32px; height: 32px; border-radius: 6px;"> <span style="font-size: 1.25rem; font-weight: 700;">MoFA</span> </div> <p style="color: #9ca3af; margin-bottom: 8px;">
-让普通开发者成为全栈 AI 工程师
-</p> <p style="color: #9ca3af; margin-bottom: 24px;">
+</div> <div> <h3 class="text-xl font-semibold mb-2" data-en="Extensible" data-zh="可扩展性">Extensible</h3> <p class="text-gray-600" data-en="Support custom agent development, easily extend framework capabilities to meet specific requirements" data-zh="支持自定义代理开发，轻松扩展框架能力，满足特定需求">
+Support custom agent development, easily extend framework capabilities to meet specific requirements
+</p> </div> </div> </div> </div> </div> </section> <!-- 小型分隔线 --> <div class="mini-divider"> <div class="mini-line blue-line"></div> <div class="mini-line yellow-line"></div> <div class="mini-line red-line"></div> </div> <!-- Agent & Flow 概念介绍 --> <section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);"> <div class="container"> <div class="text-center mb-16"> <h2 class="text-4xl font-bold mb-4" data-en="From Agents to <span class='gradient-text'>Flows</span>" data-zh="从代理到<span class='gradient-text'>工作流</span>">
+From Agents to <span class="gradient-text">Flows</span> </h2> <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-en="MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration" data-zh="MoFA 通过智能组合和数据流编排，将独立的 AI 代理转化为强大的工作流">
+MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration
+</p> </div> <!-- 概念解释 --> <div class="grid md:grid-cols-2 gap-12 mb-20" style="display: none;"> <div class="space-y-8"> <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%); border: 2px solid rgba(99, 102, 241, 0.2);"> <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" data-en="🤖 What is an Agent?" data-zh="🤖 什么是代理？">
+🤖 What is an Agent?
+</h3> <p class="text-gray-700 mb-4" data-en="An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs." data-zh="代理是一个独立的 AI 组件，执行特定任务 - 如提取关键词、分析文档或生成报告。每个代理都有明确的输入和输出。">
+An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs.
+</p> <div class="agent-demo" style="
+                padding: 16px;
+                background: white;
+                border-radius: 8px;
+                border: 1px solid rgba(99, 102, 241, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+              "> <div style="
+                  padding: 8px 12px;
+                  background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                  color: white;
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Input</div> <div style="color: var(--mondrian-red); font-weight: bold;">→</div> <div style="
+                  padding: 8px 12px;
+                  background: var(--mondrian-gray);
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Agent</div> <div style="color: var(--mondrian-red); font-weight: bold;">→</div> <div style="
+                  padding: 8px 12px;
+                  background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                  color: white;
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Output</div> </div> </div> </div> <div class="space-y-8"> <div class="card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%); border: 2px solid rgba(14, 165, 233, 0.2);"> <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" data-en="🔄 What is a Flow?" data-zh="🔄 什么是工作流？">
+🔄 What is a Flow?
+</h3> <p class="text-gray-700 mb-4" data-en="A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems." data-zh="工作流将多个代理连接在一起，其中一个代理的输出成为另一个代理的输入。这创建了强大的多步骤 AI 管道，可以解决复杂问题。">
+A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems.
+</p> <div class="flow-demo" style="
+                padding: 16px;
+                background: white;
+                border-radius: 8px;
+                border: 1px solid rgba(14, 165, 233, 0.2);
+              "> <div style="display: flex; flex-direction: column; gap: 8px;"> <div style="display: flex; align-items: center; gap: 8px;"> <div class="agent-box">Agent A</div> <div class="arrow">→</div> <div class="agent-box">Agent B</div> </div> <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;"> <div class="arrow">↓</div> </div> <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;"> <div class="agent-box">Agent C</div> </div> </div> </div> </div> </div> </div> <!-- 实际案例展示：Multiple Flow Examples --> <div class="bg-white rounded-lg shadow-lg p-8 mb-16"> <h3 class="text-3xl font-bold text-center mb-8" data-en="Real Examples: Agent Flows in Action" data-zh="实际案例：代理工作流实战">
+Real Examples: Agent Flows in Action
+</h3> <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto" data-en="Explore different types of AI workflows - from research automation to weather prediction and web scraping" data-zh="探索不同类型的 AI 工作流 - 从研究自动化到天气预测和网页抓取">
+Explore different types of AI workflows - from research automation to weather prediction and web scraping
+</p> <!-- Demo Carousel Controls --> <div class="demo-carousel-container" style="position: relative; max-width: 800px; margin: 0 auto 32px;"> <!-- Left Arrow --> <button class="carousel-arrow carousel-arrow-left" style="
+              position: absolute;
+              left: -50px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 2px solid var(--mondrian-gray);
+              background: white;
+              color: var(--mondrian-black);
+              font-size: 18px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              z-index: 10;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
+←
+</button> <!-- Demo Selector --> <div class="text-center mb-4"> <div class="demo-tabs-container" style="
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                padding: 8px;
+                background: var(--mondrian-gray);
+                border-radius: 12px;
+                overflow: hidden;
+              "> <button class="demo-tab active" data-demo="hello-world"> <span class="demo-emoji">👋</span> <span class="demo-name" data-en="Hello World" data-zh="你好世界">Hello World</span> </button> <button class="demo-tab" data-demo="browser-use"> <span class="demo-emoji">🌐</span> <span class="demo-name" data-en="Browser Use" data-zh="浏览器使用">Browser Use</span> </button> <button class="demo-tab" data-demo="deep-research"> <span class="demo-emoji">🔬</span> <span class="demo-name" data-en="Deep Research" data-zh="深度研究">Deep Research</span> </button> <button class="demo-tab" data-demo="firecrawl"> <span class="demo-emoji">🕷️</span> <span class="demo-name" data-en="Web Scraping" data-zh="网页抓取">Web Scraping</span> </button> <button class="demo-tab" data-demo="weather"> <span class="demo-emoji">🌤️</span> <span class="demo-name" data-en="Weather" data-zh="天气">Weather</span> </button> <button class="demo-tab" data-demo="arxiv"> <span class="demo-emoji">📚</span> <span class="demo-name" data-en="arXiv Research" data-zh="arXiv研究">arXiv Research</span> </button> </div> </div> <!-- Right Arrow --> <button class="carousel-arrow carousel-arrow-right" style="
+              position: absolute;
+              right: -50px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 2px solid var(--mondrian-gray);
+              background: white;
+              color: var(--mondrian-black);
+              font-size: 18px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              z-index: 10;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
+→
+</button> </div> <!-- Interactive Flow Visualization --> <div class="flow-visualization"> <!-- Hello World Demo --> <div class="demo-content active" id="hello-world-demo"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                max-width: 500px;
+                margin: 0 auto;
+                position: relative;
+              "> <div class="flow-step" data-step="1" style="grid-column: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">💬</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Terminal Input" data-zh="终端输入">Terminal Input</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="User query input" data-zh="用户查询输入">User query input</p> </div> </div> <div class="flow-step" data-step="2" style="grid-column: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🤖</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Hello Agent" data-zh="问候代理">Hello Agent</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Process & respond" data-zh="处理并响应">Process & respond</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> <!-- Browser Use Demo --> <div class="demo-content" id="browser-use-demo" style="display: none;"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                max-width: 500px;
+                margin: 0 auto;
+                position: relative;
+              "> <div class="flow-step" data-step="1" style="grid-column: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">⌨️</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Terminal Input" data-zh="终端输入">Terminal Input</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Browser task input" data-zh="浏览器任务输入">Browser task input</p> </div> </div> <div class="flow-step" data-step="2" style="grid-column: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🌐</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Browser Agent" data-zh="浏览器代理">Browser Agent</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Automate browser" data-zh="自动化浏览器">Automate browser</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> <!-- Deep Research Demo --> <div class="demo-content" id="deep-research-demo" style="display: none;"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                max-width: 500px;
+                margin: 0 auto;
+                position: relative;
+              "> <div class="flow-step" data-step="1" style="grid-column: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🖥️</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="OpenAI Server" data-zh="OpenAI服务器">OpenAI Server</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Chat interface" data-zh="聊天接口">Chat interface</p> </div> </div> <div class="flow-step" data-step="2" style="grid-column: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🔬</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Research Planner" data-zh="研究规划器">Research Planner</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Deep analysis" data-zh="深度分析">Deep analysis</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> <!-- arXiv Research Demo --> <div class="demo-content" id="arxiv-demo" style="display: none;"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                max-width: 1000px;
+                margin: 0 auto;
+                position: relative;
+              "> <!-- Step 1: Keyword Extraction --> <div class="flow-step" data-step="1" style="grid-column: 1; grid-row: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🔍</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Keyword Extractor" data-zh="关键词提取器">Keyword Extractor</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Extract search keywords" data-zh="提取搜索关键词">Extract search keywords</p> </div> </div> <!-- Step 2: Paper Downloader --> <div class="flow-step" data-step="2" style="grid-column: 2; grid-row: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">📥</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Paper Downloader" data-zh="论文下载器">Paper Downloader</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Search & download papers" data-zh="搜索并下载论文">Search & download papers</p> </div> </div> <!-- Step 3: Paper Analyzer --> <div class="flow-step" data-step="3" style="grid-column: 3; grid-row: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
+                    color: var(--mondrian-black);
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🔬</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Paper Analyzer" data-zh="论文分析器">Paper Analyzer</h4> <p style="font-size: 0.875rem; opacity: 0.8;" data-en="Analyze content" data-zh="分析内容">Analyze content</p> </div> </div> <!-- Step 4: Report Writer --> <div class="flow-step" data-step="4" style="grid-column: 4; grid-row: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #10B981, #34D399);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">✍️</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Report Writer" data-zh="报告撰写器">Report Writer</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Generate initial report" data-zh="生成初始报告">Generate initial report</p> </div> </div> <!-- Additional rows for more agents --> <div class="flow-step" data-step="5" style="grid-column: 1; grid-row: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">💬</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Feedback Agent" data-zh="反馈代理">Feedback Agent</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Provide suggestions" data-zh="提供建议">Provide suggestions</p> </div> </div> <div class="flow-step" data-step="6" style="grid-column: 2; grid-row: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+                    color: var(--mondrian-black);
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🔧</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Refinement Agent" data-zh="优化代理">Refinement Agent</h4> <p style="font-size: 0.875rem; opacity: 0.8;" data-en="Improve the report" data-zh="优化报告">Improve the report</p> </div> </div> <div class="flow-step" data-step="7" style="grid-column: 3; grid-row: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #EF4444, #F87171);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">✅</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Evaluation Agent" data-zh="评估代理">Evaluation Agent</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Quality check" data-zh="质量检查">Quality check</p> </div> </div> <div class="flow-step" data-step="8" style="grid-column: 4; grid-row: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-black), #374151);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">📋</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Final Report" data-zh="最终报告">Final Report</h4> <p style="font-size: 0.875rem; opacity: 0.9;" data-en="Comprehensive research" data-zh="全面研究报告">Comprehensive research</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> <!-- Weather Forecast Demo --> <div class="demo-content" id="weather-demo" style="display: none;"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                max-width: 800px;
+                margin: 0 auto;
+                position: relative;
+              "> <div class="flow-step" data-step="1" style="grid-column: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">📍</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Geolocation Agent" data-zh="地理定位代理">Geolocation Agent</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Find coordinates" data-zh="查找坐标">Find coordinates</p> </div> </div> <div class="flow-step" data-step="2" style="grid-column: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🌊</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Windy Crawler" data-zh="Windy爬虫">Windy Crawler</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Scrape weather data" data-zh="抓取天气数据">Scrape weather data</p> </div> </div> <div class="flow-step" data-step="3" style="grid-column: 3;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
+                    color: var(--mondrian-black);
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🧠</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Weather Predictor" data-zh="天气预测器">Weather Predictor</h4> <p style="font-size: 0.75rem; opacity: 0.8;" data-en="Analyze & predict" data-zh="分析和预测">Analyze & predict</p> </div> </div> <div class="flow-step" data-step="4" style="grid-column: 4;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #10B981, #34D399);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">📊</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Weather Report" data-zh="天气报告">Weather Report</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Final forecast" data-zh="最终预报">Final forecast</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> <!-- Firecrawl Demo --> <div class="demo-content" id="firecrawl-demo" style="display: none;"> <div class="flow-container" style="
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                max-width: 600px;
+                margin: 0 auto;
+                position: relative;
+              "> <div class="flow-step" data-step="1" style="grid-column: 1;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🔗</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="URL Input" data-zh="URL输入">URL Input</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Receive target URL" data-zh="接收目标URL">Receive target URL</p> </div> </div> <div class="flow-step" data-step="2" style="grid-column: 2;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">🕷️</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Firecrawl Agent" data-zh="Firecrawl代理">Firecrawl Agent</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Scrape & extract" data-zh="抓取和提取">Scrape & extract</p> </div> </div> <div class="flow-step" data-step="3" style="grid-column: 3;"> <div class="agent-card interactive-agent" style="
+                    background: linear-gradient(135deg, #10B981, #34D399);
+                    color: white;
+                    padding: 16px;
+                    border-radius: 12px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    transform: scale(0.95);
+                    opacity: 0.7;
+                  "> <div style="font-size: 2rem; margin-bottom: 8px;">📋</div> <h4 style="font-weight: bold; margin-bottom: 4px;" data-en="Structured Data" data-zh="结构化数据">Structured Data</h4> <p style="font-size: 0.75rem; opacity: 0.9;" data-en="Clean content output" data-zh="清洁内容输出">Clean content output</p> </div> </div> <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                " class="flow-connections"></svg> </div> </div> </div> </div> </div> </section> <!-- 小型分隔线 --> <div class="mini-divider"> <div class="mini-line yellow-line"></div> <div class="mini-line red-line"></div> <div class="mini-line blue-line"></div> </div> <!-- MoFA_Stage 可视化平台介绍 --> <section class="py-20" style="background-color: #f9fafb;"> <div class="container"> <div class="text-center mb-16"> <h2 class="text-4xl font-bold mb-4" data-en="Meet <span class='gradient-text'>MoFA Stage</span>" data-zh="认识 <span class='gradient-text'>MoFA Stage</span>">
+Meet <span class="gradient-text">MoFA_Stage</span> </h2> <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-en="A visual management platform for MoFA - your web-based IDE for AI agents." data-zh="MoFA 的可视化管理平台 - 你的Agent专属 Web IDE.">
+A visual management platform for MoFA - your web-based IDE.
+</p> </div> <div class="max-w-6xl mx-auto"> <!-- 平台特色展示 --> <div class="grid md:grid-cols-3 gap-8 mb-16"> <div class="card" style="border: 2px solid var(--mondrian-black); transition: all 0.3s ease; padding: 16px;" onmouseover="this.style.borderWidth='4px'; this.style.transform='translateY(-8px)'" onmouseout="this.style.borderWidth='2px'; this.style.transform='translateY(0)'"> <div style="text-align: center;"> <div style="
+                   width: 48px;
+                   height: 48px;
+                   margin: 0 auto 12px;
+                   background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                   border-radius: 12px;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   font-size: 1.5rem;
+                   color: white;
+                   box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3);
+                 ">💻</div> <h3 class="text-base font-semibold mb-1" data-en="Visual Agent Management" data-zh="可视化代理管理">Visual Agent Management</h3> <p class="text-gray-600 text-xs leading-snug" data-en="Create, edit, and manage AI agents through an intuitive web interface" data-zh="通过直观的网页界面创建、编辑和管理 AI 代理">
+Create, edit, and manage AI agents through an intuitive web interface - no command line expertise required
+</p> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: all 0.3s ease; padding: 16px;" onmouseover="this.style.borderWidth='4px'; this.style.transform='translateY(-8px)'" onmouseout="this.style.borderWidth='2px'; this.style.transform='translateY(0)'"> <div style="text-align: center;"> <div style="
+                   width: 48px;
+                   height: 48px;
+                   margin: 0 auto 12px;
+                   background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                   border-radius: 12px;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   font-size: 1.5rem;
+                   color: white;
+                   box-shadow: 0 6px 18px rgba(14, 165, 233, 0.3);
+                 ">🖥️</div> <h3 class="text-base font-semibold mb-1" data-en="Integrated Terminal" data-zh="集成终端">Integrated Terminal</h3> <p class="text-gray-600 text-xs leading-snug" data-en="Built-in web terminal with SSH access - execute commands and monitor agents directly from your browser" data-zh="内置网页终端支持 SSH 访问 - 直接在浏览器中执行命令和监控代理">
+Built-in web terminal with SSH access - execute commands and monitor agents directly from your browser
+</p> </div> </div> <div class="card" style="border: 2px solid var(--mondrian-black); transition: all 0.3s ease; padding: 16px;" onmouseover="this.style.borderWidth='4px'; this.style.transform='translateY(-8px)'" onmouseout="this.style.borderWidth='2px'; this.style.transform='translateY(0)'"> <div style="text-align: center;"> <div style="
+                   width: 48px;
+                   height: 48px;
+                   margin: 0 auto 12px;
+                   background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
+                   border-radius: 12px;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   font-size: 1.5rem;
+                   color: var(--mondrian-black);
+                   box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3);
+                 ">📝</div> <h3 class="text-base font-semibold mb-1" data-en="Advanced Code Editor" data-zh="代码编辑器">Code Editor</h3> <p class="text-gray-600 text-xs leading-snug" data-en="Monaco-powered editor with syntax highlighting, auto-completion, and instant Markdown preview" data-zh="基于 Monaco 的编辑器，支持语法高亮、自动补全和 Markdown 即时预览">
+Monaco-powered editor with syntax highlighting, auto-completion, and instant Markdown preview - just like VS Code
+</p> </div> </div> </div> <!-- 平台架构展示 --> <div class="bg-white rounded-lg shadow-lg p-8" style="border: 2px solid var(--mondrian-black); display: none;"> <div class="text-center mb-8"> <h3 class="text-2xl font-bold mb-4" data-en="Full-Stack Architecture" data-zh="全栈架构">Full-Stack Architecture</h3> <p class="text-gray-600" data-en="Built with modern technologies for optimal performance and developer experience" data-zh="使用现代技术构建，确保最佳性能和开发体验">
+Built with modern technologies for optimal performance and developer experience
+</p> </div> <div class="grid md:grid-cols-2 gap-12"> <!-- 前端技术栈 --> <div> <h4 class="text-lg font-semibold mb-4 flex items-center gap-2" data-en="🎨 Frontend Stack" data-zh="🎨 前端技术栈">
+🎨 Frontend Stack
+</h4> <div class="space-y-3"> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: #42b883; border-radius: 50%;"></div> <span class="font-medium">Vue 3</span> <span class="text-sm text-gray-500" data-en="Progressive Framework" data-zh="渐进式框架">Progressive Framework</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: #409eff; border-radius: 50%;"></div> <span class="font-medium">Element Plus</span> <span class="text-sm text-gray-500" data-en="UI Components" data-zh="UI 组件库">UI Components</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: var(--mondrian-blue); border-radius: 50%;"></div> <span class="font-medium">Monaco Editor</span> <span class="text-sm text-gray-500" data-en="VS Code Engine" data-zh="VS Code 引擎">VS Code Engine</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: #000; border-radius: 50%;"></div> <span class="font-medium">XTerm.js</span> <span class="text-sm text-gray-500" data-en="Terminal Emulation" data-zh="终端模拟">Terminal Emulation</span> </div> </div> </div> <!-- 后端技术栈 --> <div> <h4 class="text-lg font-semibold mb-4 flex items-center gap-2" data-en="⚙️ Backend Stack" data-zh="⚙️ 后端技术栈">
+⚙️ Backend Stack
+</h4> <div class="space-y-3"> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: #306998; border-radius: 50%;"></div> <span class="font-medium">Python + Flask</span> <span class="text-sm text-gray-500" data-en="RESTful API" data-zh="RESTful API">RESTful API</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: var(--mondrian-red); border-radius: 50%;"></div> <span class="font-medium">WebSocket</span> <span class="text-sm text-gray-500" data-en="Real-time Communication" data-zh="实时通信">Real-time Communication</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: #ff6b35; border-radius: 50%;"></div> <span class="font-medium">SSH Integration</span> <span class="text-sm text-gray-500" data-en="Terminal Access" data-zh="终端访问">Terminal Access</span> </div> <div class="flex items-center gap-3"> <div style="width: 12px; height: 12px; background: var(--mondrian-yellow); border-radius: 50%;"></div> <span class="font-medium">ttyd Service</span> <span class="text-sm text-gray-500" data-en="Web Terminal" data-zh="网页终端">Web Terminal</span> </div> </div> </div> </div> </div> <!-- 快速开始按钮 --> <div class="text-center mt-12"> <a href="https://github.com/moxin-org/mofa/tree/main/MoFA_stage" target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size: 1.125rem; padding: 16px 32px; margin-right: 16px;" data-en="🚀 Explore MoFA_Stage" data-zh="🚀 探索 MoFA_Stage">
+🚀 Explore MoFA_Stage
+</a> <a href="https://github.com/moxin-org/mofa/tree/main/MoFA_stage#quick-start" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;" data-en="📖 Quick Start Guide" data-zh="📖 快速开始指南">
+📖 Quick Start Guide
+</a> </div> </div> </div> </section> <!-- 小型分隔线 --> <div class="mini-divider"> <div class="mini-line blue-line"></div> <div class="mini-line yellow-line"></div> <div class="mini-line red-line"></div> </div> <!-- Demo Video Section --> <section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);"> <div class="container"> <div class="text-center mb-16"> <h2 class="text-4xl font-bold mb-4" data-en="See MoFA in <span class='gradient-text'>Action</span>" data-zh="观看 MoFA <span class='gradient-text'>实战演示</span>">
+See MoFA in <span class="gradient-text">Action</span> </h2> <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-en="Watch how developers use MoFA to build sophisticated AI applications in minutes" data-zh="观看开发者如何使用 MoFA 在几分钟内构建复杂的 AI 应用">
+Watch how developers use MoFA to build sophisticated AI applications in minutes
+</p> </div> <div class="max-w-4xl mx-auto"> <div style="
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 3px solid var(--mondrian-black);
+          "> <iframe src="//player.bilibili.com/player.html?bvid=BV15fQPY6EnD&page=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+              ">
+            </iframe> </div> <div class="text-center mt-8" style="display: none;"> <a href="https://www.bilibili.com/video/BV15fQPY6EnD" target="_blank" rel="noopener noreferrer" class="btn-outline" data-en="🎬 Watch on Bilibili" data-zh="🎬 在B站观看">
+🎬 Watch on Bilibili
+</a> </div> </div> </div> </section> <!-- 小型分隔线 --> <div class="mini-divider"> <div class="mini-line red-line"></div> <div class="mini-line blue-line"></div> <div class="mini-line yellow-line"></div> </div> </main> <!-- 简化版页脚 --> <footer style="background-color: var(--mondrian-black); color: white;"> <div class="container py-12"> <div class="text-center"> <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;"> <img src="https://avatars.githubusercontent.com/u/167464495" alt="MoFA Logo" style="width: 32px; height: 32px; border-radius: 6px;"> <span style="font-size: 1.25rem; font-weight: 700;">MoFA</span> </div> <p style="color: #9ca3af; margin-bottom: 8px;" data-en="Make Ordinary Developers Full-stack AI Engineers" data-zh="让普通开发者成为全栈 AI 工程师">
 Make Ordinary Developers Full-stack AI Engineers
-</p> <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 16px;"> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">GitHub</a> <a href="https://discord.gg/mofatesttesttesttse" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">Discord</a> <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">文档</a> </div> <p style="color: #6b7280; font-size: 0.875rem;">
+</p> <p style="color: #9ca3af; margin-bottom: 24px;" data-en="Modular Framework for AI Agents" data-zh="模块化 AI 代理框架">
+Modular Framework for AI Agents
+</p> <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 16px;"> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">GitHub</a> <a href="https://discord.gg/mofatesttesttesttse" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'">Discord</a> <a href="https://github.com/moxin-org/mofa/tree/main/Gosim_2024_Hackathon/documents" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#9ca3af'" data-en="Docs" data-zh="文档">Docs</a> </div> <p style="color: #6b7280; font-size: 0.875rem;" data-en="© 2025 MoFA. All rights reserved. | Made with ❤️ by MoFA Team" data-zh="© 2025 MoFA. 保留所有权利. | Made with ❤️ by MoFA Team">
 &copy; 2024 MoFA. All rights reserved. | Made with ❤️ by MoFA Team
-</p> </div> </div> </footer> </body></html>
+</p> </div> </div> </footer> <!-- 语言切换脚本 -->  </body> </html>
