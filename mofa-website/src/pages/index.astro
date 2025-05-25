@@ -16,7 +16,6 @@ import '../styles/global.css';
   <meta name="theme-color" content="#6366F1" />
 	</head>
 	<body>
-  <!-- 简化版导航 -->
   <header style="position: sticky; top: 0; background: white; border-bottom: 4px solid var(--mondrian-black); box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 50;">
     <nav class="container" style="padding: 16px; display: flex; align-items: center; justify-content: space-between;">
       <a href="/" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
@@ -1349,7 +1348,6 @@ import '../styles/global.css';
     </div>
   </main>
 
-  <!-- 简化版页脚 -->
   <footer style="background-color: var(--mondrian-black); color: white;">
     <div class="container py-12">
       <div class="text-center">
@@ -1383,7 +1381,7 @@ import '../styles/global.css';
   </footer>
 
   <!-- 语言切换脚本 -->
-  <script>
+  <script is:inline>
     // 语言数据和切换逻辑
     const languages = {
       en: {
