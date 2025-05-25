@@ -17,6 +17,9 @@ current_lang=$LANG_ZH
 # 中文语言包
 ZH_INFO="[信息]"
 ZH_ERROR="[错误]"
+ZH_PERMISSION_CHECK="检查脚本权限..."
+ZH_PERMISSION_DENIED="脚本没有执行权限!"
+ZH_PERMISSION_FIX="请运行以下命令赋予权限:"
 ZH_CMD_NOT_FOUND="未安装，请先安装"
 ZH_STARTING_BACKEND="正在启动后端服务..."
 ZH_INSTALL_PYTHON_DEPS="安装 Python 依赖"
@@ -31,11 +34,13 @@ ZH_BACKEND_RUNNING="后端服务运行在"
 ZH_FRONTEND_RUNNING="前端服务运行在"
 ZH_PRESS_CTRL_C="按 Ctrl+C 停止所有服务"
 ZH_SELECT_LANGUAGE="请选择语言 / Please select language:"
-ZH_SWITCH_LANGUAGE="切换语言 (1: 中文, 2: 英文):"
 
 # 英文语言包
 EN_INFO="[INFO]"
 EN_ERROR="[ERROR]"
+EN_PERMISSION_CHECK="Checking script permissions..."
+EN_PERMISSION_DENIED="Script does not have execute permission!"
+EN_PERMISSION_FIX="Please run the following command to grant permissions:"
 EN_CMD_NOT_FOUND="is not installed, please install"
 EN_STARTING_BACKEND="Starting backend service..."
 EN_INSTALL_PYTHON_DEPS="Installing Python dependencies"
@@ -50,29 +55,13 @@ EN_BACKEND_RUNNING="Backend service running at"
 EN_FRONTEND_RUNNING="Frontend service running at"
 EN_PRESS_CTRL_C="Press Ctrl+C to stop all services"
 EN_SELECT_LANGUAGE="Please select language:"
-EN_SWITCH_LANGUAGE="Switch language (1: Chinese, 2: English):"
 
 # 显示语言选择函数
 select_language() {
     echo -e "${YELLOW}$ZH_SELECT_LANGUAGE${NC}"
     echo "1. 中文"
     echo "2. English"
-    read -p "选择/Select (1/2): " lang_choice
-    
-    if [ "$lang_choice" = "2" ]; then
-        current_lang=$LANG_EN
-    else
-        current_lang=$LANG_ZH
-    fi
-}
-
-# 语言切换函数
-switch_language() {
-    if [ $current_lang -eq $LANG_ZH ]; then
-        read -p "$(echo -e ${YELLOW}$ZH_SWITCH_LANGUAGE${NC}) " lang_choice
-    else
-        read -p "$(echo -e ${YELLOW}$EN_SWITCH_LANGUAGE${NC}) " lang_choice
-    fi
+    read -p "选择/Select (1/2, default: 1): " lang_choice
     
     if [ "$lang_choice" = "2" ]; then
         current_lang=$LANG_EN
@@ -98,6 +87,31 @@ print_error() {
     fi
 }
 
+# 带颜色输出函数
+print_color_msg() {
+    local color="$1"
+    local zh_msg="$2"
+    local en_msg="$3"
+    
+    if [ $current_lang -eq $LANG_ZH ]; then
+        echo -e "${color}${zh_msg}${NC}"
+    else
+        echo -e "${color}${en_msg}${NC}"
+    fi
+}
+
+# 权限检查函数
+check_permissions() {
+    print_color_msg "$YELLOW" "$ZH_PERMISSION_CHECK" "$EN_PERMISSION_CHECK"
+    
+    if [ ! -x "$0" ]; then
+        print_color_msg "$RED" "$ZH_PERMISSION_DENIED" "$EN_PERMISSION_DENIED"
+        print_color_msg "$YELLOW" "$ZH_PERMISSION_FIX" "$EN_PERMISSION_FIX"
+        echo "chmod +x $(basename "$0")"
+        exit 1
+    fi
+}
+
 # 检查必要的命令是否存在
 check_command() {
     if ! command -v $1 &> /dev/null; then
@@ -110,8 +124,15 @@ check_command() {
     fi
 }
 
-# 初始化语言选择
-select_language
+# 初始化语言选择 - 优先使用环境变量，否则询问用户
+if [ ! -z "$MOFA_LANG" ]; then
+    current_lang=$MOFA_LANG
+else
+    select_language
+fi
+
+# 权限检查
+check_permissions
 
 # 检查 Python 和 Node.js
 check_command python3
