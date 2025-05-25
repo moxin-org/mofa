@@ -1,5 +1,5 @@
 async function getMod() {
-						return import('./introducing-mofa_fffda481.mjs');
+						return import('./quick-start_41f9f39c.mjs');
 					}
 					const collectedLinks = [];
 					const collectedStyles = [];
