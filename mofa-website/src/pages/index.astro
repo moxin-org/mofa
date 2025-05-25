@@ -10,11 +10,10 @@ import '../styles/global.css';
   <title id="page-title">MoFA - Make Ordinary Developers Full-stack AI Engineers</title>
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/167464495" />
-  <link rel="shortcut icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/167464495" />
+  <link rel="icon" type="image/svg+xml" href="/mofa/favicon.svg" />
+  <link rel="shortcut icon" href="/mofa/favicon.svg" />
   <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/167464495" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://avatars.githubusercontent.com/u/167464495" />
-  <link rel="icon" type="image/png" sizes="16x16" href="https://avatars.githubusercontent.com/u/167464495" />
+  <meta name="theme-color" content="#6366F1" />
 	</head>
 	<body>
   <!-- 简化版导航 -->
@@ -1510,83 +1509,114 @@ import '../styles/global.css';
     };
 
     function initFlowVisualization() {
-      // 绑定demo切换事件
-      const demoTabs = document.querySelectorAll('.demo-tab');
-      demoTabs.forEach(tab => {
-        tab.addEventListener('click', () => switchDemo(tab.dataset.demo));
-      });
-      
-      // 绑定轮播箭头事件
-      const leftArrow = document.querySelector('.carousel-arrow-left');
-      const rightArrow = document.querySelector('.carousel-arrow-right');
-      
-      leftArrow.addEventListener('click', () => {
-        const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
-        const currentIndex = demos.indexOf(currentDemo);
-        const prevIndex = (currentIndex - 1 + demos.length) % demos.length;
-        switchDemo(demos[prevIndex]);
-      });
-      
-      rightArrow.addEventListener('click', () => {
-        const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
-        const currentIndex = demos.indexOf(currentDemo);
-        const nextIndex = (currentIndex + 1) % demos.length;
-        switchDemo(demos[nextIndex]);
-      });
-      
-      // 初始化当前demo
-      switchDemo('hello-world');
-      
-      // 开始自动循环播放
-      startAutoFlow();
-      
-      // 每60秒自动切换demo
-      demoSwitchInterval = setInterval(() => {
-        const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
-        const currentIndex = demos.indexOf(currentDemo);
-        const nextIndex = (currentIndex + 1) % demos.length;
-        switchDemo(demos[nextIndex]);
-      }, 60000);
+      try {
+        // 绑定demo切换事件
+        const demoTabs = document.querySelectorAll('.demo-tab');
+        console.log('Found demo tabs:', demoTabs.length);
+        
+        demoTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            console.log('Demo tab clicked:', tab.dataset.demo);
+            switchDemo(tab.dataset.demo);
+          });
+        });
+        
+        // 绑定轮播箭头事件
+        const leftArrow = document.querySelector('.carousel-arrow-left');
+        const rightArrow = document.querySelector('.carousel-arrow-right');
+        
+        if (leftArrow && rightArrow) {
+          leftArrow.addEventListener('click', () => {
+            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+            const currentIndex = demos.indexOf(currentDemo);
+            const prevIndex = (currentIndex - 1 + demos.length) % demos.length;
+            switchDemo(demos[prevIndex]);
+          });
+          
+          rightArrow.addEventListener('click', () => {
+            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+            const currentIndex = demos.indexOf(currentDemo);
+            const nextIndex = (currentIndex + 1) % demos.length;
+            switchDemo(demos[nextIndex]);
+          });
+        }
+        
+        // 初始化当前demo
+        console.log('Initializing with hello-world demo');
+        switchDemo('hello-world');
+        
+        // 开始自动循环播放
+        startAutoFlow();
+        
+        // 每60秒自动切换demo
+        demoSwitchInterval = setInterval(() => {
+          const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+          const currentIndex = demos.indexOf(currentDemo);
+          const nextIndex = (currentIndex + 1) % demos.length;
+          switchDemo(demos[nextIndex]);
+        }, 60000);
+        
+        console.log('Flow visualization initialized successfully');
+      } catch (error) {
+        console.error('Error initializing flow visualization:', error);
+      }
     }
 
     function switchDemo(demoType) {
-      if (demoType === currentDemo) return;
-      
-      // 停止当前流程
-      stopFlow();
-      
-      // 切换demo显示
-      const allDemos = document.querySelectorAll('.demo-content');
-      allDemos.forEach(demo => {
-        demo.style.display = 'none';
-        demo.classList.remove('active');
-      });
-      
-      const targetDemo = document.getElementById(`${demoType}-demo`);
-      if (targetDemo) {
-        targetDemo.style.display = 'block';
-        targetDemo.classList.add('active');
-      }
-      
-      // 更新tab状态
-      const allTabs = document.querySelectorAll('.demo-tab');
-      allTabs.forEach(tab => {
-        if (tab.dataset.demo === demoType) {
-          tab.classList.add('active');
+      try {
+        console.log('Switching to demo:', demoType);
+        if (demoType === currentDemo) return;
+        
+        // 停止当前流程
+        stopFlow();
+        
+        // 切换demo显示
+        const allDemos = document.querySelectorAll('.demo-content');
+        console.log('Found demo contents:', allDemos.length);
+        
+        allDemos.forEach(demo => {
+          demo.style.display = 'none';
+          demo.classList.remove('active');
+        });
+        
+        const targetDemo = document.getElementById(`${demoType}-demo`);
+        console.log('Target demo element:', targetDemo);
+        
+        if (targetDemo) {
+          targetDemo.style.display = 'block';
+          targetDemo.classList.add('active');
         } else {
-          tab.classList.remove('active');
+          console.error('Target demo not found:', `${demoType}-demo`);
+          return;
         }
-      });
-      
-      currentDemo = demoType;
-      currentStep = 0;
-      
-      // 重新绘制连接线并开始流程
-      setTimeout(() => {
-        drawConnections();
-        resetFlow();
-        startAutoFlow();
-      }, 100);
+        
+        // 更新tab状态
+        const allTabs = document.querySelectorAll('.demo-tab');
+        allTabs.forEach(tab => {
+          if (tab.dataset.demo === demoType) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+        
+        currentDemo = demoType;
+        currentStep = 0;
+        
+        // 重新绘制连接线并开始流程
+        setTimeout(() => {
+          try {
+            drawConnections();
+            resetFlow();
+            startAutoFlow();
+            console.log('Demo switched successfully to:', demoType);
+          } catch (error) {
+            console.error('Error in demo switch timeout:', error);
+          }
+        }, 100);
+      } catch (error) {
+        console.error('Error switching demo:', error);
+      }
     }
 
     function drawConnections() {
@@ -1732,10 +1762,26 @@ import '../styles/global.css';
     });
 
     // 页面加载时初始化流程可视化
-    document.addEventListener('DOMContentLoaded', () => {
-      initLanguage();
-      setTimeout(initFlowVisualization, 100);
-    });
+    function initPage() {
+      try {
+        console.log('Page initialization started');
+        initLanguage();
+        setTimeout(() => {
+          console.log('Starting flow visualization initialization');
+          initFlowVisualization();
+        }, 100);
+      } catch (error) {
+        console.error('Error during page initialization:', error);
+      }
+    }
+
+    // 确保DOM完全加载后再初始化
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      // DOM已经加载完成，直接初始化
+      initPage();
+    }
   </script>
 
 	</body>
