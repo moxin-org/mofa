@@ -237,7 +237,7 @@ createCollectionToGlobResultMap({
 });
 
 let lookupMap = {};
-lookupMap = {"blog":{"type":"content","entries":{"introducing-mofa":"/src/content/blog/introducing-mofa.md"}},"docs":{"type":"content","entries":{"quick-start":"/src/content/docs/quick-start.md"}}};
+lookupMap = {"docs":{"type":"content","entries":{"quick-start":"/src/content/docs/quick-start.md"}},"blog":{"type":"content","entries":{"introducing-mofa":"/src/content/blog/introducing-mofa.md"}}};
 
 function createGlobLookup(glob) {
 	return async (collection, lookupId) => {

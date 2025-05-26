@@ -3,7 +3,7 @@ import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
-<html lang="en" id="html-root">
+<html lang="en" id="html-root" style="scroll-behavior: smooth;">
 	<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -122,10 +122,10 @@ import '../styles/global.css';
                  data-zh="🚀 快速开始">
                 🚀 Quick Start
               </a>
-              <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;"
-                 data-en="📖 View Source"
-                 data-zh="📖 查看源码">
-                📖 View Source
+              <a href="#why-mofa" rel="noopener noreferrer" class="btn-outline" style="font-size: 1.125rem; padding: 16px 32px;"
+                 data-en="💡 Learn More"
+                 data-zh="💡 了解更多">
+                💡 Learn More
               </a>
             </div>
           </div>
@@ -165,7 +165,7 @@ import '../styles/global.css';
     </div>
 
     <!-- 核心优势 -->
-    <section class="py-20" style="background-color: #f9fafb;">
+    <section id="why-mofa" class="py-20" style="background-color: #f9fafb;">
       <div class="container">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold mb-4" 
@@ -188,12 +188,12 @@ import '../styles/global.css';
               </div>
               <div>
                 <h3 class="text-xl font-semibold mb-2" 
-                    data-en="Modular Composition"
-                    data-zh="模块化组合">Modular Composition</h3>
+                    data-en="Composable Agent Architecture"
+                    data-zh="可组合的代理架构">Composable Agent Architecture</h3>
                 <p class="text-gray-600" 
-                   data-en="Combine AI agents like building blocks, implementing complex business logic through simple configurations"
-                   data-zh="像搭积木一样组合 AI 代理，通过简单的配置实现复杂的业务逻辑">
-                  Combine AI agents like building blocks, implementing complex business logic through simple configurations
+                   data-en="Build complex AI applications by connecting agents via YAML-defined flows. Leverage a core kernel with modules for RAG (embedding, splitting, vector stores), planning, and tool integration. Easily orchestrate data flow between agents."
+                   data-zh="通过 YAML 定义的工作流连接代理，构建复杂的 AI 应用。利用包含 RAG（嵌入、分割、向量存储）、规划和工具集成等模块的核心内核。轻松编排代理间的数据流动。">
+                  Build complex AI applications by connecting agents via YAML-defined flows. Leverage a core kernel with modules for RAG (embedding, splitting, vector stores), planning, and tool integration. Easily orchestrate data flow between agents.
                 </p>
               </div>
             </div>
@@ -206,12 +206,12 @@ import '../styles/global.css';
               </div>
               <div>
                 <h3 class="text-xl font-semibold mb-2" 
-                    data-en="Easy to Use"
-                    data-zh="简单易用">Easy to Use</h3>
+                    data-en="Rapid Agent Development"
+                    data-zh="快速代理开发">Rapid Agent Development</h3>
                 <p class="text-gray-600" 
-                   data-en="No deep AI background required - ordinary developers can quickly get started building AI applications"
-                   data-zh="无需深厚的 AI 背景，普通开发者也能快速上手构建 AI 应用">
-                  No deep AI background required - ordinary developers can quickly get started building AI applications
+                   data-en="MoFA offers a clear structure for agent development, significantly reducing boilerplate and letting you focus on core logic. The MoFA Stage visual IDE further accelerates the entire development cycle, from creation to debugging. Get started in just 5 minutes."
+                   data-zh="MoFA 提供清晰的代理开发结构，大幅减少样板代码，让您专注于核心业务逻辑。结合 MoFA Stage 可视化 IDE，可进一步加速从创建到调试的完整开发周期。5分钟即可快速上手。">
+                  MoFA offers a clear structure for agent development, significantly reducing boilerplate and letting you focus on core logic. The MoFA Stage visual IDE further accelerates the entire development cycle, from creation to debugging. Get started in just 5 minutes.
                 </p>
               </div>
             </div>
@@ -224,12 +224,12 @@ import '../styles/global.css';
               </div>
               <div>
                 <h3 class="text-xl font-semibold mb-2" 
-                    data-en="Powerful Features"
-                    data-zh="功能强大">Powerful Features</h3>
+                    data-en="Rich Agent Hub &amp; Dev Tools"
+                    data-zh="丰富代理中心与开发工具">Rich Agent Hub &amp; Dev Tools</h3>
                 <p class="text-gray-600" 
-                   data-en="Rich built-in preset agents covering common AI application scenarios, ready to use out of the box"
-                   data-zh="内置丰富的预设代理，覆盖常见 AI 应用场景，即插即用">
-                  Rich built-in preset agents covering common AI application scenarios, ready to use out of the box
+                   data-en="Access 100+ pre-built agents from our Agent Hub, covering data connectors, LLM integrations, and specialized tools. MoFA Stage further enhances development with visual agent management, an integrated terminal, and an advanced code editor."
+                   data-zh="从我们的代理中心获取100+预构建代理，涵盖数据连接器、LLM 集成和专用工具。MoFA Stage 通过可视化代理管理、集成终端和高级代码编辑器进一步增强开发体验。">
+                  Access 100+ pre-built agents from our Agent Hub, covering data connectors, LLM integrations, and specialized tools. MoFA Stage further enhances development with visual agent management, an integrated terminal, and an advanced code editor.
                 </p>
               </div>
             </div>
@@ -242,853 +242,31 @@ import '../styles/global.css';
               </div>
               <div>
                 <h3 class="text-xl font-semibold mb-2" 
-                    data-en="Extensible"
-                    data-zh="可扩展性">Extensible</h3>
+                    data-en="Highly Extensible Framework"
+                    data-zh="高度可扩展框架">Highly Extensible Framework</h3>
                 <p class="text-gray-600" 
-                   data-en="Support custom agent development, easily extend framework capabilities to meet specific requirements"
-                   data-zh="支持自定义代理开发，轻松扩展框架能力，满足特定需求">
-                  Support custom agent development, easily extend framework capabilities to meet specific requirements
+                   data-en="Easily write custom Python agents. Integrate third-party tools, models, and data sources through well-defined interfaces. Extend core functionalities like memory (e.g., Mem0 integration) or RAG strategies by implementing custom components."
+                   data-zh="轻松编写自定义 Python 代理。通过定义良好的接口集成第三方工具、模型和数据源。通过实现自定义组件来扩展核心功能，如记忆（例如 Mem0 集成）或 RAG 策略。">
+                  Easily write custom Python agents. Integrate third-party tools, models, and data sources through well-defined interfaces. Extend core functionalities like memory (e.g., Mem0 integration) or RAG strategies by implementing custom components.
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 小型分隔线 -->
-    <div class="mini-divider">
-      <div class="mini-line blue-line"></div>
-      <div class="mini-line yellow-line"></div>
-      <div class="mini-line red-line"></div>
-    </div>
-
-    <!-- Agent & Flow 概念介绍 -->
-    <section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
-      <div class="container">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4" 
-              data-en="From Agents to <span class='gradient-text'>Flows</span>"
-              data-zh="从代理到<span class='gradient-text'>工作流</span>">
-            From Agents to <span class="gradient-text">Flows</span>
-          </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto" 
-             data-en="MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration"
-             data-zh="MoFA 通过智能组合和数据流编排，将独立的 AI 代理转化为强大的工作流">
-            MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration
-          </p>
+        <div class="text-center mt-16 mb-8" style="display: none;">
+            <h3 class="text-3xl font-bold"
+                data-en="Highlight: Your AI Agent IDE - <span class='gradient-text'>MoFA Stage</span>"
+                data-zh="核心功能：你的 AI Agent IDE - <span class='gradient-text'>MoFA Stage</span>">
+                Highlight: Your AI Agent IDE - <span class="gradient-text">MoFA Stage</span>
+            </h3>
         </div>
-
-        <!-- 概念解释 -->
-        <div class="grid md:grid-cols-2 gap-12 mb-20" style="display: none;">
-          <div class="space-y-8">
-            <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%); border: 2px solid rgba(99, 102, 241, 0.2);">
-              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" 
-                  data-en="🤖 What is an Agent?"
-                  data-zh="🤖 什么是代理？">
-                🤖 What is an Agent?
-              </h3>
-              <p class="text-gray-700 mb-4" 
-                 data-en="An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs."
-                 data-zh="代理是一个独立的 AI 组件，执行特定任务 - 如提取关键词、分析文档或生成报告。每个代理都有明确的输入和输出。">
-                An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs.
-              </p>
-              <div class="agent-demo" style="
-                padding: 16px;
-                background: white;
-                border-radius: 8px;
-                border: 1px solid rgba(99, 102, 241, 0.2);
-                display: flex;
-                align-items: center;
-                gap: 12px;
-              ">
-                <div style="
-                  padding: 8px 12px;
-                  background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                  color: white;
-                  border-radius: 6px;
-                  font-size: 0.875rem;
-                  font-weight: 500;
-                ">Input</div>
-                <div style="color: var(--mondrian-red); font-weight: bold;">→</div>
-                <div style="
-                  padding: 8px 12px;
-                  background: var(--mondrian-gray);
-                  border-radius: 6px;
-                  font-size: 0.875rem;
-                  font-weight: 500;
-                ">Agent</div>
-                <div style="color: var(--mondrian-red); font-weight: bold;">→</div>
-                <div style="
-                  padding: 8px 12px;
-                  background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                  color: white;
-                  border-radius: 6px;
-                  font-size: 0.875rem;
-                  font-weight: 500;
-                ">Output</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="space-y-8">
-            <div class="card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%); border: 2px solid rgba(14, 165, 233, 0.2);">
-              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" 
-                  data-en="🔄 What is a Flow?"
-                  data-zh="🔄 什么是工作流？">
-                🔄 What is a Flow?
-              </h3>
-              <p class="text-gray-700 mb-4" 
-                 data-en="A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems."
-                 data-zh="工作流将多个代理连接在一起，其中一个代理的输出成为另一个代理的输入。这创建了强大的多步骤 AI 管道，可以解决复杂问题。">
-                A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems.
-              </p>
-              <div class="flow-demo" style="
-                padding: 16px;
-                background: white;
-                border-radius: 8px;
-                border: 1px solid rgba(14, 165, 233, 0.2);
-              ">
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="agent-box">Agent A</div>
-                    <div class="arrow">→</div>
-                    <div class="agent-box">Agent B</div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;">
-                    <div class="arrow">↓</div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;">
-                    <div class="agent-box">Agent C</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 实际案例展示：Multiple Flow Examples -->
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-16">
-          <h3 class="text-3xl font-bold text-center mb-8" 
-              data-en="Real Examples: Agent Flows in Action"
-              data-zh="实际案例：代理工作流实战">
-            Real Examples: Agent Flows in Action
-          </h3>
-          <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto" 
-             data-en="Explore different types of AI workflows - from research automation to weather prediction and web scraping"
-             data-zh="探索不同类型的 AI 工作流 - 从研究自动化到天气预测和网页抓取">
-            Explore different types of AI workflows - from research automation to weather prediction and web scraping
-          </p>
-
-          <!-- Demo Carousel Controls -->
-          <div class="demo-carousel-container" style="position: relative; max-width: 800px; margin: 0 auto 32px;">
-            <!-- Left Arrow -->
-            <button class="carousel-arrow carousel-arrow-left" style="
-              position: absolute;
-              left: -50px;
-              top: 50%;
-              transform: translateY(-50%);
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              border: 2px solid var(--mondrian-gray);
-              background: white;
-              color: var(--mondrian-black);
-              font-size: 18px;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              z-index: 10;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
-              ←
-            </button>
-
-            <!-- Demo Selector -->
-            <div class="text-center mb-4">
-              <div class="demo-tabs-container" style="
-                display: flex;
-                justify-content: center;
-                gap: 8px;
-                padding: 8px;
-                background: var(--mondrian-gray);
-                border-radius: 12px;
-                overflow: hidden;
-              ">
-                <button class="demo-tab active" data-demo="hello-world">
-                  <span class="demo-emoji">👋</span>
-                  <span class="demo-name" data-en="Hello World" data-zh="Hello World">Hello World</span>
-                </button>
-                <button class="demo-tab" data-demo="browser-use">
-                  <span class="demo-emoji">🌐</span>
-                  <span class="demo-name" data-en="Browser Use" data-zh="浏览器调用">Browser Use</span>
-                </button>
-                <button class="demo-tab" data-demo="deep-research">
-                  <span class="demo-emoji">🔬</span>
-                  <span class="demo-name" data-en="Deep Research" data-zh="深度研究">Deep Research</span>
-                </button>
-                <button class="demo-tab" data-demo="firecrawl">
-                  <span class="demo-emoji">🕷️</span>
-                  <span class="demo-name" data-en="Web Scraping" data-zh="网页抓取">Web Scraping</span>
-                </button>
-                <button class="demo-tab" data-demo="weather">
-                  <span class="demo-emoji">🌤️</span>
-                  <span class="demo-name" data-en="Weather" data-zh="天气获取">Weather</span>
-                </button>
-                <button class="demo-tab" data-demo="arxiv">
-                  <span class="demo-emoji">📚</span>
-                  <span class="demo-name" data-en="arXiv Research" data-zh="arXiv研究">arXiv Research</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Right Arrow -->
-            <button class="carousel-arrow carousel-arrow-right" style="
-              position: absolute;
-              right: -50px;
-              top: 50%;
-              transform: translateY(-50%);
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              border: 2px solid var(--mondrian-gray);
-              background: white;
-              color: var(--mondrian-black);
-              font-size: 18px;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              z-index: 10;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
-              →
-            </button>
-          </div>
-          
-          <!-- Interactive Flow Visualization -->
-          <div class="flow-visualization">
-            <!-- Hello World Demo -->
-            <div class="demo-content active" id="hello-world-demo">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-                max-width: 500px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <div class="flow-step" data-step="1" style="grid-column: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">💬</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Terminal Input"
-                        data-zh="终端输入">Terminal Input</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="User query input"
-                       data-zh="用户查询输入">User query input</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="2" style="grid-column: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🤖</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Hello Agent"
-                        data-zh="问候代理">Hello Agent</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Process & respond"
-                       data-zh="处理并响应">Process & respond</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-
-            <!-- Browser Use Demo -->
-            <div class="demo-content" id="browser-use-demo" style="display: none;">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-                max-width: 500px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <div class="flow-step" data-step="1" style="grid-column: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">⌨️</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Terminal Input"
-                        data-zh="终端输入">Terminal Input</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Browser task input"
-                       data-zh="浏览器任务输入">Browser task input</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="2" style="grid-column: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🌐</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Browser Agent"
-                        data-zh="浏览器代理">Browser Agent</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Automate browser"
-                       data-zh="自动化浏览器">Automate browser</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-
-            <!-- Deep Research Demo -->
-            <div class="demo-content" id="deep-research-demo" style="display: none;">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-                max-width: 500px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <div class="flow-step" data-step="1" style="grid-column: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🖥️</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="OpenAI Server"
-                        data-zh="OpenAI服务器">OpenAI Server</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Chat interface"
-                       data-zh="聊天接口">Chat interface</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="2" style="grid-column: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🔬</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Research Planner"
-                        data-zh="研究规划器">Research Planner</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Deep analysis"
-                       data-zh="深度分析">Deep analysis</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-
-            <!-- arXiv Research Demo -->
-            <div class="demo-content" id="arxiv-demo" style="display: none;">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-                max-width: 1000px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <!-- Step 1: Keyword Extraction -->
-                <div class="flow-step" data-step="1" style="grid-column: 1; grid-row: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🔍</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Keyword Extractor"
-                        data-zh="关键词提取器">Keyword Extractor</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Extract search keywords"
-                       data-zh="提取搜索关键词">Extract search keywords</p>
-                  </div>
-                </div>
-
-                <!-- Step 2: Paper Downloader -->
-                <div class="flow-step" data-step="2" style="grid-column: 2; grid-row: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📥</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Paper Downloader"
-                        data-zh="论文下载器">Paper Downloader</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Search & download papers"
-                       data-zh="搜索并下载论文">Search & download papers</p>
-                  </div>
-                </div>
-
-                <!-- Step 3: Paper Analyzer -->
-                <div class="flow-step" data-step="3" style="grid-column: 3; grid-row: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
-                    color: var(--mondrian-black);
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🔬</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Paper Analyzer"
-                        data-zh="论文分析器">Paper Analyzer</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.8;" 
-                       data-en="Analyze content"
-                       data-zh="分析内容">Analyze content</p>
-                  </div>
-                </div>
-
-                <!-- Step 4: Report Writer -->
-                <div class="flow-step" data-step="4" style="grid-column: 4; grid-row: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #10B981, #34D399);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">✍️</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Report Writer"
-                        data-zh="报告撰写器">Report Writer</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Generate initial report"
-                       data-zh="生成初始报告">Generate initial report</p>
-                  </div>
-                </div>
-
-                <!-- Additional rows for more agents -->
-                <div class="flow-step" data-step="5" style="grid-column: 1; grid-row: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #8B5CF6, #A855F7);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">💬</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Feedback Agent"
-                        data-zh="反馈代理">Feedback Agent</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Provide suggestions"
-                       data-zh="提供建议">Provide suggestions</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="6" style="grid-column: 2; grid-row: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #F59E0B, #FBBF24);
-                    color: var(--mondrian-black);
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🔧</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Refinement Agent"
-                        data-zh="优化代理">Refinement Agent</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.8;" 
-                       data-en="Improve the report"
-                       data-zh="优化报告">Improve the report</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="7" style="grid-column: 3; grid-row: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #EF4444, #F87171);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">✅</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Evaluation Agent"
-                        data-zh="评估代理">Evaluation Agent</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Quality check"
-                       data-zh="质量检查">Quality check</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="8" style="grid-column: 4; grid-row: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-black), #374151);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    text-align: center;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📋</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Final Report"
-                        data-zh="最终报告">Final Report</h4>
-                    <p style="font-size: 0.875rem; opacity: 0.9;" 
-                       data-en="Comprehensive research"
-                       data-zh="全面研究报告">Comprehensive research</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-
-            <!-- Weather Forecast Demo -->
-            <div class="demo-content" id="weather-demo" style="display: none;">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-                max-width: 800px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <div class="flow-step" data-step="1" style="grid-column: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📍</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Geolocation Agent"
-                        data-zh="地理定位代理">Geolocation Agent</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Find coordinates"
-                       data-zh="查找坐标">Find coordinates</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="2" style="grid-column: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🌊</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Windy Crawler"
-                        data-zh="Windy爬虫">Windy Crawler</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Scrape weather data"
-                       data-zh="抓取天气数据">Scrape weather data</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="3" style="grid-column: 3;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-yellow), #FBBF24);
-                    color: var(--mondrian-black);
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🧠</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Weather Predictor"
-                        data-zh="天气预测器">Weather Predictor</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.8;" 
-                       data-en="Analyze & predict"
-                       data-zh="分析和预测">Analyze & predict</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="4" style="grid-column: 4;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #10B981, #34D399);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📊</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Weather Report"
-                        data-zh="天气报告">Weather Report</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Final forecast"
-                       data-zh="最终预报">Final forecast</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-
-            <!-- Firecrawl Demo -->
-            <div class="demo-content" id="firecrawl-demo" style="display: none;">
-              <div class="flow-container" style="
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-                max-width: 600px;
-                margin: 0 auto;
-                position: relative;
-              ">
-                <div class="flow-step" data-step="1" style="grid-column: 1;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🔗</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="URL Input"
-                        data-zh="URL输入">URL Input</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Receive target URL"
-                       data-zh="接收目标URL">Receive target URL</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="2" style="grid-column: 2;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">🕷️</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Firecrawl Agent"
-                        data-zh="Firecrawl代理">Firecrawl Agent</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Scrape & extract"
-                       data-zh="抓取和提取">Scrape & extract</p>
-                  </div>
-                </div>
-
-                <div class="flow-step" data-step="3" style="grid-column: 3;">
-                  <div class="agent-card interactive-agent" style="
-                    background: linear-gradient(135deg, #10B981, #34D399);
-                    color: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    transform: scale(0.95);
-                    opacity: 0.7;
-                  ">
-                    <div style="font-size: 2rem; margin-bottom: 8px;">📋</div>
-                    <h4 style="font-weight: bold; margin-bottom: 4px;" 
-                        data-en="Structured Data"
-                        data-zh="结构化数据">Structured Data</h4>
-                    <p style="font-size: 0.75rem; opacity: 0.9;" 
-                       data-en="Clean content output"
-                       data-zh="清洁内容输出">Clean content output</p>
-                  </div>
-                </div>
-
-                <svg style="
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  pointer-events: none;
-                  z-index: -1;
-                " class="flow-connections">
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 小型分隔线 -->
-    <div class="mini-divider">
-      <div class="mini-line yellow-line"></div>
-      <div class="mini-line red-line"></div>
-      <div class="mini-line blue-line"></div>
-    </div>
-
-    <!-- MoFA_Stage 可视化平台介绍 -->
-    <section class="py-20" style="background-color: #f9fafb;">
-      <div class="container">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4" 
-              data-en="Meet <span class='gradient-text'>MoFA Stage</span>"
-              data-zh="认识 <span class='gradient-text'>MoFA Stage</span>">
-            Meet <span class="gradient-text">MoFA_Stage</span>
-          </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto" 
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto text-center mb-12" style="display: none;"
              data-en="A visual management platform for MoFA - your web-based IDE for AI agents."
              data-zh="MoFA 的可视化管理平台 - 你的Agent专属 Web IDE.">
             A visual management platform for MoFA - your web-based IDE.
           </p>
-        </div>
-
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto" style="display: none;">
           <!-- 平台特色展示 -->
           <div class="grid md:grid-cols-3 gap-8 mb-16">
                          <div class="card" style="border: 2px solid var(--mondrian-black); transition: all 0.3s ease; padding: 16px;" onmouseover="this.style.borderWidth='4px'; this.style.transform='translateY(-8px)'" onmouseout="this.style.borderWidth='2px'; this.style.transform='translateY(0)'">
@@ -1288,6 +466,476 @@ import '../styles/global.css';
       <div class="mini-line red-line"></div>
     </div>
 
+    <!-- Agent & Flow 概念介绍 -->
+    <section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-4" 
+              data-en="From Agents to <span class='gradient-text'>Flows</span>"
+              data-zh="从代理到<span class='gradient-text'>工作流</span>">
+            From Agents to <span class="gradient-text">Flows</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto" 
+             data-en="MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration"
+             data-zh="MoFA 通过智能组合和数据流编排，将独立的 AI 代理转化为强大的工作流">
+            MoFA transforms individual AI agents into powerful workflows through intelligent composition and data flow orchestration
+          </p>
+        </div>
+
+        <!-- 概念解释 -->
+        <div class="grid md:grid-cols-2 gap-12 mb-20" style="display: none;">
+          <div class="space-y-8">
+            <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%); border: 2px solid rgba(99, 102, 241, 0.2);">
+              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" 
+                  data-en="🤖 What is an Agent?"
+                  data-zh="🤖 什么是代理？">
+                🤖 What is an Agent?
+              </h3>
+              <p class="text-gray-700 mb-4" 
+                 data-en="An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs."
+                 data-zh="代理是一个独立的 AI 组件，执行特定任务 - 如提取关键词、分析文档或生成报告。每个代理都有明确的输入和输出。">
+                An agent is a self-contained AI component that performs a specific task - like extracting keywords, analyzing documents, or generating reports. Each agent has clear inputs and outputs.
+              </p>
+              <div class="agent-demo" style="
+                padding: 16px;
+                background: white;
+                border-radius: 8px;
+                border: 1px solid rgba(99, 102, 241, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+              ">
+                <div style="
+                  padding: 8px 12px;
+                  background: linear-gradient(135deg, var(--mondrian-red), #8B5CF6);
+                  color: white;
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Input</div>
+                <div style="color: var(--mondrian-red); font-weight: bold;">→</div>
+                <div style="
+                  padding: 8px 12px;
+                  background: var(--mondrian-gray);
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Agent</div>
+                <div style="color: var(--mondrian-red); font-weight: bold;">→</div>
+                <div style="
+                  padding: 8px 12px;
+                  background: linear-gradient(135deg, var(--mondrian-blue), #06B6D4);
+                  color: white;
+                  border-radius: 6px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                ">Output</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <div class="card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%); border: 2px solid rgba(14, 165, 233, 0.2);">
+              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3" 
+                  data-en="🔄 What is a Flow?"
+                  data-zh="🔄 什么是工作流？">
+                🔄 What is a Flow?
+              </h3>
+              <p class="text-gray-700 mb-4" 
+                 data-en="A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems."
+                 data-zh="工作流将多个代理连接在一起，其中一个代理的输出成为另一个代理的输入。这创建了强大的多步骤 AI 管道，可以解决复杂问题。">
+                A flow connects multiple agents together, where the output of one agent becomes the input of another. This creates powerful, multi-step AI pipelines that can solve complex problems.
+              </p>
+              <div class="flow-demo" style="
+                padding: 16px;
+                background: white;
+                border-radius: 8px;
+                border: 1px solid rgba(14, 165, 233, 0.2);
+              ">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="agent-box">Agent A</div>
+                    <div class="arrow">→</div>
+                    <div class="agent-box">Agent B</div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;">
+                    <div class="arrow">↓</div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; margin-left: 80px;">
+                    <div class="agent-box">Agent C</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 实际案例展示：Multiple Flow Examples -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-16">
+          <h3 class="text-3xl font-bold text-center mb-8" 
+              data-en="Real Examples: Agent Flows in Action"
+              data-zh="实际案例：代理工作流实战">
+            Real Examples: Agent Flows in Action
+          </h3>
+          <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto" 
+             data-en="Explore different types of AI workflows - from research automation to weather prediction and web scraping"
+             data-zh="探索不同类型的 AI 工作流 - 从研究自动化到天气预测和网页抓取">
+            Explore different types of AI workflows - from research automation to weather prediction and web scraping
+          </p>
+
+          <!-- Demo Carousel Controls -->
+          <div class="demo-carousel-container" style="position: relative; max-width: 100%; margin: 0 auto 32px;">
+            <!-- Left Arrow -->
+                          <button class="carousel-arrow carousel-arrow-left" style="
+              position: absolute;
+              left: 0px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 2px solid var(--mondrian-gray);
+              background: white;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+              color: var(--mondrian-black);
+              font-size: 18px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              z-index: 10;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
+              ←
+            </button>
+
+            <!-- Demo Selector -->
+            <div class="text-center mb-4">
+              <div class="demo-tabs-container" style="
+                display: flex;
+                justify-content: center;
+                gap: 4px;
+                padding: 8px 40px;
+                background: linear-gradient(to right, rgba(240,240,240,0.9), rgba(240,240,240,0.9) 10%, rgba(240,240,240,0.9) 90%, rgba(240,240,240,0.9));
+                border-radius: 12px;
+                overflow-x: auto;
+                white-space: nowrap;
+                max-width: 100%;
+                width: 950px;
+                margin: 0 auto;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+              ">
+              <style is:inline>
+                .demo-tabs-container::-webkit-scrollbar {
+                  display: none; /* Chrome, Safari and Opera */
+                }
+                .demo-tab {
+                  padding: 6px 8px;
+                  border-radius: 8px;
+                  background: white;
+                  border: none;
+                  font-size: 0.8rem;
+                  font-weight: 500;
+                  color: var(--mondrian-black);
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 4px;
+                  min-width: 100px;
+                  justify-content: center;
+                  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                }
+                .demo-tab:hover {
+                  background-color: #e2e8f0;
+                  transform: translateY(-2px);
+                }
+                .demo-tab.active {
+                  background: var(--mondrian-blue);
+                  color: white;
+                  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+                }
+                .demo-emoji {
+                  font-size: 1rem;
+                }
+              </style>
+                <button class="demo-tab active" data-demo="hello-world">
+                  <span class="demo-emoji">👋</span>
+                  <span class="demo-name" data-en="Hello World" data-zh="Hello World">Hello World</span>
+                </button>
+                <button class="demo-tab" data-demo="browser-use">
+                  <span class="demo-emoji">🌐</span>
+                  <span class="demo-name" data-en="Browser Use" data-zh="浏览器调用">Browser Use</span>
+                </button>
+                <button class="demo-tab" data-demo="deep-research">
+                  <span class="demo-emoji">🔬</span>
+                  <span class="demo-name" data-en="Deep Research" data-zh="深度研究">Deep Research</span>
+                </button>
+                <button class="demo-tab" data-demo="firecrawl">
+                  <span class="demo-emoji">🕷️</span>
+                  <span class="demo-name" data-en="Web Scraping" data-zh="网页抓取">Web Scraping</span>
+                </button>
+                <button class="demo-tab" data-demo="weather">
+                  <span class="demo-emoji">🌤️</span>
+                  <span class="demo-name" data-en="Weather" data-zh="天气获取">Weather</span>
+                </button>
+                <button class="demo-tab" data-demo="arxiv">
+                  <span class="demo-emoji">📚</span>
+                  <span class="demo-name" data-en="arXiv Research" data-zh="arXiv研究">arXiv Research</span>
+                </button>
+                <button class="demo-tab" data-demo="moly-client">
+                  <span class="demo-emoji">🤖</span>
+                  <span class="demo-name" data-en="Moly Client" data-zh="Moly客户端">Moly Client</span>
+                </button>
+                <button class="demo-tab" data-demo="mem0-dataflow">
+                  <span class="demo-emoji">🧠</span>
+                  <span class="demo-name" data-en="Mem0 Flow" data-zh="Mem0流程">Mem0 Flow</span>
+                </button>
+                <button class="demo-tab" data-demo="camera-screenshot">
+                  <span class="demo-emoji">📸</span>
+                  <span class="demo-name" data-en="Camera Screenshot" data-zh="相机截图">Camera Screenshot</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Arrow -->
+                          <button class="carousel-arrow carousel-arrow-right" style="
+              position: absolute;
+              right: 0px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 2px solid var(--mondrian-gray);
+              background: white;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+              color: var(--mondrian-black);
+              font-size: 18px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              z-index: 10;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            " onmouseover="this.style.borderColor='var(--mondrian-red)'; this.style.background='var(--mondrian-red)'; this.style.color='white'" onmouseout="this.style.borderColor='var(--mondrian-gray)'; this.style.background='white'; this.style.color='var(--mondrian-black)'">
+              →
+            </button>
+          </div>
+          
+          <!-- Script to dynamically generate flow components -->
+          <script is:inline>
+            // Define all demos and their node configurations
+            const demoConfigs = {
+              'hello-world': {
+                nodes: [
+                  { emoji: '💬', title: { en: 'Terminal Input', zh: '终端输入' }, subtitle: { en: 'User query input', zh: '用户查询输入' } },
+                  { emoji: '🤖', title: { en: 'Hello Agent', zh: '问候代理' }, subtitle: { en: 'Process & respond', zh: '处理并响应' } }
+                ],
+                id: 'hello-world-demo',
+                isActive: true
+              },
+              'browser-use': {
+                nodes: [
+                  { emoji: '⌨️', title: { en: 'Terminal Input', zh: '终端输入' }, subtitle: { en: 'Browser task input', zh: '浏览器任务输入' } },
+                  { emoji: '🌐', title: { en: 'Browser Agent', zh: '浏览器代理' }, subtitle: { en: 'Automate browser', zh: '自动化浏览器' } }
+                ],
+                id: 'browser-use-demo'
+              },
+              'deep-research': {
+                nodes: [
+                  { emoji: '🖥️', title: { en: 'OpenAI Server', zh: 'OpenAI服务器' }, subtitle: { en: 'Chat interface', zh: '聊天接口' } },
+                  { emoji: '🔬', title: { en: 'Research Planner', zh: '研究规划器' }, subtitle: { en: 'Deep analysis', zh: '深度分析' } }
+                ],
+                id: 'deep-research-demo'
+              },
+              'firecrawl': {
+                nodes: [
+                  { emoji: '🔗', title: { en: 'URL Input', zh: 'URL输入' }, subtitle: { en: 'Receive target URL', zh: '接收目标URL' } },
+                  { emoji: '🕷️', title: { en: 'Firecrawl Agent', zh: 'Firecrawl代理' }, subtitle: { en: 'Scrape & extract', zh: '抓取和提取' } },
+                  { emoji: '📋', title: { en: 'Structured Data', zh: '结构化数据' }, subtitle: { en: 'Clean content output', zh: '清洁内容输出' } }
+                ],
+                id: 'firecrawl-demo'
+              },
+              'weather': {
+                nodes: [
+                  { emoji: '📍', title: { en: 'Geolocation Agent', zh: '地理定位代理' }, subtitle: { en: 'Find coordinates', zh: '查找坐标' } },
+                  { emoji: '🌊', title: { en: 'Windy Crawler', zh: 'Windy爬虫' }, subtitle: { en: 'Scrape weather data', zh: '抓取天气数据' } },
+                  { emoji: '🧠', title: { en: 'Weather Predictor', zh: '天气预测器' }, subtitle: { en: 'Analyze & predict', zh: '分析和预测' } },
+                  { emoji: '📊', title: { en: 'Weather Report', zh: '天气报告' }, subtitle: { en: 'Final forecast', zh: '最终预报' } }
+                ],
+                id: 'weather-demo',
+                nodeWidth: 140 // narrower for 4 nodes
+              },
+              'arxiv': {
+                nodes: [
+                  { emoji: '🔍', title: { en: 'Keyword Extractor', zh: '关键词提取器' }, subtitle: { en: 'Extract keywords', zh: '提取关键词' } },
+                  { emoji: '📥', title: { en: 'Paper Downloader', zh: '论文下载器' }, subtitle: { en: 'Download papers', zh: '下载论文' } },
+                  { emoji: '🔬', title: { en: 'Paper Analyzer', zh: '论文分析器' }, subtitle: { en: 'Analyze content', zh: '分析内容' } },
+                  { emoji: '✍️', title: { en: 'Report Writer', zh: '报告撰写器' }, subtitle: { en: 'Generate report', zh: '生成报告' } },
+                  { emoji: '💬', title: { en: 'Feedback Agent', zh: '反馈代理' }, subtitle: { en: 'Suggest changes', zh: '提供建议' } },
+                  { emoji: '🔧', title: { en: 'Refinement Agent', zh: '优化代理' }, subtitle: { en: 'Improve report', zh: '优化报告' } }
+                ],
+                id: 'arxiv-demo',
+                nodeWidth: 120,
+                nodePadding: 12,
+                fontSize: {
+                  emoji: '1.2rem',
+                  title: '0.8rem',
+                  subtitle: '0.65rem'
+                },
+                arrowWidth: 15,
+                gap: 16
+              },
+              'moly-client': {
+                nodes: [
+                  { emoji: '🤖', title: { en: 'OpenAI Server', zh: 'OpenAI服务器' }, subtitle: { en: 'Chat completions', zh: '对话补全' } },
+                  { emoji: '🧠', title: { en: 'Reasoner Agent', zh: '推理代理' }, subtitle: { en: 'Process & reason', zh: '处理与推理' } }
+                ],
+                id: 'moly-client-demo',
+                nodeWidth: 140
+              },
+              'mem0-dataflow': {
+                nodes: [
+                  { emoji: '⌨️', title: { en: 'Terminal Input', zh: '终端输入' }, subtitle: { en: 'User input', zh: '用户输入' } },
+                  { emoji: '🧠', title: { en: 'Memory Agent', zh: '记忆代理' }, subtitle: { en: 'Memory operations', zh: '记忆操作' } },
+                  { emoji: '🤔', title: { en: 'Reasoner', zh: '推理器' }, subtitle: { en: 'Process & analyze', zh: '处理与分析' } }
+                ],
+                id: 'mem0-dataflow-demo',
+                nodeWidth: 140
+              },
+              'camera-screenshot': {
+                nodes: [
+                  { emoji: '⌨️', title: { en: 'Terminal Input', zh: '终端输入' }, subtitle: { en: 'Command input', zh: '命令输入' } },
+                  { emoji: '📸', title: { en: 'Camera Screenshot', zh: '相机截图' }, subtitle: { en: 'Capture screen', zh: '捕获屏幕' } }
+                ],
+                id: 'camera-screenshot-demo',
+                nodeWidth: 140
+              }
+            };
+
+            // Function to generate a flow node HTML
+            function generateNode(node, config) {
+              const width = config.nodeWidth || 160;
+              const padding = config.nodePadding || 16;
+              const fontSize = config.fontSize || {
+                emoji: '1.5rem',
+                title: '0.9rem',
+                subtitle: '0.7rem'
+              };
+              
+              return `
+                <div class="flow-step">
+                  <div class="agent-card interactive-agent" style="
+                    padding: ${padding}px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    color: #333;
+                    width: ${width}px;
+                    background: rgba(245, 247, 250, 0.8);
+                    border-radius: 4px;
+                  ">
+                    <div style="font-size: ${fontSize.emoji}; margin-bottom: 8px;">${node.emoji}</div>
+                    <h4 style="font-weight: bold; margin-bottom: 4px; font-size: ${fontSize.title};" 
+                        data-en="${node.title.en}"
+                        data-zh="${node.title.zh}">${node.title.en}</h4>
+                    <p style="font-size: ${fontSize.subtitle}; opacity: 0.9;" 
+                       data-en="${node.subtitle.en}"
+                       data-zh="${node.subtitle.zh}">${node.subtitle.en}</p>
+                  </div>
+                </div>
+              `;
+            }
+
+            // Function to generate arrow between nodes
+            function generateArrow(config) {
+              const arrowWidth = config.arrowWidth || 40;
+              
+              return `
+                <div style="display: flex; align-items: center; color: var(--mondrian-black); position: relative;">
+                  <div style="width: ${arrowWidth}px; height: 2px; background-color: var(--mondrian-black);"></div>
+                  <div style="position: absolute; right: -5px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 5px solid var(--mondrian-black);"></div>
+              </div>
+              `;
+            }
+
+            // Function to generate a complete flow container
+            function generateFlowContainer(demoKey, config) {
+              const { nodes, id, isActive } = config;
+              const gap = config.gap || 40;
+              
+              let nodesHtml = '';
+              
+              nodes.forEach((node, index) => {
+                nodesHtml += generateNode(node, config);
+                
+                // Add arrow if not the last node
+                if (index < nodes.length - 1) {
+                  nodesHtml += generateArrow(config);
+                }
+              });
+              
+              return `
+                <div class="demo-content ${isActive ? 'active' : ''}" id="${id}" style="${!isActive ? 'display: none;' : ''}">
+              <div class="flow-container" style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: ${gap}px;
+                max-width: 1000px;
+                margin: 0 auto;
+                position: relative;
+                    padding: 20px 0;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                  ">
+                    ${nodesHtml}
+                <svg style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: -1;
+                      display: none;
+                " class="flow-connections">
+                </svg>
+              </div>
+            </div>
+              `;
+            }
+
+            // Function to generate all demos
+            function generateAllDemos() {
+              let demosHtml = '';
+              
+              Object.keys(demoConfigs).forEach(demoKey => {
+                demosHtml += generateFlowContainer(demoKey, demoConfigs[demoKey]);
+              });
+              
+              return demosHtml;
+            }
+          </script>
+
+          <!-- Interactive Flow Visualization -->
+          <div class="flow-visualization">
+            <script is:inline>
+              document.write(generateAllDemos());
+            </script>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小型分隔线 -->
+    <div class="mini-divider">
+      <div class="mini-line yellow-line"></div>
+      <div class="mini-line red-line"></div>
+      <div class="mini-line blue-line"></div>
+    </div>
+
     <!-- Demo Video Section -->
     <section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
       <div class="container">
@@ -1299,46 +947,20 @@ import '../styles/global.css';
           </h2>
           <p class="text-xl text-gray-600 max-w-2xl mx-auto"
              data-en="Watch how developers use MoFA to build sophisticated AI applications in minutes"
-             data-zh="观看开发者如何使用 MoFA 在几分钟内构建复杂的 AI 应用">
-            Watch how developers use MoFA to build sophisticated AI applications in minutes
-          </p>
-        </div>
-
-        <div class="max-w-4xl mx-auto">
-          <div style="
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border: 3px solid var(--mondrian-black);
-          ">
-            <iframe 
-              src="//player.bilibili.com/player.html?bvid=BV15fQPY6EnD&page=1&high_quality=1&danmaku=0" 
-              scrolling="no" 
-              border="0" 
-              frameborder="no" 
-              framespacing="0" 
-              allowfullscreen="true"
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: 12px;
-              ">
-            </iframe>
-          </div>
-          
-          <div class="text-center mt-8" style="display: none;">
-            <a href="https://www.bilibili.com/video/BV15fQPY6EnD" target="_blank" rel="noopener noreferrer" class="btn-outline" 
-               data-en="🎬 Watch on Bilibili"
-               data-zh="🎬 在B站观看">
-              🎬 Watch on Bilibili
-            </a>
-          </div>
+             data-zh="观看开发者如何在几分钟内使用 MoFA 构建复杂的人工智能应用">Watch how developers use MoFA to build sophisticated AI applications in minutes</p>
+        
+        <!-- Video Embed -->
+        <div class="video-container rounded-lg shadow-2xl overflow-hidden mx-auto" style="max-width: 800px; background-color: #2d3748;">
+          <iframe 
+            id="demo-video-iframe" 
+            width="100%" 
+            style="aspect-ratio: 16/9; display: block;"
+            src="https://www.youtube.com/embed/YOUR_PLACEHOLDER_VIDEO_ID" 
+            title="MoFA in Action Demo Video" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </section>
@@ -1383,8 +1005,44 @@ import '../styles/global.css';
     </div>
   </footer>
 
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" title="Go to top" style="
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--mondrian-red);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, opacity 0.3s, visibility 0.3s;
+  ">
+    ↑
+  </button>
+
   <!-- 语言切换脚本 -->
   <script is:inline>
+    // 返回顶部按钮逻辑
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    };
+
+    backToTopButton.addEventListener('click', function(){
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
     // 语言数据和切换逻辑
     const languages = {
       en: {
@@ -1423,6 +1081,16 @@ import '../styles/global.css';
           element.innerHTML = text;
         }
       });
+
+      // 更新视频iframe的src
+      const videoIframe = document.getElementById('demo-video-iframe');
+      if (videoIframe) {
+        if (lang === 'zh') {
+          videoIframe.src = "//player.bilibili.com/player.html?bvid=BV15fQPY6EnD&page=1&high_quality=1&danmaku=0";
+        } else { // 'en' or default
+          videoIframe.src = "https://www.youtube.com/embed/YOUR_PLACEHOLDER_VIDEO_ID"; // TODO: Replace with actual English video when ready
+        }
+      }
       
       // 保存语言设置到localStorage
       localStorage.setItem('mofa-language', lang);
@@ -1479,14 +1147,14 @@ import '../styles/global.css';
           { from: 2, to: 1 } // 循环
         ]
       },
-      firecrawl: {
+      'firecrawl': {
         steps: 3,
         connections: [
           { from: 1, to: 2 },
           { from: 2, to: 3 }
         ]
       },
-      weather: {
+      'weather': {
         steps: 4,
         connections: [
           { from: 1, to: 2 },
@@ -1494,21 +1162,43 @@ import '../styles/global.css';
           { from: 3, to: 4 }
         ]
       },
-      arxiv: {
-        steps: 8,
+      'arxiv': {
+        steps: 6,
         connections: [
           { from: 1, to: 2 },
           { from: 2, to: 3 },
           { from: 3, to: 4 },
           { from: 4, to: 5 },
           { from: 5, to: 6 },
-          { from: 6, to: 7 },
-          { from: 7, to: 8 },
-          { from: 7, to: 5 }, // 反馈循环
+          { from: 6, to: 1 } // cycle back for demonstration
+        ]
+      },
+      'moly-client': {
+        steps: 2,
+        connections: [
+          { from: 1, to: 2 },
+          { from: 2, to: 1 } // bidirectional flow
+        ]
+      },
+      'mem0-dataflow': {
+        steps: 3,
+        connections: [
+          { from: 1, to: 2 },
+          { from: 2, to: 3 },
+          { from: 3, to: 2 }, // memory feedback loop
+          { from: 2, to: 1 } // result feedback
+        ]
+      },
+      'camera-screenshot': {
+        steps: 2,
+        connections: [
+          { from: 1, to: 2 },
+          { from: 2, to: 1 } // result feedback
         ]
       }
     };
 
+    // 流程可视化函数
     function initFlowVisualization() {
       try {
         // 绑定demo切换事件
@@ -1528,19 +1218,27 @@ import '../styles/global.css';
         
         if (leftArrow && rightArrow) {
           leftArrow.addEventListener('click', () => {
-            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv', 'moly-client', 'mem0-dataflow', 'camera-screenshot'];
             const currentIndex = demos.indexOf(currentDemo);
             const prevIndex = (currentIndex - 1 + demos.length) % demos.length;
             switchDemo(demos[prevIndex]);
           });
           
           rightArrow.addEventListener('click', () => {
-            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+            const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv', 'moly-client', 'mem0-dataflow', 'camera-screenshot'];
             const currentIndex = demos.indexOf(currentDemo);
             const nextIndex = (currentIndex + 1) % demos.length;
             switchDemo(demos[nextIndex]);
           });
         }
+        
+        // Set step attributes for all flow steps
+        document.querySelectorAll('.demo-content').forEach(demo => {
+          const steps = demo.querySelectorAll('.flow-step');
+          steps.forEach((step, index) => {
+            step.setAttribute('data-step', index + 1);
+          });
+        });
         
         // 初始化当前demo
         console.log('Initializing with hello-world demo');
@@ -1551,7 +1249,7 @@ import '../styles/global.css';
         
         // 每60秒自动切换demo
         demoSwitchInterval = setInterval(() => {
-          const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv'];
+          const demos = ['hello-world', 'browser-use', 'deep-research', 'firecrawl', 'weather', 'arxiv', 'moly-client', 'mem0-dataflow', 'camera-screenshot'];
           const currentIndex = demos.indexOf(currentDemo);
           const nextIndex = (currentIndex + 1) % demos.length;
           switchDemo(demos[nextIndex]);
