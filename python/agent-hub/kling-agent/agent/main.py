@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from loguru import logger
 
 # Import necessary functions and classes from klingdemo package
-from klingdemo.api import KlingAPIClient
-from klingdemo.utils import keyframe_parser
+from klingimage.api import KlingAPIClient
+from klingimage.utils import keyframe_parser
 
 # 配置 loguru 日志
 logger.add("kling-agent.log", rotation="10 MB", level="INFO")
