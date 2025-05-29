@@ -279,8 +279,8 @@ def run(agent: MofaAgent):
 
         # 初始化变量，从环境变量获取配置
         image_folder = os.getenv("VIDEO_IMAGE_FOLDER")
-        keyframes_txt_path = os.getenv("VIDEO_KEYFRAMES_TXT", "/root/mofa-euterpe/python/examples/script2video/output/keyframes_output.txt")
-        output_keyframes_dir = os.getenv("VIDEO_OUTPUT_KEYFRAMES", "/root/mofa-euterpe/python/examples/script2video/output/output_video")
+        keyframes_txt_path = os.getenv("VIDEO_KEYFRAMES_TXT", "../../examples/script2video/output/keyframes_output.txt")
+        output_keyframes_dir = os.getenv("VIDEO_OUTPUT_KEYFRAMES", "../../examples/script2video/output/output_video")
         duration = os.getenv("VIDEO_DURATION", "5")
 
         # 验证 image_folder 是否为目录
@@ -296,7 +296,7 @@ def run(agent: MofaAgent):
         if user_input.endswith(".env.secret"):
             # 输入是 .env.secret 文件路径
             env_file_path = user_input
-            BASE_DIR_DEFAULT = "/root/mofa-euterpe/python/examples/script2video"
+            BASE_DIR_DEFAULT = "../../examples/script2video"
             if not os.path.isabs(env_file_path):
                 env_file_path = os.path.join(BASE_DIR_DEFAULT, env_file_path)
             logger.info(f"输入被识别为 .env 文件路径，解析为：{env_file_path}")
