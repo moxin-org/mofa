@@ -7,27 +7,3 @@
 **VO :** Ready to ignite AI's future in Paris? (Voice-over, tts) （`字幕`）
 
 
-
-**(3-10s)**
-
-**Visual:** Text overlay: "AI Model Track".（`字幕`） Images of code/neural networks; **Quickly features 1-2 key AI Model track speaker photos (name/affiliation visible).**（`文生图`，`图文生视频`）
-
-
-
-**VO :** Dive into the AI Model track! Explore open-source LLMs, multi-modal AI, and efficient on-device models pushing boundaries. （`tts`)
-
-
-
-**(10-15s)**
-
-
-
-**Visual: PyTorch Day France logo appears with 1-2 key speaker photos;** then Seeed Embodied Al Workshop & OpenHarmony Workshop logos appear briefly; （`文生图`，`图文生视频`, (`图像叠加视频`）
-
-
-
-**VO :** Plus, experience PyTorch Day France, the Seeed Embodied Al Workshop, and the OpenHarmony Workshop!（`tts`)
-
-**(15-20s)**
-
-**Visual:** X Logo + QR Code + Text: "Win Discounts! Lucky Draw on X"; （`文生图`，`图文生视频`, (`图像叠加视频`）`字幕` 
