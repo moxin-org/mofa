@@ -9,13 +9,12 @@ from klingimage.api import KlingAPIClient
 from klingimage.utils import keyframe_parser
 
 # 配置 loguru 日志
-logger.add("kling-agent.log", rotation="10 MB", level="INFO")
+logger.add("kling-agent-image.log", rotation="10 MB", level="INFO")
 
 # 动态确定 main.py 所在目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def generate_keyframes_images(keyframes_file: str, reference_image: str, output_dir: str) -> bool:
-    """生成关键帧图像"""
+def generate_keyframes_images(keyframes_file: str, reference_image: str, output_dir: str, negative_prompt: str = None, aspect_ratio: str = None) -> bool:
     logger.info("开始生成关键帧图像")
     project_root = os.path.abspath(os.path.join(BASE_DIR, "../../examples/kling"))
     logger.info(f"切换工作目录到：{project_root}")
@@ -91,7 +90,8 @@ def generate_keyframes_images(keyframes_file: str, reference_image: str, output_
             # 检查输出目录，确保图像文件生成
             generated_files = os.listdir(output_dir)
             if not generated_files:
-                raise Exception(f"输出目录 {output_dir} 中未找到生成的图像文件")
+                logger.error(f"输出目录 {output_dir} 中未找到生成的图像文件")
+                raise RuntimeError(f"未生成图像文件：{output_dir}")
             logger.info(f"生成的文件：{generated_files}")
             return True
             
@@ -119,147 +119,171 @@ def run(agent: MofaAgent):
                 agent_result="错误：未提供输入，请输入 .env.secret 文件路径后重试。"
             )
             return
-        
-        if not user_input.endswith(".env.secret"):
-            logger.error("输入不是 .env.secret 文件路径，终止处理")
-            agent.event = agent.event or {}
-            agent.event['metadata'] = agent.event.get('metadata', {})
-            agent.send_output(
-                agent_output_name='cling_result',
-                agent_result="错误：请输入 .env.secret 文件路径。"
+
+        # 初始化变量
+        keyframes_content = ''
+        keyframes_txt_path = None
+        prompt = None
+        negative_prompt = None
+        aspect_ratio = None
+
+        # 处理输入
+        is_env_file = isinstance(user_input, str) and user_input.endswith('.env.secret')
+        is_keyframe_text = isinstance(user_input, str) and '[Frame' in user_input and 'Prompt:' in user_input
+
+        if is_env_file:
+            # 输入为 .env 文件
+            env_file_path = os.path.normpath(
+                user_input if os.path.isabs(user_input) else os.path.join("/root/mofa-euterpe/python/examples/kling", user_input)
             )
-            return
-
-        env_file_path = user_input
-        KLING_BASE_DIR_DEFAULT = "/root/mofa-euterpe/python/examples/kling"
-        if not os.path.isabs(user_input):
-            env_file_path = os.path.join(KLING_BASE_DIR_DEFAULT, user_input)
-        logger.info(f"输入被识别为 .env 文件路径，解析为：{env_file_path}")
-        
-        if not os.path.isfile(env_file_path):
-            logger.error(f"用户提供的 .env 文件不存在：{env_file_path}")
-            agent.event = agent.event or {}
-            agent.event['metadata'] = agent.event.get('metadata', {})
-            agent.send_output(
-                agent_output_name='cling_result',
-                agent_result=f"错误：用户提供的 .env 文件不存在：{env_file_path}"
-            )
-            return
-
-        logger.info(f"加载用户输入的 .env 文件：{env_file_path}")
-        load_dotenv(env_file_path, verbose=True, override=True)
-
-        logger.info("加载 .env 文件后，打印环境变量：")
-        for key, value in os.environ.items():
-            if key in ["ACCESSKEY_API", "ACCESSKEY_SECRET", "KLING_API_BASE_URL", 
-                       "KLING_TOKEN_EXPIRATION", "KLING_API_TIMEOUT", "KLING_API_MAX_RETRIES",
-                       "image-REFERENCE_IMAGE", "image-KEYFRAMES_TXT", "image-OUTPUT_KEYFRAMES"]:
-                logger.info(f"{key}: {value}")
-
-        accesskey_api = os.getenv("ACCESSKEY_API")
-        accesskey_secret = os.getenv("ACCESSKEY_SECRET")
-        logger.info(f"ACCESSKEY_API: {accesskey_api}")
-        logger.info(f"ACCESSKEY_SECRET: {accesskey_secret}")
-        if not accesskey_api or not accesskey_secret:
-            raise Exception("环境变量 ACCESSKEY_API 或 ACCESSKEY_SECRET 未设置")
-
-        reference_image = os.getenv("image-REFERENCE_IMAGE", "/root/mofa-euterpe/python/examples/kling/input/reference_image.jpg")
-        keyframes_txt_path = os.getenv("image-KEYFRAMES_TXT", "/root/mofa-euterpe/python/examples/kling/output/keyframes.txt")
-        output_keyframes_dir = os.getenv("image-OUTPUT_KEYFRAMES", "/root/mofa-euterpe/python/examples/kling/output/output_keyframes")
-        
-        logger.info(f"image-REFERENCE_IMAGE: {reference_image}")
-        logger.info(f"image-KEYFRAMES_TXT: {keyframes_txt_path}")
-        logger.info(f"image-OUTPUT_KEYFRAMES: {output_keyframes_dir}")
-
-        if not all([reference_image, keyframes_txt_path, output_keyframes_dir]):
-            raise Exception("环境变量中缺少必要的路径配置：image-REFERENCE_IMAGE, image-KEYFRAMES_TXT, image-OUTPUT_KEYFRAMES")
-
-        logger.info(f"读取 keyframes.txt 文件：{keyframes_txt_path}")
-        if not os.path.isfile(keyframes_txt_path):
-            logger.error(f"keyframes.txt 文件不存在：{keyframes_txt_path}")
-            agent.event = agent.event or {}
-            agent.event['metadata'] = agent.event.get('metadata', {})
-            agent.send_output(
-                agent_output_name='cling_result',
-                agent_result=f"错误：keyframes.txt 文件不存在：{keyframes_txt_path}"
-            )
-            return
-
-        try:
-            with open(keyframes_txt_path, "r", encoding="utf-8") as f:
-                keyframes_content = f.read().strip()
-            logger.info(f"从文件 {keyframes_txt_path} 读取到 keyframes 内容：{keyframes_content!r}")
-        except Exception as e:
-            logger.error(f"读取 keyframes.txt 文件失败：{str(e)}")
-            agent.event = agent.event or {}
-            agent.event['metadata'] = agent.event.get('metadata', {})
-            agent.send_output(
-                agent_output_name='cling_result',
-                agent_result=f"错误：读取 keyframes.txt 文件失败：{str(e)}"
-            )
-            return
-
-        if not keyframes_content:
-            logger.error("keyframes.txt 内容为空，终止处理")
-            agent.event = agent.event or {}
-            agent.event['metadata'] = agent.event.get('metadata', {})
-            agent.send_output(
-                agent_output_name='cling_result',
-                agent_result="错误：keyframes.txt 内容为空，请提供有效的 keyframes 内容。"
-            )
-            return
-        
-        logger.info("收到有效 keyframes 内容，继续处理")
-        
-        # 生成关键帧图像
-        success = generate_keyframes_images(keyframes_txt_path, reference_image, output_keyframes_dir)
-        
-        # 只有在所有图像生成成功后才输出成功提示
-        agent.event = agent.event or {}
-        agent.event['metadata'] = agent.event.get('metadata', {})
-        
-        if success:
-            # 检查输出目录中的图像文件
-            try:
-                generated_files = os.listdir(output_keyframes_dir)
-                if not generated_files:
-                    logger.error(f"输出目录 {output_keyframes_dir} 中未找到生成的图像文件")
-                    agent.send_output(
-                        agent_output_name='cling_result',
-                        agent_result=f"错误：未在 {output_keyframes_dir} 中生成任何图像文件"
-                    )
-                    return
-                logger.info(f"所有图像生成完成，生成的文件：{generated_files}")
+            logger.info(f"加载 .env 文件：{env_file_path}")
+            if not os.path.isfile(env_file_path):
+                logger.error(f".env 文件不存在：{env_file_path}")
                 agent.send_output(
-                    agent_output_name='cling_result',
-                    agent_result=f"关键帧图像已生成到 {output_keyframes_dir}，生成文件：{generated_files}"
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({"value": f"错误：.env 文件不存在：{env_file_path}"})
                 )
-            except Exception as e:
-                logger.error(f"检查输出目录失败：{str(e)}")
+                return
+            load_dotenv(env_file_path, override=True, verbose=True)
+        elif is_keyframe_text:
+            # 输入为关键帧描述文本，作为触发信号
+            logger.info("输入为关键帧描述文本，作为触发信号，从缓存读取环境变量")
+            # 不解析 user_input，依赖 .env 缓存
+        elif isinstance(user_input, dict) and 'env_file' in user_input and 'keyframes_file' in user_input:
+            # 从 keyframe-agent 获取 .env 文件路径和关键帧文件路径
+            env_file_path = user_input['env_file']
+            keyframes_txt_path = user_input['keyframes_file']
+            logger.info(f"从 keyframe-agent 获取 env_file: {env_file_path}, keyframes_file: {keyframes_txt_path}")
+            if os.path.isfile(env_file_path):
+                logger.info(f"加载 .env 文件：{env_file_path}")
+                load_dotenv(env_file_path, override=True, verbose=True)
+            else:
+                logger.error(f".env 文件不存在：{env_file_path}")
                 agent.send_output(
-                    agent_output_name='cling_result',
-                    agent_result=f"错误：检查输出目录失败：{str(e)}"
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({"value": f"错误：.env 文件不存在：{env_file_path}"})
                 )
+                return
         else:
-            logger.error("生成失败，未发送成功输出")
+            logger.error("无效输入类型，仅支持 .env 文件、关键帧描述文本或字典")
             agent.send_output(
-                agent_output_name='cling_result',
-                agent_result="错误：关键帧图像生成失败"
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": "错误：无效输入类型"})
             )
-        
-    except Exception as e:
-        logger.error(f"错误：{str(e)}")
-        agent.event = agent.event or {}
-        agent.event['metadata'] = agent.event.get('metadata', {})
-        agent.send_output(
-            agent_output_name='cling_result',
-            agent_result=f"错误：{str(e)}"
+            return
+
+        # 从环境变量获取关键帧文件路径
+        keyframes_txt_path = os.getenv("IMAGE_KEYFRAMES_TXT")
+        if not keyframes_txt_path:
+            logger.error("环境变量 IMAGE_KEYFRAMES_TXT 未设置")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": "错误：环境变量 IMAGE_KEYFRAMES_TXT 未设置"})
+            )
+            return
+
+        # 读取关键帧文件
+        if not os.path.isfile(keyframes_txt_path):
+            logger.error(f"提示词文件不存在：{keyframes_txt_path}")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": f"错误：提示词文件不存在：{keyframes_txt_path}"})
+            )
+            return
+
+        with open(keyframes_txt_path, 'r', encoding='utf-8') as f:
+            keyframes_content = f.read().strip()
+        if not keyframes_content:
+            logger.error(f"提示词文件为空：{keyframes_txt_path}")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": f"错误：提示词文件为空：{keyframes_txt_path}"})
+            )
+            return
+
+        # 解析提示词
+        try:
+            lines = keyframes_content.split('\n')
+            for line in lines:
+                line = line.strip()
+                if line.startswith("Prompt:"):
+                    prompt = line[len("Prompt:"):].strip()
+                elif line.startswith("NegativePrompt:"):
+                    negative_prompt = line[len("NegativePrompt:"):].strip()
+                elif line.startswith("AspectRatio:"):
+                    aspect_ratio = line[len("AspectRatio:"):].strip()
+            keyframes_content = prompt or keyframes_content
+            logger.info(f"解析提示词：Prompt={prompt}, NegativePrompt={negative_prompt}, AspectRatio={aspect_ratio}")
+        except Exception as e:
+            logger.error(f"解析提示词失败：{str(e)}")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": f"错误：解析提示词失败 - {str(e)}"})
+            )
+            return
+
+        # 验证参考图像
+        if not os.path.exists(reference_image):
+            logger.error(f"参考图像不存在：{reference_image}")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": f"错误：参考图像不存在：{reference_image}"})
+            )
+            return
+
+        # 确保输出目录存在
+        if not os.path.exists(output_keyframes_dir):
+            logger.info(f"创建输出目录：{output_keyframes_dir}")
+            try:
+                os.makedirs(output_keyframes_dir, exist_ok=True)
+            except PermissionError as e:
+                logger.error(f"创建输出目录失败：权限不足 - {str(e)}")
+                agent.send_output(
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({"value": f"错误：创建输出目录失败：{str(e)}"})
+                )
+                return
+
+        # 生成关键帧图像
+        success = generate_keyframes_images(
+            keyframes_file=keyframes_txt_path,
+            reference_image=reference_image,
+            output_dir=output_keyframes_dir,
+            negative_prompt=negative_prompt,
+            aspect_ratio=aspect_ratio
         )
 
+        if success:
+            generated_files = [f for f in os.listdir(output_keyframes_dir) if f.endswith(('.jpg', '.png'))]
+            if not generated_files:
+                logger.error(f"输出目录 {output_keyframes_dir} 未找到生成文件")
+                agent.send_output(
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({"value": []})
+                )
+                return
+            logger.info(f"关键帧图像生成成功，文件列表：{generated_files}")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": generated_files})
+            )
+        else:
+            logger.error("关键帧图像生成失败")
+            agent.send_output(
+                agent_output_name='kling_result',
+                agent_result=json.dumps({"value": "错误：关键帧图像生成失败"})
+            )
+
+    except Exception as e:
+        logger.error(f"运行异常：{str(e)}")
+        agent.send_output(
+            agent_output_name='kling_result',
+            agent_result=json.dumps({"value": f"错误：运行异常 - {str(e)}"})
+        )
+        
 def main():
-    logger.info("启动 kling-agent")
-    agent = MofaAgent(agent_name='kling-agent')
-    run(agent=agent)
+    agent = MofaAgent(agent_name='kling-agent-image')
+    run(agent)
 
 if __name__ == "__main__":
     main()
