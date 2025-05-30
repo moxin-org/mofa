@@ -2,7 +2,6 @@
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 import os
 import subprocess
-from .klingvideo.example import basic_demo
 import time
 import glob
 import json
