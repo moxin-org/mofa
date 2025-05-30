@@ -149,7 +149,7 @@ def generate_keyframes_video(prompt: str, reference_image: str, output_dir: str,
         negative_prompt="",
         cfg_scale=0.7,
         mode="pro",
-        duration=int(duration),
+        duration=duration,
         external_task_id=f"video_gen_{uuid.uuid4().hex[:8]}",
     )
     
@@ -311,6 +311,7 @@ def run(agent: MofaAgent):
     try:
         user_input = agent.receive_parameter('query')
         logger.info(f"接收到的输入：{user_input!r}")
+        logger.info(f"初始 VIDEO_IMAGE_FOLDER: {os.getenv('VIDEO_IMAGE_FOLDER')}")
 
         if not user_input or not user_input.strip():
             logger.error("未提供有效输入，终止处理")
@@ -326,8 +327,47 @@ def run(agent: MofaAgent):
         output_keyframes_dir = os.getenv("VIDEO_OUTPUT_KEYFRAMES", "../../examples/script2video/output/output_video")
         duration = os.getenv("VIDEO_DURATION", "5")
 
-        # 验证 image_folder 是否为目录
-        if not image_folder or not os.path.isdir(image_folder):
+        # 处理 .env.secret 输入
+        if user_input.endswith(".env.secret"):
+            # 输入是 .env.secret 文件路径
+            env_file_path = user_input
+            BASE_DIR_DEFAULT = "../../examples/script2video"
+            if not os.path.isabs(env_file_path):
+                env_file_path = os.path.join(BASE_DIR_DEFAULT, env_file_path)
+            logger.info(f"解析后的 env_file_path: {env_file_path}")
+
+            if not os.path.isfile(env_file_path):
+                logger.error(f".env 文件不存在：{env_file_path}")
+                agent.send_output(
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({'value': f"错误：.env 文件不存在：{env_file_path}"})
+                )
+                return
+
+            logger.info(f"加载用户输入的 .env 文件：{env_file_path}")
+            dotenv_success = load_dotenv(env_file_path, verbose=True, override=True)
+            if not dotenv_success:
+                logger.error(f"加载 .env 文件失败：{env_file_path}")
+                agent.send_output(
+                    agent_output_name='kling_result',
+                    agent_result=json.dumps({'value': f"错误：加载 .env 文件失败：{env_file_path}"})
+                )
+                return
+
+            # 重新加载环境变量
+            image_folder = os.getenv("VIDEO_IMAGE_FOLDER")
+            logger.info(f"加载后 VIDEO_IMAGE_FOLDER: {image_folder}")
+            keyframes_txt_path = os.getenv("VIDEO_KEYFRAMES_TXT", keyframes_txt_path)
+            output_keyframes_dir = os.getenv("VIDEO_OUTPUT_KEYFRAMES", output_keyframes_dir)
+            duration = os.getenv("VIDEO_DURATION", duration)
+
+        # 验证 image_folder
+        if not image_folder:
+            image_folder = "/root/mofa-euterpe/python/examples/script2video/output/output_keyframes"
+            os.makedirs(image_folder, exist_ok=True)
+            logger.warning(f"VIDEO_IMAGE_FOLDER 未设置，使用默认值：{image_folder}")
+
+        if not os.path.isdir(image_folder):
             logger.error(f"VIDEO_IMAGE_FOLDER 不是有效目录：{image_folder}")
             agent.send_output(
                 agent_output_name='kling_result',
@@ -335,48 +375,10 @@ def run(agent: MofaAgent):
             )
             return
 
-        # 判断输入类型
-        if user_input.endswith(".env.secret"):
-            # 输入是 .env.secret 文件路径
-            env_file_path = user_input
-            BASE_DIR_DEFAULT = "../../examples/script2video"
-            if not os.path.isabs(env_file_path):
-                env_file_path = os.path.join(BASE_DIR_DEFAULT, env_file_path)
-            logger.info(f"输入被识别为 .env 文件路径，解析为：{env_file_path}")
-
-            if not os.path.isfile(env_file_path):
-                logger.error(f"用户提供的 .env 文件不存在：{env_file_path}")
-                agent.send_output(
-                    agent_output_name='kling_result',
-                    agent_result=json.dumps({'value': f"错误：用户提供的 .env 文件不存在：{env_file_path}"})
-                )
-                return
-
-            logger.info(f"加载用户输入的 .env 文件：{env_file_path}")
-            load_dotenv(env_file_path, verbose=True, override=True)
-
-            # 重新加载环境变量
-            image_folder = os.getenv("VIDEO_IMAGE_FOLDER")
-            keyframes_txt_path = os.getenv("VIDEO_KEYFRAMES_TXT", keyframes_txt_path)
-            output_keyframes_dir = os.getenv("VIDEO_OUTPUT_KEYFRAMES", output_keyframes_dir)
-            duration = os.getenv("VIDEO_DURATION", duration)
-
-            # 再次验证 image_folder
-            if not image_folder or not os.path.isdir(image_folder):
-                logger.error(f"加载 .env 后 VIDEO_IMAGE_FOLDER 无效：{image_folder}")
-                agent.send_output(
-                    agent_output_name='kling_result',
-                    agent_result=json.dumps({'value': f"错误：加载 .env 后 VIDEO_IMAGE_FOLDER 无效：{image_folder}"})
-                )
-                return
-
-            logger.info(f"VIDEO_IMAGE_FOLDER: {image_folder}")
-            logger.info(f"VIDEO_KEYFRAMES_TXT: {keyframes_txt_path}")
-            logger.info(f"VIDEO_OUTPUT_KEYFRAMES: {output_keyframes_dir}")
-            logger.info(f"VIDEO_DURATION: {duration}")
-        else:
-            # 输入是触发信号（例如 keyframe-agent 的输出），直接使用环境变量
-            logger.info("输入被识别为触发信号，使用缓存的环境变量")
+        logger.info(f"VIDEO_IMAGE_FOLDER: {image_folder}")
+        logger.info(f"VIDEO_KEYFRAMES_TXT: {keyframes_txt_path}")
+        logger.info(f"VIDEO_OUTPUT_KEYFRAMES: {output_keyframes_dir}")
+        logger.info(f"VIDEO_DURATION: {duration}")
 
         # 清理输出目录中的临时文件
         for f in glob.glob(os.path.join(output_keyframes_dir, "temp_*.mp4")):
