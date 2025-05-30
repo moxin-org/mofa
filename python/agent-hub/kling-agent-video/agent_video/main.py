@@ -2,6 +2,7 @@
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 import os
 import subprocess
+from .klingvideo.example import basic_demo
 import time
 import glob
 import json
@@ -11,7 +12,9 @@ import uuid
 from dotenv import load_dotenv
 from loguru import logger
 import yaml
-from .klingvideo.models import TaskStatus
+from .klingvideo.models import TaskStatus, ImageToVideoRequest
+from .klingvideo.api import KlingAPIClient, KlingAPIError, NetworkError
+from .klingvideo.utils import encode_image_to_base64
 
 # 配置 loguru 日志
 logger.add("kling-agent-video.log", rotation="10 MB", level="INFO")
@@ -127,62 +130,100 @@ def generate_keyframes_video(prompt: str, reference_image: str, output_dir: str,
     temp_name = f"temp_{uuid.uuid4().hex[:8]}.mp4"
     temp_path = os.path.join(output_dir, temp_name)
 
-    cmd = [
-        "python", "-m", "klingdemo.examples.basic_demo",
-        "--image", reference_image,
-        "--prompt", prompt,
-        "--model", "kling-v1-5",
-        "--mode", "pro",
-        "--duration", duration,
-        "--cfg-scale", "0.7",
-        "--output", output_dir,
-        "--timeout", "600"
-    ]
+    # 创建 Kling API 客户端
+    client = KlingAPIClient(
+        access_key=env["ACCESSKEY_API"],
+        secret_key=env["ACCESSKEY_SECRET"],
+        base_url=env["KLING_API_BASE_URL"],
+        timeout=int(env["KLING_API_TIMEOUT"]),
+        max_retries=int(env["KLING_API_MAX_RETRIES"]),
+        token_expiration=int(env["KLING_TOKEN_EXPIRATION"])
+    )
 
-    logger.info(f"执行命令：{' '.join(cmd)}")
+    # 编码图像为 base64
+    encoded_image = encode_image_to_base64(reference_image)
+
+    # 创建请求
+    request = ImageToVideoRequest(
+        model_name="kling-v1-5",
+        image=encoded_image,
+        prompt=prompt,
+        negative_prompt="",
+        cfg_scale=0.7,
+        mode="pro",
+        duration=int(duration),
+        external_task_id=f"video_gen_{uuid.uuid4().hex[:8]}",
+    )
+    
+    logger.info("初始化 Kling API 客户端并创建请求")
     max_retries = int(os.getenv("KLING_API_MAX_RETRIES", "3"))
     task_id = None
     for attempt in range(max_retries):
         try:
-            result = subprocess.run(cmd, check=True, env=env, capture_output=True, text=True)
-            logger.info(f"命令输出：{result.stdout}")
-            if "ERROR" in result.stdout or not result.stdout.strip():
-                raise Exception(f"命令执行失败，输出为空或包含错误：{result.stdout}")
-            logger.info(f"命令错误（如果有）：{result.stderr}")
-            # 查找当前任务生成的视频文件（排除已命名的 video_frame_X.mp4）
-            generated_files = [
-                f for f in os.listdir(output_dir)
-                if f.endswith('.mp4') and f != video_name and not f.startswith('video_frame_')
-            ]
-            if generated_files:
-                src_path = os.path.join(output_dir, generated_files[0])
-                target_path = os.path.join(output_dir, video_name)
-                if os.path.exists(src_path):
-                    if os.path.exists(target_path):
-                        logger.warning(f"目标文件 {target_path} 已存在，保留现有文件")
-                    else:
-                        os.rename(src_path, target_path)
-                        logger.info(f"重命名视频：{generated_files[0]} -> {video_name}")
-                if not os.path.exists(target_path):
-                    raise Exception(f"未找到预期的视频文件：{video_name}")
+            # 提交任务
+            logger.info(f"提交图像到视频生成任务 (尝试 {attempt+1}/{max_retries})")
+            task = client.create_image_to_video_task(request)
+            task_id = task.task_id
+            logger.info(f"任务创建成功，ID: {task_id}")
+            
+            # 等待任务完成
+            logger.info("等待任务完成...")
+            task = client.wait_for_task_completion(
+                task_id,
+                check_interval=5,
+                timeout=600  # 10分钟超时
+            )
+            
+            # 处理结果
+            if task.task_status == TaskStatus.SUCCEED and task.task_result:
+                # 下载视频
+                for i, video in enumerate(task.task_result.videos):
+                    video_url = video.url
+                    if video_url:
+                        saved_path = save_video(video_url, output_dir, video_name)
+                        logger.info(f"视频已保存到: {saved_path}")
+                        target_path = os.path.join(output_dir, video_name)
+                        if os.path.exists(target_path):
+                            logger.info(f"生成的文件：{video_name}")
+                            # 清理其他临时文件
+                            for f in os.listdir(output_dir):
+                                if f.startswith('temp_') and f.endswith('.mp4') and f != video_name:
+                                    os.remove(os.path.join(output_dir, f))
+                                    logger.info(f"清理临时文件：{f}")
+                            return True
+                logger.error("任务成功但未找到视频文件")
+                return False
             else:
-                raise Exception("未找到生成的视频文件")
-            # 清理其他临时文件
-            for f in os.listdir(output_dir):
-                if f.startswith('temp_') and f.endswith('.mp4'):
-                    os.remove(os.path.join(output_dir, f))
-                    logger.info(f"清理临时文件：{f}")
-            logger.info(f"生成的文件：{video_name}")
-            return True
-        except subprocess.CalledProcessError as e:
-            if "Task created with ID" in str(e.stdout):
-                task_id = e.stdout.split("Task created with ID: ")[1].split()[0]
-                logger.info(f"捕获任务 ID：{task_id}")
-                if "Task timed out" in str(e.stdout):
-                    logger.warning(f"任务超时，尝试轮询任务状态（第 {attempt + 1} 次）")
-                    if check_task_status(task_id, env, output_dir, video_name):
-                        if not os.path.exists(os.path.join(output_dir, video_name)):
-                            raise Exception(f"未找到预期的视频文件：{video_name}")
+                logger.error(f"任务失败，状态：{task.task_status}")
+                if hasattr(task, 'task_status_msg') and task.task_status_msg:
+                    logger.error(f"错误信息：{task.task_status_msg}")
+                return False
+        except (KlingAPIError, NetworkError) as e:
+            logger.error(f"API 错误 (尝试 {attempt+1}/{max_retries}): {str(e)}")
+            if "Status: 429" in str(e) and attempt < max_retries - 1:
+                logger.warning(f"遇到 429 错误，等待重试（第 {attempt + 1} 次）")
+                time.sleep(60)
+                continue
+            
+            # 如果有任务 ID，尝试查询任务状态
+            if task_id:
+                logger.warning(f"任务创建后出错，尝试轮询任务状态（第 {attempt + 1} 次）")
+                if check_task_status(task_id, env, output_dir, video_name):
+                    if os.path.exists(os.path.join(output_dir, video_name)):
+                        # 清理临时文件
+                        for f in os.listdir(output_dir):
+                            if f.startswith('temp_') and f.endswith('.mp4'):
+                                os.remove(os.path.join(output_dir, f))
+                                logger.info(f"清理临时文件：{f}")
+                        logger.info(f"生成的文件：{video_name}")
+                        return True
+        except TimeoutError as e:
+            logger.error(f"超时错误 (尝试 {attempt+1}/{max_retries}): {str(e)}")
+            # 如果任务 ID 存在，尝试继续查询任务状态
+            if task_id:
+                logger.warning(f"任务超时，尝试轮询任务状态（第 {attempt + 1} 次）")
+                if check_task_status(task_id, env, output_dir, video_name):
+                    if os.path.exists(os.path.join(output_dir, video_name)):
                         # 清理临时文件
                         for f in os.listdir(output_dir):
                             if f.startswith('temp_') and f.endswith('.mp4'):
@@ -191,12 +232,16 @@ def generate_keyframes_video(prompt: str, reference_image: str, output_dir: str,
                         logger.info(f"生成的文件：{video_name}")
                         return True
                     else:
-                        raise Exception(f"任务 {task_id} 未完成或失败")
-                if "Status: 429" in str(e.stdout) and attempt < max_retries - 1:
-                    logger.warning(f"遇到 429 错误，等待重试（第 {attempt + 1} 次）")
-                    time.sleep(60)
-                    continue
-            raise Exception(f"生成视频失败：{str(e)}\n命令输出：{e.stdout}\n命令错误：{e.stderr}")
+                        logger.error(f"查询任务状态成功但未找到生成的视频文件")
+        except Exception as e:
+            logger.error(f"意外错误 (尝试 {attempt+1}/{max_retries}): {str(e)}")
+            if attempt < max_retries - 1:
+                logger.warning(f"等待重试（第 {attempt + 1} 次）")
+                time.sleep(5)
+                continue
+    
+    # 如果所有尝试都失败
+    raise Exception("生成视频失败：达到最大重试次数")
     raise Exception("生成视频失败：达到最大重试次数")
 
 def process_image_folder(image_folder: str, keyframes_txt: str, output_dir: str, duration: str = "5") -> list:
