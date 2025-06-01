@@ -98,7 +98,7 @@ def run(agent: MofaAgent):
             logger.info("Input identified as keyframe description content")
             videoprompt_text = user_input
             # 硬编码必要的环境变量（如果未通过 .env 提供）
-            llm_api_key = os.getenv("LLM_API_KEY", "sk-3cf0eac1dfa64a4b9e4246bf322407bc")
+            llm_api_key = os.getenv("LLM_API_KEY", "sk-")
             if not llm_api_key:
                 logger.error("LLM_API_KEY not set in environment")
                 raise ValueError("LLM_API_KEY not set in environment")
