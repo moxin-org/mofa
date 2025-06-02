@@ -5,7 +5,7 @@ const id = "introducing-mofa.md";
 						const data = {title:"MoFA 正式发布：让每个开发者都能成为 AI 工程师",description:"我们很高兴地宣布 MoFA 正式发布，这是一个让普通开发者能够轻松构建 AI 应用的框架",date:new Date(1705276800000),author:"MoFA Team",tags:["发布","公告"]};
 						const _internal = {
 							type: 'content',
-							filePath: "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/content/blog/introducing-mofa.md",
+							filePath: "/Users/liyao/Code/mofa/mofa-website/src/content/blog/introducing-mofa.md",
 							rawData: "\ntitle: MoFA 正式发布：让每个开发者都能成为 AI 工程师\ndescription: 我们很高兴地宣布 MoFA 正式发布，这是一个让普通开发者能够轻松构建 AI 应用的框架\ndate: 2024-01-15\nauthor: MoFA Team\ntags: [发布, 公告]",
 						};
 

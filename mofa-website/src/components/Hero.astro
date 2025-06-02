@@ -21,13 +21,10 @@ const { base } = import.meta.env;
     <div class="max-w-4xl mx-auto text-center">
       <!-- Animated Logo -->
       <div class="flex justify-center mb-8">
-        <div class="mondrian-grid grid-cols-3 grid-rows-3 w-24 h-24 transform hover:scale-110 transition-transform duration-300">
-          <div class="mondrian-block bg-mondrian-red animate-pulse-slow"></div>
-          <div class="mondrian-block bg-mondrian-white col-span-2"></div>
-          <div class="mondrian-block bg-mondrian-yellow row-span-2 animate-pulse-slow" style="animation-delay: 0.5s"></div>
-          <div class="mondrian-block bg-mondrian-blue animate-pulse-slow" style="animation-delay: 1s"></div>
-          <div class="mondrian-block bg-mondrian-white"></div>
-          <div class="mondrian-block bg-mondrian-red animate-pulse-slow" style="animation-delay: 1.5s"></div>
+        <div class="w-24 h-24 relative overflow-hidden rounded-lg transform hover:scale-110 transition-all duration-300 hover:shadow-xl">
+          <img src={`${base}/mofa-logo.png`} alt="MoFA Logo" class="w-full h-full object-cover rounded-lg" />
+          <!-- 保留动画光效 -->
+          <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       </div>
 

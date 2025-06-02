@@ -1,0 +1,528 @@
+---
+// 工作流配置数据
+const workflows = [
+  {
+    id: 'hello-world',
+    title: {
+      en: 'Hello World',
+      zh: 'Hello World'
+    },
+    description: {
+      en: 'Simplest AI agent workflow for beginners',
+      zh: '最简单的 AI 代理工作流'
+    },
+    category: 'Basic',
+    color: 'from-blue-500 to-cyan-500',
+    scale: 0.3,
+    mermaidGraph: `
+    flowchart TB
+      terminal-input[🖥️ Terminal Input<br/>User Query]
+      agent[🤖 Agent<br/>Process & Respond]
+      
+      terminal-input --> agent
+      agent --> terminal-input
+      
+      classDef inputNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      classDef agentNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+      
+      class terminal-input inputNode
+      class agent agentNode`
+  },
+  {
+    id: 'arxiv-research',
+    title: {
+      en: 'ArXiv Research',
+      zh: 'ArXiv 研究'
+    },
+    description: {
+      en: 'Automated research workflow with paper analysis and report generation',
+      zh: '自动化研究工作流，包含论文分析和报告生成'
+    },
+    category: 'Research',
+    color: 'from-purple-500 to-pink-500',
+    scale: 0.8,
+    mermaidGraph: `
+    flowchart TB
+      terminal[🖥️ Terminal Input<br/>Research Task]
+      extractor[🔍 Keyword Extractor<br/>Extract Keywords]
+      downloader[📥 Paper Downloader<br/>Download Papers]
+      analyzer[🔬 Paper Analyzer<br/>Analyze Content]
+      writer[✍️ Report Writer<br/>Generate Report]
+      feedback[💬 Feedback Agent<br/>Review & Suggest]
+      refinement[🔧 Refinement Agent<br/>Improve Report]
+      
+      terminal --> extractor
+      extractor --> downloader
+      downloader --> analyzer
+      terminal --> analyzer
+      analyzer --> writer
+      terminal --> writer
+      writer --> feedback
+      terminal --> feedback
+      feedback --> refinement
+      terminal --> refinement
+      
+      classDef inputNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef processNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+      classDef analysisNode fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+      classDef outputNode fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+      
+      class terminal inputNode
+      class extractor,downloader processNode
+      class analyzer,feedback analysisNode
+      class writer,refinement outputNode`
+  },
+  {
+    id: 'rag-system',
+    title: {
+      en: 'RAG System',
+      zh: 'RAG 系统'
+    },
+    description: {
+      en: 'Retrieval-Augmented Generation for intelligent Q&A',
+      zh: '检索增强生成系统，用于智能问答'
+    },
+    category: 'AI',
+    color: 'from-green-500 to-teal-500',
+    scale: 0.6,
+    mermaidGraph: `
+    flowchart TB
+      terminal[🖥️ Terminal Input<br/>User Question]
+      retrieval[🔍 RAG Retrieval<br/>Search Knowledge]
+      reasoner[🧠 Reasoner Agent<br/>Generate Answer]
+      
+      terminal --> retrieval
+      retrieval --> reasoner
+      terminal --> reasoner
+      retrieval --> terminal
+      reasoner --> terminal
+      
+      classDef inputNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef retrievalNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+      classDef reasoningNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      
+      class terminal inputNode
+      class retrieval retrievalNode
+      class reasoner reasoningNode`
+  },
+  {
+    id: 'gosim-pedia',
+    title: {
+      en: 'GoSim Pedia',
+      zh: 'GoSim 百科'
+    },
+    description: {
+      en: 'Multi-agent system with web scraping and search capabilities',
+      zh: '具有网页抓取和搜索能力的多代理系统'
+    },
+    category: 'Web',
+    color: 'from-orange-500 to-red-500',
+    scale: 0.7,
+    mermaidGraph: `
+    flowchart TB
+      openai[🤖 OpenAI Server<br/>Chat Interface]
+      gosim[🎮 GoSim Pedia Agent<br/>Main Controller]
+      firecrawl[🕷️ Firecrawl Agent<br/>Web Scraping]
+      rag[🧠 GoSim RAG Agent<br/>Knowledge Retrieval]
+      serper[🔍 Serper Search Agent<br/>Web Search]
+      
+      openai <--> gosim
+      gosim --> firecrawl
+      firecrawl --> gosim
+      gosim --> rag
+      rag --> gosim
+      gosim --> serper
+      serper --> gosim
+      
+      classDef serverNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef mainNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      classDef toolNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+      
+      class openai serverNode
+      class gosim mainNode
+      class firecrawl,rag,serper toolNode`
+  },
+  {
+    id: 'mem0-dataflow',
+    title: {
+      en: 'Mem0 Memory System',
+      zh: 'Mem0 记忆系统'
+    },
+    description: {
+      en: 'Memory-enhanced AI workflow with retrieval and recording',
+      zh: '具有记忆检索和记录能力的增强AI工作流'
+    },
+    category: 'Memory',
+    color: 'from-indigo-500 to-purple-500',
+    scale: 0.55,
+    mermaidGraph: `
+    flowchart TB
+      terminal[🖥️ Terminal Input<br/>User Task]
+      retrieval[🧠 Memory Retrieval<br/>Fetch Context]
+      reasoner[🤔 Reasoner<br/>Process & Think]
+      record[💾 Memory Record<br/>Store Results]
+      
+      terminal --> retrieval
+      retrieval --> reasoner
+      terminal --> reasoner
+      reasoner --> record
+      terminal --> record
+      retrieval --> terminal
+      reasoner --> terminal
+      record --> terminal
+      
+      classDef inputNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef memoryNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+      classDef processNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      classDef storageNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+      
+      class terminal inputNode
+      class retrieval memoryNode
+      class reasoner processNode
+      class record storageNode`
+  },
+  {
+    id: 'intelligent-agent-creation',
+    title: {
+      en: 'Agent Creation System',
+      zh: '代理创建系统'
+    },
+    description: {
+      en: 'Intelligent system for generating AI agents automatically',
+      zh: '自动生成AI代理的智能系统'
+    },
+    category: 'Meta-AI',
+    color: 'from-cyan-500 to-blue-500',
+    scale: 0.55,
+    mermaidGraph: `
+    flowchart TB
+      openai[🤖 OpenAI Server<br/>API Interface]
+      config[⚙️ Config Generator<br/>Generate Settings]
+      code[👨‍💻 Code Generator<br/>Write Agent Code]
+      dependency[📦 Dependency Generator<br/>Manage Dependencies]
+      
+      openai --> config
+      openai --> code
+      config --> code
+      openai --> dependency
+      code --> dependency
+      config --> dependency
+      dependency --> openai
+      
+      classDef serverNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef generatorNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      classDef codeNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+      classDef depNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+      
+      class openai serverNode
+      class config generatorNode
+      class code codeNode
+      class dependency depNode`
+  },
+  {
+    id: 'xiaowang-workflow',
+    title: {
+      en: 'XiaoWang Multi-Agent',
+      zh: '小王多代理系统'
+    },
+    description: {
+      en: 'Complex multi-agent workflow with reflection and generation',
+      zh: '具有反思和生成能力的复杂多代理工作流'
+    },
+    category: 'Complex',
+    color: 'from-pink-500 to-rose-500',
+    scale: 0.6,
+    mermaidGraph: `
+    flowchart TB
+      terminal[🖥️ XiaoWang Terminal<br/>Task Input]
+      dlc[🎯 Agent DLC<br/>Task Processing]
+      generate[🔧 Agent Generate<br/>Content Creation]
+      reflection[🤔 Agent Reflection<br/>Self-Improvement]
+      
+      terminal --> dlc
+      dlc --> generate
+      generate --> reflection
+      reflection --> generate
+      generate --> dlc
+      dlc --> terminal
+      generate --> terminal
+      reflection --> terminal
+      
+      classDef inputNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+      classDef taskNode fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+      classDef generateNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+      classDef reflectNode fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+      
+      class terminal inputNode
+      class dlc taskNode
+      class generate generateNode
+      class reflection reflectNode`
+  }
+];
+---
+
+<section class="py-20" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4" 
+          data-en="Real Examples: <span class='gradient-text'>AI Workflows</span> in Action"
+          data-zh="实际案例：<span class='gradient-text'>AI 工作流</span>实战">
+        Real Examples: <span class="gradient-text">AI Workflows</span> in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto" 
+         data-en="Explore different types of AI workflows - from simple hello world to complex research automation"
+         data-zh="探索不同类型的 AI 工作流 - 从简单的问候到复杂的研究自动化">
+        Explore different types of AI workflows - from simple hello world to complex research automation
+      </p>
+    </div>
+
+    <!-- Workflow Horizontal Scroll Container -->
+    <div class="workflow-container">
+      <div class="workflow-scroll">
+        {workflows.map((workflow) => (
+          <div class="workflow-card bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:border-4 hover:border-blue-500 transition-all duration-300 overflow-hidden">
+            <!-- Header -->
+            <div class={`bg-gradient-to-r ${workflow.color} p-6 text-white`}>
+              <h3 class="text-2xl font-bold mb-2" 
+                  data-en={workflow.title.en}
+                  data-zh={workflow.title.zh}>
+                {workflow.title.en}
+              </h3>
+              <p class="text-white text-opacity-90" 
+                 data-en={workflow.description.en}
+                 data-zh={workflow.description.zh}>
+                {workflow.description.en}
+              </p>
+            </div>
+
+            <!-- Mermaid Graph -->
+            <div class="chart-container">
+              <div class={`mermaid-container-${workflow.id} bg-gray-50 rounded-lg p-4`} data-scale={workflow.scale}>
+                <div class={`mermaid mermaid-${workflow.id}`}>
+                  {workflow.mermaidGraph}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-gray-500" 
+         data-en="← Scroll horizontally to explore more workflows →"
+         data-zh="← 水平滚动以探索更多工作流 →">
+        ← Scroll horizontally to explore more workflows →
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Mermaid Script -->
+<script>
+  // Import and initialize Mermaid
+  import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs').then((mermaid) => {
+    mermaid.default.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#6366f1',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#4f46e5',
+        lineColor: '#6b7280',
+        sectionBkgColor: '#f9fafb',
+        altSectionBkgColor: '#ffffff',
+        gridColor: '#e5e7eb',
+        secondaryColor: '#f3f4f6',
+        tertiaryColor: '#fbbf24'
+      },
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontSize: 12,
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        useMaxWidth: true,
+        rankdir: 'TB',
+        padding: 10
+      },
+      security: {
+        level: 'loose'
+      },
+      // 添加全局缩放设置
+      maxTextSize: 90000,
+      maxEdges: 500
+    });
+
+    // Render all mermaid diagrams
+    setTimeout(() => {
+      mermaid.default.run();
+      
+      // 自动调整图表大小以适应容器
+      setTimeout(() => {
+        document.querySelectorAll('.mermaid').forEach(element => {
+          const svg = element.querySelector('svg');
+          const container = element.closest('[data-scale]');
+          const scale = container ? parseFloat(container.getAttribute('data-scale')) : 1;
+          
+          if (svg) {
+            // 移除固定的宽高，使用viewBox进行缩放
+            svg.removeAttribute('height');
+            svg.removeAttribute('width');
+            svg.style.maxWidth = '100%';
+            svg.style.maxHeight = '100%';
+            
+            // 确保viewBox存在并设置preserveAspectRatio
+            if (!svg.getAttribute('viewBox')) {
+              const bbox = svg.getBBox();
+              svg.setAttribute('viewBox', `0 0 ${bbox.width + 20} ${bbox.height + 20}`);
+            }
+            svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            
+            // 应用个别缩放
+            svg.style.width = `${scale * 100}%`;
+            svg.style.height = `${scale * 100}%`;
+            svg.style.transform = 'none';
+          }
+        });
+      }, 500);
+    }, 100);
+  }).catch(error => {
+    console.error('Failed to load Mermaid:', error);
+  });
+</script>
+
+<style>
+.workflow-container {
+  position: relative;
+  max-width: 100vw;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.workflow-scroll {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.workflow-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.workflow-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.workflow-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.workflow-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.workflow-card {
+  flex: 0 0 auto;
+  width: 450px;
+  height: 650px;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.workflow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.chart-container > div {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  position: relative;
+}
+
+.mermaid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.mermaid svg {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Custom mermaid styling */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon {
+  stroke-width: 2px;
+}
+
+.mermaid .edgePath path {
+  stroke-width: 2px;
+}
+
+.mermaid .edgeLabel {
+  background-color: white;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .workflow-card {
+    width: 380px;
+    height: 600px;
+  }
+  
+  .workflow-scroll {
+    gap: 1rem;
+  }
+  
+  .mermaid {
+    font-size: 12px;
+  }
+
+  .chart-container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .workflow-card {
+    width: 320px;
+    height: 550px;
+  }
+
+  .chart-container {
+    padding: 0.75rem;
+  }
+}
+</style> 

@@ -16,13 +16,12 @@ const currentPath = Astro.url.pathname.replace(base, '');
     <div class="flex items-center justify-between">
       <!-- Logo with Mondrian-style blocks -->
       <a href={`${base}/`} class="flex items-center space-x-2 group">
-        <div class="mondrian-grid grid-cols-2 grid-rows-2 w-10 h-10">
-          <div class="mondrian-block bg-mondrian-red group-hover:animate-pulse-slow"></div>
-          <div class="mondrian-block bg-mondrian-white"></div>
-          <div class="mondrian-block bg-mondrian-blue group-hover:animate-pulse-slow"></div>
-          <div class="mondrian-block bg-mondrian-yellow group-hover:animate-pulse-slow"></div>
+        <div class="w-10 h-10 relative overflow-hidden rounded-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+          <img src={`${base}/mofa-logo.png`} alt="MoFA Logo" class="w-full h-full object-cover rounded-md" />
+          <!-- 保留悬浮效果 -->
+          <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <span class="text-2xl font-bold text-mondrian-black">MoFA</span>
+        <span class="text-2xl font-bold gradient-text">MoFA</span>
       </a>
 
       <!-- Navigation Menu -->

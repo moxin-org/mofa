@@ -625,8 +625,6 @@ html, body {
   overflow-x: hidden;
 }
 
-
-
 /* 小型蒙德里安分隔线 */
 .mini-divider {
   display: flex;
@@ -705,5 +703,253 @@ html, body {
   .mini-divider {
     padding: 15px 0;
     gap: 6px;
+  }
+}
+
+/* WorkflowShowcase 组件样式 */
+.workflow-card {
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.workflow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.mermaid {
+  text-align: center;
+}
+
+/* Large grid layouts */
+.lg\\:grid-cols-2 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .lg\\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.from-blue-500 {
+  --tw-gradient-from: #3b82f6;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0));
+}
+
+.to-cyan-500 {
+  --tw-gradient-to: #06b6d4;
+}
+
+.from-purple-500 {
+  --tw-gradient-from: #8b5cf6;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(139, 92, 246, 0));
+}
+
+.to-pink-500 {
+  --tw-gradient-to: #ec4899;
+}
+
+.from-green-500 {
+  --tw-gradient-from: #10b981;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(16, 185, 129, 0));
+}
+
+.to-teal-500 {
+  --tw-gradient-to: #14b8a6;
+}
+
+.from-orange-500 {
+  --tw-gradient-from: #f97316;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+}
+
+.to-red-500 {
+  --tw-gradient-to: #ef4444;
+}
+
+.from-indigo-500 {
+  --tw-gradient-from: #6366f1;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(99, 102, 241, 0));
+}
+
+.to-purple-500 {
+  --tw-gradient-to: #8b5cf6;
+}
+
+.from-cyan-500 {
+  --tw-gradient-from: #06b6d4;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(6, 182, 212, 0));
+}
+
+.to-blue-500 {
+  --tw-gradient-to: #3b82f6;
+}
+
+.from-pink-500 {
+  --tw-gradient-from: #ec4899;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(236, 72, 153, 0));
+}
+
+.to-rose-500 {
+  --tw-gradient-to: #f43f5e;
+}
+
+/* Background colors */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+
+/* Text colors */
+.text-white {
+  color: #ffffff;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Border styles */
+.border-2 {
+  border-width: 2px;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
+.border-gray-200 {
+  border-color: #e5e7eb;
+}
+
+.border-blue-500 {
+  border-color: #3b82f6;
+}
+
+.hover\\:border-4:hover {
+  border-width: 4px;
+}
+
+.hover\\:border-blue-500:hover {
+  border-color: #3b82f6;
+}
+
+/* Border radius */
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Shadow */
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Background opacity */
+.bg-opacity-20 {
+  --tw-bg-opacity: 0.2;
+}
+
+.text-opacity-90 {
+  --tw-text-opacity: 0.9;
+}
+
+/* Overflow */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+/* Duration for transitions */
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+/* Min height */
+.min-h-300 {
+  min-height: 300px;
+}
+
+/* Padding adjustments */
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
+/* Custom mermaid styling */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon {
+  stroke-width: 2px;
+}
+
+.mermaid .edgePath path {
+  stroke-width: 2px;
+}
+
+.mermaid .edgeLabel {
+  background-color: white;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
+/* Responsive adjustments for mermaid */
+@media (max-width: 768px) {
+  .mermaid {
+    font-size: 12px;
   }
 } 

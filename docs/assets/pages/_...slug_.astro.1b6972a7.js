@@ -15,10 +15,10 @@ const $$Header = createComponent(($$result, $$props, $$slots) => {
   ];
   const { base } = (Object.assign({"BASE_URL":"/mofa","MODE":"production","DEV":false,"PROD":true,"SSR":true,"SITE":"https://moxin-org.github.io","ASSETS_PREFIX":undefined},{_:process.env._,}));
   const currentPath = Astro2.url.pathname.replace(base, "");
-  return renderTemplate`${maybeRenderHead()}<header class="sticky top-0 z-50 bg-white border-b-4 border-mondrian-black shadow-sm"> <nav class="container mx-auto px-4 py-4"> <div class="flex items-center justify-between"> <!-- Logo with Mondrian-style blocks --> <a${addAttribute(`${base}/`, "href")} class="flex items-center space-x-2 group"> <div class="mondrian-grid grid-cols-2 grid-rows-2 w-10 h-10"> <div class="mondrian-block bg-mondrian-red group-hover:animate-pulse-slow"></div> <div class="mondrian-block bg-mondrian-white"></div> <div class="mondrian-block bg-mondrian-blue group-hover:animate-pulse-slow"></div> <div class="mondrian-block bg-mondrian-yellow group-hover:animate-pulse-slow"></div> </div> <span class="text-2xl font-bold text-mondrian-black">MoFA</span> </a> <!-- Navigation Menu --> <div class="hidden md:flex items-center space-x-8"> ${navItems.map((item) => renderTemplate`<a${addAttribute(`${base}${item.href}`, "href")}${addAttribute(currentPath.startsWith(item.href) ? "nav-link-active" : "nav-link", "class")}> ${item.name} </a>`)} <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-primary text-sm"> <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg>
+  return renderTemplate`${maybeRenderHead()}<header class="sticky top-0 z-50 bg-white border-b-4 border-mondrian-black shadow-sm"> <nav class="container mx-auto px-4 py-4"> <div class="flex items-center justify-between"> <!-- Logo with Mondrian-style blocks --> <a${addAttribute(`${base}/`, "href")} class="flex items-center space-x-2 group"> <div class="w-10 h-10 relative overflow-hidden rounded-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"> <img${addAttribute(`${base}/mofa-logo.png`, "src")} alt="MoFA Logo" class="w-full h-full object-cover rounded-md"> <!-- 保留悬浮效果 --> <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> </div> <span class="text-2xl font-bold gradient-text">MoFA</span> </a> <!-- Navigation Menu --> <div class="hidden md:flex items-center space-x-8"> ${navItems.map((item) => renderTemplate`<a${addAttribute(`${base}${item.href}`, "href")}${addAttribute(currentPath.startsWith(item.href) ? "nav-link-active" : "nav-link", "class")}> ${item.name} </a>`)} <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="btn-primary text-sm"> <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg>
 GitHub
 </a> </div> <!-- Mobile menu button --> <button class="md:hidden p-2 rounded-md hover:bg-mondrian-gray"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> </nav> </header>`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/components/Header.astro", void 0);
+}, "/Users/liyao/Code/mofa/mofa-website/src/components/Header.astro", void 0);
 
 const $$Footer = createComponent(($$result, $$props, $$slots) => {
   const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
@@ -43,13 +43,13 @@ const $$Footer = createComponent(($$result, $$props, $$slots) => {
       { name: "\u8054\u7CFB\u6211\u4EEC", href: "/about#contact" }
     ]
   };
-  return renderTemplate`${maybeRenderHead()}<footer class="bg-mondrian-black text-white mt-16"> <div class="container mx-auto px-4 py-12"> <!-- Footer Grid with Mondrian-inspired layout --> <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8"> <!-- Company Info --> <div class="md:col-span-1"> <div class="flex items-center space-x-2 mb-4"> <div class="mondrian-grid grid-cols-2 grid-rows-2 w-8 h-8"> <div class="mondrian-block bg-mondrian-red"></div> <div class="mondrian-block bg-mondrian-white"></div> <div class="mondrian-block bg-mondrian-blue"></div> <div class="mondrian-block bg-mondrian-yellow"></div> </div> <span class="text-xl font-bold">MoFA</span> </div> <p class="text-gray-400 text-sm">
+  return renderTemplate`${maybeRenderHead()}<footer class="bg-mondrian-black text-white mt-16"> <div class="container mx-auto px-4 py-12"> <!-- Footer Grid with Mondrian-inspired layout --> <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8"> <!-- Company Info --> <div class="md:col-span-1"> <div class="flex items-center space-x-2 mb-4"> <div class="w-8 h-8 rounded-md overflow-hidden"> <img${addAttribute(`${base}/mofa-logo.png`, "src")} alt="MoFA Logo" class="w-full h-full object-cover"> </div> <span class="text-xl font-bold">MoFA</span> </div> <p class="text-gray-400 text-sm">
 让普通开发者成为全栈 AI 工程师
 </p> <p class="text-gray-400 text-sm mt-2">
 Make Ordinary Developers Full-stack AI Engineers
 </p> </div> <!-- Footer Links --> ${Object.entries(footerLinks).map(([category, links]) => renderTemplate`<div> <h4 class="font-semibold mb-4 text-mondrian-yellow">${category}</h4> <ul class="space-y-2"> ${links.map((link) => renderTemplate`<li> <a${addAttribute(link.external ? link.href : `${base}${link.href}`, "href")}${addAttribute(link.external ? "_blank" : void 0, "target")}${addAttribute(link.external ? "noopener noreferrer" : void 0, "rel")} class="text-gray-400 hover:text-white transition-colors duration-200 text-sm"> ${link.name} </a> </li>`)} </ul> </div>`)} </div> <!-- Bottom Bar --> <div class="border-t border-gray-800 pt-8"> <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"> <p class="text-gray-400 text-sm">
 &copy; ${currentYear} MoFA. All rights reserved. | Powered by <a href="https://moxin.io" target="_blank" rel="noopener noreferrer" class="hover:text-mondrian-yellow transition-colors">Moxin</a> </p> <div class="flex space-x-6"> <a href="https://github.com/moxin-org/mofa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"> <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg> </a> <a href="https://discord.gg/mofa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"> <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"> <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"></path> </svg> </a> </div> </div> </div> </div> </footer>`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/components/Footer.astro", void 0);
+}, "/Users/liyao/Code/mofa/mofa-website/src/components/Footer.astro", void 0);
 
 const $$Astro$3 = createAstro("https://moxin-org.github.io");
 const $$BaseLayout = createComponent(($$result, $$props, $$slots) => {
@@ -57,8 +57,8 @@ const $$BaseLayout = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$BaseLayout;
   const { title, description = "MoFA - Make Ordinary Developers Full-stack AI Engineers" } = Astro2.props;
   const { base } = (Object.assign({"BASE_URL":"/mofa","MODE":"production","DEV":false,"PROD":true,"SSR":true,"SITE":"https://moxin-org.github.io","ASSETS_PREFIX":undefined},{}));
-  return renderTemplate`<html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="description"${addAttribute(description, "content")}><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml"${addAttribute(`${base}/favicon.svg`, "href")}><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>${title} | MoFA</title>${renderHead()}</head> <body> ${renderComponent($$result, "Header", $$Header, {})} <main class="flex-grow"> ${renderSlot($$result, $$slots["default"])} </main> ${renderComponent($$result, "Footer", $$Footer, {})} </body></html>`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/layouts/BaseLayout.astro", void 0);
+  return renderTemplate`<html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="description"${addAttribute(description, "content")}><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png"${addAttribute(`${base}/favicon-32x32.png`, "href")}><link rel="shortcut icon"${addAttribute(`${base}/favicon-32x32.png`, "href")}><link rel="apple-touch-icon"${addAttribute(`${base}/apple-touch-icon.png`, "href")}><link rel="icon" type="image/png" sizes="16x16"${addAttribute(`${base}/favicon-16x16.png`, "href")}><link rel="icon" type="image/png" sizes="32x32"${addAttribute(`${base}/favicon-32x32.png`, "href")}><link rel="icon" type="image/png" sizes="48x48"${addAttribute(`${base}/favicon-48x48.png`, "href")}><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>${title} | MoFA</title>${renderHead()}</head> <body> ${renderComponent($$result, "Header", $$Header, {})} <main class="flex-grow"> ${renderSlot($$result, $$slots["default"])} </main> ${renderComponent($$result, "Footer", $$Footer, {})} </body></html>`;
+}, "/Users/liyao/Code/mofa/mofa-website/src/layouts/BaseLayout.astro", void 0);
 
 function createCollectionToGlobResultMap({
   globResult,
@@ -220,7 +220,7 @@ function isPropagatedAssetsModule(module) {
 
 const contentDir = '/src/content/';
 
-const contentEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/introducing-mofa.md": () => import('../introducing-mofa.5e1a6b76.js'),"/src/content/docs/quick-start.md": () => import('../quick-start.58912cea.js')});
+const contentEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/introducing-mofa.md": () => import('../introducing-mofa.4c354880.js'),"/src/content/docs/quick-start.md": () => import('../quick-start.eaddd0f2.js')});
 const contentCollectionToEntryMap = createCollectionToGlobResultMap({
 	globResult: contentEntryGlob,
 	contentDir,
@@ -237,7 +237,7 @@ createCollectionToGlobResultMap({
 });
 
 let lookupMap = {};
-lookupMap = {"docs":{"type":"content","entries":{"quick-start":"/src/content/docs/quick-start.md"}},"blog":{"type":"content","entries":{"introducing-mofa":"/src/content/blog/introducing-mofa.md"}}};
+lookupMap = {"blog":{"type":"content","entries":{"introducing-mofa":"/src/content/blog/introducing-mofa.md"}},"docs":{"type":"content","entries":{"quick-start":"/src/content/docs/quick-start.md"}}};
 
 function createGlobLookup(glob) {
 	return async (collection, lookupId) => {
@@ -248,7 +248,7 @@ function createGlobLookup(glob) {
 	};
 }
 
-const renderEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/introducing-mofa.md": () => import('../introducing-mofa.27b617ef.js'),"/src/content/docs/quick-start.md": () => import('../quick-start.296b317d.js')});
+const renderEntryGlob = /* #__PURE__ */ Object.assign({"/src/content/blog/introducing-mofa.md": () => import('../introducing-mofa.da19adf4.js'),"/src/content/docs/quick-start.md": () => import('../quick-start.d57f25a3.js')});
 const collectionToRenderEntryMap = createCollectionToGlobResultMap({
 	globResult: renderEntryGlob,
 	contentDir,
@@ -283,9 +283,9 @@ GitHub 上关注我们
 </a> </div> </div> <div class="text-center sm:text-right"> <p class="text-gray-600 mb-2">发现问题？</p> <a${addAttribute(`https://github.com/moxin-org/mofa-website/edit/main/src/content/blog/${post.slug}.md`, "href")} target="_blank" rel="noopener noreferrer" class="text-mondrian-blue hover:text-mondrian-red transition-colors text-sm">
 在 GitHub 上编辑此页面
 </a> </div> </div> </footer> </div> </div> ` })}`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/pages/blog/[...slug].astro", void 0);
+}, "/Users/liyao/Code/mofa/mofa-website/src/pages/blog/[...slug].astro", void 0);
 
-const $$file$1 = "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/pages/blog/[...slug].astro";
+const $$file$1 = "/Users/liyao/Code/mofa/mofa-website/src/pages/blog/[...slug].astro";
 const $$url$1 = "/mofa/blog/[...slug]";
 
 const ____slug_$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
@@ -319,7 +319,7 @@ const $$DocsLayout = createComponent(($$result, $$props, $$slots) => {
     }
   ];
   return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": title, "description": description }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="container mx-auto px-4 py-8"> <div class="flex gap-8"> <!-- 左侧导航 --> <aside class="w-64 flex-shrink-0 hidden lg:block"> <nav class="sticky top-20"> ${docNav.map((section) => renderTemplate`<div class="mb-6"> <h3 class="font-semibold text-gray-900 mb-2">${section.title}</h3> <ul class="space-y-1"> ${section.items.map((item) => renderTemplate`<li> <a${addAttribute(`${base}${item.href}`, "href")} class="block px-3 py-2 text-sm text-gray-600 hover:text-mondrian-red hover:bg-gray-50 rounded transition-colors"> ${item.title} </a> </li>`)} </ul> </div>`)} </nav> </aside> <!-- 主内容区 --> <main class="flex-1 max-w-4xl"> <article class="prose prose-lg max-w-none"> ${renderSlot($$result2, $$slots["default"])} </article> </main> </div> </div> ` })}`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/layouts/DocsLayout.astro", void 0);
+}, "/Users/liyao/Code/mofa/mofa-website/src/layouts/DocsLayout.astro", void 0);
 
 const $$Astro = createAstro("https://moxin-org.github.io");
 async function getStaticPaths() {
@@ -335,9 +335,9 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const { doc } = Astro2.props;
   const { Content } = await doc.render();
   return renderTemplate`${renderComponent($$result, "DocsLayout", $$DocsLayout, { "title": doc.data.title, "description": doc.data.description }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Content", Content, {})} ` })}`;
-}, "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/pages/docs/[...slug].astro", void 0);
+}, "/Users/liyao/Code/mofa/mofa-website/src/pages/docs/[...slug].astro", void 0);
 
-const $$file = "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/pages/docs/[...slug].astro";
+const $$file = "/Users/liyao/Code/mofa/mofa-website/src/pages/docs/[...slug].astro";
 const $$url = "/mofa/docs/[...slug]";
 
 const ____slug_ = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

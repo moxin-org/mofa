@@ -5,7 +5,7 @@ const id = "quick-start.md";
 						const data = {title:"快速开始",description:"5分钟内开始使用 MoFA 构建你的第一个 AI 应用"};
 						const _internal = {
 							type: 'content',
-							filePath: "/mnt/c/Users/ufop/Desktop/code/mofa/mofa/mofa-website/src/content/docs/quick-start.md",
+							filePath: "/Users/liyao/Code/mofa/mofa-website/src/content/docs/quick-start.md",
 							rawData: "\ntitle: 快速开始\ndescription: 5分钟内开始使用 MoFA 构建你的第一个 AI 应用",
 						};
 

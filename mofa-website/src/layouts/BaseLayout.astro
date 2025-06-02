@@ -18,7 +18,12 @@ const { base } = import.meta.env;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" type="image/png" href={`${base}/favicon-32x32.png`} />
+    <link rel="shortcut icon" href={`${base}/favicon-32x32.png`} />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+    <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon-16x16.png`} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
+    <link rel="icon" type="image/png" sizes="48x48" href={`${base}/favicon-48x48.png`} />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | MoFA</title>
   </head>

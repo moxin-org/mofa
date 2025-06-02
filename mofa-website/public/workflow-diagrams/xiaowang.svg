@@ -1,0 +1,41 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <style>
+        .node { fill: #f8f9fa; stroke: #2c3e50; stroke-width: 2; }
+        .node-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #2c3e50; text-anchor: middle; }
+        .connection { stroke: #2c3e50; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+        .title-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; text-anchor: middle; }
+      </style>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50" />
+      </marker>
+    </defs>
+    
+    <!-- Title -->
+    <text x="400" y="30" class="title-text">小王助手</text>
+    
+    <!-- Connections -->
+    <path d="M 160 140 Q 235 110 310 140" class="connection" />
+    <path d="M 310 140 Q 235 110 160 260" class="connection" />
+    <path d="M 160 260 Q 235 230 310 260" class="connection" />
+    <path d="M 310 260 Q 310 230 310 140" class="connection" />
+    <g>
+      <rect x="100" y="100" width="120" height="80" rx="8" class="node" />
+      <text x="160" y="135" class="node-text">xiaowang_terminal</text>
+      <text x="160" y="150" class="node-text" style="font-size: 10px; opacity: 0.7;">终端</text>
+    </g>
+    <g>
+      <rect x="250" y="100" width="120" height="80" rx="8" class="node" />
+      <text x="310" y="135" class="node-text">agent_DLC</text>
+      <text x="310" y="150" class="node-text" style="font-size: 10px; opacity: 0.7;">DLC代理</text>
+    </g>
+    <g>
+      <rect x="100" y="220" width="120" height="80" rx="8" class="node" />
+      <text x="160" y="255" class="node-text">agent_generate</text>
+      <text x="160" y="270" class="node-text" style="font-size: 10px; opacity: 0.7;">生成代理</text>
+    </g>
+    <g>
+      <rect x="250" y="220" width="120" height="80" rx="8" class="node" />
+      <text x="310" y="255" class="node-text">agent_reflection</text>
+      <text x="310" y="270" class="node-text" style="font-size: 10px; opacity: 0.7;">反思代理</text>
+    </g></svg>
