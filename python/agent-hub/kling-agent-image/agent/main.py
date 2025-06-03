@@ -39,7 +39,8 @@ def generate_keyframes_images(
     # 从环境变量获取 Kling API 配置
     accesskey_api = os.getenv("ACCESSKEY_API", "")
     accesskey_secret = os.getenv("ACCESSKEY_SECRET", "")
-    kling_api_base_url = os.getenv("KLING_API_BASE_URL", "https://api.klingai.com")
+    # 可灵官方更新 API 地址
+    kling_api_base_url = os.getenv("KLING_API_BASE_URL", "https://api-beijing.klingai.com")
     kling_token_expiration = int(os.getenv("KLING_TOKEN_EXPIRATION", "1800"))
     kling_api_timeout = int(os.getenv("KLING_API_TIMEOUT", "60"))
     kling_api_max_retries = int(os.getenv("KLING_API_MAX_RETRIES", "3"))
