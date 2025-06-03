@@ -112,7 +112,8 @@ def generate_keyframes_video(prompt: str, reference_image: str, output_dir: str,
     env["PYTHONPATH"] = project_root
     env["ACCESSKEY_API"] = os.getenv("ACCESSKEY_API", "At4EgQYM34AggbMPRhGhbNHmmEQratDQ")
     env["ACCESSKEY_SECRET"] = os.getenv("ACCESSKEY_SECRET", "989B4FJnAK4pEmmM8GhmAgdYQnrLrfJA")
-    env["KLING_API_BASE_URL"] = os.getenv("KLING_API_BASE_URL", "https://api.klingai.com")
+    # 可灵官方更新 API 地址
+    env["KLING_API_BASE_URL"] = os.getenv("KLING_API_BASE_URL", "https://api-beijing.klingai.com")
     env["KLING_TOKEN_EXPIRATION"] = os.getenv("KLING_TOKEN_EXPIRATION", "1800")
     env["KLING_API_TIMEOUT"] = os.getenv("KLING_API_TIMEOUT", "60")
     env["KLING_API_MAX_RETRIES"] = os.getenv("KLING_API_MAX_RETRIES", "3")
@@ -240,7 +241,6 @@ def generate_keyframes_video(prompt: str, reference_image: str, output_dir: str,
     
     # 如果所有尝试都失败
     raise Exception("生成视频失败：达到最大重试次数")
-    raise Exception("生成视频失败：达到最大重试次数")
 
 def process_image_folder(image_folder: str, keyframes_txt: str, output_dir: str, duration: str = "5") -> list:
     """处理图片文件夹，生成最多四个视频"""
@@ -363,7 +363,7 @@ def run(agent: MofaAgent):
 
         # 验证 image_folder
         if not image_folder:
-            image_folder = "/root/mofa-euterpe/python/examples/script2video/output/output_keyframes"
+            image_folder = "./output/output_keyframes"
             os.makedirs(image_folder, exist_ok=True)
             logger.warning(f"VIDEO_IMAGE_FOLDER 未设置，使用默认值：{image_folder}")
 
