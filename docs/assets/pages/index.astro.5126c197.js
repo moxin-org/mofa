@@ -1,6 +1,6 @@
 import { a as createComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderHead } from '../astro.7f8fc68a.js';
 import 'clsx';
-/* empty css                           *//* empty css                          */import { $ as $$BaseLayout, g as getCollection, a as $$DocsLayout } from './_...slug_.astro.edf55f0e.js';
+/* empty css                           *//* empty css                          */import { $ as $$BaseLayout, g as getCollection, a as $$DocsLayout } from './_...slug_.astro.8f774045.js';
 
 const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
   const workflows = [
@@ -16,7 +16,7 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
       },
       category: "Basic",
       color: "mofa-color-1",
-      scale: 0.4,
+      scale: 0.3,
       mermaidGraph: `
     flowchart TB
       terminal-input[\u{1F5A5}\uFE0F Terminal Input<br/>User Query]
@@ -87,7 +87,7 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
       },
       category: "AI",
       color: "mofa-color-3",
-      scale: 0.7,
+      scale: 0.5,
       mermaidGraph: `
     flowchart TB
       terminal[\u{1F5A5}\uFE0F Terminal Input<br/>User Question]

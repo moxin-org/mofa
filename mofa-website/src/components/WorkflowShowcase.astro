@@ -13,7 +13,7 @@ const workflows = [
     },
     category: 'Basic',
     color: 'mofa-color-1',
-    scale: 0.4,
+    scale: 0.3,
     mermaidGraph: `
     flowchart TB
       terminal-input[🖥️ Terminal Input<br/>User Query]
@@ -84,7 +84,7 @@ const workflows = [
     },
     category: 'AI',
     color: 'mofa-color-3',
-    scale: 0.7,
+    scale: 0.5,
     mermaidGraph: `
     flowchart TB
       terminal[🖥️ Terminal Input<br/>User Question]
@@ -578,6 +578,62 @@ const workflows = [
   display: none !important;
 }
 
+/* 专门针对 Mermaid edgeLabel 元素的隐藏规则 */
+.workflow-card .edgeLabels,
+.workflow-card .edgeLabel,
+.workflow-card g.edgeLabels,
+.workflow-card g.edgeLabel,
+.workflow-card .edgeLabel span,
+.workflow-card .edgeLabel div,
+.workflow-card .edgeLabel foreignObject {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 隐藏 Mermaid SVG 中的所有 edgeLabel 相关元素 */
+.mermaid svg .edgeLabels,
+.mermaid svg .edgeLabel,
+.mermaid svg g.edgeLabels,
+.mermaid svg g.edgeLabel {
+  display: none !important;
+}
+
+/* 隐藏所有空的或只包含空白的标签元素 */
+.workflow-card span:empty,
+.workflow-card div:empty,
+.workflow-card .edgeLabel span:empty,
+.workflow-card foreignObject[width="8"],
+.workflow-card foreignObject[height="19.1953125"] {
+  display: none !important;
+}
+
+/* 更精确地隐藏 Mermaid SVG 中的 edgeLabel 元素 */
+.mermaid svg g.edgeLabels,
+.mermaid svg g.edgeLabel,
+.mermaid svg g > g > g.edgeLabels,
+.mermaid svg g > g > g.edgeLabel,
+[id^="mermaid-"] g.edgeLabels,
+[id^="mermaid-"] g.edgeLabel,
+[id^="mermaid-"] > g > g > g.edgeLabels,
+[id^="mermaid-"] > g > g > g.edgeLabel {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 隐藏所有 Mermaid 生成的空标签和小尺寸元素 */
+.mermaid svg foreignObject[width="8"],
+.mermaid svg foreignObject[height*="19"],
+.mermaid svg .label foreignObject,
+.mermaid svg g.label,
+[id^="mermaid-"] foreignObject[width="8"],
+[id^="mermaid-"] foreignObject[height*="19"],
+[id^="mermaid-"] .label foreignObject,
+[id^="mermaid-"] g.label {
+  display: none !important;
+}
+
 /* 响应式调整 */
 @media (max-width: 768px) {
   .workflow-card {
@@ -629,5 +685,58 @@ const workflows = [
   .chart-container {
     padding: 0.75rem;
   }
+}
+
+/* 完全禁用工作流区域的所有伪元素 */
+.workflow-container *::after,
+.workflow-container *::before {
+  display: none !important;
+}
+
+/* 更强力的全局禁用规则 - 针对工作流区域 */
+.workflow-container,
+.workflow-container *,
+.workflow-card,
+.workflow-card *,
+.chart-container,
+.chart-container *,
+.mermaid,
+.mermaid * {
+  position: relative !important;
+}
+
+.workflow-container::after,
+.workflow-container::before,
+.workflow-container *::after,
+.workflow-container *::before,
+.workflow-card::after,
+.workflow-card::before,
+.workflow-card *::after,
+.workflow-card *::before {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* 禁用可能的浮动元素 */
+.workflow-container [style*="position: absolute"],
+.workflow-card [style*="position: absolute"],
+.chart-container [style*="position: absolute"] {
+  display: none !important;
+}
+
+/* 专门针对 Mermaid edgeLabel 元素的隐藏规则 */
+.workflow-card .edgeLabels,
+.workflow-card .edgeLabel,
+.workflow-card g.edgeLabels,
+.workflow-card g.edgeLabel,
+.workflow-card .edgeLabel span,
+.workflow-card .edgeLabel div,
+.workflow-card .edgeLabel foreignObject {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 </style> 

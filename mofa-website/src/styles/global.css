@@ -355,14 +355,29 @@ code {
   animation-delay: calc(var(--flow-delay, 0) * 1s);
 }
 
-/* 禁用工作流卡片中的数据流动效果 */
+/* 更全面地排除工作流卡片 */
 .workflow-card .mondrian-block::after,
 .workflow-card *::after,
+.workflow-card *::before,
 .chart-container::after,
-.chart-container *::after {
+.chart-container *::after,
+.chart-container *::before,
+.workflow-container .mondrian-block::after,
+.workflow-container *::after,
+.workflow-container *::before {
   display: none !important;
   animation: none !important;
+  content: none !important;
+  visibility: hidden !important;
 }
+
+/* 完全禁用工作流区域的所有伪元素 */
+.workflow-container *::after,
+.workflow-container *::before {
+  display: none !important;
+}
+
+/* 禁用工作流卡片中的数据流动效果 */
 
 /* 语言切换按钮样式 */
 #lang-toggle {

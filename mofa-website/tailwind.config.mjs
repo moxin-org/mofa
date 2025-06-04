@@ -4,7 +4,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 蒙德里安经典配色 + 中国传统五色
         'mondrian-red': '#E31E24',
         'mondrian-blue': '#0C5DA5',
         'mondrian-yellow': '#FFD500',
@@ -12,10 +11,9 @@ export default {
         'mondrian-white': '#FFFFFF',
         'mondrian-gray': '#E5E5E5',
         
-        // MoFA品牌色
-        'mofa-primary': '#E31E24', // 红色作为主色
-        'mofa-secondary': '#0C5DA5', // 蓝色作为次要色
-        'mofa-accent': '#FFD500', // 黄色作为强调色
+        'mofa-primary': '#E31E24',
+        'mofa-secondary': '#0C5DA5',
+        'mofa-accent': '#FFD500',
       },
       fontFamily: {
         sans: ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
