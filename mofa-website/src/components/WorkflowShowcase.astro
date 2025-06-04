@@ -12,8 +12,8 @@ const workflows = [
       zh: '最简单的 AI 代理工作流'
     },
     category: 'Basic',
-    color: 'from-blue-500 to-cyan-500',
-    scale: 0.3,
+    color: 'mofa-color-1',
+    scale: 0.4,
     mermaidGraph: `
     flowchart TB
       terminal-input[🖥️ Terminal Input<br/>User Query]
@@ -39,8 +39,8 @@ const workflows = [
       zh: '自动化研究工作流，包含论文分析和报告生成'
     },
     category: 'Research',
-    color: 'from-purple-500 to-pink-500',
-    scale: 0.8,
+    color: 'mofa-color-2',
+    scale: 1.0,
     mermaidGraph: `
     flowchart TB
       terminal[🖥️ Terminal Input<br/>Research Task]
@@ -83,8 +83,8 @@ const workflows = [
       zh: '检索增强生成系统，用于智能问答'
     },
     category: 'AI',
-    color: 'from-green-500 to-teal-500',
-    scale: 0.6,
+    color: 'mofa-color-3',
+    scale: 0.7,
     mermaidGraph: `
     flowchart TB
       terminal[🖥️ Terminal Input<br/>User Question]
@@ -116,8 +116,8 @@ const workflows = [
       zh: '具有网页抓取和搜索能力的多代理系统'
     },
     category: 'Web',
-    color: 'from-orange-500 to-red-500',
-    scale: 0.7,
+    color: 'mofa-color-4',
+    scale: 0.9,
     mermaidGraph: `
     flowchart TB
       openai[🤖 OpenAI Server<br/>Chat Interface]
@@ -153,8 +153,8 @@ const workflows = [
       zh: '具有记忆检索和记录能力的增强AI工作流'
     },
     category: 'Memory',
-    color: 'from-indigo-500 to-purple-500',
-    scale: 0.55,
+    color: 'mofa-color-1',
+    scale: 0.75,
     mermaidGraph: `
     flowchart TB
       terminal[🖥️ Terminal Input<br/>User Task]
@@ -192,8 +192,8 @@ const workflows = [
       zh: '自动生成AI代理的智能系统'
     },
     category: 'Meta-AI',
-    color: 'from-cyan-500 to-blue-500',
-    scale: 0.55,
+    color: 'mofa-color-2',
+    scale: 0.75,
     mermaidGraph: `
     flowchart TB
       openai[🤖 OpenAI Server<br/>API Interface]
@@ -223,15 +223,15 @@ const workflows = [
     id: 'xiaowang-workflow',
     title: {
       en: 'XiaoWang Multi-Agent',
-      zh: '小王多代理系统'
+      zh: '多代理系统'
     },
     description: {
       en: 'Complex multi-agent workflow with reflection and generation',
       zh: '具有反思和生成能力的复杂多代理工作流'
     },
     category: 'Complex',
-    color: 'from-pink-500 to-rose-500',
-    scale: 0.6,
+    color: 'mofa-color-3',
+    scale: 0.75,
     mermaidGraph: `
     flowchart TB
       terminal[🖥️ XiaoWang Terminal<br/>Task Input]
@@ -280,9 +280,9 @@ const workflows = [
     <div class="workflow-container">
       <div class="workflow-scroll">
         {workflows.map((workflow) => (
-          <div class="workflow-card bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:border-4 hover:border-blue-500 transition-all duration-300 overflow-hidden">
+          <div class="workflow-card bg-white rounded-lg shadow-lg border-4 border-gray-300 hover:border-4 hover:border-indigo-500 transition-all duration-300 overflow-hidden">
             <!-- Header -->
-            <div class={`bg-gradient-to-r ${workflow.color} p-6 text-white`}>
+            <div class={`${workflow.color} p-6 text-white`}>
               <h3 class="text-2xl font-bold mb-2" 
                   data-en={workflow.title.en}
                   data-zh={workflow.title.zh}>
@@ -297,7 +297,7 @@ const workflows = [
 
             <!-- Mermaid Graph -->
             <div class="chart-container">
-              <div class={`mermaid-container-${workflow.id} bg-gray-50 rounded-lg p-4`} data-scale={workflow.scale}>
+              <div class={`mermaid-container-${workflow.id} bg-gray-50 rounded-lg p-4 border-2 border-gray-200`} data-scale={workflow.scale}>
                 <div class={`mermaid mermaid-${workflow.id}`}>
                   {workflow.mermaidGraph}
                 </div>
@@ -327,24 +327,24 @@ const workflows = [
       startOnLoad: true,
       theme: 'base',
       themeVariables: {
-        primaryColor: '#6366f1',
-        primaryTextColor: '#1f2937',
-        primaryBorderColor: '#4f46e5',
-        lineColor: '#6b7280',
-        sectionBkgColor: '#f9fafb',
-        altSectionBkgColor: '#ffffff',
-        gridColor: '#e5e7eb',
-        secondaryColor: '#f3f4f6',
-        tertiaryColor: '#fbbf24'
+        primaryColor: '#6366F1',
+        primaryTextColor: '#1F2937',
+        primaryBorderColor: '#6366F1',
+        lineColor: '#0EA5E9',
+        sectionBkgColor: '#F8FAFC',
+        altSectionBkgColor: '#FFFFFF',
+        gridColor: '#E5E7EB',
+        secondaryColor: '#F59E0B',
+        tertiaryColor: '#F59E0B'
       },
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      fontSize: 12,
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+      fontSize: 24,
       flowchart: {
         htmlLabels: true,
         curve: 'basis',
         useMaxWidth: true,
         rankdir: 'TB',
-        padding: 10
+        padding: 25
       },
       security: {
         level: 'loose'
@@ -393,6 +393,23 @@ const workflows = [
 </script>
 
 <style>
+/* MoFA 品牌颜色定义 */
+.mofa-color-1 {
+  background: linear-gradient(135deg, #FC6A59, #E55A4A);
+}
+
+.mofa-color-2 {
+  background: linear-gradient(135deg, #FFC53D, #E6B034);
+}
+
+.mofa-color-3 {
+  background: linear-gradient(135deg, #FD543F, #E64936);
+}
+
+.mofa-color-4 {
+  background: linear-gradient(135deg, #6CCBCD, #5BB7B9);
+}
+
 .workflow-container {
   position: relative;
   max-width: 100vw;
@@ -430,8 +447,8 @@ const workflows = [
 
 .workflow-card {
   flex: 0 0 auto;
-  width: 450px;
-  height: 650px;
+  width: 650px;
+  height: 800px;
   transform: translateY(0);
   transition: all 0.3s ease;
   display: flex;
@@ -449,6 +466,8 @@ const workflows = [
   display: flex;
   flex-direction: column;
   min-height: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .chart-container > div {
@@ -458,6 +477,7 @@ const workflows = [
   justify-content: center;
   min-height: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .mermaid {
@@ -466,7 +486,8 @@ const workflows = [
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
+  min-height: 400px;
+  font-size: 24px;
 }
 
 .mermaid svg {
@@ -484,22 +505,84 @@ const workflows = [
   stroke-width: 2px;
 }
 
+.mermaid .node text {
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
 .mermaid .edgePath path {
   stroke-width: 2px;
 }
 
 .mermaid .edgeLabel {
   background-color: white;
-  border-radius: 4px;
-  padding: 2px 4px;
-  font-size: 12px;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 禁用Mermaid容器中的mondrian-block动画效果 */
+.mermaid-container-hello-world::after,
+.mermaid-container-arxiv-research::after,
+.mermaid-container-rag-system::after,
+.mermaid-container-gosim-pedia::after,
+.mermaid-container-mem0-dataflow::after,
+.mermaid-container-intelligent-agent-creation::after,
+.mermaid-container-xiaowang-workflow::after,
+.chart-container::after,
+.chart-container > div::after {
+  display: none !important;
+}
+
+/* 更全面地禁用工作流卡片中的所有伪元素 */
+.workflow-card *::after,
+.workflow-card *::before,
+.workflow-card::after,
+.workflow-card::before {
+  animation: none !important;
+  display: none !important;
+}
+
+/* 确保Mermaid容器不受全局mondrian样式影响 */
+.mermaid,
+.mermaid *,
+.chart-container,
+.chart-container * {
+  position: relative;
+}
+
+.mermaid::after,
+.mermaid::before,
+.mermaid *::after,
+.mermaid *::before {
+  display: none !important;
+}
+
+/* 隐藏可能的橙色标记元素 */
+.workflow-card [style*="orange"],
+.workflow-card [style*="#FFA500"],
+.workflow-card [style*="#FF6600"],
+.workflow-card [style*="#F59E0B"],
+.workflow-card [style*="rgb(245, 158, 11)"],
+.workflow-card .bg-orange-500,
+.workflow-card .text-orange-500 {
+  display: none !important;
+}
+
+/* 隐藏所有positioned的小元素（可能是橙色点） */
+.workflow-card *[style*="position: absolute"][style*="width"][style*="height"] {
+  display: none !important;
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
   .workflow-card {
-    width: 380px;
-    height: 600px;
+    width: 480px;
+    height: 700px;
   }
   
   .workflow-scroll {
@@ -507,7 +590,16 @@ const workflows = [
   }
   
   .mermaid {
-    font-size: 12px;
+    font-size: 22px;
+  }
+  
+  .mermaid .node text {
+    font-size: 20px !important;
+  }
+  
+  .mermaid .edgeLabel {
+    font-size: 16px;
+    padding: 4px 8px;
   }
 
   .chart-container {
@@ -517,8 +609,21 @@ const workflows = [
 
 @media (max-width: 480px) {
   .workflow-card {
-    width: 320px;
-    height: 550px;
+    width: 380px;
+    height: 650px;
+  }
+
+  .mermaid {
+    font-size: 20px;
+  }
+  
+  .mermaid .node text {
+    font-size: 18px !important;
+  }
+  
+  .mermaid .edgeLabel {
+    font-size: 14px;
+    padding: 3px 6px;
   }
 
   .chart-container {
