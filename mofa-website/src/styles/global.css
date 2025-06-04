@@ -355,6 +355,15 @@ code {
   animation-delay: calc(var(--flow-delay, 0) * 1s);
 }
 
+/* 禁用工作流卡片中的数据流动效果 */
+.workflow-card .mondrian-block::after,
+.workflow-card *::after,
+.chart-container::after,
+.chart-container *::after {
+  display: none !important;
+  animation: none !important;
+}
+
 /* 语言切换按钮样式 */
 #lang-toggle {
   position: relative;

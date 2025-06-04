@@ -12,7 +12,7 @@
     </defs>
     
     <!-- Title -->
-    <text x="400" y="30" class="title-text">小王助手</text>
+    <text x="400" y="30" class="title-text">助手</text>
     
     <!-- Connections -->
     <path d="M 160 140 Q 235 110 310 140" class="connection" />

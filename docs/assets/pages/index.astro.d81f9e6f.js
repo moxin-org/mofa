@@ -1,6 +1,6 @@
 import { a as createComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderHead } from '../astro.7f8fc68a.js';
 import 'clsx';
-/* empty css                           *//* empty css                          */import { $ as $$BaseLayout, g as getCollection, a as $$DocsLayout } from './_...slug_.astro.1b6972a7.js';
+/* empty css                           *//* empty css                          */import { $ as $$BaseLayout, g as getCollection, a as $$DocsLayout } from './_...slug_.astro.edf55f0e.js';
 
 const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
   const workflows = [
@@ -15,8 +15,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u6700\u7B80\u5355\u7684 AI \u4EE3\u7406\u5DE5\u4F5C\u6D41"
       },
       category: "Basic",
-      color: "from-blue-500 to-cyan-500",
-      scale: 0.3,
+      color: "mofa-color-1",
+      scale: 0.4,
       mermaidGraph: `
     flowchart TB
       terminal-input[\u{1F5A5}\uFE0F Terminal Input<br/>User Query]
@@ -42,8 +42,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u81EA\u52A8\u5316\u7814\u7A76\u5DE5\u4F5C\u6D41\uFF0C\u5305\u542B\u8BBA\u6587\u5206\u6790\u548C\u62A5\u544A\u751F\u6210"
       },
       category: "Research",
-      color: "from-purple-500 to-pink-500",
-      scale: 0.8,
+      color: "mofa-color-2",
+      scale: 1,
       mermaidGraph: `
     flowchart TB
       terminal[\u{1F5A5}\uFE0F Terminal Input<br/>Research Task]
@@ -86,8 +86,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u68C0\u7D22\u589E\u5F3A\u751F\u6210\u7CFB\u7EDF\uFF0C\u7528\u4E8E\u667A\u80FD\u95EE\u7B54"
       },
       category: "AI",
-      color: "from-green-500 to-teal-500",
-      scale: 0.6,
+      color: "mofa-color-3",
+      scale: 0.7,
       mermaidGraph: `
     flowchart TB
       terminal[\u{1F5A5}\uFE0F Terminal Input<br/>User Question]
@@ -119,8 +119,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u5177\u6709\u7F51\u9875\u6293\u53D6\u548C\u641C\u7D22\u80FD\u529B\u7684\u591A\u4EE3\u7406\u7CFB\u7EDF"
       },
       category: "Web",
-      color: "from-orange-500 to-red-500",
-      scale: 0.7,
+      color: "mofa-color-4",
+      scale: 0.9,
       mermaidGraph: `
     flowchart TB
       openai[\u{1F916} OpenAI Server<br/>Chat Interface]
@@ -156,8 +156,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u5177\u6709\u8BB0\u5FC6\u68C0\u7D22\u548C\u8BB0\u5F55\u80FD\u529B\u7684\u589E\u5F3AAI\u5DE5\u4F5C\u6D41"
       },
       category: "Memory",
-      color: "from-indigo-500 to-purple-500",
-      scale: 0.55,
+      color: "mofa-color-1",
+      scale: 0.75,
       mermaidGraph: `
     flowchart TB
       terminal[\u{1F5A5}\uFE0F Terminal Input<br/>User Task]
@@ -195,8 +195,8 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
         zh: "\u81EA\u52A8\u751F\u6210AI\u4EE3\u7406\u7684\u667A\u80FD\u7CFB\u7EDF"
       },
       category: "Meta-AI",
-      color: "from-cyan-500 to-blue-500",
-      scale: 0.55,
+      color: "mofa-color-2",
+      scale: 0.75,
       mermaidGraph: `
     flowchart TB
       openai[\u{1F916} OpenAI Server<br/>API Interface]
@@ -226,15 +226,15 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
       id: "xiaowang-workflow",
       title: {
         en: "XiaoWang Multi-Agent",
-        zh: "\u5C0F\u738B\u591A\u4EE3\u7406\u7CFB\u7EDF"
+        zh: "\u591A\u4EE3\u7406\u7CFB\u7EDF"
       },
       description: {
         en: "Complex multi-agent workflow with reflection and generation",
         zh: "\u5177\u6709\u53CD\u601D\u548C\u751F\u6210\u80FD\u529B\u7684\u590D\u6742\u591A\u4EE3\u7406\u5DE5\u4F5C\u6D41"
       },
       category: "Complex",
-      color: "from-pink-500 to-rose-500",
-      scale: 0.6,
+      color: "mofa-color-3",
+      scale: 0.75,
       mermaidGraph: `
     flowchart TB
       terminal[\u{1F5A5}\uFE0F XiaoWang Terminal<br/>Task Input]
@@ -266,7 +266,7 @@ const $$WorkflowShowcase = createComponent(($$result, $$props, $$slots) => {
 Real Examples: <span class="gradient-text" data-astro-cid-22cdqia5>AI Workflows</span> in Action
 </h2> <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-en="Explore different types of AI workflows - from simple hello world to complex research automation" data-zh="探索不同类型的 AI 工作流 - 从简单的问候到复杂的研究自动化" data-astro-cid-22cdqia5>
 Explore different types of AI workflows - from simple hello world to complex research automation
-</p> </div> <!-- Workflow Horizontal Scroll Container --> <div class="workflow-container" data-astro-cid-22cdqia5> <div class="workflow-scroll" data-astro-cid-22cdqia5> ${workflows.map((workflow) => renderTemplate`<div class="workflow-card bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:border-4 hover:border-blue-500 transition-all duration-300 overflow-hidden" data-astro-cid-22cdqia5> <!-- Header --> <div${addAttribute(`bg-gradient-to-r ${workflow.color} p-6 text-white`, "class")} data-astro-cid-22cdqia5> <h3 class="text-2xl font-bold mb-2"${addAttribute(workflow.title.en, "data-en")}${addAttribute(workflow.title.zh, "data-zh")} data-astro-cid-22cdqia5> ${workflow.title.en} </h3> <p class="text-white text-opacity-90"${addAttribute(workflow.description.en, "data-en")}${addAttribute(workflow.description.zh, "data-zh")} data-astro-cid-22cdqia5> ${workflow.description.en} </p> </div> <!-- Mermaid Graph --> <div class="chart-container" data-astro-cid-22cdqia5> <div${addAttribute(`mermaid-container-${workflow.id} bg-gray-50 rounded-lg p-4`, "class")}${addAttribute(workflow.scale, "data-scale")} data-astro-cid-22cdqia5> <div${addAttribute(`mermaid mermaid-${workflow.id}`, "class")} data-astro-cid-22cdqia5> ${workflow.mermaidGraph} </div> </div> </div> </div>`)} </div> </div> <!-- Scroll hint --> <div class="text-center mt-8" data-astro-cid-22cdqia5> <p class="text-sm text-gray-500" data-en="← Scroll horizontally to explore more workflows →" data-zh="← 水平滚动以探索更多工作流 →" data-astro-cid-22cdqia5>
+</p> </div> <!-- Workflow Horizontal Scroll Container --> <div class="workflow-container" data-astro-cid-22cdqia5> <div class="workflow-scroll" data-astro-cid-22cdqia5> ${workflows.map((workflow) => renderTemplate`<div class="workflow-card bg-white rounded-lg shadow-lg border-4 border-gray-300 hover:border-4 hover:border-indigo-500 transition-all duration-300 overflow-hidden" data-astro-cid-22cdqia5> <!-- Header --> <div${addAttribute(`${workflow.color} p-6 text-white`, "class")} data-astro-cid-22cdqia5> <h3 class="text-2xl font-bold mb-2"${addAttribute(workflow.title.en, "data-en")}${addAttribute(workflow.title.zh, "data-zh")} data-astro-cid-22cdqia5> ${workflow.title.en} </h3> <p class="text-white text-opacity-90"${addAttribute(workflow.description.en, "data-en")}${addAttribute(workflow.description.zh, "data-zh")} data-astro-cid-22cdqia5> ${workflow.description.en} </p> </div> <!-- Mermaid Graph --> <div class="chart-container" data-astro-cid-22cdqia5> <div${addAttribute(`mermaid-container-${workflow.id} bg-gray-50 rounded-lg p-4 border-2 border-gray-200`, "class")}${addAttribute(workflow.scale, "data-scale")} data-astro-cid-22cdqia5> <div${addAttribute(`mermaid mermaid-${workflow.id}`, "class")} data-astro-cid-22cdqia5> ${workflow.mermaidGraph} </div> </div> </div> </div>`)} </div> </div> <!-- Scroll hint --> <div class="text-center mt-8" data-astro-cid-22cdqia5> <p class="text-sm text-gray-500" data-en="← Scroll horizontally to explore more workflows →" data-zh="← 水平滚动以探索更多工作流 →" data-astro-cid-22cdqia5>
 ← Scroll horizontally to explore more workflows →
 </p> </div> </div> </section> <!-- Mermaid Script -->  `;
 }, "/Users/liyao/Code/mofa/mofa-website/src/components/WorkflowShowcase.astro", void 0);
