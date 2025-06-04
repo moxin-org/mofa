@@ -157,7 +157,7 @@ start_backend() {
     else
         print_info "$EN_INSTALL_PYTHON_DEPS"
     fi
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     
     # 在后台启动 Flask 服务
     python3 app.py &
