@@ -214,7 +214,7 @@ install_backend() {
     
     # 装依赖
     print_color_msg "$GREEN" "$ZH_PIP_INSTALL" "$EN_PIP_INSTALL"
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
     
     # 检查结果
     if [ $? -eq 0 ]; then
