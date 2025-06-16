@@ -72,3 +72,4 @@ agent:
     - Documents dependencies explicitly
     - Passes serialization validation tests
     - Generate corresponding code according to configuration parameters
+    - If the code does not require any input, add a sentence to facilitate other nodes to call it user_input = agent.receive_parameter('user_input')
