@@ -82,8 +82,11 @@ driver.close()
 soup = BeautifulSoup(page_content, 'html.parser')
 all_api_tags = soup.find_all('a', attrs={'data-v-f3996aef': True})
 free_base_url = "https://www.freepublicapis.com"
+all_apis = []
 for api_url in all_api_tags:
-    api_url =  free_base_url  + api_url.get('href')
-    print(api_url)
-    break
-
+    try:
+        api_url =  free_base_url  + api_url.get('href')
+        all_apis.append(api_url)
+    except Exception as e :
+        continue
+print(all_apis)
