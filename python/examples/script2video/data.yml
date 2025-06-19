@@ -33,7 +33,6 @@ nodes:
       query: keyframe-agent/keyframe_result  # 修改为依赖 keyframe-agent
     env:
       WRITE_LOG: true
-      PROMPT_CACHE_PATH: /root/mofa-euterpe/python/examples/script2video/output/prompt_cache.txt
   - id: kling-agent-video
     build: pip install -e ../../agent-hub/kling-agent-video
     path: kling-agent-video
@@ -44,4 +43,3 @@ nodes:
     env:
       WRITE_LOG: true
       IS_DATAFLOW_END: true
-      PYTHONPATH: /root/mofa-euterpe/python:/root/mofa-euterpe/python/agent-hub/kling-agent-video
