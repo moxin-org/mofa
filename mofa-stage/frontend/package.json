@@ -1,0 +1,37 @@
+{
+  "name": "mofa-stage-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@codingame/monaco-vscode-api": "^17.2.0",
+    "axios": "^1.6.2",
+    "element-plus": "^2.4.3",
+    "highlight.js": "^11.8.0",
+    "markdown-it": "^13.0.1",
+    "mermaid": "^10.9.0",
+    "monaco-editor": "^0.47.0",
+    "pinia": "^2.1.7",
+    "socket.io-client": "^4.8.1",
+    "splitpanes": "^4.0.4",
+    "svg-pan-zoom": "^3.6.2",
+    "vscode": "npm:@codingame/monaco-vscode-api@^17.2.0",
+    "vue": "^3.3.8",
+    "vue-i18n": "^12.0.0-alpha.2",
+    "vue-router": "^4.2.5",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@vitejs/plugin-vue": "^4.4.1",
+    "sass": "^1.69.5",
+    "vite": "^5.0.2",
+    "vite-plugin-static-copy": "^3.0.0",
+    "vscode-web": "^1.91.1"
+  }
+}

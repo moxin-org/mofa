@@ -1,0 +1,646 @@
+/* Base styles */
+:root {
+  /* MoFA Theme Colors - 指定的四种颜色 */
+  --mofa-red: #FF5C48;
+  --mofa-orange: #FF6857;
+  --mofa-yellow: #FFC837;
+  --mofa-teal: #6BCED2;
+  
+  /* Primary color scheme */
+  --primary-color: var(--mofa-red);
+  --secondary-color: var(--mofa-teal);
+  --accent-color: var(--mofa-orange);
+  --success-color: var(--mofa-teal);
+  --warning-color: var(--mofa-yellow);
+  --danger-color: var(--mofa-red);
+  --info-color: #6C7B7F;
+  
+  /* Text colors */
+  --text-color: #2C3E50;
+  --text-color-secondary: #5A6C7D;
+  --text-color-light: #8492A6;
+  
+  /* Border and backgrounds */
+  --border-color: #E8F4F8;
+  --border-color-light: #F0F8FF;
+  --background-color: #FAFBFC;
+  --card-background: #FFFFFF;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --header-background: #FFFFFF;
+  --sidebar-background: #F8FAFE;
+  --sidebar-text-color: var(--text-color-secondary);
+  --sidebar-active-text-color: var(--primary-color);
+  
+  /* Button shadows */
+  --button-shadow: 0 2px 8px rgba(255, 92, 72, 0.2);
+  --button-shadow-hover: 0 4px 16px rgba(255, 92, 72, 0.3);
+}
+
+/* Dark Theme - 优化深色模式配色 */
+[data-theme="dark"] {
+  --primary-color: #FF6B5B;
+  --secondary-color: #7DD6DA;
+  --accent-color: #FF7866;
+  --success-color: #7DD6DA;
+  --warning-color: #FFD147;
+  --danger-color: #FF6B5B;
+  --info-color: #9DA5AB;
+  
+  /* 更温暖的深色文字颜色 */
+  --text-color: #F0F6FC;
+  --text-color-secondary: #C9D1D9;
+  --text-color-light: #8B949E;
+  
+  /* 更有层次的深色背景 */
+  --border-color: #30363D;
+  --border-color-light: #21262D;
+  --background-color: #0D1117;
+  --card-background: #161B22;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --header-background: #161B22;
+  --sidebar-background: #0D1117;
+  --sidebar-text-color: var(--text-color-secondary);
+  --sidebar-active-text-color: var(--primary-color);
+  
+  color: var(--text-color);
+}
+
+/* 流动渐变动画 */
+@keyframes flowing-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes flowing-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 动态渐变文字效果 */
+.dynamic-gradient-text {
+  background: linear-gradient(
+    45deg,
+    var(--mofa-red) 0%,
+    var(--mofa-orange) 25%,
+    var(--mofa-yellow) 50%,
+    var(--mofa-teal) 75%,
+    var(--mofa-red) 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: flowing-gradient 12s ease-in-out infinite;
+}
+
+/* 动态色条效果 */
+.dynamic-gradient-border {
+  background: linear-gradient(
+    90deg,
+    var(--mofa-red) 0%,
+    var(--mofa-orange) 25%,
+    var(--mofa-yellow) 50%,
+    var(--mofa-teal) 75%,
+    var(--mofa-red) 100%
+  );
+  background-size: 300% 100%;
+  animation: flowing-border 16s ease-in-out infinite;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  line-height: 1.6;
+  background-color: var(--background-color);
+}
+
+.page-container {
+  padding: 24px;
+}
+
+.card {
+  background-color: var(--card-background);
+  border-radius: 0;
+  box-shadow: var(--card-shadow);
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.page-title {
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+}
+
+/* MoFA Style Buttons */
+.el-button--primary {
+  background: linear-gradient(135deg, var(--mofa-red) 0%, var(--mofa-orange) 100%);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--button-shadow);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.el-button--primary:hover {
+  background: linear-gradient(135deg, var(--mofa-orange) 0%, var(--mofa-red) 100%);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.el-button--success {
+  background: linear-gradient(135deg, var(--mofa-teal) 0%, #7DD6DA 100%);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(107, 206, 210, 0.2);
+}
+
+.el-button--success:hover {
+  background: linear-gradient(135deg, #5BC1C6 0%, var(--mofa-teal) 100%);
+  box-shadow: 0 4px 16px rgba(107, 206, 210, 0.3);
+  transform: translateY(-1px);
+}
+
+.el-button--warning {
+  background: linear-gradient(135deg, var(--mofa-yellow) 0%, #FFD55A 100%);
+  border: none;
+  border-radius: 0;
+  color: #2C3E50;
+  box-shadow: 0 2px 8px rgba(255, 200, 55, 0.2);
+}
+
+.el-button--warning:hover {
+  background: linear-gradient(135deg, #E6B420 0%, var(--mofa-yellow) 100%);
+  box-shadow: 0 4px 16px rgba(255, 200, 55, 0.3);
+  transform: translateY(-1px);
+}
+
+.el-button--danger {
+  background: linear-gradient(135deg, var(--mofa-red) 0%, var(--mofa-orange) 100%);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(255, 92, 72, 0.2);
+}
+
+.el-button--danger:hover {
+  background: linear-gradient(135deg, var(--mofa-orange) 0%, var(--mofa-red) 100%);
+  box-shadow: 0 4px 16px rgba(255, 92, 72, 0.3);
+  transform: translateY(-1px);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Agent cards */
+.agent-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* 暗色模式下的表单和表格样式调整 */
+[data-theme="dark"] .el-form-item__label,
+[data-theme="dark"] .el-input__inner,
+[data-theme="dark"] .el-select__input,
+[data-theme="dark"] .el-table th,
+[data-theme="dark"] .el-table tr,
+[data-theme="dark"] .el-table td,
+[data-theme="dark"] .el-form-item__content,
+[data-theme="dark"] .el-select-dropdown__item,
+[data-theme="dark"] .el-pagination,
+[data-theme="dark"] .el-pagination button,
+[data-theme="dark"] .el-pagination span {
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-help {
+  color: var(--text-color-secondary);
+}
+
+[data-theme="dark"] .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info) {
+  background-color: #2c2c2c;
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .el-card,
+[data-theme="dark"] .el-input__wrapper,
+[data-theme="dark"] .el-textarea__inner,
+[data-theme="dark"] .el-select-dropdown,
+[data-theme="dark"] .el-dropdown-menu {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.agent-card {
+  background-color: var(--card-background);
+  border-radius: 0;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--mofa-red) 0%,
+    var(--mofa-orange) 25%,
+    var(--mofa-yellow) 50%,
+    var(--mofa-teal) 75%,
+    var(--mofa-red) 100%
+  );
+  background-size: 300% 100%;
+  animation: flowing-border 16s ease-in-out infinite;
+}
+
+.agent-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.agent-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-color);
+}
+
+.agent-card-body {
+  flex-grow: 1;
+  margin-bottom: 16px;
+}
+
+.agent-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Code editor */
+.code-editor-container {
+  height: 500px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Tabs */
+.editor-tabs {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Form styles */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Loading and empty states */
+.loading-container, .empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.empty-container {
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Layout components */
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: var(--sidebar-background);
+  color: var(--sidebar-text-color);
+  padding: 20px 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.header {
+  background-color: var(--header-background);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  padding: 20px;
+}
+
+/* Global Component Enhancements */
+.el-tabs__header {
+  margin-bottom: 24px;
+}
+
+.el-tabs__nav-wrap::after {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--mofa-red) 0%,
+    var(--mofa-orange) 25%,
+    var(--mofa-yellow) 50%,
+    var(--mofa-teal) 75%,
+    var(--mofa-red) 100%
+  );
+  background-size: 300% 100%;
+  animation: flowing-border 16s ease-in-out infinite;
+}
+
+.el-tabs__item {
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0 24px;
+  height: 48px;
+  line-height: 48px;
+}
+
+.el-tabs__item.is-active {
+  color: var(--primary-color);
+}
+
+/* Card enhancements */
+.el-card {
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.el-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.el-card__header {
+  padding: 20px 24px 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.el-card__body {
+  padding: 24px;
+}
+
+/* Button group improvements */
+.el-button-group .el-button {
+  border-radius: 0;
+  margin: 0 2px;
+}
+
+.el-button-group .el-button:first-child {
+  margin-left: 0;
+}
+
+.el-button-group .el-button:last-child {
+  margin-right: 0;
+}
+
+/* Dialog improvements */
+.el-dialog {
+  border-radius: 0;
+  overflow: hidden;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
+.el-dialog__header {
+  padding: 24px 24px 16px 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 254, 0.9) 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.el-dialog__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.el-dialog__body {
+  padding: 24px;
+}
+
+/* Empty state improvements */
+.el-empty {
+  padding: 60px 40px;
+}
+
+.el-empty__description {
+  color: var(--text-color-secondary);
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* Message and notification improvements */
+.el-message {
+  border-radius: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  top: 90px !important; /* 调整消息位置到头栏下方，70px头栏高度 + 20px间距 */
+}
+
+.el-message--success {
+  background: rgba(107, 206, 210, 0.1);
+  border-color: var(--mofa-teal);
+  color: var(--mofa-teal);
+}
+
+.el-message--error {
+  background: rgba(255, 92, 72, 0.1);
+  border-color: var(--mofa-red);
+  color: var(--mofa-red);
+}
+
+.el-message--warning {
+  background: rgba(255, 200, 55, 0.1);
+  border-color: var(--mofa-yellow);
+  color: #CC9A00;
+}
+
+/* Skeleton loading improvements */
+.el-skeleton__item {
+  border-radius: 0;
+}
+
+/* Dark theme dialog adjustments */
+[data-theme="dark"] .el-dialog__header {
+  background: linear-gradient(135deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.9) 100%);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .el-message--success {
+  background: rgba(107, 206, 210, 0.2);
+}
+
+[data-theme="dark"] .el-message--error {
+  background: rgba(255, 92, 72, 0.2);
+}
+
+[data-theme="dark"] .el-message--warning {
+  background: rgba(255, 200, 55, 0.2);
+}
+
+/* 深色模式下的增强效果 */
+[data-theme="dark"] .el-card {
+  background: rgba(22, 27, 34, 0.8);
+  backdrop-filter: blur(10px);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+[data-theme="dark"] .el-card:hover {
+  background: rgba(22, 27, 34, 0.9);
+  border-color: rgba(48, 54, 61, 1);
+}
+
+/* 深色模式下的按钮增强 */
+[data-theme="dark"] .el-button--primary {
+  box-shadow: 0 2px 12px rgba(255, 107, 91, 0.3);
+}
+
+[data-theme="dark"] .el-button--success {
+  box-shadow: 0 2px 12px rgba(125, 214, 218, 0.3);
+}
+
+[data-theme="dark"] .el-button--warning {
+  box-shadow: 0 2px 12px rgba(255, 209, 71, 0.3);
+  color: #0D1117;
+}
+
+/* 深色模式下的消息优化 */
+[data-theme="dark"] .el-message--success {
+  background: rgba(125, 214, 218, 0.15);
+  border-color: var(--mofa-teal);
+  color: var(--mofa-teal);
+}
+
+[data-theme="dark"] .el-message--error {
+  background: rgba(255, 107, 91, 0.15);
+  border-color: var(--mofa-red);
+  color: var(--mofa-red);
+}
+
+[data-theme="dark"] .el-message--warning {
+  background: rgba(255, 209, 71, 0.15);
+  border-color: var(--mofa-yellow);
+  color: var(--mofa-yellow);
+}
