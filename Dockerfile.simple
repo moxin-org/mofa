@@ -1,0 +1,27 @@
+FROM ubuntu:22.04
+
+# 避免交互式提示
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装基础工具和依赖
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    python3 \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# 创建工作目录
+WORKDIR /app
+
+# 容器启动命令
+CMD ["/bin/bash"] 

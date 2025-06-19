@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "add-numbers"
+name = "add-numbers_copy"
 version = "0.1.1"
 authors = [
     "ZongHuan Wu ",
     "Cheng Chen",
     
 ]
-description = "A simple add-numbers template"
+description = "A simple add-numbers_copy template"
 license = "MIT License"
 homepage = "https://github.com/moxin-org/mofa"
 documentation = "https://github.com/moxin-org/mofa/blob/main/README.md"
@@ -17,7 +17,7 @@ packages = [{ include = "add_numbers" }]
 pyarrow = ">= 5.0.0"
 
 [tool.poetry.scripts]
-add-numbers = "add_numbers.main:main"
+add-numbers_copy = "add_numbers.main:main"
 
 [build-system]
 requires = ["poetry-core>=1.8.0"]

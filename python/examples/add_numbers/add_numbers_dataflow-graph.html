@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'></head><body><div class='mermaid'>
+flowchart TB
+  add-numbers
+  multiply-numbers
+  terminal-input
+  add-numbers -- add_numbers_result --> terminal-input
+  multiply-numbers -- multiply_numbers_result --> terminal-input
+  terminal-input -- num1 --> multiply-numbers
+  terminal-input -- num1 --> add-numbers
+  multiply-numbers -- num2 --> add-numbers
+</div><script src='https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js'></script><script>mermaid.initialize({ startOnLoad:true, securityLevel:'loose', theme:'base' });</script></body></html>
