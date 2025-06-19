@@ -186,7 +186,6 @@ def run(agent: MofaAgent):
         )
         
     except Exception as e:
-        agent.logger.error(f"Error: {str(e)}")
         agent.send_output(
             agent_output_name='llm_result',
             agent_result=f"Error: {str(e)}"
@@ -418,7 +417,7 @@ def run(agent: MofaAgent):
         )
         
     except Exception as e:
-        agent.logger.error(f"Error: {str(e)}")
+        print(str(e))
         
 
 def process_task(data: str) -> str:
@@ -435,4 +434,3 @@ if __name__ == "__main__":
 
 ---
 
-This translation should capture all the necessary details and terminology in English. Let me know if you'd like further adjustments!
