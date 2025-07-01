@@ -154,7 +154,7 @@ async def run_fastapi():
     # Configure the Uvicorn server with host, port, and log level settings
     # 127.0.0.1 for localhost, local-only access
     # 0.0.0.0 for all available network interfaces
-    config = uvicorn.Config(app, host="0.0.0.0", port=8000, log_level="info")
+    config = uvicorn.Config(app, host="0.0.0.0", port=8025, log_level="info")
     server = uvicorn.Server(config)
 
     # Start the Uvicorn server and run it asynchronously
