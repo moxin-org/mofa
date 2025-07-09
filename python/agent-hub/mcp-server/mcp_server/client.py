@@ -2,7 +2,6 @@
 from mcp import ClientSession
 from mcp.client.sse import sse_client
 
-
 async def run():
     async with sse_client(url="http://127.0.0.1:8000/sse") as streams:
         async with ClientSession(*streams) as session:
