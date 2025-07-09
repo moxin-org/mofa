@@ -1,91 +1,44 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
+
 <head>
-    <meta charset='utf-8'>
-    <style>
-        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
-        .mermaid { cursor: pointer; }
-        .node { cursor: pointer !important; }
-        .node:hover { filter: brightness(1.1); }
-    </style>
+    <meta charset="utf-8">
 </head>
+
 <body>
-    <div class='mermaid'>
-flowchart TB
-  evaluation_agent
-  feedback_agent
-  keyword_extractor_agent
-  paper_analyze_agent
-  paper_downloader_agent
-  refinement_agent
-  report_writer_agent
+    <div class="mermaid">
+        flowchart TB
   terminal-input
-  keyword_extractor_agent -- task_keyword --> terminal-input
-  paper_downloader_agent -- papers_info --> terminal-input
-  paper_analyze_agent -- paper_analyze_result --> terminal-input
-  report_writer_agent -- writer_report --> terminal-input
-  feedback_agent -- suggestion --> terminal-input
-  refinement_agent -- refinement_result --> terminal-input
-  evaluation_agent -- self_refine_end --> terminal-input
+  keyword_extractor_agent/op[keyword_extractor_agent]
+  paper_downloader_agent/op[paper_downloader_agent]
+  paper_analyze_agent/op[paper_analyze_agent]
+  report_writer_agent/op[report_writer_agent]
+  feedback_agent/op[feedback_agent]
+  refinement_agent/op[refinement_agent]
+  evaluation_agent/op[evaluation_agent]
+  paper_analyze_agent/op -- paper_analyze_result --> terminal-input
+  paper_downloader_agent/op -- papers_info --> terminal-input
+  keyword_extractor_agent/op -- keyword_extractor_results as task_keyword --> terminal-input
+  report_writer_agent/op -- writer_report --> terminal-input
+  terminal-input -- data as arxiv_research_task --> keyword_extractor_agent/op
+  keyword_extractor_agent/op -- keyword_extractor_results as keywords --> paper_downloader_agent/op
+  paper_downloader_agent/op -- papers_info --> paper_analyze_agent/op
+  terminal-input -- data as search_task --> paper_analyze_agent/op
+  paper_analyze_agent/op -- paper_analyze_result --> report_writer_agent/op
+  terminal-input -- data as search_task --> report_writer_agent/op
+  evaluation_agent/op -- evaluation_result as refinement_report --> feedback_agent/op
+  terminal-input -- data as search_task --> feedback_agent/op
+  report_writer_agent/op -- writer_report --> feedback_agent/op
+  terminal-input -- data as search_task --> refinement_agent/op
+  feedback_agent/op -- suggestion --> refinement_agent/op
+  feedback_agent/op -- suggestion as writer_report --> refinement_agent/op
+  refinement_agent/op -- refinement_result as refinement_report --> evaluation_agent/op
+  terminal-input -- data as search_task --> evaluation_agent/op
+
     </div>
-    <script src='https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js'></script>
-    <script>
-        mermaid.initialize({ 
-            startOnLoad: true, 
-            securityLevel: 'loose', 
-            theme: 'base',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-            }
-        });
-        
-        function handleNodeClick(e, node) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            let nodeId = null;
-            const textElement = node.querySelector('text');
-            if (textElement) {
-                nodeId = textElement.textContent.trim();
-            } else {
-                const fullText = node.textContent.trim();
-                const lines = fullText.split('\n');
-                for (let line of lines) {
-                    line = line.trim();
-                    if (line && !line.includes('→') && !line.includes('--')) {
-                        nodeId = line;
-                        break;
-                    }
-                }
-                if (!nodeId) nodeId = fullText;
-            }
-            
-            if (nodeId && window.parent && window.parent !== window) {
-                window.parent.postMessage({
-                    type: 'mermaid-node-click',
-                    nodeId: nodeId
-                }, '*');
-            }
-        }
-        
-        setTimeout(() => {
-            const nodes = document.querySelectorAll('.node');
-            if (nodes.length === 0) {
-                const textGroups = document.querySelectorAll('g');
-                textGroups.forEach(g => {
-                    const text = g.textContent.trim();
-                    if (text && !text.includes('→') && !text.includes('--') && text.length > 0) {
-                        g.style.cursor = 'pointer';
-                        g.addEventListener('click', e => handleNodeClick(e, g));
-                    }
-                });
-            } else {
-                nodes.forEach(node => {
-                    node.addEventListener('click', e => handleNodeClick(e, node));
-                });
-            }
-         }, 1500);
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'base' });
     </script>
 </body>
+
 </html>

@@ -14,12 +14,12 @@ async def run():
             print(tools)
 
             # Call a tool
-            result = await session.call_tool("add", arguments={"a": 4, "b": 5})
-            print(result.content[0].text)
-
-            # List available resources
-            resources = await session.list_resources()
-            print("resources", resources)
+            # result = await session.call_tool("add", arguments={"a": 4, "b": 5})
+            # print(result.content[0].text)
+            #
+            # # List available resources
+            # resources = await session.list_resources()
+            # print("resources", resources)
             #
             # # Read a resource
             # content = await session.read_resource("resource://some_static_resource")

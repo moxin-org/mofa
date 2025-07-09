@@ -18,9 +18,8 @@ def clean_string(input_string:str):
 def send_task_and_receive_data(node):
     TIMEOUT = 300
     while True:
-        input_prefix = os.getenv('INPUT_PREFIX', 'Send You Task :  ')
         data = input(
-            f" {input_prefix}",
+            " Send You Task :  ",
         )
         node.send_output("data", pa.array([clean_string(data)]))
         event = node.next(timeout=TIMEOUT)

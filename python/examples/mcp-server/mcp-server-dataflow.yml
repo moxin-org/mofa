@@ -1,6 +1,6 @@
 nodes:
   - id: mcp-server
-    build: pip install -e /Users/chenzi/project/zcbc/mofa/python/agent-hub/mcp-server
+    build: pip install -e ../../agent-hub/mcp-server
     path: mcp-server
     inputs:
       tick: dora/timer/millis/20

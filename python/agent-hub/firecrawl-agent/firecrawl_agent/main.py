@@ -14,9 +14,9 @@ class FireCrawl:
         self.crawl = FirecrawlApp(api_key=api_key)
         if crawl_params is None:
             crawl_params = {
-                "maxDepth": os.getenv('FIRECRAWL_MAXDEPTH',5),
+                "maxDepth": os.getenv('FIRECRAWL_MAXDEPTH',3),
                 "timeLimit": 180,  # Time limit in seconds
-                "maxUrls": os.getenv('FIRECRAWL_MAXURLS',25)  # Maximum URLs to analyze
+                "maxUrls": os.getenv('FIRECRAWL_MAXURLS',15)  # Maximum URLs to analyze
             }
         self.crawl_params = crawl_params
 
@@ -40,7 +40,6 @@ Personal Information: Basic details about the speaker, including life experience
 Social Media and Open Source Contributions: The speaker’s activity on social media platforms and contributions to open-source projects (e.g., GitHub).
 
 Professional Experience: The speaker’s work history, including companies they’ve worked for, roles held, and key project experiences."""
-
         results = self.crawl.deep_research(query=query,
                                            max_depth=os.getenv('FIRECRAWL_MAXDEPTH',3),max_urls=os.getenv('FIRECRAWL_MAXURLS',10), on_activity=self.on_activity,analysis_prompt=analysis_prompt)
         source_data = results['data']['sources']
@@ -51,14 +50,8 @@ Professional Experience: The speaker’s work history, including companies they�
 def run(agent:MofaAgent):
     load_dotenv('.env.secret')
     query = agent.receive_parameter('query')
-    if os.getenv('SEARCH_TEXT', None) is not None:
-        search_text = agent.receive_parameter(os.getenv('SEARCH_TEXT'))
-        query = query  + f"{os.getenv('SEARCH_TEXT')} : {search_text}"
     app = FireCrawl()
-    scrape_result = json.dumps(app.deep_research(query=query),ensure_ascii=False, indent=2)
-    if os.getenv('WRITE_FILE',None) is not None:
-        with open(os.getenv('WRITE_FILE'), 'w',encoding='utf-8') as f:
-            f.write(scrape_result)
+    scrape_result = json.dumps(app.deep_research(query=query))
     agent.send_output(agent_output_name='firecrawl_agent_result',agent_result=scrape_result)
 def main():
     agent = MofaAgent(agent_name='firecrawl-agent')
