@@ -45,10 +45,10 @@ RAG:
   RAG_SEARCH_NUM: 6
   RAG_MODEL_NAME: netease-youdao/bce-embedding-base_v1
   RAG_MODEL_API_URL: https://api.siliconflow.cn/v1
-  RAG_MODEL_API_KEY: ***REMOVED***
+  RAG_MODEL_API_KEY: sk-
 
 MODEL:
-  MODEL_API_KEY: ***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX  # Replace with your API key
+  MODEL_API_KEY: sk-XXXXXXXXXXXXXXXXXXXXXXXX  # Replace with your API key
   MODEL_NAME: Qwen/Qwen2.5-72B-Instruct  # Replace with your model name
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
 ```
@@ -110,7 +110,7 @@ MODEL:
 
 #### `MODEL` (Generation Model Configuration)
 
-- **MODEL_API_KEY**: Your generation model API key. Please replace it with your actual key, for example, `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`.
+- **MODEL_API_KEY**: Your generation model API key. Please replace it with your actual key, for example, `"sk-XXXXXXXXXXXXXXXXXXXXXXXX"`.
 - **MODEL_NAME**: The name of the generation model, for example, `"Qwen/Qwen2.5-72B-Instruct"`.
 - **MODEL_API_URL**: The API URL of the generation model, for example, `"https://api.siliconflow.cn/v1/chat/completions"`.
 

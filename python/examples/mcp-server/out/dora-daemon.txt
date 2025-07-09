@@ -337,3 +337,108 @@
 2025-04-09T09:02:03.080457Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 66ed637d-447e-48ca-abeb-20d484e9e0b6 }}: dora_daemon: received destroy command -> exiting
 2025-04-09T09:02:03.080603Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 66ed637d-447e-48ca-abeb-20d484e9e0b6 }}: zenoh::api::session: close session zid=76d4b9742b18f736c0fcee50e8d2b906
 2025-04-09T09:02:03.084248Z  WARN dora_daemon: process 14122 was killed on drop because it was still running
+2025-07-07T06:09:25.716596Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-07-07T06:09:25.717687Z  INFO zenoh::net::runtime: Using ZID: 4313be9000c79d1a6096c630abf68a1e
+2025-07-07T06:09:25.719379Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:4ed:422d:2dfc:a417]:63236
+2025-07-07T06:09:25.719410Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:656f:c55d:7ad3:35ee]:63236
+2025-07-07T06:09:25.719414Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:8c35:33b3:948f:f783]:63236
+2025-07-07T06:09:25.719416Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:e901:1a5:72a8:bfb6]:63236
+2025-07-07T06:09:25.719428Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fd00:1234:ffff::10]:63236
+2025-07-07T06:09:25.719430Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/198.18.0.1:63236
+2025-07-07T06:09:25.719432Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1]:63236
+2025-07-07T06:09:25.719433Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::7e4c:f790:b985:6b3]:63236
+2025-07-07T06:09:25.719435Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c28:4ee1:17ed:a86b]:63236
+2025-07-07T06:09:25.719437Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63236
+2025-07-07T06:09:25.719438Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63236
+2025-07-07T06:09:25.719440Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::bc6f:d4a:d0bb:ae76]:63236
+2025-07-07T06:09:25.719441Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c4c5:e9b8:6e32:505c]:63236
+2025-07-07T06:09:25.719443Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce81:b1c:bd2c:69e]:63236
+2025-07-07T06:09:25.719444Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::a6aa:28ff:980:6fe6]:63236
+2025-07-07T06:09:25.719446Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::e8db:35bc:51ad:8354]:63236
+2025-07-07T06:09:25.719447Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::f419:3cfe:5811:f5c9]:63236
+2025-07-07T06:09:25.719449Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2e0:4cff:fe68:1f04]:63236
+2025-07-07T06:09:25.719450Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::12e:eb98:f29d:354d]:63236
+2025-07-07T06:09:25.719452Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.31.33:63236
+2025-07-07T06:09:25.719454Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.103.1.11:63236
+2025-07-07T06:09:25.719528Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-07-07T06:10:31.147064Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: a6060ef9-c803-4dbf-b945-1e1038b843bc }}: dora_daemon: received destroy command -> exiting
+2025-07-07T06:10:31.147162Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: a6060ef9-c803-4dbf-b945-1e1038b843bc }}: zenoh::api::session: close session zid=4313be9000c79d1a6096c630abf68a1e
+2025-07-07T06:10:31.220275Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-07-07T06:10:31.220647Z  INFO zenoh::net::runtime: Using ZID: e86697f1f26f747d8b73918ebe6e6c46
+2025-07-07T06:10:31.221537Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:4ed:422d:2dfc:a417]:63274
+2025-07-07T06:10:31.221547Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:656f:c55d:7ad3:35ee]:63274
+2025-07-07T06:10:31.221550Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:8c35:33b3:948f:f783]:63274
+2025-07-07T06:10:31.221553Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:e901:1a5:72a8:bfb6]:63274
+2025-07-07T06:10:31.221555Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fd00:1234:ffff::10]:63274
+2025-07-07T06:10:31.221557Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/198.18.0.1:63274
+2025-07-07T06:10:31.221560Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1]:63274
+2025-07-07T06:10:31.221562Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::7e4c:f790:b985:6b3]:63274
+2025-07-07T06:10:31.221564Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c28:4ee1:17ed:a86b]:63274
+2025-07-07T06:10:31.221579Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63274
+2025-07-07T06:10:31.221581Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63274
+2025-07-07T06:10:31.221582Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::bc6f:d4a:d0bb:ae76]:63274
+2025-07-07T06:10:31.221584Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c4c5:e9b8:6e32:505c]:63274
+2025-07-07T06:10:31.221585Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce81:b1c:bd2c:69e]:63274
+2025-07-07T06:10:31.221587Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::a6aa:28ff:980:6fe6]:63274
+2025-07-07T06:10:31.221588Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::e8db:35bc:51ad:8354]:63274
+2025-07-07T06:10:31.221590Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::f419:3cfe:5811:f5c9]:63274
+2025-07-07T06:10:31.221592Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2e0:4cff:fe68:1f04]:63274
+2025-07-07T06:10:31.221593Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::12e:eb98:f29d:354d]:63274
+2025-07-07T06:10:31.221595Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.31.33:63274
+2025-07-07T06:10:31.221596Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.103.1.11:63274
+2025-07-07T06:10:31.221652Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-07-07T06:12:48.409121Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 966a20a3-1665-42c0-b81f-a185eb0d3d5d }}: dora_daemon: received destroy command -> exiting
+2025-07-07T06:12:48.409262Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 966a20a3-1665-42c0-b81f-a185eb0d3d5d }}: zenoh::api::session: close session zid=e86697f1f26f747d8b73918ebe6e6c46
+2025-07-07T06:12:48.484685Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-07-07T06:12:48.485379Z  INFO zenoh::net::runtime: Using ZID: efeefafcfac303be65fd5deb4bd5ec48
+2025-07-07T06:12:48.486853Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:4ed:422d:2dfc:a417]:63362
+2025-07-07T06:12:48.486886Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:656f:c55d:7ad3:35ee]:63362
+2025-07-07T06:12:48.486890Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:8c35:33b3:948f:f783]:63362
+2025-07-07T06:12:48.486893Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:e901:1a5:72a8:bfb6]:63362
+2025-07-07T06:12:48.486896Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fd00:1234:ffff::10]:63362
+2025-07-07T06:12:48.486901Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/198.18.0.1:63362
+2025-07-07T06:12:48.486904Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1]:63362
+2025-07-07T06:12:48.486907Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::7e4c:f790:b985:6b3]:63362
+2025-07-07T06:12:48.486909Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c28:4ee1:17ed:a86b]:63362
+2025-07-07T06:12:48.486912Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63362
+2025-07-07T06:12:48.486918Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63362
+2025-07-07T06:12:48.486920Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::bc6f:d4a:d0bb:ae76]:63362
+2025-07-07T06:12:48.486923Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c4c5:e9b8:6e32:505c]:63362
+2025-07-07T06:12:48.486925Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce81:b1c:bd2c:69e]:63362
+2025-07-07T06:12:48.486942Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::a6aa:28ff:980:6fe6]:63362
+2025-07-07T06:12:48.486944Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::e8db:35bc:51ad:8354]:63362
+2025-07-07T06:12:48.486945Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::f419:3cfe:5811:f5c9]:63362
+2025-07-07T06:12:48.486947Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2e0:4cff:fe68:1f04]:63362
+2025-07-07T06:12:48.486949Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::12e:eb98:f29d:354d]:63362
+2025-07-07T06:12:48.486950Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.31.33:63362
+2025-07-07T06:12:48.486952Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.103.1.11:63362
+2025-07-07T06:12:48.487041Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-07-07T06:13:10.218574Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 05fb4fe9-ebd5-4dc1-9a56-5bb29001ec9a }}: dora_daemon: received destroy command -> exiting
+2025-07-07T06:13:10.218707Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 05fb4fe9-ebd5-4dc1-9a56-5bb29001ec9a }}: zenoh::api::session: close session zid=efeefafcfac303be65fd5deb4bd5ec48
+2025-07-07T06:13:10.294732Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-07-07T06:13:10.295667Z  INFO zenoh::net::runtime: Using ZID: 452f7a07a8e9100cdc98dba094835f5
+2025-07-07T06:13:10.297012Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:4ed:422d:2dfc:a417]:63378
+2025-07-07T06:13:10.297020Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:656f:c55d:7ad3:35ee]:63378
+2025-07-07T06:13:10.297023Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:8c35:33b3:948f:f783]:63378
+2025-07-07T06:13:10.297025Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2408:8266:403:46:e901:1a5:72a8:bfb6]:63378
+2025-07-07T06:13:10.297028Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fd00:1234:ffff::10]:63378
+2025-07-07T06:13:10.297030Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/198.18.0.1:63378
+2025-07-07T06:13:10.297032Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1]:63378
+2025-07-07T06:13:10.297035Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::7e4c:f790:b985:6b3]:63378
+2025-07-07T06:13:10.297037Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c28:4ee1:17ed:a86b]:63378
+2025-07-07T06:13:10.297039Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63378
+2025-07-07T06:13:10.297041Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce2:3bff:fe59:2adc]:63378
+2025-07-07T06:13:10.297044Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::bc6f:d4a:d0bb:ae76]:63378
+2025-07-07T06:13:10.297046Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::c4c5:e9b8:6e32:505c]:63378
+2025-07-07T06:13:10.297049Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce81:b1c:bd2c:69e]:63378
+2025-07-07T06:13:10.297051Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::a6aa:28ff:980:6fe6]:63378
+2025-07-07T06:13:10.297053Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::e8db:35bc:51ad:8354]:63378
+2025-07-07T06:13:10.297055Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::f419:3cfe:5811:f5c9]:63378
+2025-07-07T06:13:10.297057Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2e0:4cff:fe68:1f04]:63378
+2025-07-07T06:13:10.297060Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::12e:eb98:f29d:354d]:63378
+2025-07-07T06:13:10.297077Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.31.33:63378
+2025-07-07T06:13:10.297079Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/10.103.1.11:63378
+2025-07-07T06:13:10.297139Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-07-07T06:19:16.863062Z  WARN dora_daemon: mcp-server was killed due to not stopping within the 15s grace period
+2025-07-07T06:20:12.596111Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 00b9a5a7-d3a5-4de1-bdf0-7b85d1250fbc }}: dora_daemon: received destroy command -> exiting
+2025-07-07T06:20:12.596187Z  INFO run_inner{self.daemon_id=DaemonId { machine_id: None, uuid: 00b9a5a7-d3a5-4de1-bdf0-7b85d1250fbc }}: zenoh::api::session: close session zid=452f7a07a8e9100cdc98dba094835f5

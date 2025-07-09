@@ -1,7 +1,7 @@
 
 # Letta Agent
 
-Letta Agent is a dynamic AI agent for processing tasks, managing memory, and interacting with the user. It integrates with a dataflow system and interacts with a large language model (LLM) to generate responses based on the provided tasks. This agent supports ta***REMOVED***based execution, memory storage, and integration with external systems like `Dora` for dynamic dataflows.
+Letta Agent is a dynamic AI agent for processing tasks, managing memory, and interacting with the user. It integrates with a dataflow system and interacts with a large language model (LLM) to generate responses based on the provided tasks. This agent supports task-based execution, memory storage, and integration with external systems like `Dora` for dynamic dataflows.
 
 ## Requirements
 

@@ -121,7 +121,7 @@ Bittrex,https://bittrex.github.io/api/v3,从文档链接中提取的API,False,�
 Blockchain,https://www.blockchain.com/api,从文档链接中提取的API,False,其他
 CoinAPI,https://docs.coinapi.io/,从文档链接中提取的API,False,其他
 Coinbase Pro,https://docs.pro.coinbase.com/#api,从文档链接中提取的API,False,其他
-CoinDesk,https://old.coindesk.com/coinde***REMOVED***api/,从文档链接中提取的API,False,其他
+CoinDesk,https://old.coindesk.com/coindesk-api/,从文档链接中提取的API,False,其他
 CoinGecko,http://www.coingecko.com/api,从文档链接中提取的API,False,其他
 Coinigy,https://coinigy.docs.apiary.io,从文档链接中提取的API,False,其他
 Coinlib,https://coinlib.io/apidocs,从文档链接中提取的API,False,其他

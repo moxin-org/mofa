@@ -21,7 +21,7 @@ RAG:
   RAG_SEARCH_NUM: 4
   RAG_MODEL_NAME: netease-youdao/bce-embedding-base_v1
   RAG_MODEL_API_URL: https://api.siliconflow.cn/v1
-  RAG_MODEL_API_KEY: ***REMOVED***yultdgsokmgnmrjpdckkwkkklnotzvlowigmeapuylvyyame
+  RAG_MODEL_API_KEY: sk-yultdgsokmgnmrjpdckkwkkklnotzvlowigmeapuylvyyame
 
 LOG:
   LOG_PATH: ./data/output/log/paper_dataflow.md

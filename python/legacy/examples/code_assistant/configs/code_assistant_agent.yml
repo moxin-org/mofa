@@ -12,7 +12,7 @@ MODEL:
   MODEL_NAME: deepseek-ai/DeepSeek-V2-Chat
   MODEL_MAX_TOKENS: 204800
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
-  #MODEL_API_KEY:  ***REMOVED***vzbwvjnztqpfoevxoypbdvmjghcrvyqhulnvoedljbqwdkkp
+  #MODEL_API_KEY:  sk-vzbwvjnztqpfoevxoypbdvmjghcrvyqhulnvoedljbqwdkkp
   #MODEL_NAME: gpt-4o-mini
   #MODEL_MAX_TOKENS: 2048
 

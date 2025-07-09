@@ -3,7 +3,7 @@
 from openai import OpenAI
 import json
 if __name__ == "__main__":
-    client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="***REMOVED***jsha-1234567890")
+    client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="sk-jsha-1234567890")
 
     # user_input = """"endpoint": "https://api.ipify.org?format=json","description": "Get the public IP address in IPv4 format.","documentation_url": "https://www.ipify.org/?ref=freepublicapis.com","request_type": "GET","request_parameter": "None","error": false    """
     user_input = """"{"endpoint": "https://randomuser.me/api/","description": "API for generating random user data like names, emails, addresses, and more.","documentation_url": "https://randomuser.me/","request_type": "GET","request_parameter": "None","error": false}"""

@@ -60,7 +60,7 @@ config:
       model: "BAAI/bge-large-zh-v1.5"
 
 model:
-  model_api_key: "***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"  # Replace with your API key
+  model_api_key: "sk-XXXXXXXXXXXXXXXXXXXXXXXX"  # Replace with your API key
   model_api_url: "https://api.siliconflow.cn/v1/"  # Replace with your API URL
 
 user_id: "mofa"
@@ -94,7 +94,7 @@ user_id: "mofa"
 
 #### `model` (Model API Configuration)
 
-- **model_api_key**: Your model API key, replace with your actual API key, e.g., `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`.
+- **model_api_key**: Your model API key, replace with your actual API key, e.g., `"sk-XXXXXXXXXXXXXXXXXXXXXXXX"`.
 - **model_api_url**: The URL of the model API, replace with your actual API URL, e.g., `"https://api.siliconflow.cn/v1/"`.
 
 #### `user_id`

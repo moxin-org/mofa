@@ -55,7 +55,7 @@ import dspy
 # # 初始化自定义客户端
 # silicon_flow_client = SiliconFlowClient(
 #     model="deepseek-ai/DeepSeek-V2-Chat",
-#     api_key="***REMOVED***",
+#     api_key="sk-",
 #     base_url="https://api.siliconflow.cn/v1/chat/completions"
 # )
 # # 配置DSPy

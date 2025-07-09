@@ -64,7 +64,7 @@ class BeatovenClient:
         await asyncio.sleep(1)  # Simulate API call delay
         
         # Return a mock task ID
-        task_id = f"mock-ta***REMOVED***{id(request)}"
+        task_id = f"mock-task-{id(request)}"
         return TaskResponse(task_id=task_id)
     
     async def check_status(self, task_id: str) -> TrackStatus:

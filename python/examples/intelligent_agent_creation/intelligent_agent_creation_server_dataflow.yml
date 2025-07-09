@@ -7,6 +7,7 @@ nodes:
     inputs:
        v1/chat/completions: agent-dependency-generator/dependency_generator_result
 
+
   - id: agent-config-generator
     build: pip install -e ../../agent-hub/agent-config-generator
     path: agent-config-generator

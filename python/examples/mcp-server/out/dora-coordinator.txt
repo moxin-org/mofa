@@ -111,3 +111,26 @@
 2025-04-09T09:02:03.080538Z  INFO dora_coordinator: successfully destroyed daemon `66ed637d-447e-48ca-abeb-20d484e9e0b6`
 2025-04-09T09:02:03.080572Z  INFO dora_coordinator: Daemon `66ed637d-447e-48ca-abeb-20d484e9e0b6` exited
 2025-04-09T09:02:03.081013Z  INFO dora_coordinator: stopped
+2025-07-07T06:09:28.561117Z  INFO spawn_dataflow{dataflow=Descriptor { communication: CommunicationConfig { local: Tcp, remote: Tcp }, deploy: Deploy { machine: None }, nodes: [Node { id: NodeId("mcp-server"), name: None, description: None, env: Some({"MCP": Bool(true)}), deploy: Deploy { machine: None }, operators: None, custom: None, operator: None, path: Some("mcp-server"), args: None, build: Some("pip install -e /Users/chenzi/project/zcbc/mofa/python/agent-hub/mcp-server"), send_stdout_as: None, inputs: {DataId("tick"): Input { mapping: Timer { interval: 20ms }, queue_size: None }}, outputs: {} }], debug: Debug { publish_all_messages_to_zenoh: false } } working_dir="/Users/chenzi/project/zcbc/mofa/python/examples/mcp-server" uv=false}: dora_coordinator::run: successfully spawned dataflow `0197e380-f3ee-75d5-954e-a9985ffcfa2a`
+2025-07-07T06:09:35.806997Z  INFO dora_coordinator: removed machine id: a6060ef9-c803-4dbf-b945-1e1038b843bc from dataflow: 0197e380-f3ee-75d5-954e-a9985ffcfa2a
+2025-07-07T06:10:31.146923Z  INFO dora_coordinator: Received destroy command
+2025-07-07T06:10:31.147228Z  INFO dora_coordinator: successfully destroyed daemon `a6060ef9-c803-4dbf-b945-1e1038b843bc`
+2025-07-07T06:10:31.147275Z  INFO dora_coordinator: Daemon `a6060ef9-c803-4dbf-b945-1e1038b843bc` exited
+2025-07-07T06:10:31.147562Z  INFO dora_coordinator: stopped
+2025-07-07T06:10:32.530238Z  INFO spawn_dataflow{dataflow=Descriptor { communication: CommunicationConfig { local: Tcp, remote: Tcp }, deploy: Deploy { machine: None }, nodes: [Node { id: NodeId("mcp-server"), name: None, description: None, env: Some({"MCP": Bool(true)}), deploy: Deploy { machine: None }, operators: None, custom: None, operator: None, path: Some("mcp-server"), args: None, build: Some("pip install -e /Users/chenzi/project/zcbc/mofa/python/agent-hub/mcp-server"), send_stdout_as: None, inputs: {DataId("tick"): Input { mapping: Timer { interval: 20ms }, queue_size: None }}, outputs: {} }], debug: Debug { publish_all_messages_to_zenoh: false } } working_dir="/Users/chenzi/project/zcbc/mofa/python/examples/mcp-server" uv=false}: dora_coordinator::run: successfully spawned dataflow `0197e381-edcf-7871-a686-b050dc411a76`
+2025-07-07T06:10:35.365332Z  INFO dora_coordinator: removed machine id: 966a20a3-1665-42c0-b81f-a185eb0d3d5d from dataflow: 0197e381-edcf-7871-a686-b050dc411a76
+2025-07-07T06:12:48.408946Z  INFO dora_coordinator: Received destroy command
+2025-07-07T06:12:48.409269Z  INFO dora_coordinator: successfully destroyed daemon `966a20a3-1665-42c0-b81f-a185eb0d3d5d`
+2025-07-07T06:12:48.409322Z  INFO dora_coordinator: Daemon `966a20a3-1665-42c0-b81f-a185eb0d3d5d` exited
+2025-07-07T06:12:48.409695Z  INFO dora_coordinator: stopped
+2025-07-07T06:13:10.218366Z  INFO dora_coordinator: Received destroy command
+2025-07-07T06:13:10.218695Z  INFO dora_coordinator: successfully destroyed daemon `05fb4fe9-ebd5-4dc1-9a56-5bb29001ec9a`
+2025-07-07T06:13:10.218723Z  INFO dora_coordinator: Daemon `05fb4fe9-ebd5-4dc1-9a56-5bb29001ec9a` exited
+2025-07-07T06:13:10.219444Z  INFO dora_coordinator: stopped
+2025-07-07T06:13:17.194881Z  INFO spawn_dataflow{dataflow=Descriptor { communication: CommunicationConfig { local: Tcp, remote: Tcp }, deploy: Deploy { machine: None }, nodes: [Node { id: NodeId("mcp-server"), name: None, description: None, env: Some({"MCP": Bool(true)}), deploy: Deploy { machine: None }, operators: None, custom: None, operator: None, path: Some("mcp-server"), args: None, build: Some("pip install -e /Users/chenzi/project/zcbc/mofa/python/agent-hub/mcp-server"), send_stdout_as: None, inputs: {DataId("tick"): Input { mapping: Timer { interval: 20ms }, queue_size: None }}, outputs: {} }], debug: Debug { publish_all_messages_to_zenoh: false } } working_dir="/Users/chenzi/project/zcbc/mofa/python/examples/mcp-server" uv=false}: dora_coordinator::run: successfully spawned dataflow `0197e384-7109-79dd-a521-5b37614c25d5`
+2025-07-07T06:19:01.854680Z  INFO dora_coordinator: successfully send stop dataflow `0197e384-7109-79dd-a521-5b37614c25d5` to all daemons
+2025-07-07T06:19:16.875765Z  INFO dora_coordinator: removed machine id: 00b9a5a7-d3a5-4de1-bdf0-7b85d1250fbc from dataflow: 0197e384-7109-79dd-a521-5b37614c25d5
+2025-07-07T06:20:12.596008Z  INFO dora_coordinator: Received destroy command
+2025-07-07T06:20:12.596189Z  INFO dora_coordinator: successfully destroyed daemon `00b9a5a7-d3a5-4de1-bdf0-7b85d1250fbc`
+2025-07-07T06:20:12.596224Z  INFO dora_coordinator: Daemon `00b9a5a7-d3a5-4de1-bdf0-7b85d1250fbc` exited
+2025-07-07T06:20:12.596749Z  INFO dora_coordinator: stopped

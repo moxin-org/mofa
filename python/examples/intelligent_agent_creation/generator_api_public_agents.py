@@ -33,7 +33,7 @@
 #     new_agent_apis = []
 #     error_url_apis = []
 #
-#     client = OpenAI(base_url="http://127.0.0.1:8025/v1", api_key="***REMOVED***jsha-1234567890")
+#     client = OpenAI(base_url="http://127.0.0.1:8025/v1", api_key="sk-jsha-1234567890")
 #
 #     for api_data in all_data:
 #         # 只处理 success=True 且 node_gen 为 False 或缺失 的项
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         for entry in all_data:
             backup.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    client = OpenAI(base_url="http://127.0.0.1:8025/v1", api_key="***REMOVED***jsha-1234567890")
+    client = OpenAI(base_url="http://127.0.0.1:8025/v1", api_key="sk-jsha-1234567890")
 
     # 清空原文件，逐行重新写入
     with open(file_path, "w", encoding="utf-8") as f:

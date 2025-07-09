@@ -52,7 +52,7 @@ def read_json_lines(file_path):
 
 if __name__ == "__main__":
     new_json_file = 'new_speakers.json'
-    client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="***REMOVED***jsha-1234567890")
+    client = OpenAI(base_url="http://127.0.0.1:8000/v1", api_key="sk-jsha-1234567890")
     all_speakers = [
     {
       "id": "quentin-adam",

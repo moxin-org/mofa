@@ -108,7 +108,7 @@ graph TD
 
    Example `.env.secret` configuration:
    ```
-   LLM_API_KEY=***REMOVED***
+   LLM_API_KEY=sk-
    LLM_BASE_URL=https://api.deepseek.com/v1
    LLM_MODEL_NAME=deepseek-chat
    ```

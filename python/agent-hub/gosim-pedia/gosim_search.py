@@ -63,7 +63,7 @@
 #     return response.choices[0].message.content
 # env_file = '.env.secret'
 # load_dotenv(env_file)
-# os.environ["OPENAI_API_KEY"] = '***REMOVED***'
+# os.environ["OPENAI_API_KEY"] = 'sk-'
 #
 # model_name='text-embedding-3-large'
 # chroma_path = 'chroma_store'

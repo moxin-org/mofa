@@ -24,7 +24,7 @@ def load_prompt(prompt_type: str,html_code:str,keyword:str=None):
         "The output should be technical and concise to facilitate subsequent programming and data processing."
 
         4. T - Tone
-        "The tone should be professional and direct, providing clear and ta***REMOVED***related results."
+        "The tone should be professional and direct, providing clear and task-related results."
 
         5. A - Audience
         "The target audience is developers or data engineers who want to automatically locate and use the search box on the page."

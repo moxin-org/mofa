@@ -53,7 +53,7 @@ st.markdown("""
 if "client" not in st.session_state:
     st.session_state.client = OpenAI(
         base_url="http://127.0.0.1:8000/v3",
-        api_key="***REMOVED***jsha-1234567890"
+        api_key="sk-jsha-1234567890"
     )
 
 if "messages" not in st.session_state:

@@ -8,7 +8,6 @@ nodes:
       v3/chat/completions:
         source: deep-search-agent/deep_search_result
         queue_size: 1000
-
   - id: deep-search-agent
     build: pip install -e ../../agent-hub/deep-search
     path: deep-search

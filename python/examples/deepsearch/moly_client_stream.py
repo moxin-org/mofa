@@ -5,7 +5,7 @@ import os
 # This ensures direct connection to localhost without going through any proxy
 
 if __name__ == "__main__":
-    client = OpenAI(base_url="http://127.0.0.1:8000/v3", api_key="***REMOVED***jsha-1234567890")
+    client = OpenAI(base_url="http://127.0.0.1:8000/v3", api_key="sk-jsha-1234567890")
 
     user_input = 'vllm 和 sglang的分析'
     response = client.chat.completions.create(

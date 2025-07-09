@@ -60,7 +60,7 @@ config:
       model: "BAAI/bge-large-zh-v1.5"
 
 model:
-  model_api_key: "***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"  # 替换为您的 API 密钥
+  model_api_key: "sk-XXXXXXXXXXXXXXXXXXXXXXXX"  # 替换为您的 API 密钥
   model_api_url: "https://api.siliconflow.cn/v1/"  # 替换为您的 API URL
 
 user_id: "mofa"
@@ -94,7 +94,7 @@ user_id: "mofa"
 
 #### `model`（模型 API 配置）
 
-- **model_api_key**：您的模型 API 密钥，请替换为您的实际 API 密钥，例如 `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`。
+- **model_api_key**：您的模型 API 密钥，请替换为您的实际 API 密钥，例如 `"sk-XXXXXXXXXXXXXXXXXXXXXXXX"`。
 - **model_api_url**：模型 API 的 URL，请替换为您的实际 API URL，例如 `"https://api.siliconflow.cn/v1/"`。
 
 #### `user_id`

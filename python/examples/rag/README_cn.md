@@ -45,10 +45,10 @@ RAG:
   RAG_SEARCH_NUM: 6
   RAG_MODEL_NAME: netease-youdao/bce-embedding-base_v1
   RAG_MODEL_API_URL: https://api.siliconflow.cn/v1
-  RAG_MODEL_API_KEY: ***REMOVED***
+  RAG_MODEL_API_KEY: sk-
 
 MODEL:
-  MODEL_API_KEY: ***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX  # 替换为您的 API 密钥
+  MODEL_API_KEY: sk-XXXXXXXXXXXXXXXXXXXXXXXX  # 替换为您的 API 密钥
   MODEL_NAME: Qwen/Qwen2.5-72B-Instruct  # 替换为您的模型名称
   MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
 ```
@@ -110,7 +110,7 @@ MODEL:
 
 #### `MODEL`（生成模型配置）
 
-- **MODEL_API_KEY**：您的生成模型 API 密钥，请替换为您的实际密钥，例如 `"***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX"`。
+- **MODEL_API_KEY**：您的生成模型 API 密钥，请替换为您的实际密钥，例如 `"sk-XXXXXXXXXXXXXXXXXXXXXXXX"`。
 - **MODEL_NAME**：生成模型的名称，例如 `"Qwen/Qwen2.5-72B-Instruct"`。
 - **MODEL_API_URL**：生成模型的 API URL，例如 `"https://api.siliconflow.cn/v1/chat/completions"`。
 

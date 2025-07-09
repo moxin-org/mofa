@@ -13,7 +13,7 @@ nodes:
       suggestion: feedback_agent/suggestion
       refinement_result: refinement_agent/refinement_result
       self_refine_end: evaluation_agent/self_refine_end
-
+  
   - id: keyword_extractor_agent
     operator:
       python: scripts/keyword_extractor.py
@@ -21,6 +21,7 @@ nodes:
         arxiv_research_task: terminal-input/data
       outputs:
         - keyword_extractor_results
+
   - id: paper_downloader_agent
     operator:
       python: scripts/paper_downloader_agent.py
@@ -46,7 +47,6 @@ nodes:
         - writer_report
       env:
         IS_DATAFLOW_END: false
-
   - id: feedback_agent
     operator:
       python: scripts/feedback_agent.py
@@ -57,7 +57,7 @@ nodes:
         paper_analyze_result: paper_analyze_agent/paper_analyze_result
       outputs:
         - suggestion
-      env:
+      env: 
         IS_DATAFLOW_END: false
   - id: refinement_agent
     operator:

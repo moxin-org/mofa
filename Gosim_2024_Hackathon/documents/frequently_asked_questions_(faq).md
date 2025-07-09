@@ -86,7 +86,7 @@ File "/project/zcbc/mofa/python/examples/rag/scripts/reasoner_agent.py", line 31
    
      ```yaml
      MODEL:
-       MODEL_API_KEY: ***REMOVED***XXXXXXXXXXXXXXXXXXXXXXXX  # 替换为您的 API 密钥
+       MODEL_API_KEY: sk-XXXXXXXXXXXXXXXXXXXXXXXX  # 替换为您的 API 密钥
        MODEL_NAME: Qwen/Qwen2.5-72B-Instruct  # 更换为支持更高 Token 的模型
        MODEL_API_URL: https://api.siliconflow.cn/v1/chat/completions
      ```
