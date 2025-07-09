@@ -1,8 +1,0 @@
-# config.yml
-# MemoryAugmentedChatAssistant Configuration
-openai:
-  model: gpt-4o-mini  # Default OpenAI model to use
-  timeout: 30         # Timeout in seconds for model responses
-memory:
-  search_limit: 3     # Number of relevant memories to retrieve
-  default_user: default_user # Default user_id if none is provided
