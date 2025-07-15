@@ -143,6 +143,7 @@ class MofaAgent:
             if input_data is not None:
                 self.event = event
                 self.write_log(message=json.dumps(f"{self.agent_name}  receive  data : {input_data}  "))
+
                 return input_data
             else:
                 continue
@@ -163,7 +164,7 @@ class MofaAgent:
         self.write_log(message=json.dumps(f"{self.agent_name}  receive parameters data : {parameter_data}  "))
         return parameter_data
             
-    def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', True)):
+    def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', False)):
         if is_end_status == 'true' or is_end_status == 'True':
             is_end_status = True
         self.node.send_output(
