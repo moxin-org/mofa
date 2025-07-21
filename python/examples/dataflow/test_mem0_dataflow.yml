@@ -18,4 +18,4 @@ nodes:
       user_id: terminal-input/data
     env:
       IS_DATAFLOW_END: true
-      OPENAI_API_KEY: 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
+      OPENAI_API_KEY: sk- 

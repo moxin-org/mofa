@@ -130,6 +130,8 @@ class MofaAgent:
                 if event['id'] == parameter_names :
                     input_data = self._parse_event_value(event=event)
                     return input_data
+                else:
+                    return None
             elif isinstance(parameter_names,dict):
                 data = copy.deepcopy(parameter_names)
                 if event['id'] in list(data.keys()) :
@@ -147,7 +149,15 @@ class MofaAgent:
             else:
                 continue
             # self.node.next(self.event_time_out)
-
+    # def await_receive_parameter(self, parameter_name: str, timeout: int = 20) -> Any:
+    #     all_result = []
+    #     for event in self.node:
+    #         input_data = self._receive_event_input(event=event, parameter_names=parameter_name)
+    #         all_result.append(input_data)
+    #         if input_data is not None:
+    #             self.event = event
+    #     return  next((v for v in all_result if v is not None), False)
+            # self.node.next(self.event_time_out)
     def receive_parameters(self,parameter_names:list)->dict:
         parameter_data = {}
         if len(parameter_names) > 0:
