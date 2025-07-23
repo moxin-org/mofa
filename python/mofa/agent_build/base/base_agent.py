@@ -12,6 +12,7 @@ import logging
 from mcp.server import FastMCP
 
 from mofa.kernel.utils.util import create_agent_output, load_node_result
+from mofa.utils.database.duckdb_use.duckdb_use import DuckDBLogger
 from mofa.utils.files.read import read_yaml
 import yaml
 from dora import Node
@@ -19,6 +20,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 from mofa.utils.files.write import ensure_directory_exists
 from logging.handlers import RotatingFileHandler
+from datetime import datetime
+
 
 
 @define
@@ -93,6 +96,7 @@ class MofaAgent:
     log_file:str=field(default='agent.log')
     agent_log:MofaLogger = field(init=False)
     mcp :Any = field(default=None)
+    log_db = field(factory=dict)
     def __attrs_post_init__(self):
         self.node = Node(self.agent_name)
         env_files = ['.env.secret', '.env']
@@ -104,6 +108,7 @@ class MofaAgent:
             if os.getenv(log_status, None) is not None:
                 self.is_write_log = os.getenv(log_status)
         self.agent_log = MofaLogger(agent_name=self.agent_name, log_file=self.log_file)
+        self.log_db = DuckDBLogger(db_path=os.getenv('LOG_DB_PATH', 'logs.duckdb'), table_name=os.getenv('LOG_DB_TABLE_NAME', 'log_table'))
 
     def __init_mcp(self):
         if os.getenv('MCP', None) is not None and self.mcp is None:
@@ -144,7 +149,10 @@ class MofaAgent:
             input_data = self._receive_event_input(event=event, parameter_names=parameter_name)
             if input_data is not None:
                 self.event = event
-                self.write_log(message=json.dumps(f"{self.agent_name}  receive  data : {input_data}  "))
+                log_data = {'node_name': os.getenv('NODE_NAME', self.agent_name), 'output_name': None,
+                            'output_value': None, 'input_name': parameter_name, 'input_value': input_data,
+                            'time': self.now_time}
+                self.write_log(message=json.dumps(f"{self.agent_name}  receive  data : {input_data}  "),log_data=log_data)
 
                 return input_data
             else:
@@ -171,7 +179,11 @@ class MofaAgent:
             is_parameter_data_status = all(value is not None for value in parameter_data.values())
             if is_parameter_data_status :
                 break
-        self.write_log(message=json.dumps(f"{self.agent_name}  receive parameters data : {parameter_data}  "))
+        for key, value in parameter_data.items():
+            log_data = {'node_name': os.getenv('NODE_NAME', self.agent_name), 'output_name': None,
+                        'output_value': None, 'input_name': key, 'input_value': value,
+                        'time': self.now_time}
+            self.write_log(message=json.dumps(f"{self.agent_name}  receive parameters data : {parameter_data}  "),log_data=log_data)
         return parameter_data
             
     def send_output(self, agent_output_name: str, agent_result: Any, is_end_status=os.getenv('IS_DATAFLOW_END', False)):
@@ -188,13 +200,24 @@ class MofaAgent:
         )
         if agent_result == "None" or agent_result == " " or agent_result == "" or agent_result is None or agent_result == [] or agent_result == '[]':
             return
-        self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}  type : {type(agent_result)}" ))
 
-    def write_log(self, message:str, level:str='INFO'):
+        log_data = {'node_name': os.getenv('NODE_NAME',self.agent_name), 'output_name': agent_output_name, 'output_value': agent_result,'input_name': None, 'input_value': None, 'time': self.now_time}
+        self.write_log(message=json.dumps(f"{agent_output_name}  output data : {agent_result}  type : {type(agent_result)}" ),log_data=log_data)
+    @property
+    def now_time(self):
+        # 获取当前日期时间
+        now = datetime.now()
+
+        # 格式化为字符串，如 "2025-07-23 17:45:30"
+        formatted = now.strftime("%Y-%m-%d %H:%M:%S")
+        return formatted
+    def write_log(self, message:str, level:str='INFO',log_data:dict=None):
         if self.is_write_log:
             if message == "None" or message == " " or message == "" or message is None or message == [] or message == '[]':
                 return
             else:
+                if log_data is not None:
+                    self.log_db.add_log_table_data(data=log_data)
                 self.agent_log.log(message=message, level=level)
     def run_mcp(self,mcp_transport:str='sse'):
         if self.mcp is not None:
