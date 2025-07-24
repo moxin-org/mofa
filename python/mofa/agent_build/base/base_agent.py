@@ -108,7 +108,6 @@ class MofaAgent:
             if os.getenv(log_status, None) is not None:
                 self.is_write_log = os.getenv(log_status)
         self.agent_log = MofaLogger(agent_name=self.agent_name, log_file=self.log_file)
-        self.log_db = DuckDBLogger(db_path=os.getenv('LOG_DB_PATH', 'logs.duckdb'), table_name=os.getenv('LOG_DB_TABLE_NAME', 'log_table'))
 
     def __init_mcp(self):
         if os.getenv('MCP', None) is not None and self.mcp is None:
@@ -208,7 +207,6 @@ class MofaAgent:
         # 获取当前日期时间
         now = datetime.now()
 
-        # 格式化为字符串，如 "2025-07-23 17:45:30"
         formatted = now.strftime("%Y-%m-%d %H:%M:%S")
         return formatted
     def write_log(self, message:str, level:str='INFO',log_data:dict=None):
@@ -217,7 +215,10 @@ class MofaAgent:
                 return
             else:
                 if log_data is not None:
+                    self.log_db = DuckDBLogger(db_path=os.getenv('LOG_DB_PATH', 'logs.duckdb'), table_name=os.getenv('LOG_DB_TABLE_NAME', 'log_table'))
                     self.log_db.add_log_table_data(data=log_data)
+                    self.log_db.close()
+                    self.log_db = None
                 self.agent_log.log(message=message, level=level)
     def run_mcp(self,mcp_transport:str='sse'):
         if self.mcp is not None:
