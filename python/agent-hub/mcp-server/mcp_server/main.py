@@ -15,7 +15,6 @@ def run(agent):
     agent.register_mcp_tool(multiply)
     print('开始运行mcp服务')
     agent.run_mcp()
-    agent.receive_parameter('query')
 
 def main():
     agent_name = 'Mofa-Mcp'
