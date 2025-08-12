@@ -173,3 +173,6 @@ python qdrant_rag_interactive.py
 ---
 
 **享受你的智能知识库问答体验！** 🎯
+
+
+ollama pull dengcao/Qwen3-Embedding-8B:Q5_K_M
