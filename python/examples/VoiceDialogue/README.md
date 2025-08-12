@@ -20,7 +20,7 @@ MoFA 框架 → Intelligent Agent Creation + Deep Search → DORA 数据流 → 
 
 ## 完整安装流程
 
-### 步骤 1: 安装 MoFA 框架
+### 步骤 1: 安装 MoFA 框架  
 
 ```bash
 # 进入 MoFA 项目目录
