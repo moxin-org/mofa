@@ -82,7 +82,7 @@ dora start deepsearch-dataflow.yml
 
 ```bash
 # 在新终端中进入 MCP 目录
-cd zcbc/mofa/python/examples/dataflow_mcp
+cd mofa/python/examples/dataflow_mcp
 
 # 安装 MCP 服务器依赖
 pip install fastmcp requests psutil
@@ -97,19 +97,11 @@ python mofa_mcp_server.py
 
 ```bash
 # 在新终端中进入 VoiceDialogue 目录
-cd /Users/chenzi/project/zcbc/mofa/python/examples/VoiceDialogue
+cd mofa/python/examples/VoiceDialogue
 
 
 # 启动语音对话客户端
 python ollama_qwen_8b_run.py
 ```
 
-## 服务器端口配置
 
-| 服务 | 默认端口 | 说明 |
-|------|---------|------|
-| MCP 服务器 | 9000 | 主要 MCP 工具服务 |
-| VoiceDialogue MCP | 9001 | 语音对话 MCP 服务 |
-
-
-**安装完成后，您将拥有一个功能完整的 MCP 服务器系统，支持智能代理创建、深度搜索和语音对话等功能！**
