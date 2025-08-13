@@ -5,6 +5,7 @@ nodes:
     outputs:
       - data
     inputs:
+      
       add_numbers_result: add-numbers/add_numbers_result
       multiply_numbers_result: multiply-numbers/multiply_numbers_result
   - id: multiply-numbers
@@ -28,4 +29,4 @@ nodes:
     env:
       IS_DATAFLOW_END: true
       WRITE_LOG: true
-
+      

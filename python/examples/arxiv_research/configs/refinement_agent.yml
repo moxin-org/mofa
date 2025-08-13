@@ -15,6 +15,7 @@ MODEL:
   MODEL_NAME: gpt-4o
   MODEL_MAX_TOKENS: 2048
 
+
 ENV:
   PROXY_URL: null
   AGENT_TYPE: reasoner
