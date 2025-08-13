@@ -11,7 +11,7 @@ MoFA 框架 → Intelligent Agent Creation + Deep Search → DORA 数据流 → 
 - **智能代理创建**: 基于 intelligent_agent_creation 自动生成代理配置、代码和依赖
 - **深度搜索**: 基于 deepsearch 提供智能搜索和信息检索功能
 - **MCP 协议**: 通过标准 MCP 协议提供工具服务
-- **语音对话**: 支持语音交互界面和 Ollama 模型集成
+- **模型对话**: 支持 Ollama 模型集成
 
 ## 环境要求
 
@@ -23,8 +23,9 @@ MoFA 框架 → Intelligent Agent Creation + Deep Search → DORA 数据流 → 
 ### 步骤 1: 安装 MoFA 框架  
 
 ```bash
+git clone git@github.com:moxin-org/mofa.git
 # 进入 MoFA 项目目录
-cd /Users/chenzi/project/zcbc/mofa/python
+cd /mofa/python
 
 # 安装 MoFA 框架
 pip install -e .
