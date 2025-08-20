@@ -4,6 +4,7 @@ version = "0.1.1"
 authors = [
     "ZongHuan Wu ",
     "Cheng Chen",
+    
 ]
 description = "A simple add-numbers template"
 license = "MIT License"
