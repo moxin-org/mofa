@@ -9,6 +9,7 @@ default = []
 audio-playback = ["dep:rodio"]
 
 [dependencies]
+dotenvy.workspace = true
 mofa-sdk = { path = "../../crates/mofa-sdk", features = ["kokoro"], default-features = false }
 tokio.workspace = true
 tracing.workspace = true
